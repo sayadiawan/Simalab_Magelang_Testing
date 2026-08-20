@@ -1,0 +1,21 @@
+{
+    "name": "smt/masterweb",
+    "description": "This will be create master web of seven media tech",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "fatkhulmajid03",
+            "email": "fatkhulmajid03@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+      "ext-json": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Smt\\Masterweb\\": "src/"
+        }
+    }
+}

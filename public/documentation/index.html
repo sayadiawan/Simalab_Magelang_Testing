@@ -1,0 +1,2790 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dokumentasi Sistem Laboratorium - Magelang Labkes</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">
+                <i class="fas fa-flask"></i>
+                <span>Magelang Labkes</span>
+            </div>
+            <nav class="header-nav">
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="#docs" class="nav-link">Docs</a>
+                <a href="#changelog" class="nav-link">Changelog</a>
+            </nav>
+            <div class="header-actions">
+                <select id="language-select" class="language-select">
+                    <option value="id">Indonesia</option>
+                    <option value="en">English</option>
+                </select>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h3>Dokumentasi</h3>
+                <button class="sidebar-toggle" id="sidebarToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            <nav class="sidebar-nav" id="sidebarNav">
+                <div class="nav-section">
+                    <div class="nav-section-title">
+                        <i class="fas fa-home"></i>
+                        <span>Pendahuluan</span>
+                    </div>
+                    <ul class="nav-list">
+                        <li><a href="#welcome" class="nav-item">Welcome</a></li>
+                        <li><a href="#intro" class="nav-item">Intro</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">
+                        <i class="fas fa-database"></i>
+                        <span>Master Data</span>
+                    </div>
+                    <ul class="nav-list">
+                        <li><a href="#master-data-customer" class="nav-item">Customer</a></li>
+                        <li><a href="#master-data-sample-type" class="nav-item">Sample Type</a></li>
+                        <li><a href="#master-data-laboratorium" class="nav-item">Laboratorium</a></li>
+                        <li><a href="#master-data-method" class="nav-item">Method</a></li>
+                        <li><a href="#master-data-packet" class="nav-item">Packet</a></li>
+                        <li><a href="#master-data-unit" class="nav-item">Unit</a></li>
+                        <li><a href="#master-data-container" class="nav-item">Container</a></li>
+                        <li><a href="#master-data-pasien" class="nav-item">Pasien</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">
+                        <i class="fas fa-file-alt"></i>
+                        <span>Permohonan Uji (Kesmas)</span>
+                    </div>
+                    <ul class="nav-list">
+                        <li><a href="#permohonan-uji-create" class="nav-item">Membuat Permohonan Uji</a></li>
+                        <li><a href="#permohonan-uji-info" class="nav-item">Informasi Penting</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">
+                        <i class="fas fa-vial"></i>
+                        <span>Input Sample (Kesmas)</span>
+                    </div>
+                    <ul class="nav-list">
+                        <li><a href="#sample-add" class="nav-item">Menambahkan Sample</a></li>
+                        <li><a href="#sample-receive" class="nav-item">Catatan Penting</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">
+                        <i class="fas fa-clipboard-check"></i>
+                        <span>Proses Verifikasi Kesmas</span>
+                    </div>
+                    <ul class="nav-list">
+                        <li><a href="#kesmas-alur-verifikasi" class="nav-item">Gambaran Alur Verifikasi</a></li>
+                        <li><a href="#kesmas-penerimaan" class="nav-item">Step 1: Penerimaan Sample</a></li>
+                        <li><a href="#kesmas-penanganan" class="nav-item">Step 2: Penanganan Sample</a></li>
+                        <li><a href="#kesmas-analitik" class="nav-item">Step 3: Analitik (Pemeriksaan)</a></li>
+                        <li><a href="#kesmas-pengetikan" class="nav-item">Step 4: Pengetikan Hasil</a></li>
+                        <li><a href="#kesmas-pelaporan" class="nav-item">Step 5: Pelaporan Hasil</a></li>
+                        <li><a href="#kesmas-verifikasi" class="nav-item">Step 6: Verifikasi Hasil</a></li>
+                        <li><a href="#kesmas-pengesahan" class="nav-item">Step 7: Pengesahan Hasil</a></li>
+                        <li><a href="#kesmas-cetak" class="nav-item">Cetak LHU / Laporan</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">
+                        <i class="fas fa-balance-scale"></i>
+                        <span>Baku Mutu (Kesmas)</span>
+                    </div>
+                    <ul class="nav-list">
+                        <li><a href="#baku-mutu-kesmas" class="nav-item">Apa itu Baku Mutu?</a></li>
+                        <li><a href="#baku-mutu-kimia" class="nav-item">Baku Mutu Kimia</a></li>
+                        <li><a href="#baku-mutu-mikro" class="nav-item">Baku Mutu Mikrobiologi</a></li>
+                        <li><a href="#baku-mutu-edit" class="nav-item">Mengubah / Menghapus Baku Mutu</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">
+                        <i class="fas fa-user-md"></i>
+                        <span>Permohonan Uji Klinik</span>
+                    </div>
+                    <ul class="nav-list">
+                        <li><a href="#klinik-step1" class="nav-item">Step 1: Tipe Dokter</a></li>
+                        <li><a href="#klinik-step2" class="nav-item">Step 2: Data Pasien</a></li>
+                        <li><a href="#klinik-step3" class="nav-item">Step 3: Informasi</a></li>
+                        <li><a href="#klinik-parameter" class="nav-item">Penambahan Parameter</a></li>
+                        <li><a href="#klinik-parameter-hapus" class="nav-item">Hapus / Ubah Parameter</a></li>
+                        <li><a href="#klinik-input-hasil" class="nav-item">Input Hasil Pemeriksaan</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">
+                        <i class="fas fa-tags"></i>
+                        <span>Pengaturan Harga</span>
+                    </div>
+                    <ul class="nav-list">
+                        <li><a href="#harga-kesmas-ringkasan" class="nav-item">Ringkasan Harga Kesmas</a></li>
+                        <li><a href="#harga-method" class="nav-item">Ubah Harga Method</a></li>
+                        <li><a href="#harga-packet" class="nav-item">Ubah Harga Paket</a></li>
+                        <li><a href="#harga-parameter-klinik" class="nav-item">Ubah Harga Parameter Klinik</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">
+                        <i class="fas fa-cogs"></i>
+                        <span>Master Data Klinik</span>
+                    </div>
+                    <ul class="nav-list">
+                        <li><a href="#master-parameter-jenis" class="nav-item">Jenis Parameter Klinik</a></li>
+                        <li><a href="#master-parameter-paket" class="nav-item">Paket Parameter Klinik</a></li>
+                        <li><a href="#master-baku-mutu" class="nav-item">Baku Mutu / Nilai Normal</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">
+                        <i class="fas fa-edit"></i>
+                        <span>Edit & Hapus Data</span>
+                    </div>
+                    <ul class="nav-list">
+                        <li><a href="#edit-data-umum" class="nav-item">Cara Edit Data</a></li>
+                        <li><a href="#hapus-data-umum" class="nav-item">Cara Hapus Data</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">
+                        <i class="fas fa-project-diagram"></i>
+                        <span>Alur Kerja</span>
+                    </div>
+                    <ul class="nav-list">
+                        <li><a href="#workflow-nonklinik" class="nav-item">Alur Non-Klinik</a></li>
+                        <li><a href="#workflow-klinik" class="nav-item">Alur Klinik</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">
+                        <i class="fas fa-lightbulb"></i>
+                        <span>Tips & Best Practices</span>
+                    </div>
+                    <ul class="nav-list">
+                        <li><a href="#tips-master-data" class="nav-item">Master Data</a></li>
+                        <li><a href="#tips-permohonan" class="nav-item">Permohonan Uji</a></li>
+                        <li><a href="#tips-sample" class="nav-item">Sample</a></li>
+                        <li><a href="#tips-klinik" class="nav-item">Permohonan Uji Klinik</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">
+                        <i class="fas fa-tools"></i>
+                        <span>Troubleshooting</span>
+                    </div>
+                    <ul class="nav-list">
+                        <li><a href="#troubleshooting" class="nav-item">Masalah Umum</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Content Area -->
+        <main class="content" id="content">
+            <!-- Welcome Section -->
+            <section id="welcome" class="doc-section">
+                <div class="section-header">
+                    <h1>Selamat Datang di Panduan Sistem Laboratorium</h1>
+                    <p class="last-updated">Terakhir diperbarui: Mei 2026</p>
+                </div>
+                <div class="section-content">
+                    <h2>Panduan Penggunaan Sistem Magelang Labkes</h2>
+                    <p>Sistem Laboratorium Magelang Labkes adalah aplikasi komputer untuk mengelola proses pemeriksaan di laboratorium — mulai dari penerimaan permohonan, pengelolaan sampel, hingga pengeluaran hasil pemeriksaan kepada pelanggan atau pasien.</p>
+
+                    <div class="info-box">
+                        <p><strong>Panduan ini dirancang untuk semua pengguna</strong>, termasuk yang baru pertama kali menggunakan sistem. Setiap langkah dijelaskan secara rinci dan jelas.</p>
+                    </div>
+
+                    <h3>Topik yang Tersedia dalam Panduan Ini:</h3>
+                    <table style="width:100%; border-collapse:collapse;">
+                        <thead>
+                            <tr style="background:#2c7be5; color:white;">
+                                <th style="padding:10px; text-align:left; border:1px solid #ddd;">Topik</th>
+                                <th style="padding:10px; text-align:left; border:1px solid #ddd;">Untuk Siapa</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="padding:8px; border:1px solid #ddd;">Master Data (Customer, Sample Type, Method, Paket, dll.)</td>
+                                <td style="padding:8px; border:1px solid #ddd;">Admin / Penanggung Jawab Sistem</td>
+                            </tr>
+                            <tr style="background:#f8f9fa;">
+                                <td style="padding:8px; border:1px solid #ddd;">Permohonan Uji (Non-Klinik / Kesmas)</td>
+                                <td style="padding:8px; border:1px solid #ddd;">Petugas Pelayanan / Admin</td>
+                            </tr>
+                            <tr>
+                                <td style="padding:8px; border:1px solid #ddd;">Permohonan Uji Klinik + Penambahan Parameter</td>
+                                <td style="padding:8px; border:1px solid #ddd;">Petugas Pelayanan / Admin Klinik</td>
+                            </tr>
+                            <tr style="background:#f8f9fa;">
+                                <td style="padding:8px; border:1px solid #ddd;">Cara Mengubah Harga (Method, Paket, Parameter Klinik)</td>
+                                <td style="padding:8px; border:1px solid #ddd;">Admin / Kepala Laboratorium</td>
+                            </tr>
+                            <tr>
+                                <td style="padding:8px; border:1px solid #ddd;">Input Hasil Pemeriksaan</td>
+                                <td style="padding:8px; border:1px solid #ddd;">Analis / Petugas Laboratorium</td>
+                            </tr>
+                            <tr style="background:#f8f9fa;">
+                                <td style="padding:8px; border:1px solid #ddd;">Edit &amp; Hapus Data</td>
+                                <td style="padding:8px; border:1px solid #ddd;">Admin / Supervisor</td>
+                            </tr>
+                            <tr>
+                                <td style="padding:8px; border:1px solid #ddd;">Troubleshooting (Cara mengatasi masalah umum)</td>
+                                <td style="padding:8px; border:1px solid #ddd;">Semua Pengguna</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Intro Section -->
+            <section id="intro" class="doc-section">
+                <div class="section-header">
+                    <h1>Sebelum Memulai</h1>
+                </div>
+                <div class="section-content">
+                    <h3>Syarat Menggunakan Sistem:</h3>
+                    <ul>
+                        <li>Sudah memiliki akun dan <strong>sudah login</strong> ke sistem</li>
+                        <li>Akun Anda memiliki <strong>hak akses</strong> ke menu yang ingin digunakan (jika menu tidak muncul, hubungi admin)</li>
+                        <li>Data-data dasar (master data) sudah disiapkan oleh admin</li>
+                    </ul>
+
+                    <h3>Cara Login ke Sistem:</h3>
+                    <ol>
+                        <li>Buka browser (Chrome, Firefox, atau Edge)</li>
+                        <li>Ketik alamat sistem di kotak alamat browser — tanyakan ke admin jika belum tahu alamatnya</li>
+                        <li>Masukkan <strong>Username</strong> dan <strong>Password</strong> Anda</li>
+                        <li>Klik tombol <strong>Login</strong> atau tekan Enter</li>
+                        <li>Jika berhasil, halaman utama sistem akan terbuka</li>
+                    </ol>
+
+                    <h3>Mengenal Tampilan Utama Sistem:</h3>
+                    <table style="width:100%; border-collapse:collapse;">
+                        <thead>
+                            <tr style="background:#2c7be5; color:white;">
+                                <th style="padding:8px; text-align:left; border:1px solid #ddd;">Bagian Layar</th>
+                                <th style="padding:8px; text-align:left; border:1px solid #ddd;">Fungsinya</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="padding:8px; border:1px solid #ddd;"><strong>Sidebar (sebelah kiri)</strong></td>
+                                <td style="padding:8px; border:1px solid #ddd;">Daftar menu utama sistem. Klik menu untuk membuka halaman yang diinginkan.</td>
+                            </tr>
+                            <tr style="background:#f8f9fa;">
+                                <td style="padding:8px; border:1px solid #ddd;"><strong>Area Konten (tengah)</strong></td>
+                                <td style="padding:8px; border:1px solid #ddd;">Tempat data dan form ditampilkan.</td>
+                            </tr>
+                            <tr>
+                                <td style="padding:8px; border:1px solid #ddd;"><strong>Header (atas)</strong></td>
+                                <td style="padding:8px; border:1px solid #ddd;">Menampilkan nama pengguna yang login dan tombol logout.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="note-box" style="border-left:4px solid #27ae60; background:#f0fff4;">
+                        <p>✅ <strong>Tips Penting:</strong> Selalu klik tombol <strong>Simpan</strong> setelah mengisi form. Jika berpindah halaman sebelum menyimpan, data yang sudah diisi akan hilang.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Master Data Section -->
+            <section id="master-data-customer" class="doc-section">
+                <div class="section-header">
+                    <h1>Customer (Pelanggan)</h1>
+                </div>
+                <div class="section-content">
+                    <div class="screenshot-container">
+                        <div class="screenshot-placeholder">
+                            <i class="fas fa-image"></i>
+                            <p>Screenshot: Menu Customer</p>
+                            <small>Tambahkan screenshot halaman Customer di sini</small>
+                        </div>
+                    </div>
+                    <div class="info-box">
+                        <p><strong>Fungsi:</strong> Mengelola data pelanggan yang akan melakukan pemeriksaan.</p>
+                    </div>
+
+                    <h3>Langkah-langkah:</h3>
+                    <ol>
+                        <li>Akses menu <strong>Customer</strong> di sidebar</li>
+                        <li>Klik tombol <strong>Tambah Customer Baru</strong></li>
+                        <li>Isi form dengan data:
+                            <ul>
+                                <li><strong>Nama Customer</strong> (wajib)</li>
+                                <li><strong>Alamat Customer</strong> (wajib)</li>
+                                <li><strong>Email Customer</strong> (opsional)</li>
+                                <li><strong>Contact Person</strong> (wajib)</li>
+                                <li><strong>Kecamatan</strong> (wajib)</li>
+                                <li><strong>Kategori Customer</strong> (opsional)</li>
+                            </ul>
+                        </li>
+                        <li>Klik <strong>Simpan</strong></li>
+                    </ol>
+
+                    <div class="note-box">
+                        <p><strong>Catatan:</strong></p>
+                        <ul>
+                            <li>Customer dapat ditambahkan langsung saat membuat Permohonan Uji jika belum terdaftar</li>
+                            <li>Data customer digunakan untuk semua jenis permohonan uji</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="master-data-sample-type" class="doc-section">
+                <div class="section-header">
+                    <h1>Sample Type (Jenis Sample)</h1>
+                </div>
+                <div class="section-content">
+                    <div class="screenshot-container">
+                        <div class="screenshot-placeholder">
+                            <i class="fas fa-image"></i>
+                            <p>Screenshot: Menu Sample Type</p>
+                            <small>Tambahkan screenshot halaman Sample Type di sini</small>
+                        </div>
+                    </div>
+                    <div class="info-box">
+                        <p><strong>Fungsi:</strong> Mengelola jenis-jenis sample yang dapat diperiksa di laboratorium.</p>
+                    </div>
+
+                    <h3>Langkah-langkah:</h3>
+                    <ol>
+                        <li>Akses menu <strong>Sample Type</strong> di sidebar</li>
+                        <li>Klik tombol <strong>Tambah Sample Type Baru</strong></li>
+                        <li>Isi form dengan data:
+                            <ul>
+                                <li><strong>Nama Sample Type</strong> (wajib)</li>
+                                <li><strong>Kode Sample Type</strong> (wajib, unik)</li>
+                                <li><strong>Deskripsi</strong> (opsional)</li>
+                                <li><strong>Kategori</strong> (opsional)</li>
+                            </ul>
+                        </li>
+                        <li>Klik <strong>Simpan</strong></li>
+                    </ol>
+
+                    <h3>Contoh Sample Type:</h3>
+                    <ul>
+                        <li>Air Minum</li>
+                        <li>Air Bersih</li>
+                        <li>Makanan</li>
+                        <li>Minuman</li>
+                        <li>Darah</li>
+                        <li>Urine</li>
+                        <li>dll</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="master-data-laboratorium" class="doc-section">
+                <div class="section-header">
+                    <h1>Laboratorium</h1>
+                </div>
+                <div class="section-content">
+                    <div class="screenshot-container">
+                        <div class="screenshot-placeholder">
+                            <i class="fas fa-image"></i>
+                            <p>Screenshot: Menu Laboratorium</p>
+                            <small>Tambahkan screenshot halaman Laboratorium di sini</small>
+                        </div>
+                    </div>
+                    <div class="info-box">
+                        <p><strong>Fungsi:</strong> Mengelola data laboratorium yang tersedia.</p>
+                    </div>
+
+                    <h3>Langkah-langkah:</h3>
+                    <ol>
+                        <li>Akses menu <strong>Laboratorium</strong> di sidebar</li>
+                        <li>Klik tombol <strong>Tambah Laboratorium Baru</strong></li>
+                        <li>Isi form dengan data:
+                            <ul>
+                                <li><strong>Nama Laboratorium</strong> (wajib)</li>
+                                <li><strong>Kode Laboratorium</strong> (wajib, unik)</li>
+                                <li><strong>Deskripsi</strong> (opsional)</li>
+                            </ul>
+                        </li>
+                        <li>Klik <strong>Simpan</strong></li>
+                    </ol>
+
+                    <h3>Contoh Laboratorium:</h3>
+                    <ul>
+                        <li>KMA (Kimia)</li>
+                        <li>FKA (Fisika)</li>
+                        <li>MBI (Mikrobiologi)</li>
+                        <li>KLI (Klinik)</li>
+                    </ul>
+
+                    <div class="note-box">
+                        <p><strong>Catatan:</strong></p>
+                        <ul>
+                            <li>Kode laboratorium digunakan untuk mengelompokkan metode pemeriksaan</li>
+                            <li>Setiap sample dapat memiliki metode dari beberapa laboratorium</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="master-data-method" class="doc-section">
+                <div class="section-header">
+                    <h1>Method (Metode Pemeriksaan)</h1>
+                </div>
+                <div class="section-content">
+                    <div class="screenshot-container">
+                        <div class="screenshot-placeholder">
+                            <i class="fas fa-image"></i>
+                            <p>Screenshot: Menu Method</p>
+                            <small>Tambahkan screenshot halaman Method di sini</small>
+                        </div>
+                    </div>
+                    <div class="info-box">
+                        <p><strong>Fungsi:</strong> Mengelola metode-metode pemeriksaan yang tersedia.</p>
+                    </div>
+
+                    <h3>Langkah-langkah:</h3>
+                    <ol>
+                        <li>Akses menu <strong>Method</strong> di sidebar</li>
+                        <li>Klik tombol <strong>Tambah Method Baru</strong></li>
+                        <li>Isi form dengan data:
+                            <ul>
+                                <li><strong>Nama Method</strong> (wajib)</li>
+                                <li><strong>Parameter Method</strong> (wajib)</li>
+                                <li><strong>Nama Report Method</strong> (wajib)</li>
+                                <li><strong>Laboratorium</strong> (wajib, pilih dari daftar laboratorium)</li>
+                                <li><strong>Unit</strong> (wajib)</li>
+                                <li><strong>Harga Bahan</strong> (opsional)</li>
+                                <li><strong>Harga Sarana</strong> (opsional)</li>
+                                <li><strong>Harga Jasa</strong> (opsional)</li>
+                                <li><strong>Harga Total Method</strong> (wajib)</li>
+                                <li><strong>Jenis Parameter Kimia</strong> (opsional)</li>
+                                <li><strong>Berhubungan Kesehatan</strong> (opsional)</li>
+                                <li><strong>Status Ready</strong> (opsional)</li>
+                                <li><strong>Is Option</strong> (opsional)</li>
+                            </ul>
+                        </li>
+                        <li>Klik <strong>Simpan</strong></li>
+                    </ol>
+
+                    <div class="note-box">
+                        <p><strong>Catatan:</strong></p>
+                        <ul>
+                            <li>Setiap method harus dikaitkan dengan laboratorium</li>
+                            <li>Harga total method digunakan untuk perhitungan biaya</li>
+                            <li>Method dapat digunakan dalam paket atau secara individual</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="master-data-packet" class="doc-section">
+                <div class="section-header">
+                    <h1>Packet (Paket Pemeriksaan)</h1>
+                </div>
+                <div class="section-content">
+                    <div class="screenshot-container">
+                        <div class="screenshot-placeholder">
+                            <i class="fas fa-image"></i>
+                            <p>Screenshot: Menu Packet</p>
+                            <small>Tambahkan screenshot halaman Packet di sini</small>
+                        </div>
+                    </div>
+                    <div class="info-box">
+                        <p><strong>Fungsi:</strong> Mengelola paket-paket pemeriksaan yang terdiri dari beberapa method.</p>
+                    </div>
+
+                    <h3>Langkah-langkah:</h3>
+                    <ol>
+                        <li>Akses menu <strong>Packet</strong> di sidebar</li>
+                        <li>Klik tombol <strong>Tambah Packet Baru</strong></li>
+                        <li>Isi form dengan data:
+                            <ul>
+                                <li><strong>Nama Packet</strong> (wajib)</li>
+                                <li><strong>Kode Packet</strong> (wajib, unik)</li>
+                                <li><strong>Sample Type</strong> (wajib, pilih jenis sample)</li>
+                                <li><strong>Harga Packet</strong> (wajib)</li>
+                                <li><strong>Deskripsi</strong> (opsional)</li>
+                            </ul>
+                        </li>
+                        <li>Tambahkan <strong>Method</strong> ke dalam packet:
+                            <ul>
+                                <li>Pilih method dari daftar</li>
+                                <li>Setiap method harus dari laboratorium yang sesuai</li>
+                            </ul>
+                        </li>
+                        <li>Klik <strong>Simpan</strong></li>
+                    </ol>
+
+                    <div class="note-box">
+                        <p><strong>Catatan:</strong></p>
+                        <ul>
+                            <li>Packet dapat berisi beberapa method dari laboratorium yang berbeda</li>
+                            <li>Harga packet biasanya lebih murah dari total harga method individual</li>
+                            <li>Packet memudahkan pemilihan pemeriksaan yang sering dilakukan bersamaan</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="master-data-unit" class="doc-section">
+                <div class="section-header">
+                    <h1>Unit (Satuan)</h1>
+                </div>
+                <div class="section-content">
+                    <div class="screenshot-container">
+                        <div class="screenshot-placeholder">
+                            <i class="fas fa-image"></i>
+                            <p>Screenshot: Menu Unit</p>
+                            <small>Tambahkan screenshot halaman Unit di sini</small>
+                        </div>
+                    </div>
+                    <div class="info-box">
+                        <p><strong>Fungsi:</strong> Mengelola satuan-satuan yang digunakan dalam hasil pemeriksaan.</p>
+                    </div>
+
+                    <h3>Langkah-langkah:</h3>
+                    <ol>
+                        <li>Akses menu <strong>Unit</strong> di sidebar</li>
+                        <li>Klik tombol <strong>Tambah Unit Baru</strong></li>
+                        <li>Isi form dengan data:
+                            <ul>
+                                <li><strong>Nama Unit</strong> (wajib)</li>
+                                <li><strong>Kode Unit</strong> (wajib, unik)</li>
+                                <li><strong>Simbol Unit</strong> (opsional)</li>
+                            </ul>
+                        </li>
+                        <li>Klik <strong>Simpan</strong></li>
+                    </ol>
+
+                    <h3>Contoh Unit:</h3>
+                    <ul>
+                        <li>mg/L</li>
+                        <li>CFU/mL</li>
+                        <li>NTU</li>
+                        <li>pH</li>
+                        <li>dll</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="master-data-container" class="doc-section">
+                <div class="section-header">
+                    <h1>Container (Wadah Sample)</h1>
+                </div>
+                <div class="section-content">
+                    <div class="screenshot-container">
+                        <div class="screenshot-placeholder">
+                            <i class="fas fa-image"></i>
+                            <p>Screenshot: Menu Container</p>
+                            <small>Tambahkan screenshot halaman Container di sini</small>
+                        </div>
+                    </div>
+                    <div class="info-box">
+                        <p><strong>Fungsi:</strong> Mengelola jenis-jenis wadah yang digunakan untuk menyimpan sample.</p>
+                    </div>
+
+                    <h3>Langkah-langkah:</h3>
+                    <ol>
+                        <li>Akses menu <strong>Container</strong> di sidebar</li>
+                        <li>Klik tombol <strong>Tambah Container Baru</strong></li>
+                        <li>Isi form dengan data:
+                            <ul>
+                                <li><strong>Nama Container</strong> (wajib)</li>
+                                <li><strong>Kode Container</strong> (wajib, unik)</li>
+                                <li><strong>Deskripsi</strong> (opsional)</li>
+                            </ul>
+                        </li>
+                        <li>Klik <strong>Simpan</strong></li>
+                    </ol>
+
+                    <h3>Contoh Container:</h3>
+                    <ul>
+                        <li>Botol Plastik</li>
+                        <li>Botol Kaca</li>
+                        <li>Tabung Reaksi</li>
+                        <li>dll</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="master-data-pasien" class="doc-section">
+                <div class="section-header">
+                    <h1>Pasien (Untuk Permohonan Uji Klinik)</h1>
+                </div>
+                <div class="section-content">
+                    <div class="screenshot-container">
+                        <div class="screenshot-placeholder">
+                            <i class="fas fa-image"></i>
+                            <p>Screenshot: Menu Pasien</p>
+                            <small>Tambahkan screenshot halaman Pasien di sini</small>
+                        </div>
+                    </div>
+                    <div class="info-box">
+                        <p><strong>Fungsi:</strong> Mengelola data pasien untuk pemeriksaan klinik.</p>
+                    </div>
+
+                    <h3>Langkah-langkah:</h3>
+                    <ol>
+                        <li>Akses menu <strong>Pasien</strong> di sidebar</li>
+                        <li>Klik tombol <strong>Tambah Pasien Baru</strong></li>
+                        <li>Isi form dengan data:
+                            <ul>
+                                <li><strong>No. Pasien</strong> (wajib, unik)</li>
+                                <li><strong>Nama Pasien</strong> (wajib)</li>
+                                <li><strong>Tanggal Lahir</strong> (wajib)</li>
+                                <li><strong>Jenis Kelamin</strong> (wajib)</li>
+                                <li><strong>Alamat</strong> (wajib)</li>
+                                <li><strong>No. Telepon</strong> (opsional)</li>
+                                <li><strong>No. KTP</strong> (opsional)</li>
+                                <li><strong>No. BPJS</strong> (opsional)</li>
+                            </ul>
+                        </li>
+                        <li>Klik <strong>Simpan</strong></li>
+                    </ol>
+
+                    <div class="note-box">
+                        <p><strong>Catatan:</strong></p>
+                        <ul>
+                            <li>Pasien dapat ditambahkan langsung saat membuat Permohonan Uji Klinik</li>
+                            <li>Data pasien dapat dicari berdasarkan nama, no. pasien, atau no. BPJS</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Permohonan Uji Section -->
+            <section id="permohonan-uji-create" class="doc-section">
+                <div class="section-header">
+                    <h1>Membuat Permohonan Uji</h1>
+                </div>
+                <div class="section-content">
+                    <div class="screenshot-container">
+                        <div class="screenshot-placeholder">
+                            <i class="fas fa-image"></i>
+                            <p>Screenshot: Form Tambah Permohonan Uji</p>
+                            <small>Tambahkan screenshot form tambah Permohonan Uji di sini</small>
+                        </div>
+                    </div>
+                    <div class="info-box">
+                        <p>Permohonan Uji adalah proses awal untuk pemeriksaan non-klinik (kesmas).</p>
+                    </div>
+
+                    <h3>Langkah-langkah:</h3>
+                    <ol>
+                        <li><strong>Akses Menu Permohonan Uji</strong>
+                            <ul>
+                                <li>Klik menu <strong>Permohonan Uji</strong> di sidebar</li>
+                                <li>Klik tombol <strong>Tambah Permohonan Uji Baru</strong></li>
+                            </ul>
+                        </li>
+                        <li><strong>Isi Data Dasar Permohonan</strong>
+                            <ul>
+                                <li><strong>Tanggal Permohonan</strong> (otomatis, dapat diubah)</li>
+                                <li><strong>Customer</strong> (wajib)
+                                    <ul>
+                                        <li>Pilih customer dari daftar, atau</li>
+                                        <li>Klik "Tambah Customer Baru" untuk menambah customer baru</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Nama Personil</strong> (wajib) - Nama petugas yang menangani permohonan</li>
+                            </ul>
+                        </li>
+                        <li><strong>Pengaturan Sample</strong>
+                            <ul>
+                                <li><strong>Mode Pengiriman Sample:</strong>
+                                    <ul>
+                                        <li><strong>Sample Dibawa Sendiri</strong> (pengambil_sample = 0)
+                                            <ul>
+                                                <li>Isi <strong>Tanggal Penerimaan Sample</strong></li>
+                                                <li>Isi <strong>Kondisi Sample</strong> (Baik/Rusak/Lainnya)</li>
+                                                <li>Jika kondisi "Lainnya", isi keterangan</li>
+                                            </ul>
+                                        </li>
+                                        <li><strong>Sample Diambil Lab</strong> (pengambil_sample = 1)
+                                            <ul>
+                                                <li>Isi <strong>Tanggal Sampling</strong></li>
+                                                <li>Isi <strong>Paket Sampling</strong> (opsional)</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li><strong>Informasi Pembayaran</strong>
+                            <ul>
+                                <li><strong>Total Harga</strong> (akan dihitung otomatis setelah menambah sample)</li>
+                                <li><strong>Uang Muka</strong> (wajib)</li>
+                                <li><strong>Kekurangan Pembayaran</strong> (otomatis)</li>
+                                <li><strong>Status Pembayaran</strong> (Lunas/Belum Lunas)</li>
+                            </ul>
+                        </li>
+                        <li><strong>Simpan Permohonan Uji</strong>
+                            <ul>
+                                <li>Klik tombol <strong>Simpan</strong></li>
+                                <li>Sistem akan generate <strong>Kode Permohonan Uji</strong> dengan format: <code>PU.NK/YYYYMMDD/XXXX</code></li>
+                                <li>Setelah disimpan, akan redirect ke halaman detail permohonan uji</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+            </section>
+
+            <section id="permohonan-uji-info" class="doc-section">
+                <div class="section-header">
+                    <h1>Informasi Penting</h1>
+                </div>
+                <div class="section-content">
+                    <ul>
+                        <li><strong>Kode Permohonan Uji</strong> dibuat otomatis dengan format: <code>PU.NK/[TANGGAL]/[URUTAN]</code></li>
+                        <li>Setelah permohonan uji dibuat, status awal adalah <strong>REGISTER</strong></li>
+                        <li>Permohonan uji harus memiliki minimal 1 sample untuk dapat diproses</li>
+                        <li>Total harga akan dihitung dari jumlah sample dan method yang dipilih</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Sample Section -->
+            <section id="sample-add" class="doc-section">
+                <div class="section-header">
+                    <h1>Menambahkan Sample</h1>
+                </div>
+                <div class="section-content">
+                    <div class="screenshot-container">
+                        <div class="screenshot-placeholder">
+                            <i class="fas fa-image"></i>
+                            <p>Screenshot: Form Tambah Sample</p>
+                            <small>Tambahkan screenshot form tambah Sample di sini</small>
+                        </div>
+                    </div>
+                    <div class="info-box">
+                        <p>Setelah Permohonan Uji dibuat, langkah selanjutnya adalah menambahkan sample ke dalam permohonan uji tersebut.</p>
+                    </div>
+
+                    <h3>Langkah-langkah:</h3>
+                    <ol>
+                        <li><strong>Akses Halaman Tambah Sample</strong>
+                            <ul>
+                                <li>Dari halaman detail Permohonan Uji, klik tombol <strong>Tambah Sample</strong></li>
+                                <li>Atau akses langsung melalui menu <strong>Sample</strong> > <strong>Tambah Sample Baru</strong></li>
+                            </ul>
+                        </li>
+                        <li><strong>Pilih Jenis Sample</strong>
+                            <ul>
+                                <li>Pilih <strong>Sample Type</strong> dari daftar</li>
+                                <li>Setiap sample type memiliki method yang tersedia</li>
+                            </ul>
+                        </li>
+                        <li><strong>Pilih Metode Pemeriksaan</strong>
+                            <p>Ada dua cara untuk memilih metode:</p>
+                            <p><strong>A. Menggunakan Paket</strong></p>
+                            <ul>
+                                <li>Pilih <strong>Packet</strong> yang sesuai dengan sample type</li>
+                                <li>Sistem akan otomatis memilih semua method dalam packet</li>
+                                <li>Dapat menambah method tambahan di luar packet</li>
+                            </ul>
+                            <p><strong>B. Memilih Method Individual</strong></p>
+                            <ul>
+                                <li>Pilih method satu per satu dari daftar</li>
+                                <li>Method dikelompokkan berdasarkan laboratorium</li>
+                                <li>Dapat memilih method dari beberapa laboratorium sekaligus</li>
+                            </ul>
+                        </li>
+                        <li><strong>Informasi Sample</strong>
+                            <ul>
+                                <li><strong>Titik Pengambilan</strong> (opsional) - Lokasi pengambilan sample</li>
+                                <li><strong>Tanggal Sampling</strong> (wajib) - Tanggal dan waktu pengambilan sample</li>
+                                <li><strong>Tanggal Pengiriman</strong> (opsional) - Tanggal sample dikirim ke lab</li>
+                                <li><strong>Catatan Sample</strong> (opsional) - Keterangan tambahan tentang sample</li>
+                            </ul>
+                        </li>
+                        <li><strong>Informasi Biaya</strong>
+                            <ul>
+                                <li><strong>Biaya Sample</strong> (otomatis dihitung)
+                                    <ul>
+                                        <li>Jika menggunakan packet: harga packet + method tambahan</li>
+                                        <li>Jika individual: total harga semua method</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Biaya Sampling</strong> (jika sample diambil lab)
+                                    <ul>
+                                        <li>Default: Rp 20.000</li>
+                                        <li>Dapat disesuaikan</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li><strong>Simpan Sample</strong>
+                            <ul>
+                                <li>Klik tombol <strong>Simpan</strong></li>
+                                <li>Sistem akan:
+                                    <ul>
+                                        <li>Generate kode sample untuk setiap laboratorium</li>
+                                        <li>Membuat record sample untuk setiap laboratorium yang memiliki method</li>
+                                        <li>Menghitung total biaya</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+            </section>
+
+            <section id="sample-receive" class="doc-section">
+                <div class="section-header">
+                    <h1>Penerimaan Sample</h1>
+                </div>
+                <div class="section-content">
+                    <div class="screenshot-container">
+                        <div class="screenshot-placeholder">
+                            <i class="fas fa-image"></i>
+                            <p>Screenshot: Form Penerimaan Sample</p>
+                            <small>Tambahkan screenshot form penerimaan Sample di sini</small>
+                        </div>
+                    </div>
+                    <div class="info-box">
+                        <p>Setelah sample ditambahkan, sample perlu diterima di laboratorium.</p>
+                    </div>
+
+                    <h3>Langkah-langkah:</h3>
+                    <ol>
+                        <li><strong>Akses Halaman Penerimaan Sample</strong>
+                            <ul>
+                                <li>Dari halaman detail sample, klik <strong>Terima Sample</strong></li>
+                                <li>Atau akses melalui menu <strong>Penerimaan Sample</strong></li>
+                            </ul>
+                        </li>
+                        <li><strong>Isi Data Penerimaan</strong>
+                            <ul>
+                                <li><strong>Wadah</strong> (wajib) - Pilih jenis wadah dari daftar, atau isi "Lainnya" jika tidak ada di daftar</li>
+                                <li><strong>Pengawet</strong> (wajib) - Jenis pengawet yang digunakan</li>
+                                <li><strong>Volume</strong> (wajib) - Volume sample dalam wadah</li>
+                                <li><strong>Unit</strong> (wajib) - Satuan volume (mL, L, dll)</li>
+                                <li><strong>Kondisi Sample</strong> (wajib) - Baik/Rusak/Tidak Sesuai</li>
+                                <li><strong>Validasi Sample</strong> (wajib) - Layak/Tidak Layak untuk diperiksa</li>
+                            </ul>
+                        </li>
+                        <li><strong>Simpan Penerimaan</strong>
+                            <ul>
+                                <li>Klik tombol <strong>Simpan</strong></li>
+                                <li>Sample akan berstatus <strong>DITERIMA</strong> dan siap untuk pemeriksaan</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+            </section>
+
+            <section id="sample-receive" class="doc-section">
+                <div class="section-header">
+                    <h1>Catatan Penting tentang Sample</h1>
+                </div>
+                <div class="section-content">
+                    <h3>Satu Permohonan Bisa Banyak Sample:</h3>
+                    <ul>
+                        <li>Satu permohonan uji bisa memiliki banyak titik pengambilan sample — setiap titik adalah sample yang berbeda</li>
+                        <li>Contoh: 5 titik sumur berbeda = 5 sample dalam 1 permohonan uji</li>
+                    </ul>
+                    <h3>Kode Sample:</h3>
+                    <ul>
+                        <li>Format: <code>S.[LAB_CODE]-[TANGGAL]-[URUTAN]</code></li>
+                        <li>Contoh: <code>S.KMA-20240115-0001</code></li>
+                        <li>Setiap laboratorium memiliki kode sample sendiri</li>
+                    </ul>
+                    <h3>Biaya:</h3>
+                    <ul>
+                        <li>Biaya sample dihitung per laboratorium</li>
+                        <li>Jika sample memiliki method dari 2 laboratorium, akan dibuat 2 sample dengan biaya terpisah</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- ===== PROSES VERIFIKASI KESMAS ===== -->
+            <section id="kesmas-alur-verifikasi" class="doc-section">
+                <div class="section-header">
+                    <h1>Gambaran Alur Verifikasi Kesmas (Non-Klinik)</h1>
+                </div>
+                <div class="section-content">
+                    <div class="info-box">
+                        <p>Setelah sample ditambahkan ke permohonan uji, proses verifikasi dilakukan secara berurutan. Setiap step harus diselesaikan sebelum bisa lanjut ke step berikutnya. Semua step bisa dipantau dari <strong>halaman Verifikasi Sample</strong> (klik tombol "Verifikasi" di halaman detail sample).</p>
+                    </div>
+
+                    <h3>Tiga Fase Besar Verifikasi:</h3>
+                    <table style="width:100%; border-collapse:collapse; margin-bottom:20px;">
+                        <thead>
+                            <tr style="background:#2c7be5; color:white;">
+                                <th style="padding:10px; text-align:center; border:1px solid #ddd; width:33%;">🔵 Pra-Analitik</th>
+                                <th style="padding:10px; text-align:center; border:1px solid #ddd; width:33%;">🟢 Analitik</th>
+                                <th style="padding:10px; text-align:center; border:1px solid #ddd; width:33%;">🟣 Pasca-Analitik</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="vertical-align:top;">
+                                <td style="padding:10px; border:1px solid #ddd;">
+                                    <ol style="margin:0; padding-left:18px;">
+                                        <li>Permintaan Pemeriksaan <em>(otomatis)</em></li>
+                                        <li>Persiapan Sampel <em>(otomatis)</em></li>
+                                        <li>Pengambilan Sampel <em>(otomatis)</em></li>
+                                        <li><strong>Penerimaan Sampel</strong> ← diisi petugas</li>
+                                        <li><strong>Penanganan Sampel</strong> ← diisi petugas</li>
+                                    </ol>
+                                </td>
+                                <td style="padding:10px; border:1px solid #ddd;">
+                                    <ol style="margin:0; padding-left:18px;" start="6">
+                                        <li>Langkah-langkah Analitik <em>(sesuai lab)</em></li>
+                                        <li><strong>Baca Hasil</strong> ← analis</li>
+                                        <li><strong>Pengetikan Hasil</strong> ← analis</li>
+                                    </ol>
+                                </td>
+                                <td style="padding:10px; border:1px solid #ddd;">
+                                    <ol style="margin:0; padding-left:18px;" start="9">
+                                        <li><strong>Pelaporan Hasil</strong> ← admin/kepala</li>
+                                        <li><strong>Verifikasi Hasil</strong> ← kepala lab</li>
+                                        <li><strong>Pengesahan Hasil</strong> ← pejabat berwenang</li>
+                                        <li><strong>Cetak LHU</strong> ← admin</li>
+                                    </ol>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3>Cara Membuka Halaman Verifikasi:</h3>
+                    <ol>
+                        <li>Dari menu <strong>Permohonan Uji</strong> atau menu <strong>Sample</strong>, cari data permohonan/sample yang bersangkutan</li>
+                        <li>Buka halaman detail sample</li>
+                        <li>Klik tombol <strong>"Verifikasi"</strong> atau <strong>"Proses Verifikasi"</strong></li>
+                        <li>Halaman verifikasi akan menampilkan semua step beserta statusnya</li>
+                    </ol>
+
+                    <div class="note-box" style="border-left:4px solid #27ae60; background:#f0fff4;">
+                        <p>✅ <strong>Tips:</strong> Step yang sudah selesai akan menampilkan tanggal di kolomnya. Step yang belum selesai menampilkan tombol "Selesai" atau form isian.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="kesmas-penerimaan" class="doc-section">
+                <div class="section-header">
+                    <h1>Step 1 (Pra-Analitik): Penerimaan Sample</h1>
+                </div>
+                <div class="section-content">
+                    <div class="info-box">
+                        <p><strong>Penerimaan Sample</strong> adalah proses menerima dan mencatat kondisi sample yang masuk ke laboratorium. Ini adalah langkah pertama yang harus dilakukan petugas penerimaan setelah sample tiba di lab.</p>
+                    </div>
+
+                    <h3>Langkah-langkah:</h3>
+                    <ol>
+                        <li>
+                            <strong>Buka Halaman Verifikasi Sample</strong>
+                            <ul>
+                                <li>Dari menu <strong>Sample</strong> atau <strong>Permohonan Uji</strong>, buka detail sample yang akan diterima</li>
+                                <li>Klik tombol <strong>"Verifikasi"</strong></li>
+                                <li>Di kolom Pra-Analitik, cari baris <strong>"Penerimaan Sampel"</strong></li>
+                                <li>Klik tombol <strong>"Selesai"</strong> di baris tersebut</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Isi Form Penerimaan Sample</strong>
+                            <table style="width:100%; border-collapse:collapse; margin-bottom:12px;">
+                                <thead>
+                                    <tr style="background:#2c7be5; color:white;">
+                                        <th style="padding:8px; text-align:left; border:1px solid #ddd;">Kolom</th>
+                                        <th style="padding:8px; text-align:left; border:1px solid #ddd;">Penjelasan</th>
+                                        <th style="padding:8px; text-align:left; border:1px solid #ddd;">Wajib?</th>
+                                        <th style="padding:8px; text-align:left; border:1px solid #ddd;">Contoh Isi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="padding:8px; border:1px solid #ddd;"><strong>Wadah</strong></td>
+                                        <td style="padding:8px; border:1px solid #ddd;">Jenis wadah tempat sample disimpan. Pilih dari daftar, atau pilih "Lainnya" jika tidak ada.</td>
+                                        <td style="padding:8px; border:1px solid #ddd;"><span style="color:red">Ya</span></td>
+                                        <td style="padding:8px; border:1px solid #ddd;">Botol Plastik, Botol Kaca, Galon</td>
+                                    </tr>
+                                    <tr style="background:#f8f9fa;">
+                                        <td style="padding:8px; border:1px solid #ddd;"><strong>Keterangan Wadah Lain</strong></td>
+                                        <td style="padding:8px; border:1px solid #ddd;">Isi jika pilihan wadah = "Lainnya"</td>
+                                        <td style="padding:8px; border:1px solid #ddd;">Jika Lainnya</td>
+                                        <td style="padding:8px; border:1px solid #ddd;">Jerigen 5 liter</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding:8px; border:1px solid #ddd;"><strong>Pengawet</strong></td>
+                                        <td style="padding:8px; border:1px solid #ddd;">Jenis bahan pengawet yang digunakan (jika ada)</td>
+                                        <td style="padding:8px; border:1px solid #ddd;">Ya</td>
+                                        <td style="padding:8px; border:1px solid #ddd;">H2SO4, Na2S2O3, Tanpa Pengawet</td>
+                                    </tr>
+                                    <tr style="background:#f8f9fa;">
+                                        <td style="padding:8px; border:1px solid #ddd;"><strong>Volume</strong></td>
+                                        <td style="padding:8px; border:1px solid #ddd;">Jumlah/volume sample yang diterima</td>
+                                        <td style="padding:8px; border:1px solid #ddd;"><span style="color:red">Ya</span></td>
+                                        <td style="padding:8px; border:1px solid #ddd;">500</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding:8px; border:1px solid #ddd;"><strong>Unit/Satuan</strong></td>
+                                        <td style="padding:8px; border:1px solid #ddd;">Satuan untuk volume di atas</td>
+                                        <td style="padding:8px; border:1px solid #ddd;"><span style="color:red">Ya</span></td>
+                                        <td style="padding:8px; border:1px solid #ddd;">mL, L, gram</td>
+                                    </tr>
+                                    <tr style="background:#f8f9fa;">
+                                        <td style="padding:8px; border:1px solid #ddd;"><strong>Kondisi Sample</strong></td>
+                                        <td style="padding:8px; border:1px solid #ddd;">Kondisi fisik sample saat diterima</td>
+                                        <td style="padding:8px; border:1px solid #ddd;"><span style="color:red">Ya</span></td>
+                                        <td style="padding:8px; border:1px solid #ddd;">Baik / Rusak / Tidak Sesuai</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding:8px; border:1px solid #ddd;"><strong>Validasi Sample</strong></td>
+                                        <td style="padding:8px; border:1px solid #ddd;">Apakah sample layak untuk diperiksa?</td>
+                                        <td style="padding:8px; border:1px solid #ddd;"><span style="color:red">Ya</span></td>
+                                        <td style="padding:8px; border:1px solid #ddd;">Layak / Tidak Layak</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </li>
+                        <li>
+                            <strong>Simpan Penerimaan</strong>
+                            <ul>
+                                <li>Klik tombol <strong>Simpan</strong></li>
+                                <li>Sistem akan mencatat tanggal penerimaan secara otomatis</li>
+                                <li>Halaman kembali ke verifikasi — baris "Penerimaan Sampel" akan menampilkan tanggal</li>
+                            </ul>
+                        </li>
+                    </ol>
+
+                    <div class="note-box" style="border-left:4px solid #e74c3c; background:#fdf2f2;">
+                        <p>⚠️ <strong>Penting:</strong> Jika sample dinilai <strong>Tidak Layak</strong>, tetap simpan data penerimaannya dan segera informasikan ke customer/pelanggan bahwa sample perlu diambil ulang.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="kesmas-penanganan" class="doc-section">
+                <div class="section-header">
+                    <h1>Step 2 (Pra-Analitik): Penanganan Sample</h1>
+                </div>
+                <div class="section-content">
+                    <div class="info-box">
+                        <p><strong>Penanganan Sample</strong> adalah proses pencatatan bahwa sample telah ditangani dan disiapkan untuk pemeriksaan analitik. Step ini dilakukan setelah Penerimaan Sample selesai.</p>
+                    </div>
+
+                    <h3>Langkah-langkah:</h3>
+                    <ol>
+                        <li>Di halaman Verifikasi, cari baris <strong>"Penanganan Sampel"</strong> di kolom Pra-Analitik</li>
+                        <li>Klik tombol <strong>"Selesai"</strong> di baris tersebut (hanya muncul jika Penerimaan Sample sudah dilakukan)</li>
+                        <li>Sistem akan mencatat tanggal penanganan secara otomatis</li>
+                        <li>Jika perlu mengubah tanggal, klik ikon pensil ✏️ di sebelah tanggal yang sudah tercatat</li>
+                    </ol>
+
+                    <div class="note-box">
+                        <p>💡 <strong>Catatan:</strong> Penanganan Sample bisa diedit kemudian jika ada perubahan. Klik ikon pensil untuk membuka form edit dan ubah tanggalnya.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="kesmas-analitik" class="doc-section">
+                <div class="section-header">
+                    <h1>Step 3 (Analitik): Pemeriksaan Laboratorium</h1>
+                </div>
+                <div class="section-content">
+                    <div class="info-box">
+                        <p>Fase <strong>Analitik</strong> adalah tahap pemeriksaan sesungguhnya yang dilakukan oleh analis laboratorium. Langkah-langkah analitik berbeda-beda tergantung jenis laboratorium (Kimia atau Mikrobiologi) dan jenis pemeriksaan.</p>
+                    </div>
+
+                    <h3>Langkah Analitik Umum (muncul di halaman Verifikasi, kolom "Analitik"):</h3>
+                    <ol>
+                        <li>
+                            <strong>Langkah-langkah Pemeriksaan Bertahap</strong>
+                            <ul>
+                                <li>Di halaman Verifikasi, kolom <strong>Analitik</strong> menampilkan daftar tahapan pemeriksaan sesuai metode laboratorium</li>
+                                <li>Setiap tahapan memiliki field tanggal yang perlu diisi</li>
+                                <li>Isi tanggal setiap tahapan setelah kegiatan fisiknya selesai dilakukan</li>
+                                <li>Klik tombol <strong>✓ (centang/Submit)</strong> untuk menyimpan tanggal setiap tahap</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Baca Hasil (Analitik)</strong>
+                            <ul>
+                                <li>Setelah semua tahapan selesai, langkah berikutnya adalah <strong>Baca Hasil</strong></li>
+                                <li>Klik tombol <strong>"Baca Hasil"</strong> atau link yang muncul di baris tersebut</li>
+                                <li>Analis memasukkan nilai hasil pengukuran untuk setiap parameter</li>
+                                <li>Sistem akan membandingkan hasil dengan <strong>Baku Mutu</strong> — nilai yang melebihi batas akan ditandai merah</li>
+                                <li>Setelah semua nilai diisi, klik <strong>Simpan</strong></li>
+                            </ul>
+                        </li>
+                    </ol>
+
+                    <div class="note-box" style="border-left:4px solid #f39c12; background:#fffbf0;">
+                        <p>⚠️ <strong>Perhatian:</strong> Nilai hasil yang berwarna <strong>merah</strong> pada halaman baca hasil berarti nilainya <strong>melebihi batas baku mutu</strong> yang sudah ditetapkan. Ini akan muncul di laporan hasil sebagai "tidak memenuhi syarat".</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="kesmas-pengetikan" class="doc-section">
+                <div class="section-header">
+                    <h1>Step 4 (Analitik): Pengetikan Hasil</h1>
+                </div>
+                <div class="section-content">
+                    <div class="info-box">
+                        <p><strong>Pengetikan Hasil</strong> adalah proses memasukkan hasil pemeriksaan secara resmi ke sistem untuk keperluan laporan. Berbeda dengan "Baca Hasil" yang mencatat nilai mentah, Pengetikan Hasil memastikan data siap untuk diterbitkan.</p>
+                    </div>
+
+                    <h3>Langkah-langkah:</h3>
+                    <ol>
+                        <li>Di halaman Verifikasi, pada kolom Analitik, klik link atau tombol <strong>"Pengetikan Hasil"</strong></li>
+                        <li>Halaman pengetikan hasil akan terbuka, menampilkan daftar parameter beserta nilai yang sudah dibaca</li>
+                        <li>Periksa kembali setiap nilai hasil:
+                            <ul>
+                                <li>Nilai hasil yang melebihi baku mutu akan ditandai merah</li>
+                                <li>Isi kolom <strong>Satuan</strong> jika belum terisi</li>
+                                <li>Isi kolom <strong>Keterangan</strong> jika diperlukan (contoh: "Tidak Memenuhi Syarat")</li>
+                            </ul>
+                        </li>
+                        <li>Isi <strong>Tanggal Pengetikan</strong></li>
+                        <li>Klik tombol <strong>Simpan</strong></li>
+                        <li>Sistem kembali ke halaman verifikasi — baris Pengetikan Hasil menampilkan tanggal</li>
+                    </ol>
+                </div>
+            </section>
+
+            <section id="kesmas-pelaporan" class="doc-section">
+                <div class="section-header">
+                    <h1>Step 5 (Pasca-Analitik): Pelaporan Hasil</h1>
+                </div>
+                <div class="section-content">
+                    <div class="info-box">
+                        <p><strong>Pelaporan Hasil</strong> adalah proses pencatatan tanggal pelaporan resmi hasil pemeriksaan. Step ini menandai bahwa hasil sudah siap dilaporkan secara resmi.</p>
+                    </div>
+
+                    <h3>Langkah-langkah:</h3>
+                    <ol>
+                        <li>Di halaman Verifikasi, kolom <strong>Pasca-Analitik</strong>, cari baris <strong>"Pelaporan Hasil"</strong></li>
+                        <li>Isi kolom <strong>Tanggal Pelaporan</strong> dengan tanggal yang sesuai</li>
+                        <li>Klik tombol <strong>✓ (centang/Submit)</strong></li>
+                        <li>Baris Pelaporan Hasil akan menampilkan tanggal yang sudah diisi</li>
+                    </ol>
+
+                    <div class="note-box">
+                        <p>💡 <strong>Catatan:</strong> Tanggal pelaporan hasil ini akan muncul di dokumen LHU (Laporan Hasil Uji) yang dicetak untuk pelanggan.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="kesmas-verifikasi" class="doc-section">
+                <div class="section-header">
+                    <h1>Step 6 (Pasca-Analitik): Verifikasi Hasil</h1>
+                </div>
+                <div class="section-content">
+                    <div class="info-box">
+                        <p><strong>Verifikasi Hasil</strong> (Step/Activity 4) adalah proses review dan persetujuan hasil pemeriksaan oleh <strong>Kepala Laboratorium</strong> atau petugas yang ditunjuk. Ini memastikan hasil sudah benar sebelum disahkan.</p>
+                    </div>
+
+                    <div class="note-box" style="border-left:4px solid #9b59b6; background:#f5f0ff;">
+                        <p>🔐 <strong>Hak Akses:</strong> Langkah ini biasanya hanya bisa dilakukan oleh Kepala Laboratorium atau supervisor yang memiliki akses verifikasi.</p>
+                    </div>
+
+                    <h3>Apa yang Diisi di Form Verifikasi Hasil:</h3>
+                    <table style="width:100%; border-collapse:collapse; margin-bottom:12px;">
+                        <thead>
+                            <tr style="background:#2c7be5; color:white;">
+                                <th style="padding:8px; text-align:left; border:1px solid #ddd;">Kolom</th>
+                                <th style="padding:8px; text-align:left; border:1px solid #ddd;">Penjelasan</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="padding:8px; border:1px solid #ddd;"><strong>Tanggal Mulai Verifikasi</strong></td>
+                                <td style="padding:8px; border:1px solid #ddd;">Tanggal dimulainya proses verifikasi oleh kepala laboratorium</td>
+                            </tr>
+                            <tr style="background:#f8f9fa;">
+                                <td style="padding:8px; border:1px solid #ddd;"><strong>Tanggal Selesai Verifikasi</strong></td>
+                                <td style="padding:8px; border:1px solid #ddd;">Tanggal selesainya verifikasi</td>
+                            </tr>
+                            <tr>
+                                <td style="padding:8px; border:1px solid #ddd;"><strong>Nama Petugas Verifikasi</strong></td>
+                                <td style="padding:8px; border:1px solid #ddd;">Nama kepala lab atau petugas yang melakukan verifikasi. Bisa dipilih dari daftar atau diisi manual.</td>
+                            </tr>
+                            <tr style="background:#f8f9fa;">
+                                <td style="padding:8px; border:1px solid #ddd;"><strong>Hasil Pemeriksaan (review)</strong></td>
+                                <td style="padding:8px; border:1px solid #ddd;">Petugas memeriksa ulang semua nilai hasil — nilai merah = tidak memenuhi baku mutu perlu diperhatikan</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3>Langkah-langkah:</h3>
+                    <ol>
+                        <li>Di halaman Verifikasi, klik link <strong>"Verifikasi Hasil"</strong> di kolom Pasca-Analitik</li>
+                        <li>Form verifikasi akan terbuka — tampilkan semua hasil pemeriksaan untuk diperiksa ulang</li>
+                        <li>Periksa setiap nilai hasil dengan teliti</li>
+                        <li>Isi <strong>Tanggal Mulai</strong> dan <strong>Tanggal Selesai</strong> verifikasi</li>
+                        <li>Pilih atau isi <strong>Nama Petugas</strong> yang melakukan verifikasi</li>
+                        <li>Klik tombol <strong>Simpan</strong></li>
+                        <li>Sistem kembali ke halaman verifikasi — baris Verifikasi Hasil menampilkan tanggal</li>
+                    </ol>
+                </div>
+            </section>
+
+            <section id="kesmas-pengesahan" class="doc-section">
+                <div class="section-header">
+                    <h1>Step 7 (Pasca-Analitik): Pengesahan Hasil</h1>
+                </div>
+                <div class="section-content">
+                    <div class="info-box">
+                        <p><strong>Pengesahan Hasil</strong> (Step/Activity 5) adalah tahap terakhir sebelum laporan bisa diterbitkan. Pengesahan dilakukan oleh pejabat berwenang (misalnya Kepala UPT / Kepala Laboratorium) sebagai tanda resmi bahwa hasil sudah sah.</p>
+                    </div>
+
+                    <div class="note-box" style="border-left:4px solid #e74c3c; background:#fdf2f2;">
+                        <p>🔐 <strong>Hak Akses:</strong> Langkah ini hanya bisa dilakukan oleh pejabat berwenang yang memiliki akses pengesahan. Setelah disahkan, laporan bisa dicetak.</p>
+                    </div>
+
+                    <h3>Apa yang Diisi di Form Pengesahan Hasil:</h3>
+                    <table style="width:100%; border-collapse:collapse; margin-bottom:12px;">
+                        <thead>
+                            <tr style="background:#2c7be5; color:white;">
+                                <th style="padding:8px; text-align:left; border:1px solid #ddd;">Kolom</th>
+                                <th style="padding:8px; text-align:left; border:1px solid #ddd;">Penjelasan</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="padding:8px; border:1px solid #ddd;"><strong>Analis yang Mengesahkan</strong></td>
+                                <td style="padding:8px; border:1px solid #ddd;">Nama analis atau kepala lab yang mengesahkan. Pilih dari daftar.</td>
+                            </tr>
+                            <tr style="background:#f8f9fa;">
+                                <td style="padding:8px; border:1px solid #ddd;"><strong>Tanggal Pengesahan</strong></td>
+                                <td style="padding:8px; border:1px solid #ddd;">Tanggal resmi pengesahan hasil. Akan muncul di dokumen LHU.</td>
+                            </tr>
+                            <tr>
+                                <td style="padding:8px; border:1px solid #ddd;"><strong>Tanggal Mulai Verifikasi (Pengesahan)</strong></td>
+                                <td style="padding:8px; border:1px solid #ddd;">Tanggal pejabat mulai memeriksa untuk keperluan pengesahan</td>
+                            </tr>
+                            <tr style="background:#f8f9fa;">
+                                <td style="padding:8px; border:1px solid #ddd;"><strong>Tanggal Selesai Verifikasi (Pengesahan)</strong></td>
+                                <td style="padding:8px; border:1px solid #ddd;">Tanggal pengesahan selesai dilakukan</td>
+                            </tr>
+                            <tr>
+                                <td style="padding:8px; border:1px solid #ddd;"><strong>Nama Petugas (Pengesahan)</strong></td>
+                                <td style="padding:8px; border:1px solid #ddd;">Nama pejabat yang mengesahkan</td>
+                            </tr>
+                            <tr style="background:#f8f9fa;">
+                                <td style="padding:8px; border:1px solid #ddd;"><strong>Nomor Laboratorium</strong></td>
+                                <td style="padding:8px; border:1px solid #ddd;">Nomor lab resmi yang akan tercetak di LHU. Format: <code>449.05/01/XXXX/YYYY</code> (Kimia) atau <code>449.05/02/XXXX/YYYY</code> (Mikrobiologi). Diisi otomatis oleh sistem atau bisa diisi manual jika diizinkan.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3>Langkah-langkah:</h3>
+                    <ol>
+                        <li>Di halaman Verifikasi, klik link <strong>"Pengesahan Hasil"</strong></li>
+                        <li>Periksa kembali semua hasil pemeriksaan yang ditampilkan</li>
+                        <li>Pilih <strong>Analis</strong> dari daftar yang tersedia</li>
+                        <li>Isi <strong>Tanggal Pengesahan</strong></li>
+                        <li>Isi data verifikasi pengesahan (tanggal mulai, selesai, nama petugas)</li>
+                        <li>Pastikan <strong>Nomor Laboratorium</strong> sudah terisi (jika belum, sistem akan mengisi otomatis)</li>
+                        <li>Klik tombol <strong>Simpan / Sahkan</strong></li>
+                        <li>Setelah tersimpan, laporan sudah bisa dicetak</li>
+                    </ol>
+                </div>
+            </section>
+
+            <section id="kesmas-cetak" class="doc-section">
+                <div class="section-header">
+                    <h1>Cetak LHU (Laporan Hasil Uji)</h1>
+                </div>
+                <div class="section-content">
+                    <div class="info-box">
+                        <p><strong>LHU (Laporan Hasil Uji)</strong> adalah dokumen resmi yang berisi semua hasil pemeriksaan untuk diserahkan kepada pelanggan. LHU bisa dicetak setelah Pengesahan Hasil selesai.</p>
+                    </div>
+
+                    <h3>Cara Cetak LHU:</h3>
+                    <ol>
+                        <li>Pastikan semua step verifikasi sudah selesai (termasuk Pengesahan Hasil)</li>
+                        <li>Dari halaman detail sample atau halaman Permohonan Uji, cari tombol <strong>"Cetak LHU"</strong> atau <strong>"Print LHU"</strong></li>
+                        <li>Klik tombol tersebut — halaman cetak akan terbuka di tab baru</li>
+                        <li>Gunakan fitur cetak browser (<strong>Ctrl+P</strong> atau <strong>Cmd+P</strong>) untuk mencetak</li>
+                        <li>Pilih printer dan klik <strong>Print</strong></li>
+                    </ol>
+
+                    <h3>Jenis Dokumen yang Bisa Dicetak:</h3>
+                    <table style="width:100%; border-collapse:collapse;">
+                        <thead>
+                            <tr style="background:#2c7be5; color:white;">
+                                <th style="padding:8px; text-align:left; border:1px solid #ddd;">Dokumen</th>
+                                <th style="padding:8px; text-align:left; border:1px solid #ddd;">Keterangan</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="padding:8px; border:1px solid #ddd;"><strong>LHU Kimia</strong></td>
+                                <td style="padding:8px; border:1px solid #ddd;">Laporan hasil pengujian laboratorium Kimia</td>
+                            </tr>
+                            <tr style="background:#f8f9fa;">
+                                <td style="padding:8px; border:1px solid #ddd;"><strong>LHU Mikrobiologi</strong></td>
+                                <td style="padding:8px; border:1px solid #ddd;">Laporan hasil pengujian laboratorium Mikrobiologi</td>
+                            </tr>
+                            <tr>
+                                <td style="padding:8px; border:1px solid #ddd;"><strong>Verifikasi Sample</strong></td>
+                                <td style="padding:8px; border:1px solid #ddd;">Dokumen rekam jejak semua tahapan verifikasi sample</td>
+                            </tr>
+                            <tr style="background:#f8f9fa;">
+                                <td style="padding:8px; border:1px solid #ddd;"><strong>Nota / Tagihan</strong></td>
+                                <td style="padding:8px; border:1px solid #ddd;">Nota tagihan untuk pelanggan</td>
+                            </tr>
+                            <tr>
+                                <td style="padding:8px; border:1px solid #ddd;"><strong>Inform Concern</strong></td>
+                                <td style="padding:8px; border:1px solid #ddd;">Formulir persetujuan pengambilan sampel</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="note-box">
+                        <p>💡 <strong>Tips:</strong> Jika LHU tidak bisa dicetak (tombol cetak tidak aktif), pastikan Pengesahan Hasil sudah selesai. Cek di halaman Verifikasi apakah semua baris sudah memiliki tanggal.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===== BAKU MUTU KESMAS ===== -->
+            <section id="baku-mutu-kesmas" class="doc-section">
+                <div class="section-header">
+                    <h1>Apa itu Baku Mutu?</h1>
+                </div>
+                <div class="section-content">
+                    <div class="info-box">
+                        <p><strong>Baku Mutu</strong> adalah nilai standar/ambang batas yang ditetapkan oleh peraturan atau referensi ilmiah sebagai batas maksimum atau minimum yang diperbolehkan untuk setiap parameter uji.</p>
+                        <p>Contoh: Parameter "Coliform" pada Air Minum memiliki baku mutu <strong>0 CFU/100 mL</strong> — artinya tidak boleh ada bakteri Coliform sama sekali. Jika hasil pemeriksaan menunjukkan nilai di atas baku mutu, sistem akan menandainya dengan warna merah di laporan.</p>
+                    </div>
+
+                    <h3>Jenis Baku Mutu di Sistem:</h3>
+                    <table style="width:100%; border-collapse:collapse;">
+                        <thead>
+                            <tr style="background:#2c7be5; color:white;">
+                                <th style="padding:8px; text-align:left; border:1px solid #ddd;">Jenis</th>
+                                <th style="padding:8px; text-align:left; border:1px solid #ddd;">Menu di Sistem</th>
+                                <th style="padding:8px; text-align:left; border:1px solid #ddd;">Keterangan</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="padding:8px; border:1px solid #ddd;"><strong>Baku Mutu Kimia</strong></td>
+                                <td style="padding:8px; border:1px solid #ddd;">Master Data → Baku Mutu Kimia</td>
+                                <td style="padding:8px; border:1px solid #ddd;">Untuk parameter-parameter pengujian Kimia (logam berat, pH, turbiditas, dll.)</td>
+                            </tr>
+                            <tr style="background:#f8f9fa;">
+                                <td style="padding:8px; border:1px solid #ddd;"><strong>Baku Mutu Mikrobiologi</strong></td>
+                                <td style="padding:8px; border:1px solid #ddd;">Master Data → Baku Mutu Mikrobiologi</td>
+                                <td style="padding:8px; border:1px solid #ddd;">Untuk parameter-parameter pengujian Mikrobiologi (Coliform, E.coli, dll.)</td>
+                            </tr>
+                            <tr>
+                                <td style="padding:8px; border:1px solid #ddd;"><strong>Baku Mutu Klinik</strong></td>
+                                <td style="padding:8px; border:1px solid #ddd;">Master Data → Baku Mutu Klinik</td>
+                                <td style="padding:8px; border:1px solid #ddd;">Nilai normal untuk pemeriksaan klinik (lihat bagian sebelumnya)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="baku-mutu-kimia" class="doc-section">
+                <div class="section-header">
+                    <h1>Menambah / Mengubah Baku Mutu Kimia</h1>
+                </div>
+                <div class="section-content">
+                    <div class="info-box">
+                        <p>Baku Mutu Kimia mengatur nilai standar untuk setiap parameter pengujian kimia berdasarkan jenis sample dan acuan regulasi yang digunakan.</p>
+                    </div>
+
+                    <h3>Cara Menambah Baku Mutu Kimia Baru:</h3>
+                    <ol>
+                        <li>
+                            <strong>Buka Menu Baku Mutu Kimia</strong>
+                            <ul>
+                                <li>Di sidebar klik <strong>Master Data</strong> → <strong>Baku Mutu Kimia</strong></li>
+                                <li>Daftar baku mutu kimia yang sudah ada akan ditampilkan</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Klik Tombol Tambah Baru</strong>
+                            <ul>
+                                <li>Klik tombol <strong>"+ Tambah Baku Mutu"</strong> atau <strong>"Tambah Baru"</strong></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Isi Form Baku Mutu Kimia</strong>
+                            <table style="width:100%; border-collapse:collapse; margin-bottom:12px;">
+                                <thead>
+                                    <tr style="background:#2c7be5; color:white;">
+                                        <th style="padding:8px; text-align:left; border:1px solid #ddd;">Kolom</th>
+                                        <th style="padding:8px; text-align:left; border:1px solid #ddd;">Penjelasan</th>
+                                        <th style="padding:8px; text-align:left; border:1px solid #ddd;">Wajib?</th>
+                                        <th style="padding:8px; text-align:left; border:1px solid #ddd;">Contoh</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="padding:8px; border:1px solid #ddd;"><strong>Jenis Sample</strong></td>
+                                        <td style="padding:8px; border:1px solid #ddd;">Pilih jenis sample yang menggunakan baku mutu ini</td>
+                                        <td style="padding:8px; border:1px solid #ddd;"><span style="color:red">Ya</span></td>
+                                        <td style="padding:8px; border:1px solid #ddd;">Air Minum, Air Bersih</td>
+                                    </tr>
+                                    <tr style="background:#f8f9fa;">
+                                        <td style="padding:8px; border:1px solid #ddd;"><strong>Jenis Makanan/Minuman</strong></td>
+                                        <td style="padding:8px; border:1px solid #ddd;">Isi jika sample adalah jenis makanan/minuman tertentu</td>
+                                        <td style="padding:8px; border:1px solid #ddd;">Opsional</td>
+                                        <td style="padding:8px; border:1px solid #ddd;">Minuman Ringan, Jajanan</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding:8px; border:1px solid #ddd;"><strong>Parameter / Method</strong></td>
+                                        <td style="padding:8px; border:1px solid #ddd;">Pilih parameter/method yang akan diberi baku mutu ini</td>
+                                        <td style="padding:8px; border:1px solid #ddd;"><span style="color:red">Ya</span></td>
+                                        <td style="padding:8px; border:1px solid #ddd;">pH, Kekeruhan, Besi (Fe)</td>
+                                    </tr>
+                                    <tr style="background:#f8f9fa;">
+                                        <td style="padding:8px; border:1px solid #ddd;"><strong>Acuan Baku Mutu</strong></td>
+                                        <td style="padding:8px; border:1px solid #ddd;">Referensi/dasar hukum baku mutu ini. Pilih dari daftar atau tambah baru (ketik "new:: nama acuan").</td>
+                                        <td style="padding:8px; border:1px solid #ddd;">Ya</td>
+                                        <td style="padding:8px; border:1px solid #ddd;">Permenkes No. 492/2010, SNI 01-3553-2006</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding:8px; border:1px solid #ddd;"><strong>Nilai Baku Mutu</strong></td>
+                                        <td style="padding:8px; border:1px solid #ddd;">Nilai ambang batas yang diperbolehkan. Bisa berupa angka atau teks seperti "Maks. 0,3".</td>
+                                        <td style="padding:8px; border:1px solid #ddd;"><span style="color:red">Ya</span></td>
+                                        <td style="padding:8px; border:1px solid #ddd;"><code>0.3</code>, <code>&lt;= 500</code>, <code>0</code></td>
+                                    </tr>
+                                    <tr style="background:#f8f9fa;">
+                                        <td style="padding:8px; border:1px solid #ddd;"><strong>Satuan</strong></td>
+                                        <td style="padding:8px; border:1px solid #ddd;">Satuan nilai baku mutu. Pilih dari daftar atau tambah baru (ketik "new:: satuan baru").</td>
+                                        <td style="padding:8px; border:1px solid #ddd;">Ya</td>
+                                        <td style="padding:8px; border:1px solid #ddd;">mg/L, NTU, CFU/100 mL, -</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </li>
+                        <li>
+                            <strong>Simpan</strong>
+                            <ul>
+                                <li>Klik tombol <strong>Simpan</strong></li>
+                                <li>Baku mutu baru langsung aktif dan akan digunakan saat memeriksa sample dengan jenis sample dan parameter yang sesuai</li>
+                            </ul>
+                        </li>
+                    </ol>
+
+                    <h3>Cara Mencari Baku Mutu yang Sudah Ada:</h3>
+                    <ul>
+                        <li>Gunakan kotak pencarian di halaman daftar Baku Mutu Kimia</li>
+                        <li>Bisa dicari berdasarkan: Jenis Sample, Parameter, atau kata kunci lain</li>
+                        <li>Gunakan filter dropdown untuk mempersempit pencarian</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="baku-mutu-mikro" class="doc-section">
+                <div class="section-header">
+                    <h1>Menambah / Mengubah Baku Mutu Mikrobiologi</h1>
+                </div>
+                <div class="section-content">
+                    <div class="info-box">
+                        <p>Baku Mutu Mikrobiologi mengatur nilai standar untuk parameter-parameter pengujian mikrobiologi seperti Total Coliform, E. coli, Angka Lempeng Total (ALT), dll.</p>
+                    </div>
+
+                    <h3>Langkah-langkah (sama dengan Baku Mutu Kimia):</h3>
+                    <ol>
+                        <li>Di sidebar klik <strong>Master Data</strong> → <strong>Baku Mutu Mikrobiologi</strong></li>
+                        <li>Klik tombol <strong>"+ Tambah Baru"</strong></li>
+                        <li>Isi form dengan kolom yang sama seperti Baku Mutu Kimia:
+                            <ul>
+                                <li><strong>Jenis Sample</strong> — pilih jenis sample (contoh: Air Minum)</li>
+                                <li><strong>Parameter</strong> — pilih parameter (contoh: Total Coliform)</li>
+                                <li><strong>Acuan Baku Mutu</strong> — referensi regulasi</li>
+                                <li><strong>Nilai Baku Mutu</strong> — nilai ambang batas (contoh: <code>0</code> untuk Total Coliform Air Minum)</li>
+                                <li><strong>Satuan</strong> — contoh: <code>CFU/100 mL</code></li>
+                            </ul>
+                        </li>
+                        <li>Klik <strong>Simpan</strong></li>
+                    </ol>
+
+                    <div class="note-box" style="border-left:4px solid #27ae60; background:#f0fff4;">
+                        <p>✅ <strong>Contoh Baku Mutu Mikrobiologi Air Minum (Permenkes 492/2010):</strong>
+                        <table style="width:100%; border-collapse:collapse; margin-top:8px;">
+                            <thead>
+                                <tr style="background:#27ae60; color:white;">
+                                    <th style="padding:6px; border:1px solid #ddd;">Parameter</th>
+                                    <th style="padding:6px; border:1px solid #ddd;">Nilai Baku Mutu</th>
+                                    <th style="padding:6px; border:1px solid #ddd;">Satuan</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td style="padding:6px; border:1px solid #ddd;">E. coli</td><td style="padding:6px; border:1px solid #ddd;">0</td><td style="padding:6px; border:1px solid #ddd;">CFU/100 mL</td></tr>
+                                <tr style="background:#f8f9fa;"><td style="padding:6px; border:1px solid #ddd;">Total Coliform</td><td style="padding:6px; border:1px solid #ddd;">0</td><td style="padding:6px; border:1px solid #ddd;">CFU/100 mL</td></tr>
+                            </tbody>
+                        </table>
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="baku-mutu-edit" class="doc-section">
+                <div class="section-header">
+                    <h1>Mengubah atau Menghapus Baku Mutu</h1>
+                </div>
+                <div class="section-content">
+                    <div class="note-box" style="border-left:4px solid #e74c3c; background:#fdf2f2;">
+                        <p>⚠️ <strong>Perhatian Penting:</strong> Mengubah atau menghapus baku mutu akan langsung mempengaruhi hasil pemeriksaan baru. Sample yang sudah selesai diproses tidak akan berubah, tetapi pemeriksaan baru menggunakan baku mutu terbaru.<br><br>
+                        Pastikan perubahan baku mutu sudah dikonfirmasi dengan Kepala Laboratorium dan mengacu pada regulasi yang berlaku.</p>
+                    </div>
+
+                    <h3>Cara Mengubah Nilai Baku Mutu:</h3>
+                    <ol>
+                        <li>Buka menu <strong>Baku Mutu Kimia</strong> atau <strong>Baku Mutu Mikrobiologi</strong></li>
+                        <li>Cari baku mutu yang ingin diubah menggunakan pencarian atau filter</li>
+                        <li>Klik tombol <strong>Edit</strong> di baris baku mutu tersebut</li>
+                        <li>Ubah nilai yang perlu diubah:
+                            <ul>
+                                <li><strong>Nilai Baku Mutu</strong> — ubah angkanya sesuai regulasi terbaru</li>
+                                <li><strong>Acuan Baku Mutu</strong> — ubah jika acuan regulasinya berubah</li>
+                                <li><strong>Satuan</strong> — ubah jika satuannya berubah</li>
+                            </ul>
+                        </li>
+                        <li>Klik <strong>Simpan</strong></li>
+                    </ol>
+
+                    <h3>Cara Menghapus Baku Mutu:</h3>
+                    <ol>
+                        <li>Cari baku mutu yang ingin dihapus</li>
+                        <li>Klik tombol <strong>Hapus</strong> di baris tersebut</li>
+                        <li>Konfirmasi penghapusan</li>
+                        <li>Baku mutu terhapus — parameter tersebut tidak akan memiliki batas baku mutu lagi, sehingga nilai apapun tidak akan ditandai merah</li>
+                    </ol>
+
+                    <div class="note-box">
+                        <p>💡 <strong>Tips:</strong> Jika regulasi baku mutu berubah (misalnya ada Permenkes baru), <strong>jangan hapus baku mutu lama</strong> dulu. Pertimbangkan untuk menambah baku mutu baru dengan acuan regulasi baru, dan hapus yang lama hanya setelah semua permohonan dengan regulasi lama sudah selesai diproses.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Permohonan Uji Klinik Section -->
+            <section id="klinik-step1" class="doc-section">
+                <div class="section-header">
+                    <h1>Step 1: Pilih Tipe Dokter</h1>
+                </div>
+                <div class="section-content">
+                    <div class="screenshot-container">
+                        <div class="screenshot-placeholder">
+                            <i class="fas fa-image"></i>
+                            <p>Screenshot: Form Tambah Permohonan Uji Klinik - Step 1</p>
+                            <small>Tambahkan screenshot form Step 1 (Pilih Tipe Dokter) di sini</small>
+                        </div>
+                    </div>
+                    <div class="info-box">
+                        <p>Permohonan Uji Klinik adalah proses untuk pemeriksaan klinik (pemeriksaan pasien).</p>
+                    </div>
+
+                    <h3>Langkah-langkah:</h3>
+                    <ol>
+                        <li><strong>Akses Menu Permohonan Uji Klinik</strong>
+                            <ul>
+                                <li>Klik menu <strong>Permohonan Uji Klinik</strong> di sidebar</li>
+                                <li>Klik tombol <strong>Tambah Permohonan Uji Klinik Baru</strong></li>
+                            </ul>
+                        </li>
+                        <li><strong>Pilih Tipe Dokter</strong>
+                            <p>Ada dua pilihan:</p>
+                            <p><strong>A. Dokter Lab</strong></p>
+                            <ul>
+                                <li>Untuk pemeriksaan laboratorium internal</li>
+                                <li>Tidak memerlukan rujukan dari dokter luar</li>
+                                <li>Tidak memerlukan diagnosa</li>
+                            </ul>
+                            <p><strong>B. Dokter Rujukan</strong></p>
+                            <ul>
+                                <li>Untuk pemeriksaan berdasarkan rujukan dari dokter pengirim</li>
+                                <li>Memerlukan diagnosa</li>
+                                <li>Memerlukan informasi dokter pengirim</li>
+                            </ul>
+                        </li>
+                        <li><strong>Lanjut ke Step 2</strong>
+                            <ul>
+                                <li>Klik tombol <strong>Lanjut</strong> setelah memilih tipe dokter</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+            </section>
+
+            <section id="klinik-step2" class="doc-section">
+                <div class="section-header">
+                    <h1>Step 2: Data Pasien</h1>
+                </div>
+                <div class="section-content">
+                    <h3>Langkah-langkah:</h3>
+                    <ol>
+                        <li><strong>Cari atau Tambah Pasien</strong>
+                            <p><strong>A. Cari Pasien yang Sudah Ada:</strong></p>
+                            <ul>
+                                <li>Klik tombol <strong>Cari Pasien</strong></li>
+                                <li>Masukkan:
+                                    <ul>
+                                        <li>Nama Pasien, atau</li>
+                                        <li>No. Pasien, atau</li>
+                                        <li>No. BPJS</li>
+                                    </ul>
+                                </li>
+                                <li>Klik <strong>Cari</strong></li>
+                                <li>Pilih pasien dari hasil pencarian</li>
+                            </ul>
+                            <p><strong>B. Tambah Pasien Baru:</strong></p>
+                            <ul>
+                                <li>Klik tombol <strong>Tambah Pasien Baru</strong></li>
+                                <li>Isi form:
+                                    <ul>
+                                        <li><strong>No. Pasien</strong> (wajib, unik)</li>
+                                        <li><strong>Nama Pasien</strong> (wajib)</li>
+                                        <li><strong>Tanggal Lahir</strong> (wajib)</li>
+                                        <li><strong>Jenis Kelamin</strong> (wajib)</li>
+                                        <li><strong>Alamat</strong> (wajib)</li>
+                                        <li><strong>No. Telepon</strong> (opsional)</li>
+                                        <li><strong>No. KTP</strong> (opsional)</li>
+                                        <li><strong>No. BPJS</strong> (opsional)</li>
+                                    </ul>
+                                </li>
+                                <li>Klik <strong>Simpan</strong></li>
+                            </ul>
+                        </li>
+                        <li><strong>Verifikasi Data Pasien</strong>
+                            <ul>
+                                <li>Pastikan data pasien yang ditampilkan sudah benar</li>
+                                <li>Data pasien akan otomatis terisi di form permohonan</li>
+                            </ul>
+                        </li>
+                        <li><strong>Lanjut ke Step 3</strong>
+                            <ul>
+                                <li>Klik tombol <strong>Lanjut</strong> setelah memastikan data pasien</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+            </section>
+
+            <section id="klinik-step3" class="doc-section">
+                <div class="section-header">
+                    <h1>Step 3: Informasi Permohonan</h1>
+                </div>
+                <div class="section-content">
+                    <h3>Langkah-langkah:</h3>
+                    <ol>
+                        <li><strong>Informasi Dasar Permohonan</strong>
+                            <ul>
+                                <li><strong>No. SAMPLE</strong> (otomatis) - Format: <code>[KODE]/[TANGGAL]/[URUTAN]</code></li>
+                                <li><strong>TGL. REGISTER</strong> (otomatis) - Tanggal dan waktu registrasi</li>
+                                <li><strong>Petugas Registrasi</strong> (opsional) - Pilih petugas yang menerima permohonan</li>
+                                <li><strong>MODE PENGAMBILAN SAMPEL</strong> (wajib)
+                                    <ul>
+                                        <li>Diambil di Lab</li>
+                                        <li>Dibawa Pelanggan Sendiri</li>
+                                        <li>Diambil Di Lokasi/Rumah</li>
+                                    </ul>
+                                </li>
+                                <li><strong>BIAYA PENGAMBILAN SAMPEL</strong> (jika mode "Diambil Di Lokasi/Rumah")
+                                    <ul>
+                                        <li>Default: Rp 20.000</li>
+                                        <li>Dapat disesuaikan</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li><strong>Data Pasien (Otomatis dari Step 2)</strong>
+                            <ul>
+                                <li>Nama Pasien</li>
+                                <li>Tanggal Lahir</li>
+                                <li>Jenis Kelamin</li>
+                                <li>Umur (otomatis dihitung)</li>
+                                <li>Alamat</li>
+                            </ul>
+                        </li>
+                        <li><strong>Informasi Pemeriksaan</strong>
+                            <ul>
+                                <li><strong>Tanggal Pengambilan</strong> (wajib) - Tanggal dan waktu pengambilan sample</li>
+                                <li><strong>Nama Pengirim</strong> (opsional) - Nama dokter atau petugas yang mengirim</li>
+                                <li><strong>Diagnosa</strong> (wajib jika Dokter Rujukan) - Diagnosa dari dokter pengirim</li>
+                                <li><strong>Dokter</strong> (opsional) - Pilih dokter yang menangani</li>
+                            </ul>
+                        </li>
+                        <li><strong>Informasi Tambahan</strong>
+                            <ul>
+                                <li><strong>Lapangan</strong> (opsional) - Centang jika pemeriksaan dilakukan di lapangan</li>
+                                <li><strong>Catatan</strong> (opsional) - Keterangan tambahan</li>
+                            </ul>
+                        </li>
+                        <li><strong>Simpan Permohonan Uji Klinik</strong>
+                            <ul>
+                                <li>Klik tombol <strong>Simpan</strong></li>
+                                <li>Sistem akan:
+                                    <ul>
+                                        <li>Generate kode permohonan uji klinik</li>
+                                        <li>Menyimpan data pasien (jika baru)</li>
+                                        <li>Set status menjadi <strong>PARAMETER</strong> (menunggu penambahan parameter)</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+            </section>
+
+            <section id="klinik-parameter" class="doc-section">
+                <div class="section-header">
+                    <h1>Menambahkan Parameter di Panel Pemeriksaan Klinik</h1>
+                </div>
+                <div class="section-content">
+                    <div class="screenshot-container">
+                        <div class="screenshot-placeholder">
+                            <i class="fas fa-image"></i>
+                            <p>Screenshot: Form Tambah Parameter Permohonan Uji Klinik</p>
+                            <small>Tambahkan screenshot form tambah Parameter di sini</small>
+                        </div>
+                    </div>
+
+                    <div class="info-box">
+                        <p><strong>Apa itu Parameter Pemeriksaan?</strong><br>
+                        Parameter adalah jenis-jenis tes yang akan dilakukan pada pasien. Contoh: Gula Darah, Kolesterol, Hemoglobin, Urine Lengkap, dan sebagainya. Setiap parameter memiliki harga sendiri. Anda harus menambahkan parameter sebelum pemeriksaan dapat dilanjutkan.</p>
+                    </div>
+
+                    <div class="note-box" style="border-left: 4px solid #e74c3c; background: #fdf2f2;">
+                        <p>⚠️ <strong>Perhatian:</strong> Pastikan Permohonan Uji Klinik sudah dibuat terlebih dahulu (lihat langkah sebelumnya). Parameter baru bisa ditambahkan setelah permohonan tersimpan dan statusnya <strong>PARAMETER</strong>.</p>
+                    </div>
+
+                    <h3>Langkah-langkah Menambah Parameter:</h3>
+                    <ol>
+                        <li>
+                            <strong>Buka daftar Permohonan Uji Klinik</strong>
+                            <ul>
+                                <li>Klik menu <strong>Permohonan Uji Klinik</strong> di sebelah kiri layar (sidebar)</li>
+                                <li>Cari nama pasien yang ingin ditambahkan parameternya</li>
+                                <li>Klik pada baris data pasien tersebut untuk membuka detailnya</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Buka Halaman Parameter</strong>
+                            <ul>
+                                <li>Di halaman detail pasien, cari tombol berwarna <strong>"Tambah Parameter"</strong> atau <strong>"+ Parameter"</strong></li>
+                                <li>Klik tombol tersebut — halaman form penambahan parameter akan terbuka</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Pilih Cara Penambahan Parameter</strong>
+                            <p>Ada <strong>dua cara</strong> menambahkan parameter:</p>
+                            <table style="width:100%; border-collapse:collapse; margin-bottom:12px;">
+                                <thead>
+                                    <tr style="background:#2c7be5; color:white;">
+                                        <th style="padding:8px; text-align:left; border:1px solid #ddd;">Cara</th>
+                                        <th style="padding:8px; text-align:left; border:1px solid #ddd;">Keterangan</th>
+                                        <th style="padding:8px; text-align:left; border:1px solid #ddd;">Kapan Digunakan</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="padding:8px; border:1px solid #ddd;"><strong>A. Paket</strong></td>
+                                        <td style="padding:8px; border:1px solid #ddd;">Memilih satu paket yang sudah berisi beberapa parameter sekaligus</td>
+                                        <td style="padding:8px; border:1px solid #ddd;">Jika ada paket yang sesuai (lebih hemat dan cepat)</td>
+                                    </tr>
+                                    <tr style="background:#f8f9fa;">
+                                        <td style="padding:8px; border:1px solid #ddd;"><strong>B. Individual</strong></td>
+                                        <td style="padding:8px; border:1px solid #ddd;">Memilih parameter satu per satu sesuai kebutuhan</td>
+                                        <td style="padding:8px; border:1px solid #ddd;">Jika tidak ada paket yang cocok atau hanya butuh 1-2 tes tertentu</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </li>
+
+                        <li>
+                            <strong>Cara A — Memilih Parameter dengan Paket</strong>
+                            <ol type="a">
+                                <li>Pada kolom atau dropdown <strong>"Tipe Parameter"</strong>, pilih <strong>P (Paket)</strong></li>
+                                <li>Pada dropdown <strong>"Jenis Parameter / Nama Paket"</strong>, klik dan pilih nama paket yang sesuai (contoh: "Paket Darah Lengkap", "Paket Profil Lipid")</li>
+                                <li>Sistem akan otomatis mengisi <strong>harga paket</strong></li>
+                                <li>Jika paket menggunakan satuan (misal: satuan botol/tabung), pilih pada dropdown <strong>"Satuan"</strong></li>
+                                <li>Klik tombol <strong>Simpan</strong> / <strong>Tambahkan</strong></li>
+                                <li>Ulangi untuk menambah paket lain jika diperlukan</li>
+                            </ol>
+                        </li>
+
+                        <li>
+                            <strong>Cara B — Memilih Parameter Individual</strong>
+                            <ol type="a">
+                                <li>Pada kolom atau dropdown <strong>"Tipe Parameter"</strong>, pilih <strong>I (Individual)</strong></li>
+                                <li>Pada dropdown <strong>"Jenis Parameter"</strong>, klik dan cari nama tes yang diinginkan (contoh: "Gula Darah Puasa", "Kolesterol Total", "Hemoglobin")</li>
+                                <li>Setelah memilih, harga akan muncul otomatis di kolom <strong>"Harga"</strong></li>
+                                <li>Klik tombol <strong>Tambahkan</strong> atau <strong>+ (plus)</strong> untuk menambahkan parameter tersebut ke daftar</li>
+                                <li>Ulangi langkah b–d untuk setiap parameter yang ingin ditambahkan</li>
+                                <li>Setelah semua parameter dipilih, klik tombol <strong>Simpan</strong></li>
+                            </ol>
+                        </li>
+
+                        <li>
+                            <strong>Periksa Ringkasan Harga</strong>
+                            <ul>
+                                <li>Setelah menyimpan, sistem akan menampilkan daftar parameter yang sudah ditambahkan beserta harga masing-masing</li>
+                                <li>Periksa apakah semua parameter sudah benar dan harga total sudah sesuai</li>
+                                <li>Jika ada yang salah, lihat panduan <a href="#klinik-parameter-hapus">Hapus / Ubah Parameter</a></li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <strong>Status Berubah Otomatis</strong>
+                            <ul>
+                                <li>Setelah parameter ditambahkan, status permohonan akan berubah dari <strong>PARAMETER</strong> menjadi <strong>ANALIS</strong></li>
+                                <li>Ini berarti pasien siap untuk dilakukan analisis/pemeriksaan laboratorium</li>
+                            </ul>
+                        </li>
+                    </ol>
+
+                    <div class="note-box">
+                        <h3>💡 Arti Status Permohonan Uji Klinik:</h3>
+                        <table style="width:100%; border-collapse:collapse;">
+                            <thead>
+                                <tr style="background:#2c7be5; color:white;">
+                                    <th style="padding:8px; text-align:left; border:1px solid #ddd;">Status</th>
+                                    <th style="padding:8px; text-align:left; border:1px solid #ddd;">Artinya</th>
+                                    <th style="padding:8px; text-align:left; border:1px solid #ddd;">Tindakan Selanjutnya</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="padding:8px; border:1px solid #ddd;"><span style="background:#f39c12;color:white;padding:2px 8px;border-radius:4px;">PARAMETER</span></td>
+                                    <td style="padding:8px; border:1px solid #ddd;">Permohonan baru dibuat, belum ada parameter</td>
+                                    <td style="padding:8px; border:1px solid #ddd;">Tambahkan parameter pemeriksaan</td>
+                                </tr>
+                                <tr style="background:#f8f9fa;">
+                                    <td style="padding:8px; border:1px solid #ddd;"><span style="background:#3498db;color:white;padding:2px 8px;border-radius:4px;">ANALIS</span></td>
+                                    <td style="padding:8px; border:1px solid #ddd;">Parameter sudah ada, siap dianalisis</td>
+                                    <td style="padding:8px; border:1px solid #ddd;">Petugas laboratorium input hasil pemeriksaan</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding:8px; border:1px solid #ddd;"><span style="background:#9b59b6;color:white;padding:2px 8px;border-radius:4px;">VERIFIKASI</span></td>
+                                    <td style="padding:8px; border:1px solid #ddd;">Hasil sudah diinput, menunggu verifikasi dokter/kepala</td>
+                                    <td style="padding:8px; border:1px solid #ddd;">Dokter/kepala laboratorium verifikasi hasil</td>
+                                </tr>
+                                <tr style="background:#f8f9fa;">
+                                    <td style="padding:8px; border:1px solid #ddd;"><span style="background:#27ae60;color:white;padding:2px 8px;border-radius:4px;">SELESAI</span></td>
+                                    <td style="padding:8px; border:1px solid #ddd;">Pemeriksaan selesai dan hasil siap diambil/dicetak</td>
+                                    <td style="padding:8px; border:1px solid #ddd;">Cetak hasil untuk diserahkan ke pasien</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <section id="klinik-parameter-hapus" class="doc-section">
+                <div class="section-header">
+                    <h1>Hapus atau Ubah Parameter yang Sudah Ditambahkan</h1>
+                </div>
+                <div class="section-content">
+                    <div class="info-box">
+                        <p>Jika Anda salah memilih parameter atau ingin mengganti parameter, ikuti langkah berikut.</p>
+                    </div>
+
+                    <div class="note-box" style="border-left:4px solid #e74c3c; background:#fdf2f2;">
+                        <p>⚠️ <strong>Perhatian:</strong> Parameter hanya bisa dihapus/diubah selama status masih <strong>ANALIS</strong> atau <strong>PARAMETER</strong>. Jika sudah <strong>VERIFIKASI</strong> atau <strong>SELESAI</strong>, hubungi admin sistem.</p>
+                    </div>
+
+                    <h3>Cara Menghapus Parameter yang Salah:</h3>
+                    <ol>
+                        <li>Buka halaman detail Permohonan Uji Klinik pasien</li>
+                        <li>Cari daftar parameter yang sudah ditambahkan (biasanya berupa tabel di halaman tersebut)</li>
+                        <li>Di sebelah kanan setiap baris parameter, ada tombol <strong>Hapus</strong> (ikon tempat sampah 🗑️ atau tulisan "Hapus")</li>
+                        <li>Klik tombol <strong>Hapus</strong> pada parameter yang ingin dihapus</li>
+                        <li>Sistem akan meminta konfirmasi — klik <strong>Ya, Hapus</strong> atau <strong>OK</strong> untuk melanjutkan</li>
+                        <li>Parameter akan dihapus dan total harga akan diperbarui otomatis</li>
+                    </ol>
+
+                    <h3>Cara Mengganti Parameter:</h3>
+                    <p>Sistem tidak memiliki tombol "ubah" langsung untuk parameter. Caranya adalah:</p>
+                    <ol>
+                        <li>Hapus parameter yang salah (ikuti langkah di atas)</li>
+                        <li>Tambahkan ulang parameter yang benar (ikuti panduan <a href="#klinik-parameter">Menambahkan Parameter</a>)</li>
+                    </ol>
+                </div>
+            </section>
+
+            <section id="klinik-input-hasil" class="doc-section">
+                <div class="section-header">
+                    <h1>Input Hasil Pemeriksaan Klinik</h1>
+                </div>
+                <div class="section-content">
+                    <div class="info-box">
+                        <p>Setelah parameter ditambahkan, petugas laboratorium memasukkan hasil pemeriksaan untuk setiap parameter.</p>
+                    </div>
+
+                    <div class="note-box" style="border-left:4px solid #f39c12; background:#fffbf0;">
+                        <p>📋 <strong>Catatan:</strong> Langkah ini dilakukan oleh analis/petugas laboratorium setelah pemeriksaan fisik/kimia selesai dilakukan. Status permohonan harus <strong>ANALIS</strong>.</p>
+                    </div>
+
+                    <h3>Langkah-langkah Input Hasil:</h3>
+                    <ol>
+                        <li>
+                            <strong>Buka Permohonan Uji Klinik</strong>
+                            <ul>
+                                <li>Dari menu <strong>Permohonan Uji Klinik</strong>, cari pasien dengan status <strong>ANALIS</strong></li>
+                                <li>Klik pada baris pasien untuk membuka halaman detailnya</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Buka Form Input Hasil</strong>
+                            <ul>
+                                <li>Cari tombol <strong>"Input Hasil"</strong> atau <strong>"Isi Hasil Pemeriksaan"</strong></li>
+                                <li>Klik tombol tersebut</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Isi Nilai Hasil untuk Setiap Parameter</strong>
+                            <ul>
+                                <li>Akan muncul daftar semua parameter yang dipilih</li>
+                                <li>Untuk setiap parameter, isi kolom <strong>Nilai Hasil</strong> dengan angka atau keterangan hasil pemeriksaan</li>
+                                <li>Contoh: Parameter "Gula Darah Puasa" diisi dengan nilai <strong>95</strong> (satuan mg/dL)</li>
+                                <li>Jika ada kolom <strong>Keterangan</strong>, isi jika diperlukan</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Simpan Hasil</strong>
+                            <ul>
+                                <li>Setelah semua nilai terisi, klik tombol <strong>Simpan</strong></li>
+                                <li>Sistem akan memeriksa apakah nilai sudah masuk range normal</li>
+                                <li>Nilai di luar range normal akan ditandai dengan warna merah (untuk perhatian dokter)</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Kirim ke Verifikasi</strong>
+                            <ul>
+                                <li>Setelah semua hasil terisi, klik tombol <strong>"Kirim ke Verifikasi"</strong> atau <strong>"Submit"</strong></li>
+                                <li>Status akan berubah menjadi <strong>VERIFIKASI</strong></li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+            </section>
+
+            <!-- ===== PENGATURAN HARGA ===== -->
+            <section id="harga-method" class="doc-section">
+                <div class="section-header">
+                    <h1>Cara Mengubah Harga Method (Parameter Non-Klinik)</h1>
+                </div>
+                <div class="section-content">
+                    <div class="info-box">
+                        <p><strong>Apa itu Method?</strong><br>
+                        Method adalah jenis pengujian laboratorium non-klinik seperti pengujian air, makanan, udara, dll. Setiap method memiliki harga yang bisa diubah kapan saja oleh admin/petugas yang berwenang.</p>
+                    </div>
+
+                    <div class="note-box" style="border-left:4px solid #e74c3c; background:#fdf2f2;">
+                        <p>⚠️ <strong>Perhatian:</strong> Perubahan harga method <strong>tidak akan mempengaruhi permohonan uji yang sudah ada</strong>. Harga baru hanya berlaku untuk permohonan uji yang dibuat setelah perubahan tersimpan.</p>
+                    </div>
+
+                    <h3>Langkah-langkah Mengubah Harga Method:</h3>
+                    <ol>
+                        <li>
+                            <strong>Masuk ke Menu Method</strong>
+                            <ul>
+                                <li>Di sidebar sebelah kiri, klik menu <strong>Master Data</strong></li>
+                                <li>Kemudian klik submenu <strong>Method</strong></li>
+                                <li>Akan muncul daftar semua method yang tersedia</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Cari Method yang Ingin Diubah Harganya</strong>
+                            <ul>
+                                <li>Gunakan kotak pencarian di bagian atas tabel untuk mencari nama method</li>
+                                <li>Ketik sebagian nama method, lalu tekan Enter atau tunggu hingga daftar tersaring</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Buka Form Edit Method</strong>
+                            <ul>
+                                <li>Di baris method yang ingin diubah, klik tombol <strong>Edit</strong> (ikon pensil ✏️ atau tulisan "Edit")</li>
+                                <li>Form edit akan terbuka</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Ubah Harga</strong>
+                            <p>Di form edit, cari dan ubah kolom-kolom harga berikut:</p>
+                            <table style="width:100%; border-collapse:collapse; margin-bottom:12px;">
+                                <thead>
+                                    <tr style="background:#2c7be5; color:white;">
+                                        <th style="padding:8px; text-align:left; border:1px solid #ddd;">Kolom</th>
+                                        <th style="padding:8px; text-align:left; border:1px solid #ddd;">Keterangan</th>
+                                        <th style="padding:8px; text-align:left; border:1px solid #ddd;">Wajib?</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="padding:8px; border:1px solid #ddd;"><strong>Harga Bahan</strong></td>
+                                        <td style="padding:8px; border:1px solid #ddd;">Biaya bahan-bahan yang digunakan dalam pengujian</td>
+                                        <td style="padding:8px; border:1px solid #ddd;">Opsional</td>
+                                    </tr>
+                                    <tr style="background:#f8f9fa;">
+                                        <td style="padding:8px; border:1px solid #ddd;"><strong>Harga Sarana</strong></td>
+                                        <td style="padding:8px; border:1px solid #ddd;">Biaya penggunaan alat/sarana laboratorium</td>
+                                        <td style="padding:8px; border:1px solid #ddd;">Opsional</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding:8px; border:1px solid #ddd;"><strong>Harga Jasa</strong></td>
+                                        <td style="padding:8px; border:1px solid #ddd;">Biaya jasa petugas yang melakukan pengujian</td>
+                                        <td style="padding:8px; border:1px solid #ddd;">Opsional</td>
+                                    </tr>
+                                    <tr style="background:#f8f9fa;">
+                                        <td style="padding:8px; border:1px solid #ddd;"><strong>Harga Total Method</strong></td>
+                                        <td style="padding:8px; border:1px solid #ddd;">Total harga yang ditagihkan ke pelanggan. <strong>Ini yang paling penting diubah.</strong></td>
+                                        <td style="padding:8px; border:1px solid #ddd;"><span style="color:red">Wajib</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <ul>
+                                <li>Klik pada kolom <strong>Harga Total Method</strong>, hapus angka lama, lalu ketik angka baru</li>
+                                <li>Contoh: Ubah dari <code>50000</code> menjadi <code>75000</code> (tanpa titik atau koma)</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Simpan Perubahan</strong>
+                            <ul>
+                                <li>Klik tombol <strong>Simpan</strong> atau <strong>Update</strong></li>
+                                <li>Jika berhasil, akan muncul pesan "<strong>Data berhasil diperbarui</strong>"</li>
+                                <li>Harga baru sudah aktif untuk permohonan berikutnya</li>
+                            </ul>
+                        </li>
+                    </ol>
+
+                    <div class="note-box">
+                        <p>💡 <strong>Tips:</strong> Jika ada banyak method yang perlu diubah harganya, lakukan satu per satu dan catat method-method yang sudah diubah agar tidak terlewat.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="harga-packet" class="doc-section">
+                <div class="section-header">
+                    <h1>Cara Mengubah Harga Paket Pemeriksaan (Packet)</h1>
+                </div>
+                <div class="section-content">
+                    <div class="info-box">
+                        <p><strong>Apa itu Paket?</strong><br>
+                        Paket adalah kumpulan beberapa method yang dijual sebagai satu kesatuan dengan harga yang biasanya lebih terjangkau. Contoh: "Paket Air Minum Lengkap" berisi 20 pengujian dengan satu harga.</p>
+                    </div>
+
+                    <div class="note-box" style="border-left:4px solid #e74c3c; background:#fdf2f2;">
+                        <p>⚠️ <strong>Perhatian:</strong> Mengubah harga paket tidak secara otomatis mengubah harga method di dalamnya. Harga paket adalah harga jual keseluruhan paket tersebut.</p>
+                    </div>
+
+                    <h3>Langkah-langkah Mengubah Harga Paket:</h3>
+                    <ol>
+                        <li>
+                            <strong>Masuk ke Menu Packet</strong>
+                            <ul>
+                                <li>Di sidebar sebelah kiri, klik menu <strong>Master Data</strong></li>
+                                <li>Kemudian klik submenu <strong>Packet</strong></li>
+                                <li>Daftar semua paket akan ditampilkan</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Cari Paket yang Ingin Diubah</strong>
+                            <ul>
+                                <li>Gunakan kotak pencarian untuk mengetik nama paket</li>
+                                <li>Atau cari secara manual di daftar paket</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Buka Form Edit Paket</strong>
+                            <ul>
+                                <li>Klik tombol <strong>Edit</strong> (ikon pensil ✏️) di baris paket yang bersangkutan</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Ubah Harga Paket</strong>
+                            <ul>
+                                <li>Cari kolom <strong>"Harga Packet"</strong></li>
+                                <li>Klik kolom tersebut, hapus angka lama</li>
+                                <li>Ketik harga baru (contoh: <code>300000</code>)</li>
+                                <li>Pastikan angka tidak menggunakan titik pemisah ribuan — tulis angka langsung</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Simpan Perubahan</strong>
+                            <ul>
+                                <li>Klik tombol <strong>Simpan</strong> atau <strong>Update</strong></li>
+                                <li>Muncul pesan sukses berarti harga paket sudah berubah</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+            </section>
+
+            <section id="harga-kesmas-ringkasan" class="doc-section">
+                <div class="section-header">
+                    <h1>Ringkasan: Cara Mengganti Harga di Sistem Kesmas</h1>
+                </div>
+                <div class="section-content">
+                    <div class="info-box">
+                        <p>Ada tiga cara harga dihitung di sistem Kesmas (non-klinik). Berikut panduan singkat untuk mengganti harga masing-masing.</p>
+                    </div>
+
+                    <table style="width:100%; border-collapse:collapse;">
+                        <thead>
+                            <tr style="background:#2c7be5; color:white;">
+                                <th style="padding:10px; text-align:left; border:1px solid #ddd;">Skenario</th>
+                                <th style="padding:10px; text-align:left; border:1px solid #ddd;">Di Mana Mengubahnya</th>
+                                <th style="padding:10px; text-align:left; border:1px solid #ddd;">Langkah Cepat</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="padding:10px; border:1px solid #ddd;">Harga satu jenis pengujian (method) berubah</td>
+                                <td style="padding:10px; border:1px solid #ddd;">Master Data → Method</td>
+                                <td style="padding:10px; border:1px solid #ddd;">Cari method → Edit → Ubah <strong>Harga Total Method</strong> → Simpan</td>
+                            </tr>
+                            <tr style="background:#f8f9fa;">
+                                <td style="padding:10px; border:1px solid #ddd;">Harga paket pengujian berubah</td>
+                                <td style="padding:10px; border:1px solid #ddd;">Master Data → Packet</td>
+                                <td style="padding:10px; border:1px solid #ddd;">Cari paket → Edit → Ubah <strong>Harga Packet</strong> → Simpan</td>
+                            </tr>
+                            <tr>
+                                <td style="padding:10px; border:1px solid #ddd;">Harga sampling (biaya pengambilan sample oleh petugas lab) berubah</td>
+                                <td style="padding:10px; border:1px solid #ddd;">Langsung di form Sample saat input</td>
+                                <td style="padding:10px; border:1px solid #ddd;">Saat menambah sample, ubah nilai di kolom <strong>Biaya Sampling</strong> sesuai kebutuhan</td>
+                            </tr>
+                            <tr style="background:#f8f9fa;">
+                                <td style="padding:10px; border:1px solid #ddd;">Harga permohonan uji ingin diubah manual</td>
+                                <td style="padding:10px; border:1px solid #ddd;">Edit Permohonan Uji</td>
+                                <td style="padding:10px; border:1px solid #ddd;">Buka detail permohonan → Edit → Ubah Uang Muka atau Status Pembayaran → Simpan</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="note-box" style="border-left:4px solid #e74c3c; background:#fdf2f2;">
+                        <p>⚠️ <strong>Ingat:</strong> Perubahan harga di Master Data (Method/Packet) <strong>tidak berlaku mundur</strong>. Permohonan uji yang sudah ada tetap menggunakan harga lama. Harga baru hanya berlaku untuk permohonan baru.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="harga-parameter-klinik" class="doc-section">
+                <div class="section-header">
+                    <h1>Cara Mengubah Harga Parameter Klinik</h1>
+                </div>
+                <div class="section-content">
+                    <div class="info-box">
+                        <p><strong>Parameter Klinik</strong> adalah jenis tes pemeriksaan untuk pasien seperti Gula Darah, Kolesterol, Hemoglobin, dll. Harga setiap parameter diatur di master data parameter klinik.</p>
+                    </div>
+
+                    <h3>Langkah-langkah Mengubah Harga Parameter Klinik Individual:</h3>
+                    <ol>
+                        <li>
+                            <strong>Masuk ke Menu Jenis Parameter Klinik</strong>
+                            <ul>
+                                <li>Di sidebar, klik menu <strong>Master Data</strong> atau <strong>Laboratorium</strong></li>
+                                <li>Cari dan klik submenu <strong>Parameter Klinik</strong> atau <strong>Jenis Parameter Klinik</strong></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Cari Parameter yang Ingin Diubah Harganya</strong>
+                            <ul>
+                                <li>Ketik nama parameter di kotak pencarian (contoh: "Gula Darah")</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Klik Edit pada Parameter Tersebut</strong>
+                            <ul>
+                                <li>Klik tombol <strong>Edit</strong> di baris parameter yang dimaksud</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Ubah Harga</strong>
+                            <ul>
+                                <li>Cari kolom <strong>"Harga"</strong> atau <strong>"Tarif"</strong></li>
+                                <li>Hapus angka lama, ketik angka baru</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Simpan</strong>
+                            <ul>
+                                <li>Klik tombol <strong>Simpan</strong></li>
+                            </ul>
+                        </li>
+                    </ol>
+
+                    <h3>Langkah-langkah Mengubah Harga Paket Parameter Klinik:</h3>
+                    <ol>
+                        <li>Di sidebar, cari menu <strong>Paket Parameter Klinik</strong></li>
+                        <li>Temukan paket yang ingin diubah harganya</li>
+                        <li>Klik tombol <strong>Edit</strong></li>
+                        <li>Ubah kolom <strong>Harga Paket</strong></li>
+                        <li>Klik <strong>Simpan</strong></li>
+                    </ol>
+                </div>
+            </section>
+
+            <!-- ===== MASTER DATA KLINIK ===== -->
+            <section id="master-parameter-jenis" class="doc-section">
+                <div class="section-header">
+                    <h1>Mengelola Jenis Parameter Klinik</h1>
+                </div>
+                <div class="section-content">
+                    <div class="info-box">
+                        <p><strong>Jenis Parameter Klinik</strong> adalah daftar jenis tes/pemeriksaan yang bisa dipilih saat membuat permohonan uji klinik. Contoh: Gula Darah Sewaktu, Kolesterol Total, SGOT, SGPT, Urine Lengkap, dll.</p>
+                    </div>
+
+                    <h3>Cara Menambah Jenis Parameter Klinik Baru:</h3>
+                    <ol>
+                        <li>
+                            <strong>Buka Menu Jenis Parameter Klinik</strong>
+                            <ul>
+                                <li>Klik menu <strong>Master Data</strong> → <strong>Jenis Parameter Klinik</strong> di sidebar</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Klik Tombol Tambah</strong>
+                            <ul>
+                                <li>Klik tombol <strong>"+ Tambah Baru"</strong> atau <strong>"Tambah Jenis Parameter"</strong></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Isi Form Parameter Baru</strong>
+                            <table style="width:100%; border-collapse:collapse; margin-bottom:12px;">
+                                <thead>
+                                    <tr style="background:#2c7be5; color:white;">
+                                        <th style="padding:8px; text-align:left; border:1px solid #ddd;">Kolom</th>
+                                        <th style="padding:8px; text-align:left; border:1px solid #ddd;">Penjelasan</th>
+                                        <th style="padding:8px; text-align:left; border:1px solid #ddd;">Contoh Isi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="padding:8px; border:1px solid #ddd;"><strong>Nama Parameter</strong> <span style="color:red">*</span></td>
+                                        <td style="padding:8px; border:1px solid #ddd;">Nama jenis pemeriksaan yang akan tampil saat dipilih</td>
+                                        <td style="padding:8px; border:1px solid #ddd;"><code>Gula Darah Puasa</code></td>
+                                    </tr>
+                                    <tr style="background:#f8f9fa;">
+                                        <td style="padding:8px; border:1px solid #ddd;"><strong>Singkatan / Kode</strong></td>
+                                        <td style="padding:8px; border:1px solid #ddd;">Kode pendek parameter (opsional, untuk laporan)</td>
+                                        <td style="padding:8px; border:1px solid #ddd;"><code>GDP</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding:8px; border:1px solid #ddd;"><strong>Satuan</strong></td>
+                                        <td style="padding:8px; border:1px solid #ddd;">Satuan hasil pemeriksaan</td>
+                                        <td style="padding:8px; border:1px solid #ddd;"><code>mg/dL</code></td>
+                                    </tr>
+                                    <tr style="background:#f8f9fa;">
+                                        <td style="padding:8px; border:1px solid #ddd;"><strong>Nilai Normal Min</strong></td>
+                                        <td style="padding:8px; border:1px solid #ddd;">Batas bawah nilai normal</td>
+                                        <td style="padding:8px; border:1px solid #ddd;"><code>70</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding:8px; border:1px solid #ddd;"><strong>Nilai Normal Max</strong></td>
+                                        <td style="padding:8px; border:1px solid #ddd;">Batas atas nilai normal</td>
+                                        <td style="padding:8px; border:1px solid #ddd;"><code>100</code></td>
+                                    </tr>
+                                    <tr style="background:#f8f9fa;">
+                                        <td style="padding:8px; border:1px solid #ddd;"><strong>Harga</strong> <span style="color:red">*</span></td>
+                                        <td style="padding:8px; border:1px solid #ddd;">Tarif pemeriksaan untuk parameter ini</td>
+                                        <td style="padding:8px; border:1px solid #ddd;"><code>25000</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding:8px; border:1px solid #ddd;"><strong>Laboratorium</strong> <span style="color:red">*</span></td>
+                                        <td style="padding:8px; border:1px solid #ddd;">Pilih laboratorium yang akan mengerjakan tes ini</td>
+                                        <td style="padding:8px; border:1px solid #ddd;"><code>Klinik (KLI)</code></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </li>
+                        <li>
+                            <strong>Simpan</strong>
+                            <ul>
+                                <li>Klik tombol <strong>Simpan</strong></li>
+                                <li>Parameter baru sudah bisa dipilih saat menambahkan parameter di permohonan uji klinik</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+            </section>
+
+            <section id="master-parameter-paket" class="doc-section">
+                <div class="section-header">
+                    <h1>Mengelola Paket Parameter Klinik</h1>
+                </div>
+                <div class="section-content">
+                    <div class="info-box">
+                        <p><strong>Paket Parameter Klinik</strong> adalah kumpulan beberapa jenis tes yang sering diperiksa bersama, dijual dengan satu harga paket. Contoh: "Paket Medical Check Up" berisi Gula Darah + Kolesterol + Asam Urat + Fungsi Hati, dll.</p>
+                    </div>
+
+                    <h3>Cara Membuat Paket Parameter Klinik Baru:</h3>
+                    <ol>
+                        <li>Di sidebar klik menu <strong>Master Data</strong> → <strong>Paket Parameter Klinik</strong></li>
+                        <li>Klik tombol <strong>"+ Tambah Paket Baru"</strong></li>
+                        <li>Isi form:
+                            <ul>
+                                <li><strong>Nama Paket</strong> (wajib) — contoh: <code>Paket Medical Check Up Dasar</code></li>
+                                <li><strong>Kode Paket</strong> (wajib, unik) — contoh: <code>PKT-MCU-01</code></li>
+                                <li><strong>Harga Paket</strong> (wajib) — contoh: <code>150000</code></li>
+                                <li><strong>Deskripsi</strong> (opsional) — penjelasan singkat isi paket</li>
+                            </ul>
+                        </li>
+                        <li>Tambahkan parameter ke dalam paket:
+                            <ul>
+                                <li>Cari dan pilih parameter dari daftar yang tersedia</li>
+                                <li>Klik <strong>"+ Tambahkan ke Paket"</strong> untuk setiap parameter</li>
+                                <li>Ulangi hingga semua parameter yang termasuk dalam paket sudah ditambahkan</li>
+                            </ul>
+                        </li>
+                        <li>Klik tombol <strong>Simpan Paket</strong></li>
+                    </ol>
+                </div>
+            </section>
+
+            <section id="master-baku-mutu" class="doc-section">
+                <div class="section-header">
+                    <h1>Baku Mutu / Nilai Normal Parameter</h1>
+                </div>
+                <div class="section-content">
+                    <div class="info-box">
+                        <p><strong>Baku Mutu</strong> (untuk non-klinik) atau <strong>Nilai Normal</strong> (untuk klinik) adalah rentang nilai yang dianggap normal atau memenuhi standar. Sistem menggunakannya untuk memberi tanda peringatan jika hasil pemeriksaan di luar rentang normal.</p>
+                    </div>
+
+                    <h3>Cara Mengatur Nilai Normal untuk Parameter Klinik:</h3>
+                    <ol>
+                        <li>Buka menu <strong>Jenis Parameter Klinik</strong></li>
+                        <li>Klik <strong>Edit</strong> pada parameter yang ingin diatur nilai normalnya</li>
+                        <li>Isi kolom:
+                            <ul>
+                                <li><strong>Nilai Normal Min</strong> — batas bawah (contoh: <code>70</code> untuk gula darah puasa)</li>
+                                <li><strong>Nilai Normal Max</strong> — batas atas (contoh: <code>100</code>)</li>
+                                <li>Jika nilai normal berbeda berdasarkan jenis kelamin, isi kolom terpisah untuk Laki-laki dan Perempuan jika tersedia</li>
+                            </ul>
+                        </li>
+                        <li>Klik <strong>Simpan</strong></li>
+                    </ol>
+
+                    <div class="note-box">
+                        <p>💡 <strong>Tips:</strong> Nilai normal yang sudah diatur akan otomatis memberi warna merah pada hasil pemeriksaan yang di luar rentang tersebut, sehingga dokter lebih mudah melihat hasil yang tidak normal.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===== EDIT & HAPUS DATA ===== -->
+            <section id="edit-data-umum" class="doc-section">
+                <div class="section-header">
+                    <h1>Cara Mengedit (Mengubah) Data</h1>
+                </div>
+                <div class="section-content">
+                    <div class="info-box">
+                        <p>Hampir semua data di sistem ini bisa diubah/diedit, termasuk data customer, jenis sample, method, paket, dan lainnya. Berikut cara umum mengedit data.</p>
+                    </div>
+
+                    <h3>Cara Umum Mengedit Data:</h3>
+                    <ol>
+                        <li>Buka menu yang berisi data yang ingin diedit (contoh: menu <strong>Customer</strong>)</li>
+                        <li>Akan muncul daftar/tabel data</li>
+                        <li>Cari baris data yang ingin diubah menggunakan kotak pencarian atau scroll</li>
+                        <li>Klik tombol <strong>Edit</strong> (ikon pensil ✏️ atau tulisan "Edit") di baris tersebut</li>
+                        <li>Form edit akan terbuka — ubah kolom yang perlu diubah</li>
+                        <li>Klik tombol <strong>Simpan</strong> / <strong>Update</strong> / <strong>Perbarui</strong></li>
+                        <li>Jika berhasil, akan muncul notifikasi hijau "<strong>Data berhasil diperbarui</strong>"</li>
+                    </ol>
+
+                    <div class="note-box" style="border-left:4px solid #f39c12; background:#fffbf0;">
+                        <p>⚠️ <strong>Perhatian saat mengedit:</strong>
+                        <ul>
+                            <li>Jangan mengubah <strong>kode unik</strong> (seperti kode customer, kode method) jika data tersebut sudah digunakan di permohonan uji. Hal ini bisa menyebabkan data tidak konsisten.</li>
+                            <li>Perubahan harga hanya berlaku untuk transaksi baru, bukan transaksi yang sudah ada.</li>
+                        </ul>
+                        </p>
+                    </div>
+
+                    <h3>Cara Edit Permohonan Uji yang Sudah Dibuat:</h3>
+                    <ol>
+                        <li>Buka menu <strong>Permohonan Uji</strong></li>
+                        <li>Cari nomor permohonan yang ingin diedit</li>
+                        <li>Klik pada baris untuk membuka halaman detail</li>
+                        <li>Di halaman detail, klik tombol <strong>Edit</strong></li>
+                        <li>Ubah data yang diperlukan (misal: uang muka, status pembayaran, catatan)</li>
+                        <li>Klik <strong>Simpan</strong></li>
+                    </ol>
+
+                    <div class="note-box" style="border-left:4px solid #e74c3c; background:#fdf2f2;">
+                        <p>🚫 <strong>Tidak bisa diubah:</strong> Nomor/kode permohonan yang sudah tercetak atau sudah dilaporkan ke instansi resmi tidak boleh diubah. Hubungi admin sistem jika ada kekeliruan.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="hapus-data-umum" class="doc-section">
+                <div class="section-header">
+                    <h1>Cara Menghapus Data</h1>
+                </div>
+                <div class="section-content">
+                    <div class="info-box">
+                        <p>Data yang dihapus tidak benar-benar hilang permanen — sistem menggunakan "soft delete" yang menyembunyikan data dari daftar aktif. Admin dapat memulihkan data yang terhapus jika diperlukan.</p>
+                    </div>
+
+                    <div class="note-box" style="border-left:4px solid #e74c3c; background:#fdf2f2;">
+                        <p>🚫 <strong>Perhatian Penting:</strong>
+                        <ul>
+                            <li><strong>Jangan hapus</strong> data master (method, customer, dll.) yang sudah digunakan dalam permohonan uji aktif.</li>
+                            <li><strong>Jangan hapus</strong> parameter klinik yang sudah ada hasil pemeriksaannya.</li>
+                            <li>Jika ragu, tanyakan ke admin sistem terlebih dahulu.</li>
+                        </ul>
+                        </p>
+                    </div>
+
+                    <h3>Cara Umum Menghapus Data:</h3>
+                    <ol>
+                        <li>Buka menu yang berisi data yang ingin dihapus</li>
+                        <li>Cari baris data yang ingin dihapus</li>
+                        <li>Klik tombol <strong>Hapus</strong> (ikon tempat sampah 🗑️ atau tulisan "Hapus")</li>
+                        <li>Akan muncul kotak konfirmasi — baca pesannya dengan teliti</li>
+                        <li>Klik <strong>Ya, Hapus</strong> atau <strong>Konfirmasi</strong> jika yakin ingin menghapus</li>
+                        <li>Klik <strong>Batal</strong> jika tidak jadi menghapus</li>
+                        <li>Jika berhasil, data akan hilang dari daftar (tapi masih bisa dipulihkan oleh admin)</li>
+                    </ol>
+
+                    <h3>Data yang TIDAK Boleh Sembarangan Dihapus:</h3>
+                    <table style="width:100%; border-collapse:collapse;">
+                        <thead>
+                            <tr style="background:#e74c3c; color:white;">
+                                <th style="padding:8px; text-align:left; border:1px solid #ddd;">Data</th>
+                                <th style="padding:8px; text-align:left; border:1px solid #ddd;">Risiko jika Dihapus</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="padding:8px; border:1px solid #ddd;">Method yang masih digunakan di Paket aktif</td>
+                                <td style="padding:8px; border:1px solid #ddd;">Paket tidak bisa digunakan, permohonan baru akan error</td>
+                            </tr>
+                            <tr style="background:#f8f9fa;">
+                                <td style="padding:8px; border:1px solid #ddd;">Customer yang masih punya permohonan aktif</td>
+                                <td style="padding:8px; border:1px solid #ddd;">Permohonan uji tidak bisa dibuka dengan benar</td>
+                            </tr>
+                            <tr>
+                                <td style="padding:8px; border:1px solid #ddd;">Parameter klinik yang sudah ada hasil pemeriksaannya</td>
+                                <td style="padding:8px; border:1px solid #ddd;">Hasil pemeriksaan tidak dapat ditampilkan</td>
+                            </tr>
+                            <tr style="background:#f8f9fa;">
+                                <td style="padding:8px; border:1px solid #ddd;">Pasien yang masih punya permohonan aktif</td>
+                                <td style="padding:8px; border:1px solid #ddd;">Data pemeriksaan pasien tidak terhubung</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Workflow Section -->
+            <section id="workflow-nonklinik" class="doc-section">
+                <div class="section-header">
+                    <h1>Alur Kerja Permohonan Uji (Non-Klinik)</h1>
+                </div>
+                <div class="section-content">
+                    <pre class="code-block"><code>1. Setup Master Data
+   ├── Customer
+   ├── Sample Type
+   ├── Laboratorium
+   ├── Method
+   ├── Packet
+   ├── Unit
+   └── Container
+
+2. Buat Permohonan Uji
+   ├── Pilih/Tambah Customer
+   ├── Isi Data Dasar
+   ├── Tentukan Mode Pengiriman Sample
+   └── Simpan Permohonan Uji
+
+3. Tambah Sample
+   ├── Pilih Sample Type
+   ├── Pilih Method (Paket atau Individual)
+   ├── Isi Informasi Sample
+   └── Simpan Sample
+
+4. Penerimaan Sample
+   ├── Terima Sample di Laboratorium
+   ├── Isi Data Penerimaan
+   └── Validasi Sample
+
+5. Pemeriksaan
+   ├── Input Hasil Pemeriksaan
+   ├── Verifikasi Hasil
+   ├── Pengesahan Hasil
+   └── Release Hasil</code></pre>
+                </div>
+            </section>
+
+            <section id="workflow-klinik" class="doc-section">
+                <div class="section-header">
+                    <h1>Alur Kerja Permohonan Uji Klinik</h1>
+                </div>
+                <div class="section-content">
+                    <pre class="code-block"><code>1. Setup Master Data
+   ├── Pasien (atau tambah saat membuat permohonan)
+   ├── Parameter Klinik
+   ├── Paket Klinik
+   └── Dokter (jika diperlukan)
+
+2. Buat Permohonan Uji Klinik
+   ├── Pilih Tipe Dokter
+   ├── Cari/Tambah Pasien
+   ├── Isi Informasi Permohonan
+   └── Simpan Permohonan
+
+3. Tambah Parameter
+   ├── Pilih Parameter (Paket atau Individual)
+   ├── Tentukan Harga
+   └── Simpan Parameter
+
+4. Pengambilan Sample
+   ├── Ambil Sample dari Pasien
+   ├── Catat Data Pengambilan
+   └── Kirim ke Laboratorium
+
+5. Analisis
+   ├── Input Hasil Analisis
+   ├── Verifikasi Hasil
+   ├── Validasi Dokter
+   └── Release Hasil</code></pre>
+                </div>
+            </section>
+
+            <!-- Tips Section -->
+            <section id="tips-master-data" class="doc-section">
+                <div class="section-header">
+                    <h1>Tips: Pengelolaan Master Data</h1>
+                </div>
+                <div class="section-content">
+                    <ul>
+                        <li><strong>Periksa sebelum menyimpan</strong> — Baca ulang semua isian sebelum klik Simpan, terutama nama dan kode yang harus unik.</li>
+                        <li><strong>Jangan duplikasi kode</strong> — Kode seperti kode customer, kode method, kode paket harus unik. Jika ada error "kode sudah digunakan", gunakan kode yang berbeda.</li>
+                        <li><strong>Atur harga dengan cermat</strong> — Perubahan harga method atau paket hanya berlaku untuk permohonan baru. Koordinasikan dengan kepala laboratorium sebelum mengubah harga.</li>
+                        <li><strong>Jangan hapus sembarangan</strong> — Data yang dihapus dapat mempengaruhi permohonan yang sudah ada. Jika ragu, nonaktifkan dulu daripada menghapus.</li>
+                        <li><strong>Backup berkala</strong> — Pastikan admin IT melakukan backup database secara rutin (minimal seminggu sekali).</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="tips-permohonan" class="doc-section">
+                <div class="section-header">
+                    <h1>Tips: Permohonan Uji (Non-Klinik)</h1>
+                </div>
+                <div class="section-content">
+                    <ul>
+                        <li><strong>Verifikasi data customer</strong> — Sebelum menyimpan permohonan, pastikan nama customer, alamat, dan kontak sudah benar.</li>
+                        <li><strong>Simpan dulu, tambah sample kemudian</strong> — Permohonan harus disimpan terlebih dahulu sebelum bisa menambahkan sample.</li>
+                        <li><strong>Catat kondisi sample</strong> — Jika sample datang dalam kondisi tidak baik (rusak, bocor, tidak sesuai standar), catat di kolom kondisi sample. Ini penting untuk keperluan dokumentasi.</li>
+                        <li><strong>Total harga otomatis</strong> — Jangan ubah total harga secara manual kecuali ada alasan khusus. Biarkan sistem menghitungnya dari method/paket yang dipilih.</li>
+                        <li><strong>Update status pembayaran</strong> — Jika pelanggan sudah melunasi, segera update status pembayaran menjadi "Lunas".</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="tips-sample" class="doc-section">
+                <div class="section-header">
+                    <h1>Tips: Pengelolaan Sample</h1>
+                </div>
+                <div class="section-content">
+                    <ul>
+                        <li><strong>Labeling yang jelas</strong> — Pastikan setiap sample yang diterima sudah diberi label dengan nomor sampel yang sesuai dengan yang ada di sistem.</li>
+                        <li><strong>Catat kondisi saat penerimaan</strong> — Jika sample tidak dalam kondisi ideal, catat di kolom kondisi sample agar ada dokumentasi tertulis.</li>
+                        <li><strong>Konfirmasi laboratorium</strong> — Pastikan sample sudah diterima dan dikonfirmasi oleh laboratorium yang bersangkutan sebelum pemeriksaan dimulai.</li>
+                        <li><strong>Satu permohonan bisa banyak sample</strong> — Sebuah permohonan uji bisa memiliki banyak titik pengambilan sample. Setiap titik pengambilan adalah sample yang berbeda.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="tips-klinik" class="doc-section">
+                <div class="section-header">
+                    <h1>Tips: Permohonan Uji Klinik</h1>
+                </div>
+                <div class="section-content">
+                    <ul>
+                        <li><strong>Data pasien harus akurat</strong> — Nama, tanggal lahir, dan jenis kelamin pasien harus benar karena berpengaruh pada nilai normal hasil pemeriksaan.</li>
+                        <li><strong>Pilih parameter sesuai kebutuhan</strong> — Jangan memilih parameter yang tidak diperlukan. Koordinasikan dengan dokter/petugas medis sebelum memilih parameter.</li>
+                        <li><strong>Periksa harga sebelum menyimpan</strong> — Setelah memilih parameter, periksa total harga yang muncul sebelum menyimpan permohonan.</li>
+                        <li><strong>Parameter bisa ditambah setelah permohonan dibuat</strong> — Jika ada parameter yang perlu ditambahkan setelah permohonan disimpan, buka halaman detail dan klik "Tambah Parameter" (selama status masih ANALIS).</li>
+                        <li><strong>Privasi data pasien</strong> — Jangan memberikan data atau hasil pemeriksaan pasien kepada pihak yang tidak berwenang. Patuhi aturan privasi data kesehatan.</li>
+                        <li><strong>Jangan lewatkan verifikasi</strong> — Hasil pemeriksaan harus diverifikasi oleh dokter atau kepala laboratorium sebelum bisa diserahkan ke pasien.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Troubleshooting Section -->
+            <section id="troubleshooting" class="doc-section">
+                <div class="section-header">
+                    <h1>Mengatasi Masalah Umum (Troubleshooting)</h1>
+                </div>
+                <div class="section-content">
+                    <div class="info-box">
+                        <p>Berikut adalah masalah-masalah yang paling sering terjadi beserta cara mengatasinya. Baca pesan error yang muncul di layar karena biasanya memberi petunjuk penyebab masalah.</p>
+                    </div>
+
+                    <table style="width:100%; border-collapse:collapse; margin-bottom:20px;">
+                        <thead>
+                            <tr style="background:#2c7be5; color:white;">
+                                <th style="padding:10px; text-align:left; border:1px solid #ddd; width:35%;">Masalah yang Terjadi</th>
+                                <th style="padding:10px; text-align:left; border:1px solid #ddd;">Kemungkinan Penyebab &amp; Solusinya</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="padding:10px; border:1px solid #ddd; vertical-align:top;"><strong>Tidak bisa login / username atau password salah</strong></td>
+                                <td style="padding:10px; border:1px solid #ddd;">
+                                    <ul style="margin:0; padding-left:18px;">
+                                        <li>Pastikan Caps Lock tidak aktif — password bersifat huruf besar/kecil</li>
+                                        <li>Coba ketik ulang username dan password dengan hati-hati</li>
+                                        <li>Jika lupa password, hubungi admin sistem untuk reset password</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr style="background:#f8f9fa;">
+                                <td style="padding:10px; border:1px solid #ddd; vertical-align:top;"><strong>Menu tidak muncul / tidak bisa diakses</strong></td>
+                                <td style="padding:10px; border:1px solid #ddd;">
+                                    <ul style="margin:0; padding-left:18px;">
+                                        <li>Akun Anda mungkin tidak memiliki izin untuk menu tersebut</li>
+                                        <li>Hubungi admin untuk meminta akses ke menu yang diperlukan</li>
+                                        <li>Coba logout kemudian login kembali</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding:10px; border:1px solid #ddd; vertical-align:top;"><strong>Customer tidak muncul di daftar dropdown</strong></td>
+                                <td style="padding:10px; border:1px solid #ddd;">
+                                    <ul style="margin:0; padding-left:18px;">
+                                        <li>Customer mungkin belum ditambahkan ke sistem → Tambahkan terlebih dahulu di menu <strong>Customer</strong></li>
+                                        <li>Customer mungkin sudah dihapus → Minta admin memulihkan data customer</li>
+                                        <li>Coba ketik nama customer di kotak pencarian dropdown</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr style="background:#f8f9fa;">
+                                <td style="padding:10px; border:1px solid #ddd; vertical-align:top;"><strong>Method / Parameter tidak muncul saat memilih jenis sample</strong></td>
+                                <td style="padding:10px; border:1px solid #ddd;">
+                                    <ul style="margin:0; padding-left:18px;">
+                                        <li>Method belum dikaitkan dengan jenis sample tersebut → Hubungi admin untuk mengatur relasi method-sample type</li>
+                                        <li>Method mungkin dinonaktifkan → Hubungi admin untuk mengaktifkan kembali</li>
+                                        <li>Method belum dikaitkan dengan laboratorium → Admin perlu mengecek data method</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding:10px; border:1px solid #ddd; vertical-align:top;"><strong>Data tidak bisa disimpan / muncul pesan merah</strong></td>
+                                <td style="padding:10px; border:1px solid #ddd;">
+                                    <ul style="margin:0; padding-left:18px;">
+                                        <li>Ada kolom wajib yang belum diisi — perhatikan kolom yang berwarna merah atau bertanda bintang (*)</li>
+                                        <li>Ada format data yang salah (contoh: isi angka di kolom yang seharusnya angka, bukan huruf)</li>
+                                        <li>Baca pesan merah yang muncul untuk mengetahui kolom mana yang bermasalah</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr style="background:#f8f9fa;">
+                                <td style="padding:10px; border:1px solid #ddd; vertical-align:top;"><strong>Parameter klinik tidak bisa ditambahkan (menu "Tambah Parameter" tidak ada)</strong></td>
+                                <td style="padding:10px; border:1px solid #ddd;">
+                                    <ul style="margin:0; padding-left:18px;">
+                                        <li>Status permohonan mungkin sudah bukan <strong>PARAMETER</strong> atau <strong>ANALIS</strong> — cek status di halaman detail</li>
+                                        <li>Akun tidak punya hak akses → Hubungi admin</li>
+                                        <li>Coba refresh halaman (tekan F5)</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding:10px; border:1px solid #ddd; vertical-align:top;"><strong>Harga tidak berubah setelah diedit dan disimpan</strong></td>
+                                <td style="padding:10px; border:1px solid #ddd;">
+                                    <ul style="margin:0; padding-left:18px;">
+                                        <li>Pastikan tombol <strong>Simpan</strong> sudah diklik dan muncul notifikasi sukses</li>
+                                        <li>Refresh halaman untuk melihat harga terbaru</li>
+                                        <li>Perubahan harga tidak berlaku mundur — hanya berlaku untuk transaksi baru</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr style="background:#f8f9fa;">
+                                <td style="padding:10px; border:1px solid #ddd; vertical-align:top;"><strong>Halaman loading terlalu lama / tidak terbuka</strong></td>
+                                <td style="padding:10px; border:1px solid #ddd;">
+                                    <ul style="margin:0; padding-left:18px;">
+                                        <li>Periksa koneksi internet Anda</li>
+                                        <li>Coba refresh halaman (tekan F5 atau tombol refresh browser)</li>
+                                        <li>Coba logout kemudian login kembali</li>
+                                        <li>Jika masalah berlanjut, hubungi admin/IT</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding:10px; border:1px solid #ddd; vertical-align:top;"><strong>Data yang dihapus ingin dikembalikan</strong></td>
+                                <td style="padding:10px; border:1px solid #ddd;">
+                                    <ul style="margin:0; padding-left:18px;">
+                                        <li>Segera hubungi admin sistem — data yang dihapus biasanya masih bisa dipulihkan</li>
+                                        <li>Sampaikan nama data yang terhapus dan kapan terhapusnya</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr style="background:#f8f9fa;">
+                                <td style="padding:10px; border:1px solid #ddd; vertical-align:top;"><strong>Hasil cetak / print tidak sesuai</strong></td>
+                                <td style="padding:10px; border:1px solid #ddd;">
+                                    <ul style="margin:0; padding-left:18px;">
+                                        <li>Pastikan semua data sudah diisi dengan benar sebelum mencetak</li>
+                                        <li>Cek pengaturan printer (kertas, orientasi)</li>
+                                        <li>Gunakan fitur "Print Preview" sebelum mencetak</li>
+                                        <li>Hubungi admin jika format cetak tidak sesuai standar</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="note-box" style="border-left:4px solid #2c7be5; background:#f0f7ff;">
+                        <p>📞 <strong>Jika masalah tidak teratasi dengan cara di atas, segera hubungi admin atau IT support di:</strong></p>
+                        <ul>
+                            <li><strong>Email:</strong> support@magelang-labkes.com</li>
+                            <li><strong>Telepon:</strong> (0293) xxxxxx</li>
+                        </ul>
+                        <p>Saat menghubungi, sampaikan: <em>nama menu yang bermasalah, langkah yang sudah dilakukan, dan pesan error yang muncul di layar (jika ada)</em>.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <footer class="doc-footer">
+                <div class="footer-content">
+                    <p><strong>Butuh Bantuan?</strong></p>
+                    <p>Jika ada pertanyaan, kesulitan menggunakan sistem, atau menemukan data yang tidak sesuai, segera hubungi:</p>
+                    <ul>
+                        <li><strong>Admin Sistem / IT Support</strong></li>
+                        <li><strong>Email</strong>: support@magelang-labkes.com</li>
+                        <li><strong>Telepon</strong>: (0293) xxxxxx</li>
+                        <li><strong>Alamat</strong>: Laboratorium Kesehatan Magelang</li>
+                    </ul>
+                    <p><strong>Saat menghubungi, sampaikan informasi berikut:</strong></p>
+                    <ul>
+                        <li>Nama Anda dan bagian/jabatan</li>
+                        <li>Nama menu atau halaman yang bermasalah</li>
+                        <li>Langkah-langkah yang sudah dilakukan</li>
+                        <li>Pesan error yang muncul di layar (jika ada)</li>
+                    </ul>
+                    <p class="footer-note">Panduan ini dibuat untuk membantu semua pengguna memahami cara menggunakan sistem laboratorium. Dokumentasi diperbarui secara berkala sesuai perkembangan sistem. Versi: Mei 2026.</p>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

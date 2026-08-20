@@ -1,0 +1,34 @@
+<?php
+
+
+
+namespace Smt\Masterweb\Models;
+
+
+
+use Illuminate\Database\Eloquent\Model;
+
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+use Smt\Masterweb\Traits\Uuid;
+
+
+
+class Client extends Model
+
+{
+
+    use SoftDeletes;
+
+    use Uuid;
+
+
+
+    protected $table = "tb_client";
+
+    protected $dates = ['deleted_at'];
+
+    protected $primaryKey = 'id_client';
+
+}
+

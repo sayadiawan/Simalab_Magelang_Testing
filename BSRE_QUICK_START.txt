@@ -1,0 +1,105 @@
+╔══════════════════════════════════════════════════════════════╗
+║         🔐 BSRE CONFIGURATION - QUICK START                  ║
+╚══════════════════════════════════════════════════════════════╝
+
+📌 STATUS SAAT INI:
+   BSRE_USE = false (BSRE DISABLED)
+   
+   ✅ Tombol "Selesai" langsung submit tanpa check NIK/Password BSRE
+   ✅ Tidak ada popup verifikasi BSRE
+   ✅ Workflow lebih cepat
+
+───────────────────────────────────────────────────────────────
+
+🎯 CARA MENGUBAH MODE:
+
+┌─────────────────────────────────────────────────────────────┐
+│ MODE 1: DISABLE BSRE (RECOMMENDED - CURRENT)               │
+└─────────────────────────────────────────────────────────────┘
+
+1. Edit .env:
+   nano .env
+
+2. Set:
+   BSRE_USE=false
+
+3. Clear cache:
+   php artisan config:clear
+   php artisan cache:clear
+   php artisan view:clear
+
+┌─────────────────────────────────────────────────────────────┐
+│ MODE 2: ENABLE BSRE (Gunakan jika BSRE sudah siap)         │
+└─────────────────────────────────────────────────────────────┘
+
+1. Edit .env:
+   nano .env
+
+2. Set:
+   BSRE_USE=true
+
+3. Clear cache:
+   php artisan config:clear
+   php artisan cache:clear
+   php artisan view:clear
+
+───────────────────────────────────────────────────────────────
+
+📂 FILE YANG DIUBAH:
+
+1. /.env
+   → Tambah: BSRE_USE=false
+
+2. /package/masterweb/src/views/module/admin/laboratorium/
+   permohonan-uji-klinik-2/verification.blade.php
+   → Update: function checkNikAndPassword() dengan conditional check
+
+3. /BSRE_CONFIGURATION.md
+   → Dokumentasi lengkap
+
+───────────────────────────────────────────────────────────────
+
+✅ TESTING CHECKLIST:
+
+Mode BSRE DISABLED (Current):
+☐ Buka halaman verifikasi
+☐ Klik tombol "Selesai" di step Pengambil Sample
+☐ Expected: Form langsung submit tanpa popup
+☐ Data tersimpan di database
+
+Mode BSRE ENABLED:
+☐ Set BSRE_USE=true di .env
+☐ Clear cache
+☐ Klik tombol "Selesai"
+☐ Expected: Muncul popup input NIK/Password (jika belum diset)
+
+───────────────────────────────────────────────────────────────
+
+🚨 TROUBLESHOOTING:
+
+Problem: Mode tidak berubah setelah edit .env
+Solution: Pastikan sudah clear cache:
+          php artisan config:clear
+          php artisan cache:clear
+          php artisan view:clear
+
+Problem: JavaScript error di browser console
+Solution: Hard refresh browser (Ctrl+Shift+R)
+
+Problem: Tombol masih check BSRE padahal sudah set false
+Solution: 1. Check .env → BSRE_USE=false
+          2. Clear cache Laravel
+          3. Clear cache browser
+          4. Refresh halaman
+
+───────────────────────────────────────────────────────────────
+
+📖 DOKUMENTASI LENGKAP:
+   Baca file: BSRE_CONFIGURATION.md
+
+───────────────────────────────────────────────────────────────
+
+Last Updated: 2025-10-29
+Version: 1.0.0
+
+

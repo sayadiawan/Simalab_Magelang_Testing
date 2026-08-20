@@ -1,0 +1,202 @@
+<table style="width: 100%">
+    <thead>
+        <tr>
+            <th align="center" colspan="15"><b> HASIL PROLANIS URINE {{ strtoupper($nama_prolanis_urine) }},
+                    {{ strtoupper(\Carbon\Carbon::parse($tgl_prolanis_urine)->translatedFormat('d F Y')) }}
+                </b></th>
+        </tr>
+    </thead>
+</table>
+<table style="width: 100%">
+    <thead>
+        <tr style="background-color: green; border-collapse: collapse;">
+            <th scope="col"
+                style="background-color: green; text-align: center; vertical-align: middle; width: 1cm; border: 1px solid black;">
+                No.</th>
+            <th scope="col"
+                style="background-color: green; text-align: center; vertical-align: middle; width: 7cm; border: 1px solid black;">
+                Nama</th>
+            <th scope="col"
+                style="background-color: green; text-align: center; vertical-align: middle; width: 4cm; border: 1px solid black;">
+                Tgl Lahir</th>
+            <th scope="col"
+                style="background-color: red; text-align: center; vertical-align: middle; width: 4cm; border: 1px solid black;">
+                Tgl Lahir (String)</th>
+            <th scope="col"
+                style="background-color: green; text-align: center; vertical-align: middle; width: 5cm; border: 1px solid black;">
+                Alamat</th>
+            <th scope="col"
+                style="background-color: green; text-align: center; vertical-align: middle; width: 3cm; border: 1px solid black;">
+                Kelamin</th>
+
+            <th scope="col"
+                style="background-color: green; text-align: center; vertical-align: middle; width: 5cm; border: 1px solid black;">
+                No. Lab</th>
+            <th scope="col"
+                style="background-color: green; text-align: center; vertical-align: middle; width: 3cm; border: 1px solid black;">
+                Warna</th>
+            <th scope="col"
+                style="background-color: green; text-align: center; vertical-align: middle; width: 4cm; border: 1px solid black;">
+                Kejernihan</th>
+            <th scope="col"
+                style="background-color: green; text-align: center; vertical-align: middle; width: 4cm; border: 1px solid black;">
+                PH</th>
+            <th scope="col"
+                style="background-color: green; text-align: center; vertical-align: middle; width: 4cm; border: 1px solid black;">
+                Berat Jenis</th>
+            <th scope="col"
+                style="background-color: green; text-align: center; vertical-align: middle; width: 3cm; border: 1px solid black;">
+                Protein</th>
+            <th scope="col"
+                style="background-color: green; text-align: center; vertical-align: middle; width: 5cm; border: 1px solid black;">
+                RED (Sel Darah Derah)</th>
+            <th scope="col"
+                style="background-color: green; text-align: center; vertical-align: middle; width: 3cm; border: 1px solid black;">
+                Lekosit</th>
+            <th scope="col"
+                style="background-color: green; text-align: center; vertical-align: middle; width: 3cm; border: 1px solid black;">
+                Bilirubin</th>
+            <th scope="col"
+                style="background-color: green; text-align: center; vertical-align: middle; width: 3cm; border: 1px solid black;">
+                Urobilinogen</th>
+            <th scope="col"
+                style="background-color: green; text-align: center; vertical-align: middle; width: 3cm; border: 1px solid black;">
+                Nitrit</th>
+            <th scope="col"
+                style="background-color: green; text-align: center; vertical-align: middle; width: 3cm; border: 1px solid black;">
+                Keton</th>
+            <th scope="col"
+                style="background-color: green; text-align: center; vertical-align: middle; width: 3cm; border: 1px solid black;">
+                Darah</th>
+            <th scope="col"
+                style="background-color: orange; text-align: center; vertical-align: middle; width: 3cm; border: 1px solid black;">
+                Lekosit</th>
+            <th scope="col"
+                style="background-color: orange; text-align: center; vertical-align: middle; width: 4cm; border: 1px solid black;">
+                Eritrosit</th>
+            <th scope="col"
+                style="background-color: orange; text-align: center; vertical-align: middle; width: 4cm; border: 1px solid black;">
+                Epitel</th>
+            <th scope="col"
+                style="background-color: orange; text-align: center; vertical-align: middle; width: 4cm; border: 1px solid black;">
+                Silinder</th>
+            <th scope="col"
+                style="background-color: orange; text-align: center; vertical-align: middle; width: 3cm; border: 1px solid black;">
+                Kristal</th>
+            <th scope="col"
+                style="background-color: orange; text-align: center; vertical-align: middle; width: 3cm; border: 1px solid black;">
+                Bakteri</th>
+            <th scope="col"
+                style="background-color: orange; text-align: center; vertical-align: middle; width: 3cm; border: 1px solid black;">
+                Jamur</th>
+            <th scope="col"
+                style="background-color: orange; text-align: center; vertical-align: middle; width: 3cm; border: 1px solid black;">
+                Lain-lain</th>
+            <th scope="col"
+                style="background-color: yellow; text-align: center; vertical-align: middle; width: 4cm; border: 1px solid black;">
+                Tanggal Registrasi</th>
+            <th scope="col"
+                style="background-color: yellow; text-align: center; vertical-align: middle; width: 4cm; border: 1px solid black;">
+                Tanggal Validasi</th>
+            {{-- <th scope="col" colspan="3" style="background-color: yellow; text-align: center; width: 10cm; border: 1px solid black;">Pendaftaran / Registrasi</th>
+          <th scope="col" colspan="3" style="background-color: yellow; text-align: center; width: 10cm; border: 1px solid black;">Pengambilan Sample</th>
+          <th scope="col" colspan="3" style="background-color: yellow; text-align: center; width: 10cm; border: 1px solid black;">Pemeriksaan / Analitik</th>
+          <th scope="col" colspan="3" style="background-color: yellow; text-align: center; width: 10cm; border: 1px solid black;">Input / Output Hasil Px</th>
+          <th scope="col" colspan="3" style="background-color: yellow; text-align: center; width: 10cm; border: 1px solid black;">Verifikasi</th>
+          <th scope="col" colspan="3" style="background-color: yellow; text-align: center; width: 10cm; border: 1px solid black;">Validasi</th> --}}
+        </tr>
+        {{-- <tr style="background-color: yellow; border-collapse: collapse;">
+          <th scope="col" style="background-color: yellow; text-align: center; width: 3cm; border: 1px solid black;">Tanggal Mulai</th>
+          <th scope="col" style="background-color: yellow; text-align: center; width: 3cm; border: 1px solid black;">Tanggal Berakhir</th>
+          <th scope="col" style="background-color: yellow; text-align: center; width: 4cm; border: 1px solid black;">Nama Petugas</th>
+          <th scope="col" style="background-color: yellow; text-align: center; width: 3cm; border: 1px solid black;">Tanggal Mulai</th>
+          <th scope="col" style="background-color: yellow; text-align: center; width: 3cm; border: 1px solid black;">Tanggal Berakhir</th>
+          <th scope="col" style="background-color: yellow; text-align: center; width: 4cm; border: 1px solid black;">Nama Petugas</th>
+          <th scope="col" style="background-color: yellow; text-align: center; width: 3cm; border: 1px solid black;">Tanggal Mulai</th>
+          <th scope="col" style="background-color: yellow; text-align: center; width: 3cm; border: 1px solid black;">Tanggal Berakhir</th>
+          <th scope="col" style="background-color: yellow; text-align: center; width: 4cm; border: 1px solid black;">Nama Petugas</th>
+          <th scope="col" style="background-color: yellow; text-align: center; width: 3cm; border: 1px solid black;">Tanggal Mulai</th>
+          <th scope="col" style="background-color: yellow; text-align: center; width: 3cm; border: 1px solid black;">Tanggal Berakhir</th>
+          <th scope="col" style="background-color: yellow; text-align: center; width: 4cm; border: 1px solid black;">Nama Petugas</th>
+          <th scope="col" style="background-color: yellow; text-align: center; width: 3cm; border: 1px solid black;">Tanggal Mulai</th>
+          <th scope="col" style="background-color: yellow; text-align: center; width: 3cm; border: 1px solid black;">Tanggal Berakhir</th>
+          <th scope="col" style="background-color: yellow; text-align: center; width: 4cm; border: 1px solid black;">Nama Petugas</th>
+          <th scope="col" style="background-color: yellow; text-align: center; width: 3cm; border: 1px solid black;">Tanggal Mulai</th>
+          <th scope="col" style="background-color: yellow; text-align: center; width: 3cm; border: 1px solid black;">Tanggal Berakhir</th>
+          <th scope="col" style="background-color: yellow; text-align: center; width: 4cm; border: 1px solid black;">Nama Petugas</th>
+      </tr> --}}
+    </thead>
+    <tbody>
+        {{-- contoh input  --}}
+        <tr>
+            <th style="text-align: center; border: 1px solid black; background-color: #00dbf8;">1</th>
+            <th style="text-align: left; border: 1px solid black; background-color: #00dbf8;">Pasien A</th>
+            <th style="text-align: left; border: 1px solid black; background-color: #00dbf8;">02 Januari 1995</th>
+            <th style="text-align: left; border: 1px solid black; background-color: #red;">= TEXT(C4,"DD MMMM YYYY")
+            </th>
+            <th style="text-align: left; border: 1px solid black; background-color: #00dbf8;">Pengging RT 06/ RW 04</th>
+            <th style="text-align: left; border: 1px solid black; background-color: #00dbf8;">L</th>
+            <th style="text-align: left; border: 1px solid black; background-color: #00dbf8;">0001/LK/VIII/2024</th>
+            <th style="text-align: left; border: 1px solid black; background-color: #00dbf8;">1</th>
+            <th style="text-align: left; border: 1px solid black; background-color: #00dbf8;">2</th>
+            <th style="text-align: left; border: 1px solid black; background-color: #00dbf8;">3</th>
+            <th style="text-align: left; border: 1px solid black; background-color: #00dbf8;">4</th>
+            <th style="text-align: left; border: 1px solid black; background-color: #00dbf8;">5</th>
+            <th style="text-align: left; border: 1px solid black; background-color: #00dbf8;">6</th>
+            <th style="text-align: left; border: 1px solid black; background-color: #00dbf8;">7</th>
+            <th style="text-align: left; border: 1px solid black; background-color: #00dbf8;">8</th>
+            <th style="text-align: left; border: 1px solid black; background-color: #00dbf8;">9</th>
+            <th style="text-align: left; border: 1px solid black; background-color: #00dbf8;">10</th>
+            <th style="text-align: left; border: 1px solid black; background-color: #00dbf8;">11</th>
+            <th style="text-align: left; border: 1px solid black; background-color: #00dbf8;">11</th>
+            <th style="text-align: left; border: 1px solid black; background-color: #00dbf8;">11</th>
+            <th style="text-align: left; border: 1px solid black; background-color: #00dbf8;">11</th>
+            <th style="text-align: left; border: 1px solid black; background-color: #00dbf8;">11</th>
+            <th style="text-align: left; border: 1px solid black; background-color: #00dbf8;">11</th>
+            <th style="text-align: left; border: 1px solid black; background-color: #00dbf8;">11</th>
+            <th style="text-align: left; border: 1px solid black; background-color: #00dbf8;">11</th>
+            <th style="text-align: left; border: 1px solid black; background-color: #00dbf8;">11</th>
+            <th style="text-align: left; border: 1px solid black; background-color: #00dbf8;">11</th>
+            <th style="text-align: left; border: 1px solid black; background-color: #00dbf8;">29 Agustus 2024</th>
+            <th style="text-align: left; border: 1px solid black; background-color: #00dbf8;">30 Agustus 2024</th>
+        </tr>
+        @foreach ($rows as $key => $val)
+            <tr>
+                <td style="text-align: center; border: 1px solid black;">{{ $key + 1 }}.</td>
+                <td style="text-align: left; border: 1px solid black;"></td>
+                <td style="text-align: left; border: 1px solid black;"></td>
+                <td style="text-align: left; border: 1px solid black;background-color: #red;">=
+                    TEXT(C{{ $key + 5 }},"DD MMMM YYYY")</td>
+                <td style="text-align: left; border: 1px solid black;"></td>
+                <td style="text-align: left; border: 1px solid black;">
+                    =IF(LEFT(B4; 2) = "Ny."; "P"; IF(LEFT(B4; 2) = "Tn."; "L"; ""))
+                </td>
+                <td style="text-align: left; border: 1px solid black;">
+                    {{ str_pad((int) $count + $key + 1, 4, '0', STR_PAD_LEFT) . '/LK/' . $romanMonth . '/' . date('Y') }}
+                </td>
+                <td style="text-align: left; border: 1px solid black;"></td>
+                <td style="text-align: left; border: 1px solid black;"></td>
+                <td style="text-align: left; border: 1px solid black;"></td>
+                <td style="text-align: left; border: 1px solid black;"></td>
+                <td style="text-align: left; border: 1px solid black;"></td>
+                <td style="text-align: left; border: 1px solid black;"></td>
+                <td style="text-align: left; border: 1px solid black;"></td>
+                <td style="text-align: left; border: 1px solid black;"></td>
+                <td style="text-align: left; border: 1px solid black;"></td>
+                <td style="text-align: left; border: 1px solid black;"></td>
+                <td style="text-align: left; border: 1px solid black;"></td>
+                <td style="text-align: left; border: 1px solid black;"></td>
+                <td style="text-align: left; border: 1px solid black;"></td>
+                <td style="text-align: left; border: 1px solid black;"></td>
+                <td style="text-align: left; border: 1px solid black;"></td>
+                <td style="text-align: left; border: 1px solid black;"></td>
+                <td style="text-align: left; border: 1px solid black;"></td>
+                <td style="text-align: left; border: 1px solid black;"></td>
+                <td style="text-align: left; border: 1px solid black;"></td>
+                <td style="text-align: left; border: 1px solid black;"></td>
+                <td style="text-align: left; border: 1px solid black;"></td>
+                <td style="text-align: left; border: 1px solid black;"></td>
+            </tr>
+        @endforeach
+    </tbody>
+</table>

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Helper: Ganti Placeholder dengan Screenshot</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f5;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2563eb;
+            margin-bottom: 30px;
+        }
+        .step {
+            background: #f9fafb;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #2563eb;
+        }
+        .step h2 {
+            color: #2563eb;
+            margin-bottom: 15px;
+        }
+        .code-block {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+        .before-after {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .before, .after {
+            padding: 15px;
+            border-radius: 6px;
+        }
+        .before {
+            background: #fee2e2;
+            border: 2px solid #ef4444;
+        }
+        .after {
+            background: #d1fae5;
+            border: 2px solid #10b981;
+        }
+        .before h3, .after h3 {
+            margin-bottom: 10px;
+        }
+        .before h3 {
+            color: #991b1b;
+        }
+        .after h3 {
+            color: #065f46;
+        }
+        .highlight {
+            background: #fef3c7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+        .note {
+            background: #eff6ff;
+            border-left: 4px solid #2563eb;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .note strong {
+            color: #2563eb;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 Helper: Ganti Placeholder dengan Screenshot</h1>
+        
+        <div class="step">
+            <h2>📸 Step 1: Upload Screenshot</h2>
+            <p>Upload screenshot ke folder <span class="highlight">screenshots/</span></p>
+            <p><strong>Contoh nama file:</strong> <code>customer-list.png</code></p>
+        </div>
+
+        <div class="step">
+            <h2>✂️ Step 2: Cari Placeholder di index.html</h2>
+            <p>Buka file <code>index.html</code> dan cari placeholder yang ingin diganti</p>
+            <p><strong>Contoh placeholder:</strong></p>
+            <div class="code-block">
+&lt;div class="screenshot-container"&gt;
+    &lt;div class="screenshot-placeholder"&gt;
+        &lt;i class="fas fa-image"&gt;&lt;/i&gt;
+        &lt;p&gt;Screenshot: Menu Customer&lt;/p&gt;
+        &lt;small&gt;Tambahkan screenshot halaman Customer di sini&lt;/small&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+            </div>
+        </div>
+
+        <div class="step">
+            <h2>🔄 Step 3: Ganti dengan Tag IMG</h2>
+            <p>Ganti seluruh placeholder dengan tag <code>&lt;img&gt;</code></p>
+            
+            <div class="before-after">
+                <div class="before">
+                    <h3>❌ SEBELUM (Placeholder)</h3>
+                    <div class="code-block" style="font-size: 12px;">
+&lt;div class="screenshot-container"&gt;
+    &lt;div class="screenshot-placeholder"&gt;
+        &lt;i class="fas fa-image"&gt;&lt;/i&gt;
+        &lt;p&gt;Screenshot: Menu Customer&lt;/p&gt;
+        &lt;small&gt;Tambahkan screenshot...&lt;/small&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+                    </div>
+                </div>
+                
+                <div class="after">
+                    <h3>✅ SESUDAH (Dengan Screenshot)</h3>
+                    <div class="code-block" style="font-size: 12px;">
+&lt;div class="screenshot-container"&gt;
+    &lt;img src="screenshots/customer-list.png" 
+         alt="Halaman Daftar Customer" /&gt;
+&lt;/div&gt;
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="step">
+            <h2>📝 Step 4: Template Kode untuk Copy-Paste</h2>
+            <p>Copy kode di bawah ini dan sesuaikan:</p>
+            <div class="code-block">
+&lt;div class="screenshot-container"&gt;
+    &lt;img src="screenshots/<span style="background: #fef3c7; color: #000; padding: 2px 4px;">NAMA_FILE.png</span>" 
+         alt="<span style="background: #fef3c7; color: #000; padding: 2px 4px;">DESKRIPSI SCREENSHOT</span>" /&gt;
+&lt;/div&gt;
+            </div>
+            <div class="note">
+                <strong>Catatan:</strong>
+                <ul style="margin-top: 10px; padding-left: 20px;">
+                    <li>Ganti <span class="highlight">NAMA_FILE.png</span> dengan nama file screenshot yang sudah diupload</li>
+                    <li>Ganti <span class="highlight">DESKRIPSI SCREENSHOT</span> dengan deskripsi yang jelas</li>
+                    <li>Path relatif dari <code>index.html</code>, jadi gunakan <code>screenshots/</code> bukan <code>/screenshots/</code></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="step">
+            <h2>📋 Contoh Lengkap: Customer Section</h2>
+            <p><strong>Lokasi di index.html:</strong> Section <code>master-data-customer</code> (sekitar line 179-185)</p>
+            
+            <h3 style="margin-top: 20px; margin-bottom: 10px;">Kode Lengkap Setelah Diganti:</h3>
+            <div class="code-block">
+&lt;section id="master-data-customer" class="doc-section"&gt;
+    &lt;div class="section-header"&gt;
+        &lt;h1&gt;Customer (Pelanggan)&lt;/h1&gt;
+    &lt;/div&gt;
+    &lt;div class="section-content"&gt;
+        &lt;!-- Screenshot Halaman List Customer --&gt;
+        &lt;div class="screenshot-container"&gt;
+            &lt;img src="screenshots/customer-list.png" 
+                 alt="Halaman Daftar Customer" /&gt;
+        &lt;/div&gt;
+        
+        &lt;!-- Screenshot Form Tambah Customer (opsional) --&gt;
+        &lt;div class="screenshot-container"&gt;
+            &lt;img src="screenshots/customer-form.png" 
+                 alt="Form Tambah Customer" /&gt;
+        &lt;/div&gt;
+        
+        &lt;div class="info-box"&gt;
+            &lt;p&gt;&lt;strong&gt;Fungsi:&lt;/strong&gt; Mengelola data pelanggan...&lt;/p&gt;
+        &lt;/div&gt;
+        ...
+    &lt;/div&gt;
+&lt;/section&gt;
+            </div>
+        </div>
+
+        <div class="step">
+            <h2>✅ Step 5: Test Screenshot</h2>
+            <ol style="padding-left: 20px; margin-top: 10px;">
+                <li>Simpan file <code>index.html</code></li>
+                <li>Buka di browser: <code>http://localhost:8000/documentation/index.html</code></li>
+                <li>Scroll ke section yang sudah diupdate</li>
+                <li>Pastikan screenshot muncul</li>
+                <li>Klik screenshot untuk test modal zoom</li>
+            </ol>
+        </div>
+
+        <div class="note">
+            <strong>💡 Tips:</strong>
+            <ul style="margin-top: 10px; padding-left: 20px;">
+                <li>Gunakan nama file yang jelas: <code>customer-list.png</code> bukan <code>screenshot.png</code></li>
+                <li>Alt text harus deskriptif untuk aksesibilitas</li>
+                <li>Jika screenshot tidak muncul, cek path dan nama file (case-sensitive di Linux)</li>
+                <li>Kompres screenshot jika terlalu besar (>500KB)</li>
+            </ul>
+        </div>
+
+        <div style="margin-top: 40px; padding: 20px; background: #f0f9ff; border-radius: 8px; border-left: 4px solid #2563eb;">
+            <h3 style="color: #2563eb; margin-bottom: 10px;">📚 Dokumentasi Lengkap</h3>
+            <p>Lihat file <code>PANDUAN_UPLOAD_DAN_PASANG.md</code> untuk panduan lebih detail!</p>
+        </div>
+    </div>
+</body>
+</html>
+

@@ -1,0 +1,90 @@
+{
+    "name": "laravel/laravel",
+    "type": "project",
+    "description": "The Laravel Framework.",
+    "keywords": [
+        "framework",
+        "laravel"
+    ],
+    "license": "MIT",
+    "require": {
+        "php": "^7.3|^8.0",
+        "aamdsam/bridging-bpjs": "^1.12",
+        "awageeks/laravel-bpjs": "^2.1",
+        "barryvdh/laravel-dompdf": "^2.0",
+        "cornford/googlmapper": "3.*",
+        "endroid/qr-code": "^4.3",
+        "fideloper/proxy": "^4.0",
+        "google/apiclient": "^2.14",
+        "guzzlehttp/guzzle": "~6.0",
+        "laravel/framework": "^6.2",
+        "laravel/helpers": "^1.4",
+        "laravel/tinker": "^2.0",
+        "maatwebsite/excel": "^3.1",
+        "nesbot/carbon": "^2.46",
+        "nhanchaukp/php-mqtt-client": "dev-master",
+        "phpoffice/phpspreadsheet": "^1.16",
+        "realrashid/sweet-alert": "^3.2",
+        "simplesoftwareio/simple-qrcode": "~4",
+        "spatie/laravel-backup": "^6.16",
+        "tymon/jwt-auth": "^1.0@dev",
+        "yajra/laravel-datatables-oracle": "~9.0"
+    },
+    "require-dev": {
+        "facade/ignition": "^1.4",
+        "mockery/mockery": "^1.0",
+        "nunomaduro/collision": "^3.0",
+        "phpunit/phpunit": "^8.0"
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "dont-discover": [
+            	"laravel/dusk"
+            ]
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/",
+            "Smt\\Masterweb\\": "package/masterweb/src/"
+        },
+        "classmap": [
+            "database/seeds",
+            "database/factories"
+        ],
+        "exclude-from-classmap": [
+            "package/masterweb/src/public/",
+            "package/masterweb/src/migrations/",
+            "package/masterweb/src/views/",
+            "package/masterweb/src/routes/"
+        ],
+        "files": [
+            "app/Smt.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/",
+            "Smt\\Masterweb\\": "package/masterweb/src/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "scripts": {
+        "post-autoload-dump": [
+            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+            "@php artisan package:discover --ansi"
+        ],
+        "post-root-package-install": [
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ],
+        "post-create-project-cmd": [
+            "@php artisan key:generate --ansi"
+        ]
+    }
+}

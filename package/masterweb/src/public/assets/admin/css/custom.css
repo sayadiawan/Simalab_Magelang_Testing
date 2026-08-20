@@ -1,0 +1,380 @@
+body {
+  font-family: "gotham-light";
+}
+.navbar.default-layout-navbar .navbar-brand-wrapper .navbar-brand img {
+  height: 100%;
+}
+
+.dataTables_wrapper .dataTable .btn,
+.dataTables_wrapper .dataTable .fc button,
+.fc .dataTables_wrapper .dataTable button,
+.dataTables_wrapper .dataTable .ajax-upload-dragdrop .ajax-file-upload,
+.ajax-upload-dragdrop .dataTables_wrapper .dataTable .ajax-file-upload,
+.dataTables_wrapper .dataTable .swal2-modal .swal2-buttonswrapper .swal2-styled,
+.swal2-modal .swal2-buttonswrapper .dataTables_wrapper .dataTable .swal2-styled,
+.dataTables_wrapper .dataTable .wizard > .actions a,
+.wizard > .actions .dataTables_wrapper .dataTable a {
+  padding: 8px 10px 8px 10px;
+}
+
+.modalDialog {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 99;
+  opacity: 0;
+  -webkit-transition: opacity 100ms ease-in;
+  -moz-transition: opacity 100ms ease-in;
+  transition: opacity 100ms ease-in;
+  pointer-events: none;
+}
+/* font */
+
+.gotham-black {
+  font-family: "gotham-narrow-black";
+  font-style: normal;
+  text-transform: uppercase;
+  color: #1a1a1a;
+}
+
+.gotham-white {
+  font-family: "gotham-narrow-black";
+  font-style: normal;
+  text-transform: uppercase;
+  color: #fff !important;
+}
+
+.gotham-medium {
+  font-family: "gotham-medium";
+  font-style: normal;
+  color: #fff;
+}
+
+.gotham-medium-black {
+  font-family: "gotham-medium";
+  font-style: normal;
+  color: #1a1a1a !important;
+}
+
+.gotham-book {
+  font-family: "gothamnarrow-book";
+  font-style: normal;
+}
+
+.gotham-medium-red {
+  font-family: "gotham-medium";
+  font-style: normal;
+  color: #a61f22;
+}
+
+.gotham-light-black {
+  font-family: "gotham-light";
+  font-style: normal;
+  color: #1a1a1a;
+}
+
+.gotham-light-red {
+  font-family: "gotham-light";
+  font-style: normal;
+  color: #a61f22;
+}
+.mb-20 {
+  margin-bottom: 20px;
+}
+.wizard > .steps .current a:active {
+  background: #287373;
+}
+.wizard > .steps .done a:hover {
+  background: #287373;
+}
+#scrool {
+  height: 100%;
+  padding: 1em;
+  overflow-y: scroll;
+}
+
+.modalDialog:target {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.wizard > .content > .body {
+  height: 345px;
+}
+
+.modalDialog > div {
+  max-width: 70%;
+  width: 100%;
+  position: relative;
+  margin: 10% auto;
+  padding: 20px;
+  border-radius: 3px;
+  background: #fff;
+  margin-top: 10px;
+  overflow: scroll;
+}
+
+/* .close {
+        background: #a61f22;
+        color: #fff;
+        line-height: 25px;
+        position: absolute;
+        right: -10px;
+        text-align: center;
+        top: -10px;
+        width: 34px;
+        height: 34px;
+        text-decoration: none;
+        font-weight: bold;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        border-radius: 50%;
+        -moz-box-shadow: 1px 1px 3px #000;
+        -webkit-box-shadow: 1px 1px 3px #000;
+        box-shadow: 1px 1px 3px #000;
+        padding-top: 5px;
+    } */
+
+/* .close:hover {
+        background: #fa3f6f;
+    } */
+
+.aktif {
+  border-radius: 50%;
+}
+
+.tombol {
+  color: #fff;
+  background-color: #535961;
+}
+
+.tombol:hover {
+  background-color: #101010;
+}
+
+.color-login {
+  color: #535961;
+}
+
+.color-daftar {
+  color: #287373;
+  font-weight: 100;
+}
+
+.navbar.default-layout-navbar .navbar-brand-wrapper {
+  background: #287373;
+}
+
+.navbar.default-layout-navbar.navbar-info .navbar-menu-wrapper {
+  background: #8f1717;
+}
+
+.auth .login-half-bg {
+  background: url("https://images.pexels.com/photos/3322471/pexels-photo-3322471.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+  background-size: cover;
+}
+
+.wizard > .content > .body {
+  width: 98% !important;
+}
+
+.button-agenda {
+  border-radius: 0.625rem;
+  padding: 0.6875rem 1.25rem;
+  padding-right: 1.25rem;
+  padding-left: 1.25rem;
+  letter-spacing: 0.0375rem;
+  text-align: center;
+  font-style: normal;
+  background: #287373;
+  color: #fafafa;
+  text-transform: uppercase;
+  width: 100%;
+}
+
+.button-agenda:hover {
+  border: 1px solid #287373;
+  color: #287373;
+  background: none;
+}
+
+.wizard > .content {
+  overflow: none !important;
+  height: auto !important;
+  padding: 10px !important;
+  border: none !important;
+}
+
+.font-member {
+  max-height: 100px;
+  cursor: pointer;
+}
+
+.wizard > .steps .current a {
+  background: #287373;
+  color: #ffffff;
+  cursor: default;
+}
+
+.btn-primary,
+.navbar.default-layout-navbar.navbar-primary
+  .navbar-menu-wrapper
+  .navbar-nav
+  .nav-item
+  .nav-link
+  .btn-primary,
+.wizard > .actions a {
+  background: #287373;
+  color: #ffffff;
+}
+
+.btn-primary:hover,
+.navbar.default-layout-navbar.navbar-primary
+  .navbar-menu-wrapper
+  .navbar-nav
+  .nav-item
+  .nav-link
+  .btn-primary:hover,
+.wizard > .actions a:hover {
+  background: #3ca8a8;
+  color: #ffffff;
+}
+
+.wizard > .steps .current a:hover {
+  background: #3ca8a8;
+  color: #ffffff;
+  cursor: default;
+}
+
+.wizard > .steps .done a {
+  background: #3ca8a8;
+  color: #ffffff;
+}
+
+.sidebar .nav .nav-item.active > .nav-link i,
+.sidebar .nav .nav-item.active > .nav-link .menu-title,
+.sidebar .nav .nav-item.active > .nav-link .menu-arrow {
+  color: #287373;
+}
+
+.btn-primary {
+  background: #287373;
+}
+
+.text-primary {
+  color: #287373 !important;
+}
+
+@media only screen and (max-width: 600px) {
+  .text-respon {
+    font-size: 11px;
+  }
+  .modalDialog > div {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .wizard > .content > .body {
+    position: relative !important;
+  }
+  .text-font {
+    font-size: 12px !important;
+    max-width: 150px;
+  }
+  .button-agenda {
+    font-size: 14px;
+    max-width: 200px;
+  }
+  .wizard > .content > .body {
+    height: 500px;
+  }
+  .text-icon {
+    font-size: 40px !important;
+  }
+  .wizard > .steps a {
+    width: 98%;
+    margin: 1px;
+    padding: 10px;
+  }
+}
+
+.card.card-statistics {
+  background: linear-gradient(85deg, #287373, #8f1717) !important;
+}
+
+/* Sidebar minimize - hide text, show logo only */
+@media (min-width: 992px) {
+  /* Hide brand-text and its paragraph when sidebar is minimized */
+  body.sidebar-icon-only .navbar .navbar-brand-wrapper .brand-text,
+  body.sidebar-icon-only .navbar .navbar-brand-wrapper .brand-text p,
+  .sidebar-icon-only .navbar .navbar-brand-wrapper .brand-text,
+  .sidebar-icon-only .navbar .navbar-brand-wrapper .brand-text p {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    width: 0 !important;
+    height: 0 !important;
+    overflow: hidden !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    font-size: 0 !important;
+    line-height: 0 !important;
+  }
+  
+  /* Hide brand-logo when sidebar is minimized */
+  body.sidebar-icon-only .navbar .navbar-brand-wrapper .brand-logo,
+  .sidebar-icon-only .navbar .navbar-brand-wrapper .brand-logo {
+    display: none !important;
+  }
+  
+  /* Show and center brand-logo-mini when sidebar is minimized */
+  body.sidebar-icon-only .navbar .navbar-brand-wrapper .brand-logo-mini,
+  .sidebar-icon-only .navbar .navbar-brand-wrapper .brand-logo-mini {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    height: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  
+  body.sidebar-icon-only .navbar .navbar-brand-wrapper .brand-logo-mini img,
+  .sidebar-icon-only .navbar .navbar-brand-wrapper .brand-logo-mini img {
+    width: 40px !important;
+    height: auto !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    display: block !important;
+  }
+  
+  /* Ensure navbar-brand-wrapper is centered when minimized */
+  body.sidebar-icon-only .navbar .navbar-brand-wrapper,
+  .sidebar-icon-only .navbar .navbar-brand-wrapper {
+    justify-content: center !important;
+    align-items: center !important;
+    padding: 0 !important;
+  }
+  
+  /* Hide any direct div children in navbar-brand-wrapper when minimized (except brand-logo-mini) */
+  body.sidebar-icon-only .navbar .navbar-brand-wrapper > div:not(.brand-logo-mini),
+  .sidebar-icon-only .navbar .navbar-brand-wrapper > div:not(.brand-logo-mini) {
+    display: none !important;
+  }
+  
+  /* Override default brand-logo-mini styling when minimized */
+  body.sidebar-icon-only .navbar.default-layout-navbar .navbar-brand-wrapper .brand-logo-mini,
+  .sidebar-icon-only .navbar.default-layout-navbar .navbar-brand-wrapper .brand-logo-mini {
+    padding-left: 0 !important;
+    text-align: center !important;
+  }
+  
+  body.sidebar-icon-only .navbar.default-layout-navbar .navbar-brand-wrapper .brand-logo-mini img,
+  .sidebar-icon-only .navbar.default-layout-navbar .navbar-brand-wrapper .brand-logo-mini img {
+    width: 40px !important;
+    max-width: 100% !important;
+    margin: auto !important;
+  }
+}

@@ -1,0 +1,915 @@
+/* ============================================
+   RESPONSIVE & MODERN CSS FOR ALL PAGES
+   ============================================ */
+
+/* ============================================
+   GLOBAL RESPONSIVE UTILITIES
+   ============================================ */
+
+/* Container Responsive */
+/* Beri jarak antara sidebar dan main panel - HANYA di desktop */
+.container-fluid {
+    padding-right: 15px;
+}
+
+@media (max-width: 991px) {
+    /* Di mobile/tablet, padding-left = 0 karena sidebar offcanvas */
+    .container-fluid {
+        padding-left: 0 !important;
+        padding-right: 10px;
+    }
+}
+
+/* ============================================
+   ADMIN LAYOUT RESPONSIVE
+   ============================================ */
+
+/* Sidebar Responsive - Mobile */
+@media (max-width: 991px) {
+    .sidebar-offcanvas {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 280px;
+        height: 100vh;
+        z-index: 1050;
+        transition: left 0.3s ease;
+        background: #fff;
+        box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+        overflow-y: auto;
+    }
+    
+    .sidebar-offcanvas.active {
+        left: 0;
+    }
+    
+    .sidebar-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.5);
+        z-index: 1049;
+    }
+    
+    .main-panel {
+        width: 100% !important;
+        margin-left: 0 !important;
+        padding-left: 0 !important;
+    }
+    
+    /* Navbar sticky: tidak pakai padding kompensasi fixed navbar (menghindari gap putih) */
+    .page-body-wrapper {
+        padding-top: 0;
+        margin-left: 0 !important;
+    }
+    
+    /* Pastikan sidebar tidak mengambil space di mobile */
+    .sidebar {
+        width: 0 !important;
+        min-width: 0 !important;
+        margin-left: 0 !important;
+        transform: translateX(-100%);
+    }
+    
+    .sidebar.active {
+        width: 280px !important;
+        transform: translateX(0);
+    }
+}
+
+/* Fix untuk desktop - HANYA saat sidebar benar-benar hidden (width = 0px) */
+@media (min-width: 992px) {
+    /* Hanya hide sidebar ketika width = 0px (bukan icon-only yang biasanya 70px atau normal 280px) */
+    .sidebar[style*="width: 0px"]:not([style*="width: 0%"]):not([style*="70px"]):not([style*="280px"]),
+    .sidebar[style*="width:0px"]:not([style*="width:0%"]):not([style*="70px"]):not([style*="280px"]) {
+        display: none !important;
+        width: 0 !important;
+        min-width: 0 !important;
+        max-width: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow: hidden !important;
+        visibility: hidden !important;
+    }
+    
+    /* Pastikan main panel full width HANYA saat sidebar width = 0px */
+    body:has(.sidebar[style*="width: 0px"]) .main-panel,
+    body:has(.sidebar[style*="width:0px"]) .main-panel {
+        margin-left: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    
+    body:has(.sidebar[style*="width: 0px"]) .page-body-wrapper,
+    body:has(.sidebar[style*="width:0px"]) .page-body-wrapper {
+        margin-left: 0 !important;
+        padding-left: 0 !important;
+    }
+    
+    body:has(.sidebar[style*="width: 0px"]) .container-fluid,
+    body:has(.sidebar[style*="width:0px"]) .container-fluid {
+        padding-left: 0 !important;
+        padding-right: 15px !important; /* Tetap pertahankan padding-right */
+    }
+    
+    /* HANYA untuk body.sidebar-hidden (bukan sidebar-icon-only) */
+    body.sidebar-hidden .main-panel {
+        width: 100% !important;
+        margin-left: 0 !important;
+        padding-left: 0 !important;
+    }
+    
+    body.sidebar-hidden .sidebar {
+        width: 0 !important;
+        min-width: 0 !important;
+        max-width: 0 !important;
+        margin-left: 0 !important;
+        transform: translateX(-100%);
+        overflow: hidden !important;
+        visibility: hidden !important;
+        display: none !important;
+    }
+    
+    body.sidebar-hidden .page-body-wrapper {
+        margin-left: 0 !important;
+        padding-left: 0 !important;
+    }
+    
+    body.sidebar-hidden .container-fluid {
+        padding-left: 0 !important;
+        padding-right: 15px !important; /* Tetap pertahankan padding-right */
+    }
+    
+    body.sidebar-hidden .content-wrapper {
+        padding-left: 0 !important;
+        padding-right: 1.5rem !important; /* Tetap pertahankan padding-right */
+    }
+    
+    /* JANGAN ubah sidebar-icon-only atau sidebar normal - biarkan seperti default template */
+}
+
+/* Content wrapper dengan jarak dari sidebar - HANYA di desktop */
+.content-wrapper {
+    padding-left: 1.5rem !important; /* Jarak antara sidebar dan konten di desktop */
+    padding-right: 1.5rem !important;
+}
+
+@media (max-width: 991px) {
+    /* Di mobile/tablet, padding-left = 0 karena sidebar offcanvas */
+    .content-wrapper {
+        padding-left: 0 !important;
+        padding-right: 1rem !important;
+    }
+}
+
+/* ============================================
+   NAVBAR STICKY
+   ============================================ */
+
+/* Override .fixed-top untuk navbar default-layout-navbar - ubah dari fixed ke sticky */
+.fixed-top.navbar.default-layout-navbar,
+nav.fixed-top.navbar.default-layout-navbar,
+.navbar.default-layout-navbar.fixed-top,
+nav.navbar.default-layout-navbar.fixed-top {
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 1030 !important;
+    width: 100% !important;
+    left: auto !important;
+    right: auto !important;
+}
+
+/* Buat default-layout-navbar sticky saat scroll - override semua position */
+.navbar.default-layout-navbar,
+nav.navbar.default-layout-navbar {
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 1030 !important;
+    width: 100% !important;
+}
+
+/* Pastikan navbar-info juga sticky */
+.navbar.default-layout-navbar.navbar-info,
+nav.navbar.default-layout-navbar.navbar-info,
+.fixed-top.navbar.default-layout-navbar.navbar-info,
+nav.fixed-top.navbar.default-layout-navbar.navbar-info {
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 1030 !important;
+}
+
+/* Header Responsive */
+@media (max-width: 991px) {
+    .navbar {
+        padding: 0.5rem 1rem;
+        position: sticky !important;
+        top: 0 !important;
+        z-index: 1030 !important;
+    }
+    
+    .navbar-brand {
+        font-size: 1.2rem;
+    }
+    
+    .navbar-nav .nav-link {
+        padding: 0.5rem 1rem;
+    }
+}
+
+/* ============================================
+   TABLES RESPONSIVE
+   ============================================ */
+
+/* DataTables Responsive */
+@media (max-width: 768px) {
+    .dataTables_wrapper {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .dataTables_wrapper .table {
+        min-width: 600px;
+    }
+    
+    .dataTables_wrapper .dataTables_length,
+    .dataTables_wrapper .dataTables_filter {
+        margin-bottom: 1rem;
+    }
+    
+    .dataTables_wrapper .dataTables_length select,
+    .dataTables_wrapper .dataTables_filter input {
+        width: 100%;
+        margin: 0.5rem 0;
+    }
+    
+    .dataTables_wrapper .dataTables_info,
+    .dataTables_wrapper .dataTables_paginate {
+        margin-top: 1rem;
+        text-align: center;
+    }
+}
+
+/* Table Responsive Wrapper */
+.table-responsive-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+    .table-responsive-wrapper {
+        border: 1px solid #dee2e6;
+        border-radius: 0.25rem;
+    }
+    
+    .table-responsive-wrapper table {
+        margin-bottom: 0;
+    }
+    
+    .table-responsive-wrapper .table thead th {
+        white-space: nowrap;
+        font-size: 0.85rem;
+        padding: 0.5rem;
+    }
+    
+    .table-responsive-wrapper .table tbody td {
+        white-space: nowrap;
+        font-size: 0.85rem;
+        padding: 0.5rem;
+    }
+}
+
+/* ============================================
+   TABLE HEADER STICKY
+   ============================================ */
+
+/* Buat header tabel sticky saat scroll */
+.table-responsive-wrapper {
+    position: relative;
+}
+
+.table-responsive-wrapper .table thead th {
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 10 !important;
+    background-color: #fff !important;
+    box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Untuk tabel dengan background striped */
+.table-responsive-wrapper .table-striped thead th {
+    background-color: #f8f9fa !important;
+}
+
+/* Untuk tabel dengan background bordered */
+.table-responsive-wrapper .table-bordered thead th {
+    border-bottom: 2px solid #dee2e6 !important;
+}
+
+/* Pastikan header tetap di atas saat scroll horizontal */
+.table-responsive-wrapper .table thead {
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 10 !important;
+}
+
+/* ============================================
+   FORMS RESPONSIVE
+   ============================================ */
+
+@media (max-width: 768px) {
+    .form-group {
+        margin-bottom: 1rem;
+    }
+    
+    .form-control,
+    .form-select,
+    select.form-control {
+        font-size: 16px; /* Prevent zoom on iOS */
+        padding: 0.75rem;
+    }
+    
+    .form-row {
+        margin-left: 0;
+        margin-right: 0;
+    }
+    
+    .form-row > .col,
+    .form-row > [class*="col-"] {
+        padding-left: 0;
+        padding-right: 0;
+        margin-bottom: 1rem;
+    }
+    
+    .input-group {
+        flex-wrap: wrap;
+    }
+    
+    .input-group .form-control {
+        width: 100% !important;
+        margin-bottom: 0.5rem;
+    }
+    
+    .input-group-append,
+    .input-group-prepend {
+        width: 100%;
+    }
+    
+    .input-group-append .btn,
+    .input-group-prepend .btn {
+        width: 100%;
+    }
+}
+
+/* Select2 Responsive */
+@media (max-width: 768px) {
+    .select2-container {
+        width: 100% !important;
+    }
+    
+    .select2-container--default .select2-selection--single {
+        height: auto;
+        padding: 0.75rem;
+    }
+    
+    .select2-container--default .select2-selection--single .select2-selection__rendered {
+        line-height: 1.5;
+        padding: 0;
+    }
+}
+
+/* ============================================
+   CARDS RESPONSIVE
+   ============================================ */
+
+@media (max-width: 768px) {
+    .card {
+        margin-bottom: 1rem;
+    }
+    
+    .card-header {
+        padding: 0.75rem 1rem;
+        font-size: 1rem;
+    }
+    
+    .card-body {
+        padding: 1rem;
+    }
+    
+    .card-footer {
+        padding: 0.75rem 1rem;
+    }
+}
+
+/* ============================================
+   BUTTONS RESPONSIVE
+   ============================================ */
+
+@media (max-width: 768px) {
+    .btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+        white-space: nowrap;
+    }
+    
+    .btn-group {
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+    }
+    
+    .btn-group .btn {
+        flex: 1;
+        margin: 0.25rem;
+    }
+    
+    .btn-group-vertical {
+        width: 100%;
+    }
+    
+    .btn-group-vertical .btn {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+}
+
+/* ============================================
+   MODALS RESPONSIVE
+   ============================================ */
+
+@media (max-width: 768px) {
+    .modal-dialog {
+        margin: 0.5rem;
+        max-width: calc(100% - 1rem);
+    }
+    
+    .modal-content {
+        border-radius: 0.5rem;
+    }
+    
+    .modal-header {
+        padding: 1rem;
+        flex-wrap: wrap;
+    }
+    
+    .modal-title {
+        font-size: 1.1rem;
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+    
+    .modal-body {
+        padding: 1rem;
+        max-height: calc(100vh - 200px);
+        overflow-y: auto;
+    }
+    
+    .modal-footer {
+        padding: 1rem;
+        flex-wrap: wrap;
+    }
+    
+    .modal-footer .btn {
+        width: 100%;
+        margin: 0.25rem 0;
+    }
+}
+
+/* ============================================
+   TABS RESPONSIVE
+   ============================================ */
+
+@media (max-width: 768px) {
+    .nav-tabs {
+        flex-wrap: wrap;
+        border-bottom: 1px solid #dee2e6;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .nav-tabs .nav-item {
+        white-space: nowrap;
+        margin-bottom: 0.5rem;
+    }
+    
+    .nav-tabs .nav-link {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+    }
+    
+    .tab-content {
+        padding: 1rem 0;
+    }
+}
+
+/* Tab Filter Responsive (for pagination-verifikasi) */
+@media (max-width: 768px) {
+    .tab-filter {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        display: flex;
+        flex-wrap: nowrap;
+        padding-bottom: 0.5rem;
+    }
+    
+    .tab-filter-item {
+        white-space: nowrap;
+        padding: 0.75rem 1rem;
+        font-size: 0.85rem;
+        min-width: auto;
+    }
+    
+    .tab-filter-item .badge {
+        font-size: 0.7rem;
+        padding: 2px 6px;
+    }
+}
+
+/* ============================================
+   PAGINATION RESPONSIVE
+   ============================================ */
+
+@media (max-width: 768px) {
+    .pagination {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .pagination .page-item {
+        margin: 0.25rem;
+    }
+    
+    .pagination .page-link {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* ============================================
+   FILTERS & SEARCH RESPONSIVE
+   ============================================ */
+
+@media (max-width: 768px) {
+    .filter-wrapper {
+        margin-bottom: 1rem;
+    }
+    
+    .filter-wrapper .row {
+        margin-left: 0;
+        margin-right: 0;
+    }
+    
+    .filter-wrapper .col-md-3,
+    .filter-wrapper .col-md-4,
+    .filter-wrapper .col-md-6 {
+        padding-left: 0;
+        padding-right: 0;
+        margin-bottom: 0.75rem;
+    }
+    
+    .search-wrapper {
+        margin-bottom: 1rem;
+    }
+    
+    .search-wrapper .form-control {
+        width: 100%;
+    }
+}
+
+/* ============================================
+   STATUS CARDS & BADGES RESPONSIVE
+   ============================================ */
+
+@media (max-width: 768px) {
+    .status-summary {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+    
+    .status-card {
+        min-width: 100%;
+        padding: 1rem;
+    }
+    
+    .status-card .status-label {
+        font-size: 0.8rem;
+    }
+    
+    .status-card .status-count {
+        font-size: 1.5rem;
+    }
+}
+
+/* ============================================
+   DROPDOWN RESPONSIVE
+   ============================================ */
+
+@media (max-width: 768px) {
+    .dropdown-menu {
+        max-width: calc(100vw - 2rem);
+        max-height: 50vh;
+        overflow-y: auto;
+    }
+    
+    .dropdown-item {
+        padding: 0.75rem 1rem;
+        white-space: normal;
+        word-wrap: break-word;
+    }
+}
+
+/* ============================================
+   DROPDOWN MENU - HAPUS BULLET POINTS
+   ============================================ */
+
+/* Hapus bullet points dari li di dalam dropdown-menu */
+.dropdown-menu li,
+.dropdown-menu .dropdown-item {
+    list-style: none !important;
+}
+
+.dropdown-menu li::before,
+.dropdown-menu .dropdown-item::before {
+    content: none !important;
+    display: none !important;
+}
+
+/* ============================================
+   SIDE MENU - HAPUS BULLET POINTS
+   ============================================ */
+
+/* Hapus bullet points dari semua ul dan ol di side menu */
+.sidebar ul,
+.sidebar ol,
+.sidebar .nav ul,
+.sidebar .nav ol,
+.sidebar .nav .nav-item ul,
+.sidebar .nav .nav-item ol,
+.sidebar .nav .collapse ul,
+.sidebar .nav .collapse ol,
+.sidebar .nav .sub-menu ul,
+.sidebar .nav .sub-menu ol {
+    list-style: none !important;
+    list-style-type: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.sidebar .nav .sub-menu ul li,
+.sidebar .nav .sub-menu ol li,
+.sidebar .nav  ul li,
+.sidebar .nav ol li {
+    list-style: none !important;
+    list-style-type: none !important;
+    padding-left: 3.5rem !important; /* Padding lebih kecil untuk sub-menu */
+}
+
+.sidebar .nav  .menu ,
+.sidebar .nav  .menu {
+    list-style: none !important;
+    list-style-type: none !important;
+    padding-left:0.5rem !important; /* Padding lebih kecil agar lebih ke kiri */
+}
+
+/* Sub-menu items butuh padding sedikit lebih besar */
+.sidebar .nav .sub-menu ul li,
+.sidebar .nav .sub-menu ol li,
+.sidebar .nav .collapse ul li,
+.sidebar .nav .collapse ol li {
+    padding-left: 3.5rem !important; /* Padding lebih kecil untuk sub-menu */
+}
+
+/* Hapus semua pseudo-elements yang mungkin menambahkan bullet points */
+.sidebar ul li::before,
+.sidebar ul li::after,
+.sidebar ol li::before,
+.sidebar ol li::after,
+.sidebar .nav ul li::before,
+.sidebar .nav ul li::after,
+.sidebar .nav ol li::before,
+.sidebar .nav ol li::after,
+.sidebar .nav .nav-item li::before,
+.sidebar .nav .nav-item li::after,
+.sidebar .nav .nav-item ul li::before,
+.sidebar .nav .nav-item ul li::after,
+.sidebar .nav .nav-item ol li::before,
+.sidebar .nav .nav-item ol li::after,
+.sidebar .nav .collapse ul li::before,
+.sidebar .nav .collapse ul li::after,
+.sidebar .nav .collapse ol li::before,
+.sidebar .nav .collapse ol li::after,
+.sidebar .nav .sub-menu ul li::before,
+.sidebar .nav .sub-menu ul li::after,
+.sidebar .nav .sub-menu ol li::before,
+.sidebar .nav .sub-menu ol li::after {
+    content: none !important;
+    display: none !important;
+}
+
+/* ============================================
+   ALERTS & NOTIFICATIONS RESPONSIVE
+   ============================================ */
+
+@media (max-width: 768px) {
+    .alert {
+        padding: 0.75rem 1rem;
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+    }
+    
+    .alert-dismissible .close {
+        padding: 0.75rem 1rem;
+    }
+}
+
+/* ============================================
+   UTILITIES RESPONSIVE
+   ============================================ */
+
+/* Hide on mobile */
+@media (max-width: 768px) {
+    .d-none-mobile {
+        display: none !important;
+    }
+    
+    .d-block-mobile {
+        display: block !important;
+    }
+    
+    .d-flex-mobile {
+        display: flex !important;
+    }
+}
+
+/* Show only on mobile */
+@media (min-width: 769px) {
+    .d-mobile-only {
+        display: none !important;
+    }
+}
+
+/* Text alignment responsive */
+@media (max-width: 768px) {
+    .text-center-mobile {
+        text-align: center !important;
+    }
+    
+    .text-left-mobile {
+        text-align: left !important;
+    }
+}
+
+/* Spacing responsive */
+@media (max-width: 768px) {
+    .mb-mobile-2 {
+        margin-bottom: 0.5rem !important;
+    }
+    
+    .mb-mobile-3 {
+        margin-bottom: 1rem !important;
+    }
+    
+    .mt-mobile-2 {
+        margin-top: 0.5rem !important;
+    }
+    
+    .mt-mobile-3 {
+        margin-top: 1rem !important;
+    }
+    
+    .p-mobile-2 {
+        padding: 0.5rem !important;
+    }
+    
+    .p-mobile-3 {
+        padding: 1rem !important;
+    }
+}
+
+/* ============================================
+   PRINT RESPONSIVE
+   ============================================ */
+
+@media print {
+    .sidebar-offcanvas,
+    .navbar,
+    .btn,
+    .pagination,
+    .dataTables_wrapper .dataTables_length,
+    .dataTables_wrapper .dataTables_filter,
+    .dataTables_wrapper .dataTables_paginate {
+        display: none !important;
+    }
+    
+    .main-panel {
+        width: 100% !important;
+        margin-left: 0 !important;
+    }
+    
+    .card {
+        border: none;
+        box-shadow: none;
+    }
+    
+    .table {
+        font-size: 0.8rem;
+    }
+}
+
+/* ============================================
+   ACCESSIBILITY & TOUCH FRIENDLY
+   ============================================ */
+
+/* Touch friendly targets */
+@media (max-width: 768px) {
+    a, button, .btn, .nav-link, .page-link {
+        min-height: 44px;
+        min-width: 44px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+/* Focus states for accessibility */
+*:focus {
+    outline: 2px solid #3ca8a8;
+    outline-offset: 2px;
+}
+
+/* ============================================
+   SMOOTH SCROLLING
+   ============================================ */
+
+html {
+    scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+    
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* ============================================
+   FIX FOR iOS SAFARI
+   ============================================ */
+
+@supports (-webkit-touch-callout: none) {
+    /* iOS Safari specific fixes */
+    .form-control,
+    select.form-control {
+        font-size: 16px; /* Prevent zoom on focus */
+    }
+    
+    .modal {
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .table-responsive-wrapper {
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+/* ============================================
+   FIX FOR ANDROID
+   ============================================ */
+
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+    select,
+    textarea,
+    input[type="text"],
+    input[type="password"],
+    input[type="datetime"],
+    input[type="datetime-local"],
+    input[type="date"],
+    input[type="month"],
+    input[type="time"],
+    input[type="week"],
+    input[type="number"],
+    input[type="email"],
+    input[type="url"],
+    input[type="search"],
+    input[type="tel"],
+    input[type="color"] {
+        font-size: 16px; /* Prevent zoom on focus */
+    }
+}
+
+/* ============================================
+   LAYOUT: samakan offset dengan navbar sticky
+   (override lama template fixed-top + padding 60/70px)
+   ============================================ */
+.default-layout-navbar + .page-body-wrapper {
+    padding-top: 0 !important;
+}

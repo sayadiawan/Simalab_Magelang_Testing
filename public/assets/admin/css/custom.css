@@ -1,0 +1,599 @@
+.form-control {
+  padding: 10px !important;
+  border: 2px solid #cecece;
+  border-radius: 4px !important;
+}
+
+.line {
+  border: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.bg-inverse-primary.breadcrumb-custom .breadcrumb-item a {
+  color: #fff;
+  font-weight: 500;
+}
+
+.select2-container--default .select2-selection--single {
+  min-height: 40px;
+  border: 2px solid #cecece;
+  border-radius: 4px !important;
+  padding: 11px;
+}
+
+.select2-container--default
+  .select2-selection--single
+  .select2-selection__arrow {
+  top: 7px;
+}
+
+.navbar.default-layout-navbar .navbar-brand-wrapper .navbar-brand img {
+  /* width: calc(350px - 85px); */
+}
+
+.jarak-menu {
+  padding: 10px 15px;
+}
+
+a {
+  color: #205373;
+  transition-property: border, background, color;
+  transition-duration: 0.05s;
+  transition-timing-function: ease-in-out;
+  text-decoration: none !important;
+}
+
+.form-group label {
+  margin-bottom: 10px;
+}
+
+.dataTables_wrapper .dataTable .btn,
+.dataTables_wrapper .dataTable .fc button,
+.fc .dataTables_wrapper .dataTable button,
+.dataTables_wrapper .dataTable .ajax-upload-dragdrop .ajax-file-upload,
+.ajax-upload-dragdrop .dataTables_wrapper .dataTable .ajax-file-upload,
+.dataTables_wrapper .dataTable .swal2-modal .swal2-buttonswrapper .swal2-styled,
+.swal2-modal .swal2-buttonswrapper .dataTables_wrapper .dataTable .swal2-styled,
+.dataTables_wrapper .dataTable .wizard > .actions a,
+.wizard > .actions .dataTables_wrapper .dataTable a {
+  padding: 8px 10px 8px 10px;
+}
+
+.over-height {
+  overflow-y: scroll;
+  height: 214px;
+}
+
+#style-3::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #f5f5f5;
+}
+
+#style-3::-webkit-scrollbar {
+  width: 6px;
+  background-color: #f5f5f5;
+}
+
+#style-3::-webkit-scrollbar-thumb {
+  background-color: #000000;
+}
+
+.card-body-0 {
+  padding: 0px;
+}
+
+.font-18 {
+  font-size: 16px;
+  color: #82878c;
+  speak: none;
+  display: inline-block;
+  position: relative;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-decoration: none !important;
+  vertical-align: top;
+}
+
+.font-14 {
+  font-size: 14px;
+}
+
+.auth form .auth-form-btn {
+  line-height: 1;
+}
+
+.font-menu {
+  font-size: 1rem !important;
+  color: #9b9b9b !important;
+}
+
+.accordion .card {
+  background: #cecece;
+  border-radius: 4px !important;
+  border-radius: 5px;
+}
+
+.accordion-width {
+  width: 400px;
+}
+
+.text-none {
+  text-decoration: none !important;
+}
+
+.modalDialog {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 99;
+  opacity: 0;
+  -webkit-transition: opacity 100ms ease-in;
+  -moz-transition: opacity 100ms ease-in;
+  transition: opacity 100ms ease-in;
+  pointer-events: none;
+}
+
+/* font */
+
+.mb-20 {
+  margin-bottom: 20px;
+}
+
+.wizard > .steps .current a:active {
+  background: #287373;
+}
+
+.wizard > .steps .done a:hover {
+  background: #287373;
+}
+
+#scrool {
+  height: 100%;
+  padding: 1em;
+  overflow-y: scroll;
+}
+
+.modalDialog:target {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.wizard > .content > .body {
+  height: 345px;
+}
+
+.modalDialog > div {
+  max-width: 70%;
+  width: 100%;
+  position: relative;
+  margin: 10% auto;
+  padding: 20px;
+  border-radius: 3px;
+  background: #fff;
+  margin-top: 10px;
+  overflow: scroll;
+}
+
+.close {
+  background: #a61f22 !important;
+  color: #fff;
+  line-height: 25px;
+  right: -10px;
+  text-align: center;
+  top: -10px;
+  width: 34px;
+  height: 34px;
+  text-decoration: none;
+  font-weight: bold;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  -moz-box-shadow: 1px 1px 3px #000;
+  -webkit-box-shadow: 1px 1px 3px #000;
+  box-shadow: 1px 1px 3px #000;
+}
+
+.modal .modal-dialog .modal-content .modal-header .close span {
+  color: #fff;
+}
+
+.bg-inverse-primary.breadcrumb-custom .breadcrumb-item {
+  /* border-radius: 5px; */
+}
+
+.close:hover {
+  background: #fa3f6f;
+}
+
+.aktif {
+  border-radius: 50%;
+}
+
+.tombol {
+  color: #fff;
+  background-color: #535961;
+}
+
+.tombol:hover {
+  background-color: #101010;
+}
+
+.color-login {
+  color: #535961;
+}
+
+.color-daftar {
+  color: #287373;
+  font-weight: 100;
+}
+
+/* .navbar.default-layout-navbar .navbar-brand-wrapper {
+    background: #ffffff;
+} */
+
+.navbar.default-layout-navbar.navbar-info .navbar-menu-wrapper {
+  background: #287373;
+}
+
+.wizard > .content > .body {
+  width: 98% !important;
+}
+
+.button-agenda {
+  border-radius: 0.625rem;
+  padding: 0.6875rem 1.25rem;
+  padding-right: 1.25rem;
+  padding-left: 1.25rem;
+  letter-spacing: 0.0375rem;
+  text-align: center;
+  font-style: normal;
+  background: #287373;
+  color: #fafafa;
+  text-transform: uppercase;
+  width: 100%;
+}
+
+.button-agenda:hover {
+  border: 1px solid #287373;
+  color: #287373;
+  background: none;
+}
+
+.wizard > .content {
+  overflow: none !important;
+  height: auto !important;
+  padding: 10px !important;
+  border: none !important;
+}
+
+.font-member {
+  max-height: 100px;
+  cursor: pointer;
+}
+
+.wizard > .steps .current a {
+  background: #287373;
+  color: #ffffff;
+  cursor: default;
+}
+
+.btn-primary,
+.navbar.default-layout-navbar.navbar-primary
+  .navbar-menu-wrapper
+  .navbar-nav
+  .nav-item
+  .nav-link
+  .btn-primary,
+.wizard > .actions a {
+  background: #287373;
+  color: #ffffff;
+}
+
+.btn-primary:hover,
+.navbar.default-layout-navbar.navbar-primary
+  .navbar-menu-wrapper
+  .navbar-nav
+  .nav-item
+  .nav-link
+  .btn-primary:hover,
+.wizard > .actions a:hover {
+  background: #0c4061;
+  color: #ffffff;
+}
+
+.wizard > .steps .current a:hover {
+  background: #3ca8a8;
+  color: #ffffff;
+  cursor: default;
+}
+
+.wizard > .steps .done a {
+  background: #3ca8a8;
+  color: #ffffff;
+}
+
+.sidebar .nav .nav-item.active > .nav-link i,
+.sidebar .nav .nav-item.active > .nav-link .menu-title,
+.sidebar .nav .nav-item.active > .nav-link .menu-arrow {
+  color: #205373;
+}
+
+.btn-primary {
+  background: #205373;
+}
+
+.text-primary {
+  color: #205373 !important;
+}
+
+@media only screen and (max-width: 600px) {
+  .res-angka {
+    margin-top: 0px !important;
+  }
+  .text-respon {
+    font-size: 11px;
+  }
+  .modalDialog > div {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .wizard > .content > .body {
+    position: relative !important;
+  }
+  .text-font {
+    font-size: 12px !important;
+    max-width: 150px;
+  }
+  .button-agenda {
+    font-size: 14px;
+    max-width: 200px;
+  }
+  .wizard > .content > .body {
+    height: 500px;
+  }
+  .text-icon {
+    font-size: 40px !important;
+  }
+  .wizard > .steps a {
+    width: 98%;
+    margin: 1px;
+    padding: 10px;
+  }
+}
+
+.text-black-50 {
+  font-size: 14px;
+}
+
+.font-weight-bold {
+  font-weight: 700 !important;
+}
+
+.display-4 {
+  font-size: 1.7rem;
+}
+
+.card.card.card-menu {
+  background: linear-gradient(85deg, #3bb2ff, #12a2ff) !important;
+  color: #fff !important;
+}
+
+.font-white {
+  color: #fff !important;
+}
+
+.font-menu-icon {
+  font-size: 16px;
+  color: #fff !important;
+  speak: none;
+  display: inline-block;
+  position: relative;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-decoration: none !important;
+  vertical-align: top;
+}
+
+.card.card-statistics {
+  background: linear-gradient(85deg, #3ca8a8, #d2dfdf) !important;
+}
+
+.bg-inverse-primary.breadcrumb-custom .breadcrumb-item a:before {
+  border-left-color: #2D6BCF !important;
+  border-radius: 10px;
+}
+
+.table td .badge,
+.jsgrid .jsgrid-table td .badge {
+  cursor: pointer;
+}
+
+.scrool-list {
+  overflow: scroll;
+  height: 500px;
+}
+
+.mo-fixed {
+  position: fixed;
+  top: 23%;
+  -webkit-transition: background 0.3s ease, height 0.4s ease;
+  -o-transition: background 0.3s ease, height 0.4s ease;
+  transition: background 0.3s ease, height 0.4s ease;
+  width: 100%;
+  z-index: 29;
+  height: 450px;
+  right: 0;
+}
+
+.footer a {
+  color: #205373;
+}
+
+/* Hapus bullet points dari li di dalam dropdown-menu */
+.dropdown-menu li,
+.dropdown-menu .dropdown-item {
+  list-style: none !important;
+}
+
+.dropdown-menu li::before,
+.dropdown-menu .dropdown-item::before {
+  content: none !important;
+  display: none !important;
+}
+
+/* Hapus bullet points dari semua ul dan ol di side menu */
+.sidebar ul,
+.sidebar ol,
+.sidebar .nav ul,
+.sidebar .nav ol,
+.sidebar .nav .nav-item ul,
+.sidebar .nav .nav-item ol,
+.sidebar .nav .collapse ul,
+.sidebar .nav .collapse ol,
+.sidebar .nav .sub-menu ul,
+.sidebar .nav .sub-menu ol {
+  list-style: none !important;
+  list-style-type: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.sidebar .nav .sub-menu ul li,
+.sidebar .nav .sub-menu ol li,
+.sidebar .nav  ul li,
+.sidebar .nav ol li {
+    list-style: none !important;
+    list-style-type: none !important;
+    padding-left: 3.5rem !important; /* Padding lebih kecil untuk sub-menu */
+}
+
+.sidebar .nav  .menu ,
+.sidebar .nav  .menu {
+    list-style: none !important;
+    list-style-type: none !important;
+    padding-left:0.5rem !important; /* Padding lebih kecil agar lebih ke kiri */
+}
+
+/* Sub-menu items butuh padding sedikit lebih besar */
+.sidebar .nav .sub-menu ul li,
+.sidebar .nav .sub-menu ol li,
+.sidebar .nav .collapse ul li,
+.sidebar .nav .collapse ol li {
+    padding-left: 3.5rem !important; /* Padding lebih kecil untuk sub-menu */
+}
+/* Sub-menu items butuh padding sedikit lebih besar */
+.sidebar .nav .sub-menu ul li,
+.sidebar .nav .sub-menu ol li,
+.sidebar .nav .collapse ul li,
+.sidebar .nav .collapse ol li {
+  padding-left: 1rem !important; /* Padding lebih kecil untuk sub-menu */
+}
+
+/* Hapus semua pseudo-elements yang mungkin menambahkan bullet points */
+.sidebar ul li::before,
+.sidebar ul li::after,
+.sidebar ol li::before,
+.sidebar ol li::after,
+.sidebar .nav ul li::before,
+.sidebar .nav ul li::after,
+.sidebar .nav ol li::before,
+.sidebar .nav ol li::after,
+.sidebar .nav .nav-item li::before,
+.sidebar .nav .nav-item li::after,
+.sidebar .nav .nav-item ul li::before,
+.sidebar .nav .nav-item ul li::after,
+.sidebar .nav .nav-item ol li::before,
+.sidebar .nav .nav-item ol li::after,
+.sidebar .nav .collapse ul li::before,
+.sidebar .nav .collapse ul li::after,
+.sidebar .nav .collapse ol li::before,
+.sidebar .nav .collapse ol li::after,
+.sidebar .nav .sub-menu ul li::before,
+.sidebar .nav .sub-menu ul li::after,
+.sidebar .nav .sub-menu ol li::before,
+.sidebar .nav .sub-menu ol li::after,
+.sidebar .nav .nav-item::before,
+.sidebar .nav .nav-item::after,
+.sidebar .nav .nav-link::before,
+.sidebar .nav .nav-link::after {
+  content: none !important;
+  display: none !important;
+}
+
+/* Pastikan semua list di sidebar tidak punya bullet */
+.sidebar * ul,
+.sidebar * ol {
+  list-style: none !important;
+  list-style-type: none !important;
+}
+
+.sidebar * ul li,
+.sidebar * ol li {
+  list-style: none !important;
+  list-style-type: none !important;
+}
+
+@media (min-width: 992px) {
+  .sidebar-icon-only
+    .sidebar
+    .nav
+    .nav-item.hover-open
+    .nav-link:hover
+    .menu-title {
+    background: linear-gradient(85deg, #287373, #205373) !important;
+    text-decoration: none !important;
+  }
+  .sidebar-icon-only .sidebar .nav .nav-item.hover-open .collapse,
+  .sidebar-icon-only .sidebar .nav .nav-item.hover-open .collapsing {
+    background: linear-gradient(85deg, #287373, #205373) !important;
+  }
+}
+
+.btn-white {
+  background: #fff;
+  color: #205373;
+}
+
+/* Css pada halaman login */
+
+.auth .auth-form-light {
+  background: #ffffff;
+  box-shadow: 0px 15px 16.83px 0.17px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: 0px 15px 16.83px 0.17px rgba(0, 0, 0, 0.05);
+  -webkit-box-shadow: 0px 15px 16.83px 0.17px rgba(0, 0, 0, 0.05);
+  -o-box-shadow: 0px 15px 16.83px 0.17px rgba(0, 0, 0, 0.05);
+  -ms-box-shadow: 0px 15px 16.83px 0.17px rgba(0, 0, 0, 0.05);
+  border-radius: 20px;
+  -moz-border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -o-border-radius: 20px;
+  -ms-border-radius: 20px;
+}
+
+/* ============================================
+   NAVBAR STICKY - Override fixed-top
+   ============================================ */
+
+/* Override .fixed-top untuk navbar default-layout-navbar - ubah dari fixed ke sticky */
+.fixed-top.navbar.default-layout-navbar,
+nav.fixed-top.navbar.default-layout-navbar,
+.navbar.default-layout-navbar.fixed-top,
+nav.navbar.default-layout-navbar.fixed-top {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 1030 !important;
+  width: 100% !important;
+  left: auto !important;
+  right: auto !important;
+}
+
+/* Pastikan navbar-info juga sticky */
+.fixed-top.navbar.default-layout-navbar.navbar-info,
+nav.fixed-top.navbar.default-layout-navbar.navbar-info {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 1030 !important;
+}

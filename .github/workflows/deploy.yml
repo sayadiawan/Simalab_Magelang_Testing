@@ -1,0 +1,48 @@
+name: Deploy Laravel to VPS
+
+on:
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: deploy-vps
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+    environment: VPS
+
+    steps:
+    - name: Setup SSH
+      uses: webfactory/ssh-agent@v0.9.0
+      with:
+        ssh-private-key: ${{ secrets.SSH_KEY }}
+
+   
+    - name: Add VPS to known_hosts
+      run: |
+        mkdir -p ~/.ssh
+        ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+
+    - name: Git pull & optimize
+      run: |
+        ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
+          cd ${{ secrets.APP_DIR }}
+           git fetch origin
+          git reset --hard origin/main
+          git pull origin main
+
+          php artisan migrate --force
+          php artisan view:clear
+          php artisan route:clear
+          php artisan optimize
+          php artisan optimize:clear
+
+          sudo systemctl restart php7.4-fpm
+          sudo systemctl reload nginx
+        EOF
+
+
+

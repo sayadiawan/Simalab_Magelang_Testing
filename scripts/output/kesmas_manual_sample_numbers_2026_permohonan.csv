@@ -1,0 +1,1079 @@
+﻿urut,tanggal,pelanggan,alamat,jumlah_sampel,nomor_sampel_semua,register_semua,parameter_semua,detail_per_baris
+1,,Apriliana Wahyudini,"Dogaten 4/1, Sukorejo, Mertoyudan",1,MM.01/1995/2026,1995,Ketengikan ...,1995 kimia Makanan -> MM.01/1995/2026 (Ketengikan ...)
+2,,BP. Spam Sidoagung,Sidoagung Tempuran,1,AM.02/1970/2026,1970,E.Coli ...,1970 mikro Air Minum -> AM.02/1970/2026 (E.Coli ...)
+3,,CV. El - Hanif Putra Mandiri Group,"Dsn. Tangkilan, Rt 02/Rw18,Ds. Pabelan, Kec. Mungkid",2,AM.02/0941/2026 | AM.01/0942/2026,941 | 942,Coliform & E.coli (Membran Filter) | AM Lengkap menurut permenkes NO 2 th 2024," 941 mikro AM Proses -> AM.02/0941/2026 (Coliform & E.coli (Membran Filter))
+ 942 kimia AM Proses -> AM.01/0942/2026 (AM Lengkap menurut permenkes NO 2 th 2024)"
+4,,Cv. Lidah Buaya Group,"Demesan 02/01, Girirejo, Tempuran",2,AM.02/0947/2026 | AM.01/0948/2026,947 | 948,Coliform & E.coli (Membran Filter) | AM Lengkap menurut permenkes NO 2 th 2024," 947 mikro AM Kran Plant CD -> AM.02/0947/2026 (Coliform & E.coli (Membran Filter))
+ 948 kimia AM Kran Plant CD -> AM.01/0948/2026 (AM Lengkap menurut permenkes NO 2 th 2024)"
+5,,Cv. Lidah Buaya Group,"Jl. Beringin III Tidar No.16B, Tidar Utara, Magelang Selatan, Magelang",5,AM.02/0945/2026 | AM.01/0946/2026 | MM.02/1017/2026 | MM.02/1018/2026 | MM.02/1019/2026,945 | 946 | 1017 | 1018 | 1019,Coliform & E.coli (Membran Filter) | AM Lengkap menurut permenkes NO 2 th 2024 | Angka Kuman | Angka Kuman | Angka Kuman," 945 mikro AM Kran Plant B -> AM.02/0945/2026 (Coliform & E.coli (Membran Filter))
+ 946 kimia AM Kran Plant B -> AM.01/0946/2026 (AM Lengkap menurut permenkes NO 2 th 2024)
+1017 mikro MM -> MM.02/1017/2026 (Angka Kuman)
+1018 mikro MM -> MM.02/1018/2026 (Angka Kuman)
+1019 mikro MM -> MM.02/1019/2026 (Angka Kuman)"
+6,,CV. Sinar Joyo Boyo,"Jl. Beringin III Tidar No.16B, Tidar Utara, Magelang Selatan, Magelang",1,AM.02/1020/2026,1020,Coliform & E.coli (Membran Filter),1020 mikro AM Plant A -> AM.02/1020/2026 (Coliform & E.coli (Membran Filter))
+7,,Damiu Al Min Haj,"Pabelan, Mungkid",5,AH.02/1977/2026 | AM.02/1978/2026 | AM.01/1979/2026 | AH.02/1980/2026 | AH.01/1981/2026,1977 | 1978 | 1979 | 1980 | 1981,"Coliform & E.coli (Membran Filter) ... | Coliform & E.coli (Membran Filter),Sampling ... | Aluminium,Arsen,Bau,Besi,Flourida,Kadmium,Kekeruha ... | Coliform & E.coli (Membran Filter),Sampling ... | Bau,Besi,Kekeruhan,Kromium Valensi 6,Mangaan,Nitra ...","1977 mikro Air Bersih -> AH.02/1977/2026 (Coliform & E.coli (Membran Filter) ...)
+1978 mikro Air Minum -> AM.02/1978/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+1979 kimia Air Minum -> AM.01/1979/2026 (Aluminium,Arsen,Bau,Besi,Flourida,Kadmium,Kekeruha ...)
+1980 mikro Air Bersih -> AH.02/1980/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+1981 kimia Air Bersih -> AH.01/1981/2026 (Bau,Besi,Kekeruhan,Kromium Valensi 6,Mangaan,Nitra ...)"
+8,,Damiu Alexa,"Kalisari, Tempuran",1,AM.02/1971/2026,1971,E.Coli ...,1971 mikro Air Minum -> AM.02/1971/2026 (E.Coli ...)
+9,,Damiu Anisa,"Samberan, Ringinanom Tempuran",1,AM.02/1951/2026,1951,E.Coli ...,1951 mikro Air Minum -> AM.02/1951/2026 (E.Coli ...)
+10,,Damiu Indri Water,Ringinanom Tempuran,1,AM.02/1949/2026,1949,E.Coli ...,1949 mikro Air Minum -> AM.02/1949/2026 (E.Coli ...)
+11,,Damiu Machya Water,Sidoagung Tempuran,1,AM.02/1950/2026,1950,E.Coli ...,1950 mikro Air Minum -> AM.02/1950/2026 (E.Coli ...)
+12,,Damiu Mulya Fresh,Sidoagung Tempuran,1,AM.02/1919/2026,1919,E.Coli ...,1919 mikro Air Minum -> AM.02/1919/2026 (E.Coli ...)
+13,,Damiu Najwa Tirta,"Sedayu, Muntilan",1,AM.02/1888/2026,1888,E.Coli ...,1888 mikro Air Minum -> AM.02/1888/2026 (E.Coli ...)
+14,,Damiu Noor Galon,Sumberrarum Tempuran,1,AM.02/1920/2026,1920,E.Coli ...,1920 mikro Air Minum -> AM.02/1920/2026 (E.Coli ...)
+15,,Damiu Nurul Water,Girirejo Tempuran,1,AM.02/1918/2026,1918,E.Coli ...,1918 mikro Air Minum -> AM.02/1918/2026 (E.Coli ...)
+16,,Damiu Senannas,"Ktajan 2 05/04, Kwaderan, Kajoran",3,AM.02/1996/2026 | AM.01/1997/2026 | AM.02/1998/2026,1996 | 1997 | 1998,"Coliform & E.coli (Membran Filter) ... | Aluminium,Arsen,Bau,Besi,Flourida,Kadmium,Kekeruha ... | Coliform & E.coli (Membran Filter) ...","1996 mikro Air Minum -> AM.02/1996/2026 (Coliform & E.coli (Membran Filter) ...)
+1997 kimia Air Minum -> AM.01/1997/2026 (Aluminium,Arsen,Bau,Besi,Flourida,Kadmium,Kekeruha ...)
+1998 mikro Air Minum -> AM.02/1998/2026 (Coliform & E.coli (Membran Filter) ...)"
+17,,Damiu Tirta Amalia,"Gunungpring, Muntilan, Magelang",1,AM.02/1957/2026,1957,E.Coli ...,1957 mikro Air Minum -> AM.02/1957/2026 (E.Coli ...)
+18,,Dimas Nov Arjuna,SPPG Magelang Ngablak Jogoyasan,5,MM.02/1127/2026 | MM.02/1128/2026 | MM.01/1129/2026 | AM.02/1130/2026 | UA.02/1131/2026,1127 | 1128 | 1129 | 1130 | 1131,"Coliform & E.coli (Membran Filter), Sampling | E.coli (Makanan) , Sampling | Formalin, Sampling | Coliform & E.coli (Membran Filter), Sampling | Angka Kuman, Sampling","1127 mikro AB Kran Cuci -> MM.02/1127/2026 (Coliform & E.coli (Membran Filter), Sampling)
+1128 mikro MM Ayam Geprek -> MM.02/1128/2026 (E.coli (Makanan) , Sampling)
+1129 kimia MM Ayam Geprek -> MM.01/1129/2026 (Formalin, Sampling)
+1130 mikro AM Galon -> AM.02/1130/2026 (Coliform & E.coli (Membran Filter), Sampling)
+1131 mikro Usap Alat -> UA.02/1131/2026 (Angka Kuman, Sampling)"
+19,,Ernawati,"Dsn. Brangkal, 003/007, Candirejo, Borobudur",2,MM.02/1891/2026 | MM.01/1892/2026,1891 | 1892,Angka Kuman ... | Ketengikan ...,"1891 mikro Makanan -> MM.02/1891/2026 (Angka Kuman ...)
+1892 kimia Makanan -> MM.01/1892/2026 (Ketengikan ...)"
+20,,Ernawati,"Perum Graha Azalia I B 001/019, Banjarnegoro, Mertoyudan",8,MM.02/1048/2026 | MM.01/1049/2026 | MM.02/1050/2026 | MM.01/1051/2026 | MM.02/1052/2026 | MM.01/1053/2026 | MM.01/1054/2026 | MM.01/1055/2026,1048 | 1049 | 1050 | 1051 | 1052 | 1053 | 1054 | 1055,"Angka Kuman | Ketengikan | Angka Kuman | Ketengikan | Angka Kuman | Ketengikan | Formalin, Ketengikan | Formalin, Ketengikan","1048 mikro Peyek Kacang Tanah -> MM.02/1048/2026 (Angka Kuman)
+1049 kimia Peyek Kacang Tanah -> MM.01/1049/2026 (Ketengikan)
+1050 mikro Peyek Kacang Kedelai -> MM.02/1050/2026 (Angka Kuman)
+1051 kimia Peyek Kacang Kedelai -> MM.01/1051/2026 (Ketengikan)
+1052 mikro Peyek Kacang Hijau -> MM.02/1052/2026 (Angka Kuman)
+1053 kimia Peyek Kacang Hijau -> MM.01/1053/2026 (Ketengikan)
+1054 kimia Peyek Rebon -> MM.01/1054/2026 (Formalin, Ketengikan)
+1055 kimia Peyek Teri -> MM.01/1055/2026 (Formalin, Ketengikan)"
+21,,Gunawan,SPPG Magelang Tegalrejo Banyuurip,5,MM.02/1122/2026 | MM.02/1123/2026 | MM.01/1124/2026 | UA.02/1125/2026 | AM.02/1126/2026,1122 | 1123 | 1124 | 1125 | 1126,"Coliform & E.coli (Membran Filter), Sampling | E.coli (Makanan) , Sampling | Formalin, Sampling | Angka Kuman, Sampling | Coliform & E.coli (Membran Filter), Sampling","1122 mikro AB Kran Cuci -> MM.02/1122/2026 (Coliform & E.coli (Membran Filter), Sampling)
+1123 mikro MM Ayam Goreng -> MM.02/1123/2026 (E.coli (Makanan) , Sampling)
+1124 kimia MM Ayam Goreng -> MM.01/1124/2026 (Formalin, Sampling)
+1125 mikro Usap Alat -> UA.02/1125/2026 (Angka Kuman, Sampling)
+1126 mikro AM Galon -> AM.02/1126/2026 (Coliform & E.coli (Membran Filter), Sampling)"
+22,,Ika Avriani Laeliana,"Bugel 23/10,Tampirkulon, Candimulyo",1,MM.02/1040/2026,1040,Angka Kuman,1040 mikro MM -> MM.02/1040/2026 (Angka Kuman)
+23,,Klinik Daqu Sehat,"Jl. Jogja-Magelang Km 23 Jumoyo, Salam",1,AL.02/0951/2026,951,Coliform Limbah, 951 mikro AL Outlet -> AL.02/0951/2026 (Coliform Limbah)
+24,,Koyimah,"Dilem, 010/003, Kebonrejo, Salaman",2,MM.02/1889/2026 | MM.01/1890/2026,1889 | 1890,Angka Kuman ... | Borax ...,"1889 mikro Makanan -> MM.02/1889/2026 (Angka Kuman ...)
+1890 kimia Makanan -> MM.01/1890/2026 (Borax ...)"
+25,,KPSPAM Kateki,"Kateki, Kebonrejo, Salaman",2,MM.02/1008/2026 | MM.01/1009/2026,1008 | 1009,Coliform & E.coli (Membran Filter) | ,"1008 mikro AB Bp Muh Chamim -> MM.02/1008/2026 (Coliform & E.coli (Membran Filter))
+1009 kimia AB Bp Muh Chamim -> MM.01/1009/2026 ()"
+26,,Luthfan Fadhila,"SPPG Magelang, Pakis, Kaponan",1,AH.02/1923/2026,1923,"Coliform & E.coli (Membran Filter),Sampling ...","1923 mikro Air Bersih -> AH.02/1923/2026 (Coliform & E.coli (Membran Filter),Sampling ...)"
+27,,Muhammad Rais Dwi,SPPG Magelang Salaman Sriwedari 3,5,AH.02/1149/2026 | AM.02/1150/2026 | MM.02/1151/2026 | MM.01/1152/2026 | UA.02/1153/2026,1149 | 1150 | 1151 | 1152 | 1153,"Coliform & E.coli (Membran Filter),Sampling ... | Coliform & E.coli (Membran Filter),Sampling ... | E.coli (Makanan),Sampling ... | Formalin, Sampling | Angka Kuman Alat,Sampling ...","1149 mikro Air Bersih -> AH.02/1149/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+1150 mikro Air Minum -> AM.02/1150/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+1151 mikro MM Ayam Kecap -> MM.02/1151/2026 (E.coli (Makanan),Sampling ...)
+1152 kimia MM Tahu Goreng -> MM.01/1152/2026 (Formalin, Sampling)
+1153 mikro Usap -> UA.02/1153/2026 (Angka Kuman Alat,Sampling ...)"
+28,,Nur Ngaini,"Mlangen 13/ 05, Menoreh, Salaman",2,MM.02/1964/2026 | MM.01/1965/2026,1964 | 1965,Angka Kuman ... | Ketengikan ...,"1964 mikro Makanan -> MM.02/1964/2026 (Angka Kuman ...)
+1965 kimia Makanan -> MM.01/1965/2026 (Ketengikan ...)"
+29,,Nuryanto,Rambeanak III 3/5 Rambeanak Mungkid,1,AH.01/1922/2026,1922,"Besi,Mangaan,Nitrat,Ph,Zat Organic,Zat Terendap/ T ...","1922 kimia Air Bersih -> AH.01/1922/2026 (Besi,Mangaan,Nitrat,Ph,Zat Organic,Zat Terendap/ T ...)"
+30,,Paulinus Agustino Detu,"SPPG Magelang, Sawangan, Sawangan 2",5,MM.02/1972/2026 | MM.01/1973/2026 | UA.02/1974/2026 | AM.02/1975/2026 | AH.02/1976/2026,1972 | 1973 | 1974 | 1975 | 1976,"E.coli (Makanan),Sampling ... | Formalin,Sampling ... | Angka Kuman Alat,Sampling ... | Coliform & E.coli (Membran Filter),Sampling ... | Coliform & E.coli (Membran Filter),Sampling ...","1972 mikro Makanan -> MM.02/1972/2026 (E.coli (Makanan),Sampling ...)
+1973 kimia Makanan -> MM.01/1973/2026 (Formalin,Sampling ...)
+1974 mikro Usap -> UA.02/1974/2026 (Angka Kuman Alat,Sampling ...)
+1975 mikro Air Minum -> AM.02/1975/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+1976 mikro Air Bersih -> AH.02/1976/2026 (Coliform & E.coli (Membran Filter),Sampling ...)"
+31,,Paulus Budiman,"Jl. Magelang - Purworejo KM. 05, Noyoditan, Banjarnegoro, Mertoyudan",38,MM.02/1066/2026 | MM.01/1067/2026 | MM.02/1068/2026 | MM.01/1069/2026 | MM.02/1070/2026 | MM.01/1071/2026 | MM.02/1072/2026 | MM.01/1073/2026 | MM.02/1074/2026 | MM.01/1075/2026 | MM.02/1076/2026 | MM.01/1077/2026 | MM.02/1078/2026 | MM.01/1079/2026 | MM.02/1080/2026 | MM.01/1081/2026 | MM.02/1082/2026 | MM.01/1083/2026 | MM.02/1084/2026 | MM.01/1085/2026 | MM.02/1086/2026 | MM.01/1087/2026 | MM.02/1088/2026 | MM.01/1089/2026 | MM.02/1090/2026 | MM.01/1091/2026 | MM.02/1092/2026 | MM.01/1093/2026 | MM.02/1094/2026 | MM.01/1095/2026 | MM.02/1096/2026 | MM.01/1097/2026 | MM.02/1098/2026 | MM.01/1099/2026 | MM.02/1100/2026 | MM.02/1102/2026 | MM.01/1103/2026 | MM.01/1105/2026,1066 | 1067 | 1068 | 1069 | 1070 | 1071 | 1072 | 1073 | 1074 | 1075 | 1076 | 1077 | 1078 | 1079 | 1080 | 1081 | 1082 | 1083 | 1084 | 1085 | 1086 | 1087 | 1088 | 1089 | 1090 | 1091 | 1092 | 1093 | 1094 | 1095 | 1096 | 1097 | 1098 | 1099 | 1100 | 1102 | 1103 | 1105,Angka Kuman ... | Ketengikan ... | E.coli (Makanan) ... | Kadar Air ... | Parasit/ Jamur/ kapang acr ... | Kadar Air ... | Parasit/ Jamur/ kapang acr ... | Borax ... | Angka Kuman ... | Sakarin ... | Parasit/ Jamur/ kapang acr ... | Kadar Air ... | E.coli (Makanan) ... | Ketengikan ... | E.coli (Makanan) ... | Kadar Air ... | Angka Kuman ... | Pewarna Rhodamin B ... | Parasit/ Jamur/ kapang acr ... | Sakarin ... | Parasit/ Jamur/ kapang acr ... | Kadar Air ... | Angka Kuman ... | Ketengikan ... | Angka Kuman ... | Ketengikan ... | Parasit/ Jamur/ kapang acr ... | Kadar Air ... | Parasit/ Jamur/ kapang acr ... | Ketengikan ... | Angka Kuman ... | Sakarin ... | Parasit/ Jamur/ kapang acr ... | Kadar Air ... | E.coli (Makanan) ... | Angka Kuman ... | Ketengikan ... | Sakarin ...,"1066 mikro Wafer Gulung Keju -> MM.02/1066/2026 (Angka Kuman ...)
+1067 kimia Wafer Gulung Keju -> MM.01/1067/2026 (Ketengikan ...)
+1068 mikro Wafer Gulung Strowberry -> MM.02/1068/2026 (E.coli (Makanan) ...)
+1069 kimia Wafer Gulung Strowberry -> MM.01/1069/2026 (Kadar Air ...)
+1070 mikro Bolu Panggang Marmer -> MM.02/1070/2026 (Parasit/ Jamur/ kapang acr ...)
+1071 kimia Bolu Panggang Marmer -> MM.01/1071/2026 (Kadar Air ...)
+1072 mikro Wafer Gulung Cokelat -> MM.02/1072/2026 (Parasit/ Jamur/ kapang acr ...)
+1073 kimia Wafer Gulung Cokelat -> MM.01/1073/2026 (Borax ...)
+1074 mikro Bolu Panggang Loss -> MM.02/1074/2026 (Angka Kuman ...)
+1075 kimia Bolu Panggang Loss -> MM.01/1075/2026 (Sakarin ...)
+1076 mikro Bolu Panggang Pandan -> MM.02/1076/2026 (Parasit/ Jamur/ kapang acr ...)
+1077 kimia Bolu Panggang Pandan -> MM.01/1077/2026 (Kadar Air ...)
+1078 mikro Bolu Panggang Susu -> MM.02/1078/2026 (E.coli (Makanan) ...)
+1079 kimia Bolu Panggang Susu -> MM.01/1079/2026 (Ketengikan ...)
+1080 mikro Chery Ring -> MM.02/1080/2026 (E.coli (Makanan) ...)
+1081 kimia Chery Ring -> MM.01/1081/2026 (Kadar Air ...)
+1082 mikro Donat Warna -> MM.02/1082/2026 (Angka Kuman ...)
+1083 kimia Donat Warna -> MM.01/1083/2026 (Pewarna Rhodamin B ...)
+1084 mikro Donat Kopi -> MM.02/1084/2026 (Parasit/ Jamur/ kapang acr ...)
+1085 kimia Donat Kopi -> MM.01/1085/2026 (Sakarin ...)
+1086 mikro Seruni -> MM.02/1086/2026 (Parasit/ Jamur/ kapang acr ...)
+1087 kimia Seruni -> MM.01/1087/2026 (Kadar Air ...)
+1088 mikro Dahlia -> MM.02/1088/2026 (Angka Kuman ...)
+1089 kimia Dahlia -> MM.01/1089/2026 (Ketengikan ...)
+1090 mikro Sagu Pandan -> MM.02/1090/2026 (Angka Kuman ...)
+1091 kimia Sagu Pandan -> MM.01/1091/2026 (Ketengikan ...)
+1092 mikro Sagu Keju -> MM.02/1092/2026 (Parasit/ Jamur/ kapang acr ...)
+1093 kimia Sagu Keju -> MM.01/1093/2026 (Kadar Air ...)
+1094 mikro Putri Salju Pandan -> MM.02/1094/2026 (Parasit/ Jamur/ kapang acr ...)
+1095 kimia Putri Salju Pandan -> MM.01/1095/2026 (Ketengikan ...)
+1096 mikro Putri Salju -> MM.02/1096/2026 (Angka Kuman ...)
+1097 kimia Putri Salju -> MM.01/1097/2026 (Sakarin ...)
+1098 mikro Nastar Keju -> MM.02/1098/2026 (Parasit/ Jamur/ kapang acr ...)
+1099 kimia Nastar Keju -> MM.01/1099/2026 (Kadar Air ...)
+1100 mikro Kastempel -> MM.02/1100/2026 (E.coli (Makanan) ...)
+1102 mikro Sakura Chese -> MM.02/1102/2026 (Angka Kuman ...)
+1103 kimia Kastempel -> MM.01/1103/2026 (Ketengikan ...)
+1105 kimia Sakura Chese -> MM.01/1105/2026 (Sakarin ...)"
+32,,PDAM Tirta Gemilang Makhoa,"Kota Mungkid, Magelang",8,AM.02/1137/2026 | AM.01/1138/2026 | AM.02/1139/2026 | AM.01/1140/2026 | AM.02/1141/2026 | AM.01/1142/2026 | AM.02/1143/2026 | AM.01/1144/2026,1137 | 1138 | 1139 | 1140 | 1141 | 1142 | 1143 | 1144,"Coliform & E.coli (Membran Filter) , Alt | Bau,Kekeruhan,Ph,Rasa,Suhu,Warna,Zat Terendap/ TDS ... | Coliform & E.coli (Membran Filter) , Alt | Bau,Kekeruhan,Ph,Rasa,Suhu,Warna,Zat Terendap/ TDS ... | Coliform & E.coli (Membran Filter) , Alt | Bau,Kekeruhan,Ph,Rasa,Suhu,Warna,Zat Terendap/ TDS ... | Coliform & E.coli (Membran Filter) , Alt | Bau,Kekeruhan,Ph,Rasa,Suhu,Warna,Zat Terendap/ TDS ...","1137 mikro AM CUP Kecil -> AM.02/1137/2026 (Coliform & E.coli (Membran Filter) , Alt)
+1138 kimia AM CUP Kecil -> AM.01/1138/2026 (Bau,Kekeruhan,Ph,Rasa,Suhu,Warna,Zat Terendap/ TDS ...)
+1139 mikro AM Cup Besar -> AM.02/1139/2026 (Coliform & E.coli (Membran Filter) , Alt)
+1140 kimia AM Cup Besar -> AM.01/1140/2026 (Bau,Kekeruhan,Ph,Rasa,Suhu,Warna,Zat Terendap/ TDS ...)
+1141 mikro AM Botol -> AM.02/1141/2026 (Coliform & E.coli (Membran Filter) , Alt)
+1142 kimia AM Botol -> AM.01/1142/2026 (Bau,Kekeruhan,Ph,Rasa,Suhu,Warna,Zat Terendap/ TDS ...)
+1143 mikro AM Galon -> AM.02/1143/2026 (Coliform & E.coli (Membran Filter) , Alt)
+1144 kimia AM Galon -> AM.01/1144/2026 (Bau,Kekeruhan,Ph,Rasa,Suhu,Warna,Zat Terendap/ TDS ...)"
+33,,Pemdes Ketunden,"Pakis, Magelang",2,AM.02/1947/2026 | AM.01/1948/2026,1947 | 1948,"Coliform & E.coli (Membran Filter) ... | Aluminium,Arsen,Bau,Besi,Flourida,Kadmium,Kekeruha ...","1947 mikro Air Minum -> AM.02/1947/2026 (Coliform & E.coli (Membran Filter) ...)
+1948 kimia Air Minum -> AM.01/1948/2026 (Aluminium,Arsen,Bau,Besi,Flourida,Kadmium,Kekeruha ...)"
+34,,Pemdes Sukorejo,"Dsn. Dogaten, Desa Sukorejo, Mertoyudan",1,AH.02/1962/2026,1962,Coliform & E.coli (Membran Filter) ...,1962 mikro Air Bersih -> AH.02/1962/2026 (Coliform & E.coli (Membran Filter) ...)
+35,,Pradnya Paramita Dewi Aris Saputri,"Jl. Nangka I 001/004, Kalinegoro, Mertoyudan",1,AM.02/1969/2026,1969,Coliform & E.coli (Membran Filter) ...,1969 mikro Air Minum -> AM.02/1969/2026 (Coliform & E.coli (Membran Filter) ...)
+36,,Program Kesling Dinkes,"Jl. Soekarno Hatta No. 47, Sawitan, Mungkid, Kab. Magelang",2,AH.02/1156/2026 | AH.02/1239/2026,1156 | 1239,E.Coli ... | E.Coli ...,"1156 mikro Air Bersih -> AH.02/1156/2026 (E.Coli ...)
+1239 mikro Air Bersih -> AH.02/1239/2026 (E.Coli ...)"
+37,,PT. Granat Multazam Chicken,"Tuwunan 14/02, Wonogiri, Kajoran",2,AH.02/1202/2026 | AH.01/1203/2026,1202 | 1203,Coliform & E.coli (Membran Filter) | AM Lengkap menurut permenkes NO 2 th 2024,"1202 mikro Air Bersih -> AH.02/1202/2026 (Coliform & E.coli (Membran Filter))
+1203 kimia Air Bersih -> AH.01/1203/2026 (AM Lengkap menurut permenkes NO 2 th 2024)"
+38,,PT Mekar Armada Jaya,Jl. Mayjend Bambang Soegeng No 07 Mertoyudan,2,AM.02/1154/2026 | AM.01/1155/2026,1154 | 1155,"Coliform & E.coli (Membran Filter),Sampling ... | AM Lengkap menurut permenkes NO 2 th 2023","1154 mikro Air Minum -> AM.02/1154/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+1155 kimia Air Minum -> AM.01/1155/2026 (AM Lengkap menurut permenkes NO 2 th 2023)"
+39,,PT. Nusa Jab Food,"Jl. Mertoyudan - Bandongan, Salam II Rt.02/ Rw.02 Salam Kanci",1,AH.01/1952/2026,1952,"Bau,Kekeruhan,Ph,Rasa,Suhu,Zat Terendap/ TDS ...","1952 kimia Air Bersih -> AH.01/1952/2026 (Bau,Kekeruhan,Ph,Rasa,Suhu,Zat Terendap/ TDS ...)"
+40,,PT. Sinar Makmur Semarang,"Dsn. Kwangsan, Kec. Bandongan",2,AH.02/1226/2026 | AH.01/1227/2026,1226 | 1227,Coliform & E.coli (Membran Filter) | AB Lengkap menurut permenkes NO 2 th 2025,"1226 mikro Air Bersih -> AH.02/1226/2026 (Coliform & E.coli (Membran Filter))
+1227 kimia Air Bersih -> AH.01/1227/2026 (AB Lengkap menurut permenkes NO 2 th 2025)"
+41,,PT Sinar Makmur Semarang,"Kedungsari, Bandongan",2,AH.02/1955/2026 | AH.01/1956/2026,1955 | 1956,"Coliform & E.coli (Membran Filter) ... | Fe,Mn TDS,Nitrat,Nitrit,Timbal","1955 mikro Air Bersih -> AH.02/1955/2026 (Coliform & E.coli (Membran Filter) ...)
+1956 kimia Air Bersih -> AH.01/1956/2026 (Fe,Mn TDS,Nitrat,Nitrit,Timbal)"
+42,,Puskesmas Pakis,"Jl. Magelang - Kopeng, Km 20, Pakis Magelang",3,AH.02/1162/2026 | AH.02/1164/2026 | AH.02/1166/2026,1162 | 1164 | 1166,Coliform & E.coli (Membran Filter) | Coliform & E.coli (Membran Filter) | Coliform & E.coli (Membran Filter),"1162 mikro Air Bersih -> AH.02/1162/2026 (Coliform & E.coli (Membran Filter))
+1164 mikro Air Bersih -> AH.02/1164/2026 (Coliform & E.coli (Membran Filter))
+1166 mikro Air Bersih -> AH.02/1166/2026 (Coliform & E.coli (Membran Filter))"
+43,,Puskesmas Salam,Salam Magelang,3,AH.02/1236/2026 | UA.02/1237/2026 | UA.02/1238/2026,1236 | 1237 | 1238,Coliform & E.coli (Membran Filter) | Angka Kuman ... | Angka Kuman ...,"1236 mikro Air Bersih -> AH.02/1236/2026 (Coliform & E.coli (Membran Filter))
+1237 mikro Usap -> UA.02/1237/2026 (Angka Kuman ...)
+1238 mikro Usap -> UA.02/1238/2026 (Angka Kuman ...)"
+44,,Puskesmas Sawangan I,"Jl. Serma Darmin No 126 Tlatar, Krogowanan, Sawangan",4,AM.02/1916/2026 | AM.01/1917/2026 | AM.02/1993/2026 | AM.01/1994/2026,1916 | 1917 | 1993 | 1994,"Coliform & E.coli (Membran Filter) ... | Aluminium,Arsen,Bau,Besi,Flourida,Kadmium,Kekeruha ... | Coliform & E.coli (Membran Filter) ... | Aluminium,Arsen,Bau,Besi,Flourida,Kadmium,Kekeruha ...","1916 mikro Air Minum -> AM.02/1916/2026 (Coliform & E.coli (Membran Filter) ...)
+1917 kimia Air Minum -> AM.01/1917/2026 (Aluminium,Arsen,Bau,Besi,Flourida,Kadmium,Kekeruha ...)
+1993 mikro Air Minum -> AM.02/1993/2026 (Coliform & E.coli (Membran Filter) ...)
+1994 kimia Air Minum -> AM.01/1994/2026 (Aluminium,Arsen,Bau,Besi,Flourida,Kadmium,Kekeruha ...)"
+45,,Putri Viviana,Sangen 1/8 Candirejo Borobudur,1,AH.02/0956/2026,956,"Coliform,E.Coli ..."," 956 mikro Air Bersih -> AH.02/0956/2026 (Coliform,E.Coli ...)"
+46,,Rahmat Maulana Syukran Berutu,SPPG Magelang Grabag Banyusari,5,MM.01/1132/2026 | MM.02/1133/2026 | UA.02/1134/2026 | MM.02/1135/2026 | AM.02/1136/2026,1132 | 1133 | 1134 | 1135 | 1136,"Formalin, Sampling | Angka Kuman, Sampling | Angka Kuman, Sampling | Coliform & E.coli (Membran Filter), Sampling | Coliform & E.coli (Membran Filter), Sampling","1132 kimia  -> MM.01/1132/2026 (Formalin, Sampling)
+1133 mikro MM Brownies -> MM.02/1133/2026 (Angka Kuman, Sampling)
+1134 mikro Usap Alat -> UA.02/1134/2026 (Angka Kuman, Sampling)
+1135 mikro AB Kran Cuci -> MM.02/1135/2026 (Coliform & E.coli (Membran Filter), Sampling)
+1136 mikro AM Galon -> AM.02/1136/2026 (Coliform & E.coli (Membran Filter), Sampling)"
+47,,Rohayati,"Maron 01/07, Ngawonggo, Kaliangkrik",6,MM.02/1900/2026 | MM.01/1901/2026 | MM.02/1902/2026 | MM.01/1903/2026 | MM.02/1904/2026 | MM.01/1905/2026,1900 | 1901 | 1902 | 1903 | 1904 | 1905,Angka Kuman ... | Ketengikan ... | Angka Kuman ... | Ketengikan ... | Angka Kuman ... | Ketengikan ...,"1900 mikro Makanan -> MM.02/1900/2026 (Angka Kuman ...)
+1901 kimia Makanan -> MM.01/1901/2026 (Ketengikan ...)
+1902 mikro Makanan -> MM.02/1902/2026 (Angka Kuman ...)
+1903 kimia Makanan -> MM.01/1903/2026 (Ketengikan ...)
+1904 mikro Makanan -> MM.02/1904/2026 (Angka Kuman ...)
+1905 kimia Makanan -> MM.01/1905/2026 (Ketengikan ...)"
+48,,Selly Nazulla Isnaeni,"Karangpakis 13/6,Tersangede, Salam",6,MM.02/1894/2026 | MM.01/1895/2026 | MM.02/1896/2026 | MM.01/1897/2026 | MM.02/1898/2026 | MM.01/1899/2026,1894 | 1895 | 1896 | 1897 | 1898 | 1899,Angka Kuman ... | Formalin ... | Angka Kuman ... | Ketengikan ... | Angka Kuman ... | Ketengikan ...,"1894 mikro Makanan -> MM.02/1894/2026 (Angka Kuman ...)
+1895 kimia Makanan -> MM.01/1895/2026 (Formalin ...)
+1896 mikro Makanan -> MM.02/1896/2026 (Angka Kuman ...)
+1897 kimia Makanan -> MM.01/1897/2026 (Ketengikan ...)
+1898 mikro Makanan -> MM.02/1898/2026 (Angka Kuman ...)
+1899 kimia Makanan -> MM.01/1899/2026 (Ketengikan ...)"
+49,,SMA Taruna Nusantara,"Jalan Raya Purworejo KM 5 Banyurojo, Mertoyudan",10,AH.02/1924/2026 | AM.02/1925/2026 | AM.01/1926/2026 | AH.02/1927/2026 | AM.02/1928/2026 | AM.01/1929/2026 | MM.02/1930/2026 | MM.02/1931/2026 | MM.02/1932/2026 | MM.02/1933/2026,1924 | 1925 | 1926 | 1927 | 1928 | 1929 | 1930 | 1931 | 1932 | 1933,"Coliform & E.coli (Membran Filter),Sampling ... | Coliform & E.coli (Membran Filter),Sampling ... | Aluminium,Arsen,Bau,Besi,Flourida,Kadmium,Kekeruha ... | Coliform & E.coli (Membran Filter),Sampling ... | Coliform & E.coli (Membran Filter),Sampling ... | Aluminium,Arsen,Bau,Besi,Flourida,Kadmium,Kekeruha ... | Angka Kuman,Sampling ... | E.coli (Makanan),Sampling ... | Salmonella spp,Sampling ... | Angka Kuman ...","1924 mikro Air Bersih -> AH.02/1924/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+1925 mikro Air Minum -> AM.02/1925/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+1926 kimia Air Minum -> AM.01/1926/2026 (Aluminium,Arsen,Bau,Besi,Flourida,Kadmium,Kekeruha ...)
+1927 mikro Air Bersih -> AH.02/1927/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+1928 mikro Air Minum -> AM.02/1928/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+1929 kimia Air Minum -> AM.01/1929/2026 (Aluminium,Arsen,Bau,Besi,Flourida,Kadmium,Kekeruha ...)
+1930 mikro Makanan -> MM.02/1930/2026 (Angka Kuman,Sampling ...)
+1931 mikro Makanan -> MM.02/1931/2026 (E.coli (Makanan),Sampling ...)
+1932 mikro Makanan -> MM.02/1932/2026 (Salmonella spp,Sampling ...)
+1933 mikro Makanan -> MM.02/1933/2026 (Angka Kuman ...)"
+50,,"SPPG Magelang, Muntilan, Tamanagung","Tamanagung, Muntilan, Magelang",1,AH.02/1958/2026,1958,Coliform & E.coli (Membran Filter) ...,1958 mikro Air Bersih -> AH.02/1958/2026 (Coliform & E.coli (Membran Filter) ...)
+51,,"SPPG Magelang,Sawangan","Ngagilk Bawah, Sawangan",1,AH.02/1906/2026,1906,Coliform & E.coli (Membran Filter) ...,1906 mikro Air Bersih -> AH.02/1906/2026 (Coliform & E.coli (Membran Filter) ...)
+52,,SR. Abdul Rohman,"Ngipik 01/01,Tegalrejo",1,AM.02/1120/2026,1120,Coliform & E.coli (Membran Filter),1120 mikro AM (PDAM) -> AM.02/1120/2026 (Coliform & E.coli (Membran Filter))
+53,,SR. Abdul Rohman,"Ngipik01/01,Tegalrejo",1,AM.01/1121/2026,1121,"Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...","1121 kimia AM (PDAM) -> AM.01/1121/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+54,,SR. Adi Yulisman,"Bangsren RT 29/12, Krincing",2,AM.02/1029/2026 | AM.01/1030/2026,1029 | 1030,"Coliform & E.coli (Membran Filter) | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...","1029 mikro AM (PDAM) -> AM.02/1029/2026 (Coliform & E.coli (Membran Filter))
+1030 kimia AM (PDAM) -> AM.01/1030/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+55,,SR. Andi Yusuf Imam Taufiq,"Krajan II RT 03/01, Grabag",2,AM.02/1023/2026 | AM.01/1024/2026,1023 | 1024,"Coliform & E.coli (Membran Filter) | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...","1023 mikro AM (PDAM) -> AM.02/1023/2026 (Coliform & E.coli (Membran Filter))
+1024 kimia AM (PDAM) -> AM.01/1024/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+56,,SR. Azhari,"Kujon02/11, Borobudur",3,AM.02/0988/2026 | AM.01/0989/2026 | AM.01/1230/2026,988 | 989 | 1230,"Coliform & E.coli (Membran Filter) | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ... | Sisa Klor"," 988 mikro AM (PDAM) -> AM.02/0988/2026 (Coliform & E.coli (Membran Filter))
+ 989 kimia AM (PDAM) -> AM.01/0989/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)
+1230 kimia AM (PDAM) -> AM.01/1230/2026 (Sisa Klor)"
+57,,SR. Basuni,"Karangan07/01, Bondowoso, Mertoyudan",2,AM.02/1000/2026 | AM.01/1001/2026,1000 | 1001,"Coliform & E.coli (Membran Filter) | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...","1000 mikro AM (PDAM) -> AM.02/1000/2026 (Coliform & E.coli (Membran Filter))
+1001 kimia AM (PDAM) -> AM.01/1001/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+58,,SR. Eko Sunaryo,"Soco 01/04, Salaman",2,AM.02/0959/2026 | AM.01/0960/2026,959 | 960,"Coliform & E.coli (Membran Filter) | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ..."," 959 mikro AM (PDAM) -> AM.02/0959/2026 (Coliform & E.coli (Membran Filter))
+ 960 kimia AM (PDAM) -> AM.01/0960/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+59,,SR. Hamid Sulistyo,"Planden 01/07, Jebengsari, Salaman",2,AM.02/0961/2026 | AM.01/0962/2026,961 | 962,"Coliform & E.coli (Membran Filter) | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ..."," 961 mikro AM (PDAM) -> AM.02/0961/2026 (Coliform & E.coli (Membran Filter))
+ 962 kimia AM (PDAM) -> AM.01/0962/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+60,,SR. Herdini Alistya,"Perum Gardenia Jl. Lily No 2, Mertoyudan",2,AM.02/1004/2026 | AM.01/1005/2026,1004 | 1005,"Coliform & E.coli (Membran Filter) | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...","1004 mikro AM (PDAM) -> AM.02/1004/2026 (Coliform & E.coli (Membran Filter))
+1005 kimia AM (PDAM) -> AM.01/1005/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+61,,SR. Kartiningsih,"Balemulyo 01/08, Muntilan",2,AM.02/1112/2026 | AM.01/1113/2026,1112 | 1113,"Coliform & E.coli (Membran Filter) | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...","1112 mikro AM (PDAM) -> AM.02/1112/2026 (Coliform & E.coli (Membran Filter))
+1113 kimia AM (PDAM) -> AM.01/1113/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+62,,SR. Marju,"Sidomulyo, 07/04, Sidomulyo, Tegalrejo",2,AM.02/1116/2026 | AM.01/1117/2026,1116 | 1117,"Coliform & E.coli (Membran Filter) | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...","1116 mikro AM (PDAM) -> AM.02/1116/2026 (Coliform & E.coli (Membran Filter))
+1117 kimia AM (PDAM) -> AM.01/1117/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+63,,SR. Masjid Cempaka,"Jl. Cempaka 01/01, Mertoyudan",2,AM.02/0998/2026 | AM.01/0999/2026,998 | 999,"Coliform & E.coli (Membran Filter) | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ..."," 998 mikro AM (PDAM) -> AM.02/0998/2026 (Coliform & E.coli (Membran Filter))
+ 999 kimia AM (PDAM) -> AM.01/0999/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+64,,SR. Masjid Jazim Mendut,"Kota Mungkid, Magelang",2,AM.02/0985/2026 | AM.01/0986/2026,985 | 986,Coliform & E.coli (Membran Filter) | AM Lengkap menurut permenkes NO 2 th 2024," 985 mikro AM (PDAM) -> AM.02/0985/2026 (Coliform & E.coli (Membran Filter))
+ 986 kimia AM (PDAM) -> AM.01/0986/2026 (AM Lengkap menurut permenkes NO 2 th 2024)"
+65,,"SR. Masjid Nurul Huda,","Carikan,02/02, Gondosuli, Muntilan",2,AM.02/1110/2026 | AM.01/1111/2026,1110 | 1111,"Coliform & E.coli (Membran Filter) | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...","1110 mikro AM (PDAM) -> AM.02/1110/2026 (Coliform & E.coli (Membran Filter))
+1111 kimia AM (PDAM) -> AM.01/1111/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+66,,SR. Maskur,"Jln. Nanas I, No.20, Perumnas Kalinegoro",2,AM.02/0967/2026 | AM.01/0968/2026,967 | 968,"Coliform & E.coli (Membran Filter) | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ..."," 967 mikro AM (PDAM) -> AM.02/0967/2026 (Coliform & E.coli (Membran Filter))
+ 968 kimia AM (PDAM) -> AM.01/0968/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+67,,SR. Miftahul Huda,"Pucang Gunung RT 04/03, Pucang",2,AM.02/1021/2026 | AM.01/1022/2026,1021 | 1022,"Coliform & E.coli (Membran Filter) | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...","1021 mikro AM (PDAM) -> AM.02/1021/2026 (Coliform & E.coli (Membran Filter))
+1022 kimia AM (PDAM) -> AM.01/1022/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+68,,SR. Muftiyah,"Sambung RT 01/06, Donorejo",2,AM.02/1027/2026 | AM.01/1028/2026,1027 | 1028,"Coliform & E.coli (Membran Filter) | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...","1027 mikro AM (PDAM) -> AM.02/1027/2026 (Coliform & E.coli (Membran Filter))
+1028 kimia AM (PDAM) -> AM.01/1028/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+69,,SR. Muh Kumedi,"Palihan, 01/06, Candirejo, Borobudur",3,AM.02/0994/2026 | AM.01/0995/2026 | AM.01/1232/2026,994 | 995 | 1232,"Coliform & E.coli (Membran Filter) | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ... | Sisa Klor"," 994 mikro AM (PDAM) -> AM.02/0994/2026 (Coliform & E.coli (Membran Filter))
+ 995 kimia AM (PDAM) -> AM.01/0995/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)
+1232 kimia AM (PDAM) -> AM.01/1232/2026 (Sisa Klor)"
+70,,SR. Muhammad Rifai Ega Prasetya,"Krajan 01/01, Tegalrejo",2,AM.02/1114/2026 | AM.01/1115/2026,1114 | 1115,"Coliform & E.coli (Membran Filter) | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...","1114 mikro AM (PDAM) -> AM.02/1114/2026 (Coliform & E.coli (Membran Filter))
+1115 kimia AM (PDAM) -> AM.01/1115/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+71,,SR. Muhtadin,"Maliyan 02/12, Kalinegoro, Mertoyudan",2,AM.02/0965/2026 | AM.01/0966/2026,965 | 966,"Coliform & E.coli (Membran Filter) | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ..."," 965 mikro AM (PDAM) -> AM.02/0965/2026 (Coliform & E.coli (Membran Filter))
+ 966 kimia AM (PDAM) -> AM.01/0966/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+72,,SR. Muji Lestari,"Kauman RT 15/07, Payaman",2,AM.02/1033/2026 | AM.01/1034/2026,1033 | 1034,"Coliform & E.coli (Membran Filter) | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...","1033 mikro AM (PDAM) -> AM.02/1033/2026 (Coliform & E.coli (Membran Filter))
+1034 kimia AM (PDAM) -> AM.01/1034/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+73,,SR. Mulyatun,"Jetis 04/07, Kalinegoro, Mertoyudan",2,AM.02/0963/2026 | AM.01/0964/2026,963 | 964,"Coliform & E.coli (Membran Filter) | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ..."," 963 mikro AM (PDAM) -> AM.02/0963/2026 (Coliform & E.coli (Membran Filter))
+ 964 kimia AM (PDAM) -> AM.01/0964/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+74,,SR. Mushola,"Dogaten II, Sukorejo, Mertoyudan",3,AM.02/0975/2026 | AM.01/0976/2026 | AM.01/1233/2026,975 | 976 | 1233,"Coliform & E.coli (Membran Filter) | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ... | Sisa Klor"," 975 mikro AM (PDAM) -> AM.02/0975/2026 (Coliform & E.coli (Membran Filter))
+ 976 kimia AM (PDAM) -> AM.01/0976/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)
+1233 kimia AM (PDAM) -> AM.01/1233/2026 (Sisa Klor)"
+75,,SR. Purwanto,"Sleko 07/09, Sedayu, Muntilan",2,AM.02/1108/2026 | AM.01/1109/2026,1108 | 1109,"Coliform & E.coli (Membran Filter) | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...","1108 mikro AM (PDAM) -> AM.02/1108/2026 (Coliform & E.coli (Membran Filter))
+1109 kimia AM (PDAM) -> AM.01/1109/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+76,,SR. Ramelan,"Sigug, 03/08, Bumiharjo, Borobudur",2,AM.02/0990/2026 | AM.01/0991/2026,990 | 991,"Coliform & E.coli (Membran Filter) | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ..."," 990 mikro AM (PDAM) -> AM.02/0990/2026 (Coliform & E.coli (Membran Filter))
+ 991 kimia AM (PDAM) -> AM.01/0991/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+77,,SR. Rohadi Prasojo,"Bogowanti 01/13, Borobudur",3,AM.02/0992/2026 | AM.01/0993/2026 | AM.01/1231/2026,992 | 993 | 1231,"Coliform & E.coli (Membran Filter) | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ... | Sisa Klor"," 992 mikro AM (PDAM) -> AM.02/0992/2026 (Coliform & E.coli (Membran Filter))
+ 993 kimia AM (PDAM) -> AM.01/0993/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)
+1231 kimia AM (PDAM) -> AM.01/1231/2026 (Sisa Klor)"
+78,,SR. Saidjo,"Prajenan Baru 11/01,  Mertoyudan",2,AM.02/1006/2026 | AM.01/1007/2026,1006 | 1007,"Coliform & E.coli (Membran Filter) | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...","1006 mikro AM (PDAM) -> AM.02/1006/2026 (Coliform & E.coli (Membran Filter))
+1007 kimia AM (PDAM) -> AM.01/1007/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+79,,SR. Samsudi,"Perum Tidar Permai 01/02, Sukorejo, Mertoyudan",2,AM.02/0977/2026 | AM.01/0978/2026,977 | 978,"Coliform & E.coli (Membran Filter) | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ..."," 977 mikro AM (PDAM) -> AM.02/0977/2026 (Coliform & E.coli (Membran Filter))
+ 978 kimia AM (PDAM) -> AM.01/0978/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+80,,SR. Satino,"Krajan I RT 13/4, Secang",2,AM.02/1025/2026 | AM.01/1026/2026,1025 | 1026,"Coliform & E.coli (Membran Filter) | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...","1025 mikro AM (PDAM) -> AM.02/1025/2026 (Coliform & E.coli (Membran Filter))
+1026 kimia AM (PDAM) -> AM.01/1026/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+81,,SR. Siti Zahriyah,"Gedongan Kulon, 01/08, Bondowoso, Mertoyudan",2,AM.02/1002/2026 | AM.01/1003/2026,1002 | 1003,"Coliform & E.coli (Membran Filter) | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...","1002 mikro AM (PDAM) -> AM.02/1002/2026 (Coliform & E.coli (Membran Filter))
+1003 kimia AM (PDAM) -> AM.01/1003/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+82,,SR. Siwo Sumarto,"Bintaro 03/06, Sukorejo, Mertoyudan",2,AM.02/0973/2026 | AM.01/0974/2026,973 | 974,"Coliform & E.coli (Membran Filter) | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ..."," 973 mikro AM (PDAM) -> AM.02/0973/2026 (Coliform & E.coli (Membran Filter))
+ 974 kimia AM (PDAM) -> AM.01/0974/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+83,,SR. Soewarko,"Bagongan, Sukorejo, Mertoyudan",2,AM.02/0971/2026 | AM.01/0972/2026,971 | 972,"Coliform & E.coli (Membran Filter) | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ..."," 971 mikro AM (PDAM) -> AM.02/0971/2026 (Coliform & E.coli (Membran Filter))
+ 972 kimia AM (PDAM) -> AM.01/0972/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+84,,SR. Sri Daryati,"05/12, Salaman",2,AM.02/0957/2026 | AM.01/0958/2026,957 | 958,"Coliform & E.coli (Membran Filter) | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ..."," 957 mikro AM (PDAM) -> AM.02/0957/2026 (Coliform & E.coli (Membran Filter))
+ 958 kimia AM (PDAM) -> AM.01/0958/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+85,,SR. Sri Giyati,"Karangboyo, 10/04, Payaman, Secang",2,AM.02/1031/2026 | AM.01/1032/2026,1031 | 1032,"Coliform & E.coli (Membran Filter) | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...","1031 mikro AM (PDAM) -> AM.02/1031/2026 (Coliform & E.coli (Membran Filter))
+1032 kimia AM (PDAM) -> AM.01/1032/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+86,,SR. Sugiyono,"Sutan 03/11 No. 12, Sumberrejo",2,AM.02/0996/2026 | AM.01/0997/2026,996 | 997,"Coliform & E.coli (Membran Filter) | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ..."," 996 mikro AM (PDAM) -> AM.02/0996/2026 (Coliform & E.coli (Membran Filter))
+ 997 kimia AM (PDAM) -> AM.01/0997/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+87,,SR. Sujadi,"Trisip,15/07, Tampir Wetan, Candimulyo",2,AM.02/1118/2026 | AM.01/1119/2026,1118 | 1119,"Coliform & E.coli (Membran Filter) | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...","1118 mikro AM (PDAM) -> AM.02/1118/2026 (Coliform & E.coli (Membran Filter))
+1119 kimia AM (PDAM) -> AM.01/1119/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+88,,SR. Supardi,"Bero Kranggan02/06, Banyurojo, Mertoyudan",2,AM.02/0969/2026 | AM.01/0970/2026,969 | 970,"Coliform & E.coli (Membran Filter) | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ..."," 969 mikro AM (PDAM) -> AM.02/0969/2026 (Coliform & E.coli (Membran Filter))
+ 970 kimia AM (PDAM) -> AM.01/0970/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+89,,Sri Ratnawati,Lingkungan Santan Wonokromo 7/2 Sumberrejo Mertoyudan,4,MM.02/1960/2026 | MM.01/1961/2026 | AM.02/1982/2026 | AM.01/1983/2026,1960 | 1961 | 1982 | 1983,"Coliform (Makanan) ... | Kadar Air,Sakarin ... | Coliform & E.coli (Membran Filter),Sampling ... | Aluminium,Arsen,Bau,Besi,Flourida,Kadmium,Kekeruha ...","1960 mikro Makanan -> MM.02/1960/2026 (Coliform (Makanan) ...)
+1961 kimia Makanan -> MM.01/1961/2026 (Kadar Air,Sakarin ...)
+1982 mikro Air Minum -> AM.02/1982/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+1983 kimia Air Minum -> AM.01/1983/2026 (Aluminium,Arsen,Bau,Besi,Flourida,Kadmium,Kekeruha ...)"
+90,,Sudiyana,"Jl. Pendem KM 2 Ketonggo, 15/07, Tersangede, Salam",4,MM.02/1013/2026 | MM.01/1014/2026 | MM.02/1015/2026 | MM.01/1016/2026,1013 | 1014 | 1015 | 1016,Jamur | Formalin | Jamur | Ketengikan,"1013 mikro MM Jenang -> MM.02/1013/2026 (Jamur)
+1014 kimia MM Jenang -> MM.01/1014/2026 (Formalin)
+1015 mikro MM Krasikan -> MM.02/1015/2026 (Jamur)
+1016 kimia MM Krasikan -> MM.01/1016/2026 (Ketengikan)"
+91,,Umi Maskanah,"Dsn. Babakan, 05/01, Madugondo, Kajoran",5,MM.01/1170/2026 | MM.02/1171/2026 | MM.01/1172/2026 | MM.02/1173/2026 | MM.01/1174/2026,1170 | 1171 | 1172 | 1173 | 1174,Kadar Air ... | Parasit/ Jamur/ kapang acr ... | Borax ... | Parasit/ Jamur/ kapang acr ... | Ketengikan ...,"1170 kimia Bawang Hitam -> MM.01/1170/2026 (Kadar Air ...)
+1171 mikro Bumbu Putih -> MM.02/1171/2026 (Parasit/ Jamur/ kapang acr ...)
+1172 kimia Bumbu Putih -> MM.01/1172/2026 (Borax ...)
+1173 mikro Bumbu Kuning -> MM.02/1173/2026 (Parasit/ Jamur/ kapang acr ...)
+1174 kimia Bumbu Kuning -> MM.01/1174/2026 (Ketengikan ...)"
+92,,Yaemah,"Kamongan 01/02 Kamongan, Srumbung",2,MM.02/1168/2026 | MM.01/1169/2026,1168 | 1169,Angka Kuman ... | Ketengikan ...,"1168 mikro MM Onde"" -> MM.02/1168/2026 (Angka Kuman ...)
+1169 kimia MM Onde"" -> MM.01/1169/2026 (Ketengikan ...)"
+93,,Zaki Mubaraq,"SPPG Magelang, Salaman, Menoreh 2",5,AH.02/1157/2026 | AM.02/1158/2026 | MM.02/1159/2026 | MM.01/1160/2026 | UA.02/1161/2026,1157 | 1158 | 1159 | 1160 | 1161,"Coliform & E.coli (Membran Filter),Sampling ... | Coliform & E.coli (Membran Filter),Sampling ... | E.coli (Makanan),Sampling ... | Formalin, Sampling | Angka Kuman Alat,Sampling ...","1157 mikro AB -> AH.02/1157/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+1158 mikro AM -> AM.02/1158/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+1159 mikro MM -> MM.02/1159/2026 (E.coli (Makanan),Sampling ...)
+1160 kimia MM Tahu Saus Tiram -> MM.01/1160/2026 (Formalin, Sampling)
+1161 mikro Usap Alat -> UA.02/1161/2026 (Angka Kuman Alat,Sampling ...)"
+94,2026-01-02,Yusuf Rahmat Setyawan,"Tular, 006/007, Seloboro, Salam",6,MM.02/0002/2026 | MM.01/0003/2026 | MM.02/0004/2026 | MM.01/0005/2026 | MM.02/0006/2026 | MM.01/0007/2026,2 | 3 | 4 | 5 | 6 | 7,Angka Kuman | Ketengikan | Angka Kuman | Ketengikan | Angka Kuman | Ketengikan,"   2 mikro MM Jenang Original -> MM.02/0002/2026 (Angka Kuman)
+   3 kimia MM Jenang Original -> MM.01/0003/2026 (Ketengikan)
+   4 mikro MM Jenang Wijen -> MM.02/0004/2026 (Angka Kuman)
+   5 kimia MM Jenang Wijen -> MM.01/0005/2026 (Ketengikan)
+   6 mikro MM Krasikan -> MM.02/0006/2026 (Angka Kuman)
+   7 kimia MM Krasikan -> MM.01/0007/2026 (Ketengikan)"
+95,2026-01-05,Ahmad Ariyanto,"SPPG Secang, Magelang",5,UA.02/0051/2026 | AH.02/0052/2026 | AM.02/0053/2026 | MM.02/0054/2026 | MM.01/0055/2026,51 | 52 | 53 | 54 | 55,"Angka Kuman Alat,Sampling ... | Coliform & E.coli (Membran Filter),Sampling ... | Coliform & E.coli (Membran Filter),Sampling ... | E.coli (Makanan),Sampling ... | Formalin,Sampling ...","  51 mikro Usap -> UA.02/0051/2026 (Angka Kuman Alat,Sampling ...)
+  52 mikro Air Bersih -> AH.02/0052/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+  53 mikro Air Minum -> AM.02/0053/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+  54 mikro Makanan -> MM.02/0054/2026 (E.coli (Makanan),Sampling ...)
+  55 kimia Makanan -> MM.01/0055/2026 (Formalin,Sampling ...)"
+96,2026-01-05,Budi Santoso,"SPPG Tegalrejo, Banyusari 2, Tegalrejo",5,UA.02/0046/2026 | AM.02/0047/2026 | MM.02/0048/2026 | MM.01/0049/2026 | AH.02/0050/2026,46 | 47 | 48 | 49 | 50,"Angka Kuman Alat,Sampling ... | Coliform & E.coli (Membran Filter),Sampling ... | E.coli (Makanan) ... | Formalin,Sampling ... | Coliform & E.coli (Membran Filter),Sampling ...","  46 mikro Usap -> UA.02/0046/2026 (Angka Kuman Alat,Sampling ...)
+  47 mikro Air Minum -> AM.02/0047/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+  48 mikro Makanan -> MM.02/0048/2026 (E.coli (Makanan) ...)
+  49 kimia Makanan -> MM.01/0049/2026 (Formalin,Sampling ...)
+  50 mikro Air Bersih -> AH.02/0050/2026 (Coliform & E.coli (Membran Filter),Sampling ...)"
+97,2026-01-05,Chusnul Aulia Rahmawati,"SPPG Mertoyudan, Magelang",5,UA.02/0041/2026 | MM.02/0042/2026 | MM.01/0043/2026 | AM.02/0044/2026 | AH.02/0045/2026,41 | 42 | 43 | 44 | 45,"Angka Kuman Alat,Sampling ... | E.coli (Makanan) ... | Formalin,Sampling ... | Coliform & E.coli (Membran Filter),Sampling ... | Coliform & E.coli (Membran Filter),Sampling ...","  41 mikro Usap -> UA.02/0041/2026 (Angka Kuman Alat,Sampling ...)
+  42 mikro Makanan -> MM.02/0042/2026 (E.coli (Makanan) ...)
+  43 kimia Makanan -> MM.01/0043/2026 (Formalin,Sampling ...)
+  44 mikro Air Minum -> AM.02/0044/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+  45 mikro Air Bersih -> AH.02/0045/2026 (Coliform & E.coli (Membran Filter),Sampling ...)"
+98,2026-01-05,Zeni Oktafiyanti,"Losari 04/01, Kaliabu, Salaman",4,MM.02/0029/2026 | MM.01/0030/2026 | MM.02/0031/2026 | MM.01/0032/2026,29 | 30 | 31 | 32,Angka Kuman ... | Angka Asam dalam lemak ... | Angka Kuman ... | Ketengikan ...,"  29 mikro Makanan -> MM.02/0029/2026 (Angka Kuman ...)
+  30 kimia Makanan -> MM.01/0030/2026 (Angka Asam dalam lemak ...)
+  31 mikro Makanan -> MM.02/0031/2026 (Angka Kuman ...)
+  32 kimia Makanan -> MM.01/0032/2026 (Ketengikan ...)"
+99,2026-01-06,Arief Nurrohman,"SPPG Balekerto 2, Kaliangkrik",5,AH.02/0076/2026 | UA.02/0077/2026 | MM.02/0078/2026 | MM.01/0079/2026 | AM.02/0080/2026,76 | 77 | 78 | 79 | 80,"Coliform & E.coli (Membran Filter),Sampling ... | Angka Kuman Alat,Sampling ... | E.coli (Makanan),Sampling ... | Formalin,Sampling ... | Coliform & E.coli (Membran Filter),Sampling ...","  76 mikro Air Bersih -> AH.02/0076/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+  77 mikro Usap Alat Ompreng -> UA.02/0077/2026 (Angka Kuman Alat,Sampling ...)
+  78 mikro Ayam Goreng -> MM.02/0078/2026 (E.coli (Makanan),Sampling ...)
+  79 kimia Ayam Goreng -> MM.01/0079/2026 (Formalin,Sampling ...)
+  80 mikro Air Minum Galon -> AM.02/0080/2026 (Coliform & E.coli (Membran Filter),Sampling ...)"
+100,2026-01-06,Edy,"Karanggawang, Pagersari, Mungkid",2,AH.02/0069/2026 | AH.02/0070/2026,69 | 70,"Coliform & E.coli (Membran Filter),Sampling ... | Coliform & E.coli (Membran Filter),Sampling ...","  69 mikro Air Bersih Kandang -> AH.02/0069/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+  70 mikro Air Bersih Sumur Rumah -> AH.02/0070/2026 (Coliform & E.coli (Membran Filter),Sampling ...)"
+101,2026-01-06,Muhammad Arsy Yogatama,"SPPG Bojong, Mungkid",5,AH.02/0081/2026 | UA.02/0082/2026 | MM.02/0083/2026 | MM.01/0084/2026 | AM.02/0085/2026,81 | 82 | 83 | 84 | 85,"Coliform & E.coli (Membran Filter),Sampling ... | Angka Kuman Alat,Sampling ... | E.coli (Makanan),Sampling ... | Formalin,Sampling ... | Coliform & E.coli (Membran Filter),Sampling ...","  81 mikro Air Bersih -> AH.02/0081/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+  82 mikro Usap Alat Ompreng -> UA.02/0082/2026 (Angka Kuman Alat,Sampling ...)
+  83 mikro Ayam Goreng -> MM.02/0083/2026 (E.coli (Makanan),Sampling ...)
+  84 kimia Makanan -> MM.01/0084/2026 (Formalin,Sampling ...)
+  85 mikro Air Minum Galon -> AM.02/0085/2026 (Coliform & E.coli (Membran Filter),Sampling ...)"
+102,2026-01-06,Sukamto,"SPPG Menoreh, Salaman",5,AH.02/0071/2026 | UA.02/0072/2026 | MM.02/0073/2026 | MM.01/0074/2026 | AM.02/0075/2026,71 | 72 | 73 | 74 | 75,"Coliform & E.coli (Membran Filter),Sampling ... | Angka Kuman Alat,Sampling ... | E.coli (Makanan),Sampling ... | Formalin,Sampling ... | Coliform & E.coli (Membran Filter),Sampling ...","  71 mikro Air Bersih -> AH.02/0071/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+  72 mikro Usap Alat Ompreng -> UA.02/0072/2026 (Angka Kuman Alat,Sampling ...)
+  73 mikro Ayam Goreng -> MM.02/0073/2026 (E.coli (Makanan),Sampling ...)
+  74 kimia Tahu Semur -> MM.01/0074/2026 (Formalin,Sampling ...)
+  75 mikro Air Minum Galon -> AM.02/0075/2026 (Coliform & E.coli (Membran Filter),Sampling ...)"
+103,2026-01-07,Aldy Bagas Setya Pratama,"SPPG Adikarto 2, Muntilan",5,MM.02/0118/2026 | MM.01/0119/2026 | UA.02/0120/2026 | AM.02/0121/2026 | AH.02/0122/2026,118 | 119 | 120 | 121 | 122,"E.coli (Makanan) ... | Formalin,Sampling ... | Angka Kuman Alat,Sampling ... | Coliform & E.coli (Membran Filter),Sampling ... | Coliform & E.coli (Membran Filter),Sampling ..."," 118 mikro Makanan -> MM.02/0118/2026 (E.coli (Makanan) ...)
+ 119 kimia Makanan -> MM.01/0119/2026 (Formalin,Sampling ...)
+ 120 mikro Usap Alat Ompreng -> UA.02/0120/2026 (Angka Kuman Alat,Sampling ...)
+ 121 mikro Air Minum -> AM.02/0121/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+ 122 mikro Air Bersih -> AH.02/0122/2026 (Coliform & E.coli (Membran Filter),Sampling ...)"
+104,2026-01-07,Edoardo Nanda Satria,"Jl. Kenanga I Mertoyudan, 004/002, Mertoyudan, Magelang",1,MM.01/0123/2026,123,Kadar Air, 123 kimia Makanan -> MM.01/0123/2026 (Kadar Air)
+105,2026-01-07,Faturohman,"SPPG Ngadipuro, Dukun",5,MM.02/0113/2026 | MM.01/0114/2026 | AM.02/0115/2026 | UA.02/0116/2026 | AH.02/0117/2026,113 | 114 | 115 | 116 | 117,"E.coli (Makanan) ... | Formalin,Sampling ... | Coliform & E.coli (Membran Filter),Sampling ... | Angka Kuman Alat,Sampling ... | Coliform & E.coli (Membran Filter),Sampling ..."," 113 mikro Makanan -> MM.02/0113/2026 (E.coli (Makanan) ...)
+ 114 kimia Makanan -> MM.01/0114/2026 (Formalin,Sampling ...)
+ 115 mikro Air Minum -> AM.02/0115/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+ 116 mikro Usap Alat Ompreng -> UA.02/0116/2026 (Angka Kuman Alat,Sampling ...)
+ 117 mikro Air Bersih -> AH.02/0117/2026 (Coliform & E.coli (Membran Filter),Sampling ...)"
+106,2026-01-07,Lucky Jaya Abdillah,"SPPG Sucen 2, Salam",5,MM.02/0108/2026 | MM.01/0109/2026 | UA.02/0110/2026 | AM.02/0111/2026 | AH.02/0112/2026,108 | 109 | 110 | 111 | 112,"E.coli (Makanan),Sampling ... | Formalin,Sampling ... | Angka Kuman Alat ... | Coliform & E.coli (Membran Filter),Sampling ... | Coliform & E.coli (Membran Filter),Sampling ..."," 108 mikro Makanan -> MM.02/0108/2026 (E.coli (Makanan),Sampling ...)
+ 109 kimia Makanan -> MM.01/0109/2026 (Formalin,Sampling ...)
+ 110 mikro Usap Alat Ompreng -> UA.02/0110/2026 (Angka Kuman Alat ...)
+ 111 mikro Air Minum -> AM.02/0111/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+ 112 mikro Air Bersih -> AH.02/0112/2026 (Coliform & E.coli (Membran Filter),Sampling ...)"
+107,2026-01-08,Rifanafisha Aulia Rahma,"SPPG Gondosuli, Muntilan",5,UA.02/0142/2026 | MM.02/0143/2026 | MM.01/0144/2026 | AM.02/0145/2026 | AH.02/0146/2026,142 | 143 | 144 | 145 | 146,"Angka Kuman Alat,Sampling ... | E.coli (Makanan),Sampling ... | Formalin,Sampling ... | Coliform & E.coli (Membran Filter),Sampling ... | Coliform & E.coli (Membran Filter),Sampling ..."," 142 mikro Usap Alat Ompreng -> UA.02/0142/2026 (Angka Kuman Alat,Sampling ...)
+ 143 mikro Ayam Sop Senerek -> MM.02/0143/2026 (E.coli (Makanan),Sampling ...)
+ 144 kimia Tempe Goreng -> MM.01/0144/2026 (Formalin,Sampling ...)
+ 145 mikro Air Minum -> AM.02/0145/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+ 146 mikro Air Bersih -> AH.02/0146/2026 (Coliform & E.coli (Membran Filter),Sampling ...)"
+108,2026-01-10,Damiu Mulya Fresh,Sidoagung Tempuran,1,AM.02/0156/2026,156,E. Coli, 156 mikro AM Proses -> AM.02/0156/2026 (E. Coli)
+109,2026-01-10,Tika Sulityani,"Dsn, Ngreno 004/004, Sonorejo, Candimulyo",1,MM.01/0157/2026,157,"Borax, Ketengikan"," 157 kimia MM Pothil Ketumbar -> MM.01/0157/2026 (Borax, Ketengikan)"
+110,2026-01-12,Cv. Lidah Buaya Group,"Jl. Beringin III Tidar No.16B, Tidar Utara, Magelang Selatan, Magelang",2,MM.02/0168/2026 | MM.02/0169/2026,168 | 169,Angka Kuman | Angka Kuman," 168 mikro MM Sayur Buncis -> MM.02/0168/2026 (Angka Kuman)
+ 169 mikro MM Sayur Kubis+Labusiam -> MM.02/0169/2026 (Angka Kuman)"
+111,2026-01-12,Damiu Anisa,"Samberan, Ringinanom Tempuran",1,AM.02/0167/2026,167,E. Coli, 167 mikro AM Proses -> AM.02/0167/2026 (E. Coli)
+112,2026-01-12,Pesantren Al Lulu Walmarjan,"Bumirejo, Mungkid",5,MM.02/0173/2026 | MM.02/0174/2026 | MM.02/0175/2026 | AM.02/0176/2026 | AH.02/0177/2026,173 | 174 | 175 | 176 | 177,"Angka Kuman,Sampling ... | Angka Kuman,Sampling ... | Angka Kuman,Sampling ... | Coliform & E.coli (Membran Filter),Sampling ... | Coliform & E.coli (Membran Filter),Sampling ..."," 173 mikro MM Nasi -> MM.02/0173/2026 (Angka Kuman,Sampling ...)
+ 174 mikro MM Sayur tumis tauge -> MM.02/0174/2026 (Angka Kuman,Sampling ...)
+ 175 mikro MM Kentang -> MM.02/0175/2026 (Angka Kuman,Sampling ...)
+ 176 mikro Air Minum -> AM.02/0176/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+ 177 mikro Air Bersih -> AH.02/0177/2026 (Coliform & E.coli (Membran Filter),Sampling ...)"
+113,2026-01-13,Damiu Macha Water,Sidoagung Tempuran,1,AM.02/0185/2026,185,E. Coli, 185 mikro AM Proses -> AM.02/0185/2026 (E. Coli)
+114,2026-01-13,Hotel Amanjiwo,Borobudur Magelang,4,AM.02/0189/2026 | AM.01/0190/2026 | AM.02/0191/2026 | AM.01/0192/2026,189 | 190 | 191 | 192,"E.coli, Coliform (Membran), Sampling | AM Lengkap menurut permenkes NO 2 th 2023 | E.coli, Coliform (Membran), Sampling | AM Lengkap menurut permenkes NO 2 th 2023"," 189 mikro AM Prewash -> AM.02/0189/2026 (E.coli, Coliform (Membran), Sampling)
+ 190 kimia AM Prewash -> AM.01/0190/2026 (AM Lengkap menurut permenkes NO 2 th 2023)
+ 191 mikro AM Nordaq -> AM.02/0191/2026 (E.coli, Coliform (Membran), Sampling)
+ 192 kimia AM Nordaq -> AM.01/0192/2026 (AM Lengkap menurut permenkes NO 2 th 2023)"
+115,2026-01-13,Mochmmad Fahmi Yusuf,"Bugel 002/006,Jambewangi, Secang",1,MM.01/0205/2026,205,"Kadar Air, Kadar Abu"," 205 kimia MM Kopi -> MM.01/0205/2026 (Kadar Air, Kadar Abu)"
+116,2026-01-13,Nurul Fatonah,"dsn. Deso, 02/01, Kembangkuning, Windusari",1,MM.01/0207/2026,207,Borax, 207 kimia MM -> MM.01/0207/2026 (Borax)
+117,2026-01-13,Rifanafisha Aulia Rahma,"SPPG Gondosuli, Muntilan",2,AM.02/0187/2026 | MM.02/0188/2026,187 | 188,"Coliform & E.coli (Membran Filter),Sampling ... | E.coli (Makanan),Sampling ..."," 187 mikro Air Minum -> AM.02/0187/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+ 188 mikro MM Ayam Goreng -> MM.02/0188/2026 (E.coli (Makanan),Sampling ...)"
+118,2026-01-13,Sulung Purwoko,"Gowak 06/02,,Grabag",1,MM.01/0194/2026,194,"Borax, Ketengikan"," 194 kimia MM Slondok -> MM.01/0194/2026 (Borax, Ketengikan)"
+119,2026-01-14,Mochmmad Fahmi Yusuf,"Bugel 002/006,Jambewangi, Secang",1,MM.02/0204/2026,204,Jamur, 204 mikro MM Kopi -> MM.02/0204/2026 (Jamur)
+120,2026-01-14,Nurul Fatonah,"dsn. Deso, 02/01, Kembangkuning, Windusari",1,MM.02/0206/2026,206,Angka Kuman, 206 mikro MM Krupuk Pangsit -> MM.02/0206/2026 (Angka Kuman)
+121,2026-01-15,Damiu Dua Tirta,"Prajegsari, Tempuran",1,AM.02/0216/2026,216,E. Coli, 216 mikro AM Proses -> AM.02/0216/2026 (E. Coli)
+122,2026-01-15,Dwi Kuntari,"Ponggol, 03/18 Tamanagung Muntilan",9,MM.02/0219/2026 | MM.01/0220/2026 | MM.02/0221/2026 | MM.01/0222/2026 | MM.02/0223/2026 | MM.01/0224/2026 | MM.02/0225/2026 | MM.02/0226/2026 | MM.01/0227/2026,219 | 220 | 221 | 222 | 223 | 224 | 225 | 226 | 227,Angka Kuman ... | Kadar Air ... | Parasit/ Jamur/ kapang acr ... | Kadar Air ... | Angka Kuman ... | Kadar Air ... | E.coli (Makanan) ... | Angka Kuman ... | Kadar Air ...," 219 mikro MM Bunga Rosela -> MM.02/0219/2026 (Angka Kuman ...)
+ 220 kimia MM Bunga Rosela -> MM.01/0220/2026 (Kadar Air ...)
+ 221 mikro MM BungaTelang Celup -> MM.02/0221/2026 (Parasit/ Jamur/ kapang acr ...)
+ 222 kimia MM Bunga Telang Celup -> MM.01/0222/2026 (Kadar Air ...)
+ 223 mikro MM Jandis -> MM.02/0223/2026 (Angka Kuman ...)
+ 224 kimia MM Jandis -> MM.01/0224/2026 (Kadar Air ...)
+ 225 mikro MM Syrup Telang -> MM.02/0225/2026 (E.coli (Makanan) ...)
+ 226 mikro MM Chan Cimin -> MM.02/0226/2026 (Angka Kuman ...)
+ 227 kimia MM Chan Cimin -> MM.01/0227/2026 (Kadar Air ...)"
+123,2026-01-19,CV. Herbal Indo Utama,"Gondowangi, Sawangan, Magelang",6,AL.02/0277/2026 | AL.01/0278/2026 | AL.02/0279/2026 | AL.01/0280/2026 | AL.02/0281/2026 | AL.01/0282/2026,277 | 278 | 279 | 280 | 281 | 282,"Coliform (Air Limbah),Sampling ... | Ammoniak,Bau,BOD,COD,Ph,TSS ... | Coliform (Air Limbah),Sampling ... | Ammoniak,Bau,BOD,COD,Ph,TSS ... | Coliform (Air Limbah),Sampling ... | Ammoniak,Bau,BOD,COD,Ph,TSS ..."," 277 mikro Air Limbah Outlet -> AL.02/0277/2026 (Coliform (Air Limbah),Sampling ...)
+ 278 kimia Air Limbah -> AL.01/0278/2026 (Ammoniak,Bau,BOD,COD,Ph,TSS ...)
+ 279 mikro AL pengolahan Tgl 19 -> AL.02/0279/2026 (Coliform (Air Limbah),Sampling ...)
+ 280 kimia Air Limbah -> AL.01/0280/2026 (Ammoniak,Bau,BOD,COD,Ph,TSS ...)
+ 281 mikro AL pengolahan Tgl 16 -> AL.02/0281/2026 (Coliform (Air Limbah),Sampling ...)
+ 282 kimia Air Limbah -> AL.01/0282/2026 (Ammoniak,Bau,BOD,COD,Ph,TSS ...)"
+124,2026-01-19,Edi Irawan,"Kedung Karang 01/01, Mertoyudan, Mertoyudan",1,MM.01/0254/2026,254,"Fe,pH,Mn,TDS, Nitrat"," 254 kimia AB Kran Sumber -> MM.01/0254/2026 (Fe,pH,Mn,TDS, Nitrat)"
+125,2026-01-19,Galih Pramudya Bayu Aji,"SPPG. Magelang Sawangan, Ketep, Puluhan",5,AH.02/0269/2026 | AM.02/0270/2026 | UA.02/0271/2026 | MM.02/0272/2026 | MM.01/0273/2026,269 | 270 | 271 | 272 | 273,"Coliform & E.coli (Membran Filter),Sampling ... | Coliform & E.coli (Membran Filter),Sampling ... | Angka Kuman Alat,Sampling ... | E.coli (Makanan),Sampling ... | Formalin,Sampling ..."," 269 mikro Air Bersih -> AH.02/0269/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+ 270 mikro Air Minum -> AM.02/0270/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+ 271 mikro Usap Alat Ompreng -> UA.02/0271/2026 (Angka Kuman Alat,Sampling ...)
+ 272 mikro MM Ayam Asam Manis -> MM.02/0272/2026 (E.coli (Makanan),Sampling ...)
+ 273 kimia MM Tahu Goreng -> MM.01/0273/2026 (Formalin,Sampling ...)"
+126,2026-01-19,ICMA (Islamic Centre Masjid Al Muttaqien),"Bedogan RT 01/ RW 01 , Gondowangi, Sawangan",3,AH.02/0274/2026 | AM.02/0275/2026 | AM.01/0276/2026,274 | 275 | 276,"Coliform & E.coli (Membran Filter),Sampling ... | Coliform & E.coli (Membran Filter),Sampling ... | Aluminium,Arsen,Bau,Besi,Flourida,Kadmium,Kekeruha ..."," 274 mikro Air Bersih -> AH.02/0274/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+ 275 mikro Air Minum -> AM.02/0275/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+ 276 kimia AM -> AM.01/0276/2026 (Aluminium,Arsen,Bau,Besi,Flourida,Kadmium,Kekeruha ...)"
+127,2026-01-19,SMA Taruna Nusantara,"Jalan Raya Purworejo KM 5 Banyurojo, Mertoyudan",9,MM.02/0255/2026 | MM.02/0256/2026 | MM.02/0257/2026 | MM.02/0258/2026 | AM.02/0259/2026 | AM.01/0260/2026 | MM.02/0261/2026 | AM.02/0262/2026 | AM.01/0263/2026,255 | 256 | 257 | 258 | 259 | 260 | 261 | 262 | 263,"Angka Kuman,Sampling ... | Angka Kuman,Sampling ... | Salmonella spp,Sampling ... | Coliform & E.coli (Membran Filter),Sampling ... | Coliform & E.coli (Membran Filter),Sampling ... | Aluminium,Arsen,Bau,Besi,Flourida,Kadmium,Kekeruha ... | Coliform & E.coli (Membran Filter),Sampling ... | Coliform & E.coli (Membran Filter),Sampling ... | Aluminium,Arsen,Bau,Besi,Flourida,Kadmium,Kekeruha ..."," 255 mikro MM Nasi Putih -> MM.02/0255/2026 (Angka Kuman,Sampling ...)
+ 256 mikro MM Sayur Asem Jakarta -> MM.02/0256/2026 (Angka Kuman,Sampling ...)
+ 257 mikro MM Empal Serundeng -> MM.02/0257/2026 (Salmonella spp,Sampling ...)
+ 258 mikro AB RO  1 -> MM.02/0258/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+ 259 mikro AM RO 1 -> AM.02/0259/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+ 260 kimia Air Minum RO 1 -> AM.01/0260/2026 (Aluminium,Arsen,Bau,Besi,Flourida,Kadmium,Kekeruha ...)
+ 261 mikro AB RO  2 -> MM.02/0261/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+ 262 mikro AM RO 2 -> AM.02/0262/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+ 263 kimia Air Minum RO 2 -> AM.01/0263/2026 (Aluminium,Arsen,Bau,Besi,Flourida,Kadmium,Kekeruha ...)"
+128,2026-01-19,Syiska Anggrai Ni,"SPPG Magelang, Candimulyo, Giyanti",5,MM.02/0264/2026 | MM.01/0265/2026 | UA.02/0266/2026 | AM.02/0267/2026 | AH.02/0268/2026,264 | 265 | 266 | 267 | 268,"E.coli (Makanan),Sampling ... | Formalin,Sampling ... | Angka Kuman Alat,Sampling ... | Coliform & E.coli (Membran Filter),Sampling ... | Coliform & E.coli (Membran Filter) ..."," 264 mikro MM Ayam Goreng -> MM.02/0264/2026 (E.coli (Makanan),Sampling ...)
+ 265 kimia Ayam Goreng -> MM.01/0265/2026 (Formalin,Sampling ...)
+ 266 mikro Usap Alat Ompreng -> UA.02/0266/2026 (Angka Kuman Alat,Sampling ...)
+ 267 mikro Air Minum -> AM.02/0267/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+ 268 mikro Air Bersih -> AH.02/0268/2026 (Coliform & E.coli (Membran Filter) ...)"
+129,2026-01-19,Zaenal Abidin,"Mejing Rt16/Rw09, Banjarsari, Grabag",2,MM.02/0251/2026 | MM.01/0252/2026,251 | 252,"Angka Kuman ... | Kadar Air, Kadar Abu"," 251 mikro MM Kopi Ngab -> MM.02/0251/2026 (Angka Kuman ...)
+ 252 kimia MM Kopi Ngab -> MM.01/0252/2026 (Kadar Air, Kadar Abu)"
+130,2026-01-20,An'Nisa Shiella Agnesia,SPPG Magelang Mertoyudan Mertoyudan 2,5,UA.02/0313/2026 | MM.02/0314/2026 | MM.01/0315/2026 | AM.02/0316/2026 | AH.02/0317/2026,313 | 314 | 315 | 316 | 317,"Angka Kuman Alat,Sampling ... | E.coli (Makanan),Sampling ... | Formalin,Sampling ... | Coliform & E.coli (Membran Filter),Sampling ... | Coliform & E.coli (Membran Filter),Sampling ..."," 313 mikro Usap Alat Ompreng -> UA.02/0313/2026 (Angka Kuman Alat,Sampling ...)
+ 314 mikro Makanan -> MM.02/0314/2026 (E.coli (Makanan),Sampling ...)
+ 315 kimia Makanan -> MM.01/0315/2026 (Formalin,Sampling ...)
+ 316 mikro Air Minum -> AM.02/0316/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+ 317 mikro Air Bersih -> AH.02/0317/2026 (Coliform & E.coli (Membran Filter),Sampling ...)"
+131,2026-01-20,Damiu Alexa,"Kalisari, Tempuran",1,AM.02/0318/2026,318,E.Coli ..., 318 mikro Air Minum -> AM.02/0318/2026 (E.Coli ...)
+132,2026-01-20,Damiu Tirta Amalia,"Gunungpring, Muntilan, Magelang",1,AM.02/0297/2026,297,E.Coli ..., 297 mikro Air Minum -> AM.02/0297/2026 (E.Coli ...)
+133,2026-01-20,Damiu Tirta Sari,"Semaken, Pucungrejo",1,AM.02/0296/2026,296,"Coliform,E.Coli ..."," 296 mikro Air Minum -> AM.02/0296/2026 (Coliform,E.Coli ...)"
+134,2026-01-20,Endah Wahyuningsih,Pringtali 4/2 Jogonegoro Mertoyudan,4,MM.02/0289/2026 | MM.01/0290/2026 | MM.02/0291/2026 | MM.01/0292/2026,289 | 290 | 291 | 292,Angka Kuman ... | Borax ... | Angka Kuman ... | Ketengikan ...," 289 mikro MM Cincin Udang Orginal -> MM.02/0289/2026 (Angka Kuman ...)
+ 290 kimia Makanan -> MM.01/0290/2026 (Borax ...)
+ 291 mikro MM Cincin Udang Pedas -> MM.02/0291/2026 (Angka Kuman ...)
+ 292 kimia Makanan -> MM.01/0292/2026 (Ketengikan ...)"
+135,2026-01-20,Indri Prastiani,"Japun I, 005/010, Paremono, Mungkid",2,MM.02/0309/2026 | MM.01/0310/2026,309 | 310,Angka Kuman ... | Formalin ...," 309 mikro Makanan -> MM.02/0309/2026 (Angka Kuman ...)
+ 310 kimia MM Usus -> MM.01/0310/2026 (Formalin ...)"
+136,2026-01-20,Lilly Endah Murwani,"Jln. Pemuda 152 RT 66/ RW 07, Muntilan",1,MM.01/0308/2026,308,Borax ..., 308 kimia MM Emping -> MM.01/0308/2026 (Borax ...)
+137,2026-01-20,Samuel (Tuan Muda),"Jl. Pemuda No. 152, Muntilan",10,MM.02/0298/2026 | MM.02/0299/2026 | MM.01/0300/2026 | MM.01/0301/2026 | MM.01/0302/2026 | MM.01/0303/2026 | MM.01/0304/2026 | MM.01/0305/2026 | MM.01/0306/2026 | MM.01/0307/2026,298 | 299 | 300 | 301 | 302 | 303 | 304 | 305 | 306 | 307,Angka Kuman ... | Angka Kuman ... | Borax ... | Angka Asam dalam lemak ... | Borax ... | Formalin ... | Borax ... | Borax ... | Ketengikan ... | Ketengikan ...," 298 mikro Supia -> MM.02/0298/2026 (Angka Kuman ...)
+ 299 mikro MM Nopia -> MM.02/0299/2026 (Angka Kuman ...)
+ 300 kimia Makanan -> MM.01/0300/2026 (Borax ...)
+ 301 kimia Makanan -> MM.01/0301/2026 (Angka Asam dalam lemak ...)
+ 302 kimia Makanan -> MM.01/0302/2026 (Borax ...)
+ 303 kimia Makanan -> MM.01/0303/2026 (Formalin ...)
+ 304 kimia Makanan -> MM.01/0304/2026 (Borax ...)
+ 305 kimia Makanan -> MM.01/0305/2026 (Borax ...)
+ 306 kimia Makanan -> MM.01/0306/2026 (Ketengikan ...)
+ 307 kimia Makanan -> MM.01/0307/2026 (Ketengikan ...)"
+138,2026-01-20,Sutrisno,"Tosari Wetan, 001/004, Kebonagung, Tegalrejo",3,MM.02/0293/2026 | MM.01/0294/2026 | MM.01/0295/2026,293 | 294 | 295,"Salmonella spp ... | Formalin ... | Formalin,Ketengikan ..."," 293 mikro Makanan -> MM.02/0293/2026 (Salmonella spp ...)
+ 294 kimia Makanan -> MM.01/0294/2026 (Formalin ...)
+ 295 kimia Makanan -> MM.01/0295/2026 (Formalin,Ketengikan ...)"
+139,2026-01-20,Wati Mursiti,"Bawangan 02/02, Kapuhan, Sawangan",2,MM.02/0311/2026 | MM.01/0312/2026,311 | 312,Angka Kuman ... | Borax ...," 311 mikro Makanan -> MM.02/0311/2026 (Angka Kuman ...)
+ 312 kimia MM Roti Kacang -> MM.01/0312/2026 (Borax ...)"
+140,2026-01-21,Damiu Tirta Mulya,"Prajegsari, Tempuran",1,AM.02/0328/2026,328,E.Coli ..., 328 mikro Air Minum -> AM.02/0328/2026 (E.Coli ...)
+141,2026-01-21,Satreskrim Polresta Magelang,"Kota Mungkid, Magelang",1,MM.01/0327/2026,327,Formalin, 327 kimia MM Daging Ayam -> MM.01/0327/2026 (Formalin)
+142,2026-01-22,Diki Dwi Hermawan,"SPPG Magelang Kajoran, Kajoran 3",5,AH.02/0339/2026 | AM.02/0340/2026 | UA.02/0341/2026 | MM.02/0342/2026 | MM.01/0343/2026,339 | 340 | 341 | 342 | 343,"Coliform & E.coli (Membran Filter),Sampling ... | Coliform & E.coli (Membran Filter),Sampling ... | Angka Kuman Alat,Sampling ... | E.coli (Makanan),Sampling ... | Formalin,Sampling ..."," 339 mikro Air Bersih -> AH.02/0339/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+ 340 mikro Air Minum -> AM.02/0340/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+ 341 mikro Usap Alat Ompreng -> UA.02/0341/2026 (Angka Kuman Alat,Sampling ...)
+ 342 mikro Makanan -> MM.02/0342/2026 (E.coli (Makanan),Sampling ...)
+ 343 kimia MM tahu Bakos -> MM.01/0343/2026 (Formalin,Sampling ...)"
+143,2026-01-22,Iqbal Satya,"SPPG Magelang Salaman, Menoreh I",5,AH.02/0334/2026 | AM.02/0335/2026 | UA.02/0336/2026 | MM.02/0337/2026 | MM.01/0338/2026,334 | 335 | 336 | 337 | 338,"Coliform & E.coli (Membran Filter),Sampling ... | Coliform & E.coli (Membran Filter),Sampling ... | Angka Kuman Alat,Sampling ... | E.coli (Makanan),Sampling ... | Formalin,Sampling ..."," 334 mikro Air Bersih -> AH.02/0334/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+ 335 mikro Air Minum -> AM.02/0335/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+ 336 mikro Usap Alat Ompreng -> UA.02/0336/2026 (Angka Kuman Alat,Sampling ...)
+ 337 mikro MM Ayam Goreng -> MM.02/0337/2026 (E.coli (Makanan),Sampling ...)
+ 338 kimia MM Ayam Goreng -> MM.01/0338/2026 (Formalin,Sampling ...)"
+144,2026-01-22,Moudina Rahmalia,"Bedono, Krajan, Kec. Jambu, Kab. Magelang",2,MM.02/0346/2026 | MM.02/0347/2026,346 | 347,E.coli (Makanan) ... | E.coli (Makanan) ...," 346 mikro MM Daging Ayam E -> MM.02/0346/2026 (E.coli (Makanan) ...)
+ 347 mikro MM Daging Ayam D -> MM.02/0347/2026 (E.coli (Makanan) ...)"
+145,2026-01-22,Rima Childa Mafazah,"Drojogan, Adikarto, Muntilan",2,MM.02/0344/2026 | MM.02/0345/2026,344 | 345,Salmonella spp ... | Salmonella spp ...," 344 mikro MM Daging Ayam A -> MM.02/0344/2026 (Salmonella spp ...)
+ 345 mikro MM Daging Ayam B -> MM.02/0345/2026 (Salmonella spp ...)"
+146,2026-01-22,Yhunanik,"Benjaran 3/2, Banjarharjo, Salaman",2,MM.02/0349/2026 | MM.01/0350/2026,349 | 350,Angka Kuman ... | Ketengikan ...," 349 mikro MM Grubi -> MM.02/0349/2026 (Angka Kuman ...)
+ 350 kimia MM Grubi -> MM.01/0350/2026 (Ketengikan ...)"
+147,2026-01-23,Nuning Eko Pujiati,"Jl. Raya Bandongan Sawah Jurang, Trasan, Bandongan",6,MM.01/0360/2026 | MM.02/0361/2026 | MM.02/0362/2026 | MM.02/0363/2026 | MM.01/0364/2026 | MM.02/0365/2026,360 | 361 | 362 | 363 | 364 | 365,Formalin | Angka Kuman ... | Parasit/ Jamur/ kapang acr ... | Angka Kuman ... | Ketengikan ... | Parasit/ Jamur/ kapang acr ...," 360 kimia MM Abon -> MM.01/0360/2026 (Formalin)
+ 361 mikro MM Roti pisang -> MM.02/0361/2026 (Angka Kuman ...)
+ 362 mikro MM Roti Kacang Merah -> MM.02/0362/2026 (Parasit/ Jamur/ kapang acr ...)
+ 363 mikro MM Roti isi keju -> MM.02/0363/2026 (Angka Kuman ...)
+ 364 kimia MM Burger -> MM.01/0364/2026 (Ketengikan ...)
+ 365 mikro MM Roti kacang hijau -> MM.02/0365/2026 (Parasit/ Jamur/ kapang acr ...)"
+148,2026-01-23,SPPG Lukman Hakim Joko S,"SPPG Magelang. Borobudur, Karanganyar",1,AH.02/0359/2026,359,"Coliform & E.coli (Membran Filter),Sampling ..."," 359 mikro Air Bersih -> AH.02/0359/2026 (Coliform & E.coli (Membran Filter),Sampling ...)"
+149,2026-01-23,Yunan Rudiyanto,"Kauman, Muntilan",2,MM.02/0355/2026 | MM.01/0356/2026,355 | 356,Angka Kuman ... | Ketengikan ...," 355 mikro MM Keripik Tempe -> MM.02/0355/2026 (Angka Kuman ...)
+ 356 kimia MM Keripik Tempe -> MM.01/0356/2026 (Ketengikan ...)"
+150,2026-01-26,An'Nisa Shiella Agnesia,SPPG Magelang Mertoyudan Mertoyudan 2,1,AH.02/0380/2026,380,Coliform & E.coli (Membran Filter) ..., 380 mikro Air Bersih Kran Air -> AH.02/0380/2026 (Coliform & E.coli (Membran Filter) ...)
+151,2026-01-26,Damiu Nurul Water,Girirejo Tempuran,1,AM.02/0373/2026,373,E.Coli ..., 373 mikro Air Minum -> AM.02/0373/2026 (E.Coli ...)
+152,2026-01-26,Diki Dwi Hermawan,"SPPG Magelang Kajoran, Kajoran 3",2,AH.02/0377/2026 | UA.02/0379/2026,377 | 379,"Coliform & E.coli (Membran Filter),Sampling ... | Angka Kuman Alat,Sampling ..."," 377 mikro Air Bersih Kran Air -> AH.02/0377/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+ 379 mikro Usap Alat Ompreng -> UA.02/0379/2026 (Angka Kuman Alat,Sampling ...)"
+153,2026-01-26,Iqbal Satya,"SPPG Magelang Salaman, Menoreh I",1,UA.02/0379/2026,379,"Angka Kuman Alat,Sampling ..."," 379 mikro Usap Alat Ompreng -> UA.02/0379/2026 (Angka Kuman Alat,Sampling ...)"
+154,2026-01-26,SR. Baino Harsono,"Kapling I, 05/02, Tegalrejo",2,AM.02/0397/2026 | AM.01/0398/2026,397 | 398,"E.coli, Coliform (Membran) | Bau, Warna, TDS, Rasa, PH, Kekeruhan, Suhu , Sisa klor"," 397 mikro AM (PDAM) -> AM.02/0397/2026 (E.coli, Coliform (Membran))
+ 398 kimia AM (PDAM) -> AM.01/0398/2026 (Bau, Warna, TDS, Rasa, PH, Kekeruhan, Suhu , Sisa klor)"
+155,2026-01-26,SR. Bharjo Murdomo,"Krajan 01/06, Krajan, Tegalrejo",2,AM.02/0395/2026 | AM.01/0396/2026,395 | 396,"E.coli, Coliform (Membran) | Bau, Warna, TDS, Rasa, PH, Kekeruhan, Suhu , Sisa klor"," 395 mikro AM (PDAM) -> AM.02/0395/2026 (E.coli, Coliform (Membran))
+ 396 kimia AM (PDAM) -> AM.01/0396/2026 (Bau, Warna, TDS, Rasa, PH, Kekeruhan, Suhu , Sisa klor)"
+156,2026-01-26,SR. Budiyati,"Krincing 15/06, Secang",2,AM.02/0385/2026 | AM.01/0386/2026,385 | 386,"E.coli, Coliform (Membran) | Bau, Warna, TDS, Rasa, PH, Kekeruhan, Suhu , Sisa klor"," 385 mikro AM (PDAM) -> AM.02/0385/2026 (E.coli, Coliform (Membran))
+ 386 kimia AM (PDAM) -> AM.01/0386/2026 (Bau, Warna, TDS, Rasa, PH, Kekeruhan, Suhu , Sisa klor)"
+157,2026-01-26,SR. Gunawan,"Tampir Wetan 1, 04/02, Tampir Wetan, Candimulyo",2,AM.02/0399/2026 | AM.01/0400/2026,399 | 400,"E.coli, Coliform (Membran) | Bau, Warna, TDS, Rasa, PH, Kekeruhan, Suhu , Sisa klor"," 399 mikro AM (PDAM) -> AM.02/0399/2026 (E.coli, Coliform (Membran))
+ 400 kimia AM (PDAM) -> AM.01/0400/2026 (Bau, Warna, TDS, Rasa, PH, Kekeruhan, Suhu , Sisa klor)"
+158,2026-01-26,SR. Lenny Setyo Wahyuni,"Kalibening 11/05, Payaman",2,AM.02/0389/2026 | AM.01/0390/2026,389 | 390,"E.coli, Coliform (Membran) | Bau, Warna, TDS, Rasa, PH, Kekeruhan, Suhu , Sisa klor"," 389 mikro AM (PDAM) -> AM.02/0389/2026 (E.coli, Coliform (Membran))
+ 390 kimia AM (PDAM) -> AM.01/0390/2026 (Bau, Warna, TDS, Rasa, PH, Kekeruhan, Suhu , Sisa klor)"
+159,2026-01-26,SR. Miftakul Huda,"Pucang Gunung 04/03, Pucang.",2,AM.02/0381/2026 | AM.01/0382/2026,381 | 382,"E.coli, Coliform (Membran) | Bau, Warna, TDS, Rasa, PH, Kekeruhan, Suhu , Sisa klor"," 381 mikro AM (PDAM) -> AM.02/0381/2026 (E.coli, Coliform (Membran))
+ 382 kimia AM (PDAM) -> AM.01/0382/2026 (Bau, Warna, TDS, Rasa, PH, Kekeruhan, Suhu , Sisa klor)"
+160,2026-01-26,SR. Muhammad Nuri,"Kalangan, Grabag",2,AM.02/0383/2026 | AM.01/0384/2026,383 | 384,"E.coli, Coliform (Membran) | Bau, Warna, TDS, Rasa, PH, Kekeruhan, Suhu , Sisa klor"," 383 mikro AM (PDAM) -> AM.02/0383/2026 (E.coli, Coliform (Membran))
+ 384 kimia AM (PDAM) -> AM.01/0384/2026 (Bau, Warna, TDS, Rasa, PH, Kekeruhan, Suhu , Sisa klor)"
+161,2026-01-26,SR. Mutfiyah,"Sambung 01/06, Donorejo, Secang",2,AM.02/0393/2026 | AM.01/0394/2026,393 | 394,"E.coli, Coliform (Membran) | Bau, Warna, TDS, Rasa, PH, Kekeruhan, Suhu , Sisa klor"," 393 mikro AM (PDAM) -> AM.02/0393/2026 (E.coli, Coliform (Membran))
+ 394 kimia AM (PDAM) -> AM.01/0394/2026 (Bau, Warna, TDS, Rasa, PH, Kekeruhan, Suhu , Sisa klor)"
+162,2026-01-26,"SR. Nur Rohim,","Citro Dukuh03/03, Kalijoso, Secang",2,AM.02/0387/2026 | AM.01/0388/2026,387 | 388,"E.coli, Coliform (Membran) | Bau, Warna, TDS, Rasa, PH, Kekeruhan, Suhu , Sisa klor"," 387 mikro AM (PDAM) -> AM.02/0387/2026 (E.coli, Coliform (Membran))
+ 388 kimia AM (PDAM) -> AM.01/0388/2026 (Bau, Warna, TDS, Rasa, PH, Kekeruhan, Suhu , Sisa klor)"
+163,2026-01-26,SR. Slamet Wahyudi,"Sidodadi 07/10, Tegalrejo.",2,AM.02/0401/2026 | AM.01/0402/2026,401 | 402,"E.coli, Coliform (Membran) | Bau, Warna, TDS, Rasa, PH, Kekeruhan, Suhu , Sisa klor"," 401 mikro AM (PDAM) -> AM.02/0401/2026 (E.coli, Coliform (Membran))
+ 402 kimia AM (PDAM) -> AM.01/0402/2026 (Bau, Warna, TDS, Rasa, PH, Kekeruhan, Suhu , Sisa klor)"
+164,2026-01-26,SR. Sudiyo,"Krajan I, 12/14, Secang",2,AM.02/0391/2026 | AM.01/0392/2026,391 | 392,"E.coli, Coliform (Membran) | Bau, Warna, TDS, Rasa, PH, Kekeruhan, Suhu , Sisa klor"," 391 mikro AM (PDAM) -> AM.02/0391/2026 (E.coli, Coliform (Membran))
+ 392 kimia AM (PDAM) -> AM.01/0392/2026 (Bau, Warna, TDS, Rasa, PH, Kekeruhan, Suhu , Sisa klor)"
+165,2026-01-27,Damiu Noor Galon,Sumberrarum Tempuran,1,AM.02/0414/2026,414,E.Coli ..., 414 mikro Air Minum -> AM.02/0414/2026 (E.Coli ...)
+166,2026-01-27,Listiyorini,"Kalikuto Lor,009/005, Kalikuto, Grabag",2,MM.02/0404/2026 | MM.01/0405/2026,404 | 405,"E.coli (Makanan) ... | Ka. Air, Ka Abu"," 404 mikro MM Kopi -> MM.02/0404/2026 (E.coli (Makanan) ...)
+ 405 kimia MM Kopi -> MM.01/0405/2026 (Ka. Air, Ka Abu)"
+167,2026-01-27,Puskesmas Ngablak,"Jl. Raya Ngblak - Grabag, KM 1, Ngbalak",1,AL.01/0444/2026,444,"COD,BOD,Amoniak pH,TSS"," 444 kimia Air Limbah -> AL.01/0444/2026 (COD,BOD,Amoniak pH,TSS)"
+168,2026-01-27,SR. Daryono,"Daleman 01/01, Gondosuli, Muntilan",2,AM.02/0427/2026 | AM.01/0428/2026,427 | 428,"E.coli, Coliform (Membran) | Bau, Warna, TDS, Rasa, PH, Kekeruhan, Suhu , Sisa klor"," 427 mikro AM (PDAM) -> AM.02/0427/2026 (E.coli, Coliform (Membran))
+ 428 kimia AM (PDAM) -> AM.01/0428/2026 (Bau, Warna, TDS, Rasa, PH, Kekeruhan, Suhu , Sisa klor)"
+169,2026-01-27,"SR. Hadi Wardiyo,","Sigug, 08/03, Bumiharjo, Borobudur",2,AM.02/0419/2026 | AM.01/0420/2026,419 | 420,"E.coli, Coliform (Membran) | Bau, Warna, TDS, Rasa, PH, Kekeruhan, Suhu , Sisa klor"," 419 mikro AM (PDAM) -> AM.02/0419/2026 (E.coli, Coliform (Membran))
+ 420 kimia AM (PDAM) -> AM.01/0420/2026 (Bau, Warna, TDS, Rasa, PH, Kekeruhan, Suhu , Sisa klor)"
+170,2026-01-27,"SR. Heru Setiawan,","Sutan 01/11, Sumberrejo, Mertoyudan",2,AM.02/0435/2026 | AM.01/0436/2026,435 | 436,"E.coli, Coliform (Membran) | Bau, Warna, TDS, Rasa, PH, Kekeruhan, Suhu , Sisa klor"," 435 mikro AM (PDAM) -> AM.02/0435/2026 (E.coli, Coliform (Membran))
+ 436 kimia AM (PDAM) -> AM.01/0436/2026 (Bau, Warna, TDS, Rasa, PH, Kekeruhan, Suhu , Sisa klor)"
+171,2026-01-27,SR. Margiyono,"Tampir Kulon I, Tampir, Candimulyo",2,AM.02/0441/2026 | AM.01/0442/2026,441 | 442,"E.coli, Coliform (Membran) | Bau, Warna, TDS, Rasa, PH, Kekeruhan, Suhu , Sisa klor"," 441 mikro AM (PDAM) -> AM.02/0441/2026 (E.coli, Coliform (Membran))
+ 442 kimia AM (PDAM) -> AM.01/0442/2026 (Bau, Warna, TDS, Rasa, PH, Kekeruhan, Suhu , Sisa klor)"
+172,2026-01-27,SR. Nur Eddy,"Purnomo, Ngroto, 01/01, Deyangan",2,AM.02/0423/2026 | AM.01/0424/2026,423 | 424,"E.coli, Coliform (Membran) | Bau, Warna, TDS, Rasa, PH, Kekeruhan, Suhu , Sisa klor"," 423 mikro AM (PDAM) -> AM.02/0423/2026 (E.coli, Coliform (Membran))
+ 424 kimia AM (PDAM) -> AM.01/0424/2026 (Bau, Warna, TDS, Rasa, PH, Kekeruhan, Suhu , Sisa klor)"
+173,2026-01-27,SR. Nur Hidayah,"Gedongan Lor 01/05, Bondowoso",2,AM.02/0431/2026 | AM.01/0432/2026,431 | 432,"E.coli, Coliform (Membran) | Bau, Warna, TDS, Rasa, PH, Kekeruhan, Suhu , Sisa klor"," 431 mikro AM (PDAM) -> AM.02/0431/2026 (E.coli, Coliform (Membran))
+ 432 kimia AM (PDAM) -> AM.01/0432/2026 (Bau, Warna, TDS, Rasa, PH, Kekeruhan, Suhu , Sisa klor)"
+174,2026-01-27,SR. Nursalim,"Kenayan,02/15, Borobudur",2,AM.02/0421/2026 | AM.01/0422/2026,421 | 422,"E.coli, Coliform (Membran) | Bau, Warna, TDS, Rasa, PH, Kekeruhan, Suhu , Sisa klor"," 421 mikro AM (PDAM) -> AM.02/0421/2026 (E.coli, Coliform (Membran))
+ 422 kimia AM (PDAM) -> AM.01/0422/2026 (Bau, Warna, TDS, Rasa, PH, Kekeruhan, Suhu , Sisa klor)"
+175,2026-01-27,"SR. Pawit Susilo,","Bumi Prayudan Esate, M-24, Mewrtoyudan",2,AM.02/0439/2026 | AM.01/0440/2026,439 | 440,"E.coli, Coliform (Membran) | Bau, Warna, TDS, Rasa, PH, Kekeruhan, Suhu , Sisa klor"," 439 mikro AM (PDAM) -> AM.02/0439/2026 (E.coli, Coliform (Membran))
+ 440 kimia AM (PDAM) -> AM.01/0440/2026 (Bau, Warna, TDS, Rasa, PH, Kekeruhan, Suhu , Sisa klor)"
+176,2026-01-27,"SR. Pudjo Asmono,","Salakan 02/01, Mertoyudan",2,AM.02/0433/2026 | AM.01/0434/2026,433 | 434,"E.coli, Coliform (Membran) | Bau, Warna, TDS, Rasa, PH, Kekeruhan, Suhu , Sisa klor"," 433 mikro AM (PDAM) -> AM.02/0433/2026 (E.coli, Coliform (Membran))
+ 434 kimia AM (PDAM) -> AM.01/0434/2026 (Bau, Warna, TDS, Rasa, PH, Kekeruhan, Suhu , Sisa klor)"
+177,2026-01-27,SR. Purnomo,"Dowasan02/10, Bondowoso, Mertoyudan",2,AM.02/0437/2026 | AM.01/0438/2026,437 | 438,"E.coli, Coliform (Membran) | Bau, Warna, TDS, Rasa, PH, Kekeruhan, Suhu , Sisa klor"," 437 mikro AM (PDAM) -> AM.02/0437/2026 (E.coli, Coliform (Membran))
+ 438 kimia AM (PDAM) -> AM.01/0438/2026 (Bau, Warna, TDS, Rasa, PH, Kekeruhan, Suhu , Sisa klor)"
+178,2026-01-27,SR. Setiyarto,"Kembaran 05/07, Sedayu, Muntilan",2,AM.02/0429/2026 | AM.01/0430/2026,429 | 430,"E.coli, Coliform (Membran) | Bau, Warna, TDS, Rasa, PH, Kekeruhan, Suhu , Sisa klor"," 429 mikro AM (PDAM) -> AM.02/0429/2026 (E.coli, Coliform (Membran))
+ 430 kimia AM (PDAM) -> AM.01/0430/2026 (Bau, Warna, TDS, Rasa, PH, Kekeruhan, Suhu , Sisa klor)"
+179,2026-01-27,SR. Suhargiyanto,"Kujon 02/11, Borobudur",2,AM.02/0417/2026 | AM.01/0418/2026,417 | 418,"E.coli, Coliform (Membran) | Bau, Warna, TDS, Rasa, PH, Kekeruhan, Suhu , Sisa klor"," 417 mikro AM (PDAM) -> AM.02/0417/2026 (E.coli, Coliform (Membran))
+ 418 kimia AM (PDAM) -> AM.01/0418/2026 (Bau, Warna, TDS, Rasa, PH, Kekeruhan, Suhu , Sisa klor)"
+180,2026-01-27,SR. Supangat,"Wonolelo, 03/05, Muntilan",2,AM.02/0425/2026 | AM.01/0426/2026,425 | 426,"E.coli, Coliform (Membran) | Bau, Warna, TDS, Rasa, PH, Kekeruhan, Suhu , Sisa klor"," 425 mikro AM (PDAM) -> AM.02/0425/2026 (E.coli, Coliform (Membran))
+ 426 kimia AM (PDAM) -> AM.01/0426/2026 (Bau, Warna, TDS, Rasa, PH, Kekeruhan, Suhu , Sisa klor)"
+181,2026-01-27,Surtimah,"Semaren 02/04, Sawangan",2,MM.02/0415/2026 | MM.01/0416/2026,415 | 416,Angka Kuman ... | ," 415 mikro MM Ceriping Singkong -> MM.02/0415/2026 (Angka Kuman ...)
+ 416 kimia Makanan -> MM.01/0416/2026 ()"
+182,2026-01-28,Damiu Indri Water,Ringinanom Tempuran,1,AM.02/0450/2026,450,E.Coli, 450 mikro AM -> AM.02/0450/2026 (E.Coli)
+183,2026-01-28,Divian Anugrah Cahya Pratama,"SPPG Candimulyo, Candimulyo",5,AM.02/0473/2026 | AH.02/0474/2026 | MM.02/0475/2026 | MM.01/0476/2026 | UA.02/0477/2026,473 | 474 | 475 | 476 | 477,"Coliform & E.coli (Membran Filter),Sampling ... | Coliform & E.coli (Membran Filter),Sampling ... | E.coli (Makanan),Sampling ... | Formalin,Sampling ... | Angka Kuman Alat,Sampling ..."," 473 mikro AM -> AM.02/0473/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+ 474 mikro AB -> AH.02/0474/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+ 475 mikro MM Ayam Goreng -> MM.02/0475/2026 (E.coli (Makanan),Sampling ...)
+ 476 kimia MM Tahu Goreng -> MM.01/0476/2026 (Formalin,Sampling ...)
+ 477 mikro Usap Alat Ompreng -> UA.02/0477/2026 (Angka Kuman Alat,Sampling ...)"
+184,2026-01-28,Ega Kusuma Wardhana,SPPG Bandongan Rejosari,5,AM.02/0488/2026 | AH.02/0489/2026 | MM.02/0490/2026 | MM.01/0491/2026 | UA.02/0492/2026,488 | 489 | 490 | 491 | 492,"Coliform & E.coli (Membran Filter),Sampling ... | Coliform & E.coli (Membran Filter),Sampling ... | E.coli (Makanan),Sampling ... | Formalin,Sampling ... | Angka Kuman Alat,Sampling ..."," 488 mikro AM -> AM.02/0488/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+ 489 mikro AB -> AH.02/0489/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+ 490 mikro MM Ayam Kecap -> MM.02/0490/2026 (E.coli (Makanan),Sampling ...)
+ 491 kimia MM Ayam Kecap -> MM.01/0491/2026 (Formalin,Sampling ...)
+ 492 mikro Usap Alat Ompreng -> UA.02/0492/2026 (Angka Kuman Alat,Sampling ...)"
+185,2026-01-28,Feri Ardian,"SPPG Teaglrejo, Klopo",5,AM.02/0478/2026 | AH.02/0479/2026 | MM.02/0480/2026 | MM.01/0481/2026 | UA.02/0482/2026,478 | 479 | 480 | 481 | 482,"Coliform & E.coli (Membran Filter),Sampling ... | Coliform & E.coli (Membran Filter),Sampling ... | E.coli (Makanan),Sampling ... | Formalin,Sampling ... | Angka Kuman Alat,Sampling ..."," 478 mikro AM -> AM.02/0478/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+ 479 mikro AB -> AH.02/0479/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+ 480 mikro MM Anggur -> MM.02/0480/2026 (E.coli (Makanan),Sampling ...)
+ 481 kimia MM Ayam Tepung -> MM.01/0481/2026 (Formalin,Sampling ...)
+ 482 mikro Usap Alat Ompreng -> UA.02/0482/2026 (Angka Kuman Alat,Sampling ...)"
+186,2026-01-28,Nabila Ayu Fikry Riyanto,"SPPG Sumurarum, Grabag",5,AM.02/0483/2026 | AH.02/0484/2026 | MM.02/0485/2026 | MM.01/0486/2026 | UA.02/0487/2026,483 | 484 | 485 | 486 | 487,"Coliform & E.coli (Membran Filter),Sampling ... | Coliform & E.coli (Membran Filter),Sampling ... | E.coli (Makanan),Sampling ... | Formalin,Sampling ... | Angka Kuman Alat,Sampling ..."," 483 mikro AM -> AM.02/0483/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+ 484 mikro AB -> AH.02/0484/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+ 485 mikro MM Ayam Goreng -> MM.02/0485/2026 (E.coli (Makanan),Sampling ...)
+ 486 kimia MM Ayam Goreng -> MM.01/0486/2026 (Formalin,Sampling ...)
+ 487 mikro Usap Alat Ompreng -> UA.02/0487/2026 (Angka Kuman Alat,Sampling ...)"
+187,2026-01-28,SR. Agus Edianto,"Nepak Wetan I RT 09/01, Bulurejo",2,AM.02/0467/2026 | AM.01/0468/2026,467 | 468,"E.coli, Coliform (Membran) | Bau, Warna, TDS, Rasa, PH, Kekeruhan, Suhu , Sisa klor"," 467 mikro AM (PDAM) -> AM.02/0467/2026 (E.coli, Coliform (Membran))
+ 468 kimia AM (PDAM) -> AM.01/0468/2026 (Bau, Warna, TDS, Rasa, PH, Kekeruhan, Suhu , Sisa klor)"
+188,2026-01-28,SR. Ahmad Fauzin,"Jonggrangan RT 04/08, Kalinegoro",2,AM.02/0461/2026 | AM.01/0462/2026,461 | 462,"E.coli, Coliform (Membran) | Bau, Warna, TDS, Rasa, PH, Kekeruhan, Suhu , Sisa klor"," 461 mikro AM (PDAM) -> AM.02/0461/2026 (E.coli, Coliform (Membran))
+ 462 kimia AM (PDAM) -> AM.01/0462/2026 (Bau, Warna, TDS, Rasa, PH, Kekeruhan, Suhu , Sisa klor)"
+189,2026-01-28,SR. Angger Dwi Wibowo,"Grobogan RT 01/07, Banjarnegoro",2,AM.02/0465/2026 | AM.01/0466/2026,465 | 466,"E.coli, Coliform (Membran) | Bau, Warna, TDS, Rasa, PH, Kekeruhan, Suhu , Sisa klor"," 465 mikro AM (PDAM) -> AM.02/0465/2026 (E.coli, Coliform (Membran))
+ 466 kimia AM (PDAM) -> AM.01/0466/2026 (Bau, Warna, TDS, Rasa, PH, Kekeruhan, Suhu , Sisa klor)"
+190,2026-01-28,SR. Hadi Suprapto,"Jetis RT 02/07, Kalinegoro",2,AM.02/0457/2026 | AM.01/0458/2026,457 | 458,"E.coli, Coliform (Membran) | Bau, Warna, TDS, Rasa, PH, Kekeruhan, Suhu , Sisa klor"," 457 mikro AM (PDAM) -> AM.02/0457/2026 (E.coli, Coliform (Membran))
+ 458 kimia AM (PDAM) -> AM.01/0458/2026 (Bau, Warna, TDS, Rasa, PH, Kekeruhan, Suhu , Sisa klor)"
+191,2026-01-28,SR. Joatmo,"Ganjuran 01/08, Sukorejo",2,AM.02/0463/2026 | AM.01/0464/2026,463 | 464,"E.coli, Coliform (Membran) | Bau, Warna, TDS, Rasa, PH, Kekeruhan, Suhu , Sisa klor"," 463 mikro AM (PDAM) -> AM.02/0463/2026 (E.coli, Coliform (Membran))
+ 464 kimia AM (PDAM) -> AM.01/0464/2026 (Bau, Warna, TDS, Rasa, PH, Kekeruhan, Suhu , Sisa klor)"
+192,2026-01-28,SR. Kunwardani,"Brengkel II RT 03/09, Salaman",2,AM.02/0451/2026 | AM.01/0452/2026,451 | 452,"E.coli, Coliform (Membran) | Bau, Warna, TDS, Rasa, PH, Kekeruhan, Suhu , Sisa klor"," 451 mikro AM (PDAM) -> AM.02/0451/2026 (E.coli, Coliform (Membran))
+ 452 kimia AM (PDAM) -> AM.01/0452/2026 (Bau, Warna, TDS, Rasa, PH, Kekeruhan, Suhu , Sisa klor)"
+193,2026-01-28,SR. Muhamad Soleh,"Kembang II 02/06, Jebengsari",2,AM.02/0453/2026 | AM.01/0454/2026,453 | 454,"E.coli, Coliform (Membran) | Bau, Warna, TDS, Rasa, PH, Kekeruhan, Suhu , Sisa klor"," 453 mikro AM (PDAM) -> AM.02/0453/2026 (E.coli, Coliform (Membran))
+ 454 kimia AM (PDAM) -> AM.01/0454/2026 (Bau, Warna, TDS, Rasa, PH, Kekeruhan, Suhu , Sisa klor)"
+194,2026-01-28,SR. Ngatidjan,"Kauman RT 07/01, Salaman",2,AM.02/0455/2026 | AM.01/0456/2026,455 | 456,"E.coli, Coliform (Membran) | Bau, Warna, TDS, Rasa, PH, Kekeruhan, Suhu , Sisa klor"," 455 mikro AM (PDAM) -> AM.02/0455/2026 (E.coli, Coliform (Membran))
+ 456 kimia AM (PDAM) -> AM.01/0456/2026 (Bau, Warna, TDS, Rasa, PH, Kekeruhan, Suhu , Sisa klor)"
+195,2026-01-28,SR. Pawit Sudargo,"Bayanan RT 01/11, Banjarnegoro",2,AM.02/0471/2026 | AM.01/0472/2026,471 | 472,"E.coli, Coliform (Membran) | Bau, Warna, TDS, Rasa, PH, Kekeruhan, Suhu , Sisa klor"," 471 mikro AM (PDAM) -> AM.02/0471/2026 (E.coli, Coliform (Membran))
+ 472 kimia AM (PDAM) -> AM.01/0472/2026 (Bau, Warna, TDS, Rasa, PH, Kekeruhan, Suhu , Sisa klor)"
+196,2026-01-28,SR. Surnyoto,"Dogaten I RT 01/01, Sukorejo",2,AM.02/0469/2026 | AM.01/0470/2026,469 | 470,"E.coli, Coliform (Membran) | Bau, Warna, TDS, Rasa, PH, Kekeruhan, Suhu , Sisa klor"," 469 mikro AM (PDAM) -> AM.02/0469/2026 (E.coli, Coliform (Membran))
+ 470 kimia AM (PDAM) -> AM.01/0470/2026 (Bau, Warna, TDS, Rasa, PH, Kekeruhan, Suhu , Sisa klor)"
+197,2026-01-28,SR. Yudi Erwanto,"Perumnas Kalinegoro Jl. Duku II/198, Kalinegoro",2,AM.02/0459/2026 | AM.01/0460/2026,459 | 460,"E.coli, Coliform (Membran) | Bau, Warna, TDS, Rasa, PH, Kekeruhan, Suhu , Sisa klor"," 459 mikro AM (PDAM) -> AM.02/0459/2026 (E.coli, Coliform (Membran))
+ 460 kimia AM (PDAM) -> AM.01/0460/2026 (Bau, Warna, TDS, Rasa, PH, Kekeruhan, Suhu , Sisa klor)"
+198,2026-01-29,Muhammad David Ichsan,"SPPG Dukun, Ketunggeng",5,MM.02/0501/2026 | MM.01/0502/2026 | UA.02/0503/2026 | MM.02/0504/2026 | AM.02/0505/2026,501 | 502 | 503 | 504 | 505,"E.coli (Makanan),Sampling ... | Formalin,Sampling ... | Angka Kuman Alat,Sampling ... | Coliform & E.coli (Membran Filter),Sampling ... | Coliform & E.coli (Membran Filter),Sampling ..."," 501 mikro MM Ayam Lengkuas -> MM.02/0501/2026 (E.coli (Makanan),Sampling ...)
+ 502 kimia MM Ayam Lengkuas -> MM.01/0502/2026 (Formalin,Sampling ...)
+ 503 mikro Usap Alat Ompreng -> UA.02/0503/2026 (Angka Kuman Alat,Sampling ...)
+ 504 mikro AB Kran Cuci Bahan -> MM.02/0504/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+ 505 mikro AM Galon -> AM.02/0505/2026 (Coliform & E.coli (Membran Filter),Sampling ...)"
+199,2026-01-29,Sidiq Purwidiyanto,"SPPG Magelang, Srumbung, Kradenan",5,MM.02/0496/2026 | MM.01/0497/2026 | MM.02/0498/2026 | AM.02/0499/2026 | UA.02/0500/2026,496 | 497 | 498 | 499 | 500,"E.coli (Makanan),Sampling ... | Formalin,Sampling ... | Coliform & E.coli (Membran Filter),Sampling ... | Coliform & E.coli (Membran Filter),Sampling ... | Angka Kuman Alat,Sampling ..."," 496 mikro MM Ayam Mentega -> MM.02/0496/2026 (E.coli (Makanan),Sampling ...)
+ 497 kimia MM Ayam Mentega -> MM.01/0497/2026 (Formalin,Sampling ...)
+ 498 mikro AB Kran Wastafel -> MM.02/0498/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+ 499 mikro AM Galon -> AM.02/0499/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+ 500 mikro Usap Alat Ompreng -> UA.02/0500/2026 (Angka Kuman Alat,Sampling ...)"
+200,2026-01-30,Asnawi,"Penggaron Lor, 01/01, Gondowangi, Sawangan",2,MM.02/0512/2026 | MM.01/0513/2026,512 | 513,"Parasit/ Jamur/ kapang acr ... | Kadar Abu,Kadar Air ..."," 512 mikro Makanan -> MM.02/0512/2026 (Parasit/ Jamur/ kapang acr ...)
+ 513 kimia Makanan -> MM.01/0513/2026 (Kadar Abu,Kadar Air ...)"
+201,2026-01-30,Devi Rima Prahesti,"Kradenan 01/02, Kradenan, Srumbung",1,MM.02/0511/2026,511,"Angka Kuman,Parasit/ Jamur/ kapang acr ..."," 511 mikro Makanan -> MM.02/0511/2026 (Angka Kuman,Parasit/ Jamur/ kapang acr ...)"
+202,2026-01-30,PDAM Tirta Gemilang Makhoa,"Kota Mungkid, Magelang",8,AM.02/0514/2026 | AM.01/0515/2026 | AM.02/0516/2026 | AM.01/0517/2026 | AM.02/0518/2026 | AM.01/0519/2026 | AM.02/0520/2026 | AM.01/0521/2026,514 | 515 | 516 | 517 | 518 | 519 | 520 | 521,"Angka Kuman,Coliform & E.coli (Membran Filter) ... | Bau,Kekeruhan,Ph,Rasa,Suhu,Warna,Zat Terendap/ TDS ... | Angka Kuman,Coliform & E.coli (Membran Filter) ... | Bau,Kekeruhan,Ph,Rasa,Suhu,Warna,Zat Terendap/ TDS ... | Angka Kuman,Coliform & E.coli (Membran Filter) ... | Bau,Kekeruhan,Ph,Rasa,Suhu,Warna,Zat Terendap/ TDS ... | Angka Kuman,Coliform & E.coli (Membran Filter) ... | Bau,Kekeruhan,Ph,Rasa,Suhu,Warna,Zat Terendap/ TDS ..."," 514 mikro Air Minum -> AM.02/0514/2026 (Angka Kuman,Coliform & E.coli (Membran Filter) ...)
+ 515 kimia Air Minum -> AM.01/0515/2026 (Bau,Kekeruhan,Ph,Rasa,Suhu,Warna,Zat Terendap/ TDS ...)
+ 516 mikro Air Minum -> AM.02/0516/2026 (Angka Kuman,Coliform & E.coli (Membran Filter) ...)
+ 517 kimia Air Minum -> AM.01/0517/2026 (Bau,Kekeruhan,Ph,Rasa,Suhu,Warna,Zat Terendap/ TDS ...)
+ 518 mikro Air Minum -> AM.02/0518/2026 (Angka Kuman,Coliform & E.coli (Membran Filter) ...)
+ 519 kimia Air Minum -> AM.01/0519/2026 (Bau,Kekeruhan,Ph,Rasa,Suhu,Warna,Zat Terendap/ TDS ...)
+ 520 mikro Air Minum -> AM.02/0520/2026 (Angka Kuman,Coliform & E.coli (Membran Filter) ...)
+ 521 kimia Air Minum -> AM.01/0521/2026 (Bau,Kekeruhan,Ph,Rasa,Suhu,Warna,Zat Terendap/ TDS ...)"
+203,2026-02-02,Damiu Tirta Barokah,"Tanggulrejo, Tempuran",1,AM.02/0532/2026,532,E.Coli, 532 mikro AM -> AM.02/0532/2026 (E.Coli)
+204,2026-02-02,Peternakan Agung Eka Saputra,"Jamblangan Kulon, Bringin, Srumbung",2,AH.02/0540/2026 | AH.02/0541/2026,540 | 541,"Coliform & E.coli (Membran Filter),Sampling ... | Coliform & E.coli (Membran Filter),Sampling ..."," 540 mikro AB -> AH.02/0540/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+ 541 mikro AB -> AH.02/0541/2026 (Coliform & E.coli (Membran Filter),Sampling ...)"
+205,2026-02-02,RS N-21 Pabelan,"Jl. Desa Pabelan No. 5, Jagalan, Pabelan, Mungkid",3,UA.02/0542/2026 | UA.02/0543/2026 | UA.02/0544/2026,542 | 543 | 544,"Angka Kuman Udara,Sampling | Angka Kuman,Sampling | Angka Kuman,Sampling"," 542 mikro Usap Udara -> UA.02/0542/2026 (Angka Kuman Udara,Sampling)
+ 543 mikro Usap Lantai -> UA.02/0543/2026 (Angka Kuman,Sampling)
+ 544 mikro Usap Dinding -> UA.02/0544/2026 (Angka Kuman,Sampling)"
+206,2026-02-02,SR.Bpk Tejo ( Bp Spam Sidoagung ),"Sidomukti 2, Sidoagung, Tempuran",1,AM.02/0539/2026,539,E.Coli, 539 mikro AM -> AM.02/0539/2026 (E.Coli)
+207,2026-02-03,Aditya Setiawan,SPPG Magelang Tempuran Jogomulyo,5,MM.02/0557/2026 | MM.02/0558/2026 | UA.02/0559/2026 | MM.02/0560/2026 | MM.01/0561/2026,557 | 558 | 559 | 560 | 561,"Coliform & E.coli (Membran Filter),Sampling ... | Coliform & E.coli (Membran Filter),Sampling ... | Angka Kuman Alat,Sampling ... | E.coli (Makanan),Sampling ... | Formalin,Sampling ..."," 557 mikro AB Kran Dapur -> MM.02/0557/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+ 558 mikro MM Galon -> MM.02/0558/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+ 559 mikro Usap Alat Ompreng -> UA.02/0559/2026 (Angka Kuman Alat,Sampling ...)
+ 560 mikro MM Semangka -> MM.02/0560/2026 (E.coli (Makanan),Sampling ...)
+ 561 kimia MM Tahu Goreng -> MM.01/0561/2026 (Formalin,Sampling ...)"
+208,2026-02-03,Lesmiyati,"Dawang 002007, Blongkeng, Ngluwar",2,MM.02/0563/2026 | MM.01/0564/2026,563 | 564,Angka Kuman ... | Borax," 563 mikro MM Rengginang Manis -> MM.02/0563/2026 (Angka Kuman ...)
+ 564 kimia MM Rengginag Manis -> MM.01/0564/2026 (Borax)"
+209,2026-02-03,Yuni Sofiyanti,"Sangubanyu Selatan 2/13, Banyuwangi, Bandongan",2,MM.01/0565/2026 | MM.01/0566/2026,565 | 566,"Formalin, Ketengikan | Formalin, Ketengikan"," 565 kimia MM Abon Sapi -> MM.01/0565/2026 (Formalin, Ketengikan)
+ 566 kimia MM Abon Ayam -> MM.01/0566/2026 (Formalin, Ketengikan)"
+210,2026-02-04,CV Al Afiat,"Gadingan, Bojong, Mungkid",1,MM.01/0601/2026,601,"Enzim, Sakarin"," 601 kimia MM Madu -> MM.01/0601/2026 (Enzim, Sakarin)"
+211,2026-02-04,CV. Prima Dairy Mubarok,"Dsn. Nglawisan Rt.03/Rw13, Tamanagung, Muntilan",2,AH.02/0589/2026 | AH.02/0590/2026,589 | 590,Coliform & E.coli (Membran Filter) ... | Coliform & E.coli (Membran Filter) ...," 589 mikro Air Bersih -> AH.02/0589/2026 (Coliform & E.coli (Membran Filter) ...)
+ 590 mikro Air Bersih -> AH.02/0590/2026 (Coliform & E.coli (Membran Filter) ...)"
+212,2026-02-04,CV. Prima Gemilang Food,"Dsn. Nglawisan Rt.03/Rw13, Tamanagung, Muntilan",1,AH.02/0592/2026,592,Coliform & E.coli (Membran Filter) ..., 592 mikro Air Bersih -> AH.02/0592/2026 (Coliform & E.coli (Membran Filter) ...)
+213,2026-02-04,Cv. Prima Mitra Sejati,"Dsn. Nglawisan Rt.03/Rw13, Tamanagung, Muntilan",2,AH.01/0586/2026 | AH.02/0593/2026,586 | 593,"Bau,Besi,Kekeruhan,Kromium Valensi 6,Mangaan,Nitra ... | Coliform & E.coli (Membran Filter) ..."," 586 kimia Air Bersih -> AH.01/0586/2026 (Bau,Besi,Kekeruhan,Kromium Valensi 6,Mangaan,Nitra ...)
+ 593 mikro Air Bersih -> AH.02/0593/2026 (Coliform & E.coli (Membran Filter) ...)"
+214,2026-02-04,Damiu Tarisaqua,"Terminal Bandongan Kios 05, Bandongan",2,AM.02/0599/2026 | AM.02/0600/2026,599 | 600,E.Coli | E.Coli," 599 mikro Air Minum -> AM.02/0599/2026 (E.Coli)
+ 600 mikro Air Minum -> AM.02/0600/2026 (E.Coli)"
+215,2026-02-04,PT Salavi Dwi Sejahtera,"Bandongan, Magelang",4,AH.02/0594/2026 | AH.01/0595/2026 | AM.02/0596/2026 | AM.01/0597/2026,594 | 595 | 596 | 597,"Coliform & E.coli (Membran Filter) ... | Bau,Besi,Kekeruhan,Kromium Valensi 6,Mangaan,Nitra ... | Coliform & E.coli (Membran Filter) ... | Aluminium,Arsen,Bau,Besi,Flourida,Kadmium,Kekeruha ..."," 594 mikro Air Bersih -> AH.02/0594/2026 (Coliform & E.coli (Membran Filter) ...)
+ 595 kimia Air Bersih -> AH.01/0595/2026 (Bau,Besi,Kekeruhan,Kromium Valensi 6,Mangaan,Nitra ...)
+ 596 mikro Air Minum -> AM.02/0596/2026 (Coliform & E.coli (Membran Filter) ...)
+ 597 kimia Air Minum -> AM.01/0597/2026 (Aluminium,Arsen,Bau,Besi,Flourida,Kadmium,Kekeruha ...)"
+216,2026-02-04,Yuyun Fitria,"Dsn. Giri Kluwih, 04/01, Girikulon, Secang",10,MM.02/0577/2026 | MM.01/0578/2026 | MM.02/0579/2026 | MM.01/0580/2026 | MM.02/0581/2026 | MM.01/0582/2026 | MM.02/0583/2026 | MM.01/0584/2026 | MM.02/0585/2026 | MM.02/0587/2026,577 | 578 | 579 | 580 | 581 | 582 | 583 | 584 | 585 | 587,Angka Kuman ... | Borax ... | Parasit/ Jamur/ kapang acr ... | Borax ... | Angka Kuman ... | Ketengikan ... | Parasit/ Jamur/ kapang acr ... | Sakarin ... | E.coli (Makanan) ... | Angka Kuman ...," 577 mikro Makanan -> MM.02/0577/2026 (Angka Kuman ...)
+ 578 kimia Makanan -> MM.01/0578/2026 (Borax ...)
+ 579 mikro Makanan -> MM.02/0579/2026 (Parasit/ Jamur/ kapang acr ...)
+ 580 kimia Makanan -> MM.01/0580/2026 (Borax ...)
+ 581 mikro Makanan -> MM.02/0581/2026 (Angka Kuman ...)
+ 582 kimia Makanan -> MM.01/0582/2026 (Ketengikan ...)
+ 583 mikro Makanan -> MM.02/0583/2026 (Parasit/ Jamur/ kapang acr ...)
+ 584 kimia Makanan -> MM.01/0584/2026 (Sakarin ...)
+ 585 mikro Makanan -> MM.02/0585/2026 (E.coli (Makanan) ...)
+ 587 mikro Makanan -> MM.02/0587/2026 (Angka Kuman ...)"
+217,2026-02-05,Ahmad Mukti Abi Cahyono,"SPPG Magelang, Salam, Sirahan",5,UA.02/0623/2026 | MM.02/0624/2026 | MM.01/0625/2026 | AM.02/0626/2026 | AH.02/0627/2026,623 | 624 | 625 | 626 | 627,"Angka Kuman Alat,Sampling ... | E.coli (Makanan),Sampling ... | Formalin,Sampling ... | Coliform & E.coli (Membran Filter),Sampling ... | Coliform & E.coli (Membran Filter),Sampling ..."," 623 mikro Usap -> UA.02/0623/2026 (Angka Kuman Alat,Sampling ...)
+ 624 mikro MM Ayam Katsu -> MM.02/0624/2026 (E.coli (Makanan),Sampling ...)
+ 625 kimia MM Ayam Katsu -> MM.01/0625/2026 (Formalin,Sampling ...)
+ 626 mikro Air Minum -> AM.02/0626/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+ 627 mikro Air Bersih -> AH.02/0627/2026 (Coliform & E.coli (Membran Filter),Sampling ...)"
+218,2026-02-05,Bayu Nova Adji,SPPG Magelang Mertoyudan Bondowoso 2,5,AH.02/0608/2026 | AM.02/0609/2026 | UA.02/0610/2026 | MM.02/0611/2026 | MM.01/0612/2026,608 | 609 | 610 | 611 | 612,"Coliform & E.coli (Membran Filter),Sampling ... | Coliform & E.coli (Membran Filter),Sampling ... | Angka Kuman Alat,Sampling ... | E.coli (Makanan) ... | Formalin,Sampling ..."," 608 mikro Air Bersih Kran Cuci -> AH.02/0608/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+ 609 mikro Air Minum Galon -> AM.02/0609/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+ 610 mikro Usap Alat Ompreng -> UA.02/0610/2026 (Angka Kuman Alat,Sampling ...)
+ 611 mikro MM Anggur -> MM.02/0611/2026 (E.coli (Makanan) ...)
+ 612 kimia MM Ayam Saus -> MM.01/0612/2026 (Formalin,Sampling ...)"
+219,2026-02-05,Iqbal Zuhda Irsyad,SPPG Magelang Srumbung Jerukagung,5,UA.02/0618/2026 | MM.02/0619/2026 | MM.01/0620/2026 | AM.02/0621/2026 | AH.02/0622/2026,618 | 619 | 620 | 621 | 622,"Angka Kuman Alat,Sampling ... | E.coli (Makanan),Sampling ... | Formalin,Sampling ... | Coliform & E.coli (Membran Filter),Sampling ... | Coliform & E.coli (Membran Filter) ..."," 618 mikro Usap -> UA.02/0618/2026 (Angka Kuman Alat,Sampling ...)
+ 619 mikro MM Ayam Katsu -> MM.02/0619/2026 (E.coli (Makanan),Sampling ...)
+ 620 kimia MM Ayam Katsu -> MM.01/0620/2026 (Formalin,Sampling ...)
+ 621 mikro Air Minum -> AM.02/0621/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+ 622 mikro Air Bersih -> AH.02/0622/2026 (Coliform & E.coli (Membran Filter) ...)"
+220,2026-02-05,PDAM Tirta Gemilang,"Kota Mungkid, Magelang",11,AM.01/0629/2026 | AM.01/0631/2026 | AM.01/0633/2026 | AM.01/0635/2026 | AM.01/0637/2026 | AM.01/0639/2026 | AM.01/0641/2026 | AM.01/0643/2026 | AM.01/0645/2026 | AM.01/0647/2026 | AM.01/0649/2026,629 | 631 | 633 | 635 | 637 | 639 | 641 | 643 | 645 | 647 | 649,"Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ... | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ... | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ... | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ... | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ... | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ... | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ... | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ... | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ... | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ... | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ..."," 629 kimia Air Minum -> AM.01/0629/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)
+ 631 kimia Air Minum -> AM.01/0631/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)
+ 633 kimia Air Minum -> AM.01/0633/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)
+ 635 kimia Air Minum -> AM.01/0635/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)
+ 637 kimia Air Minum -> AM.01/0637/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)
+ 639 kimia Air Minum -> AM.01/0639/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)
+ 641 kimia Air Minum -> AM.01/0641/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)
+ 643 kimia Air Minum -> AM.01/0643/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)
+ 645 kimia Air Minum -> AM.01/0645/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)
+ 647 kimia Air Minum -> AM.01/0647/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)
+ 649 kimia Air Minum -> AM.01/0649/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+221,2026-02-05,SR. Ardani,"Nusupan 06/02, Kel. Salaman",1,AM.02/0648/2026,648,Coliform & E.coli (Membran Filter) ..., 648 mikro AM (PDAM) -> AM.02/0648/2026 (Coliform & E.coli (Membran Filter) ...)
+222,2026-02-05,SR. Catur Sulistyono,"Nepak  Wetan  I 02/01, Bulurejo",1,AM.02/0630/2026,630,Coliform & E.coli (Membran Filter) ..., 630 mikro AM (PDAM) -> AM.02/0630/2026 (Coliform & E.coli (Membran Filter) ...)
+223,2026-02-05,SR. Hariyono,"Ganjuran, 06/08, Sukorejo, Mertoyudan",1,AM.02/0632/2026,632,Coliform & E.coli (Membran Filter) ..., 632 mikro AM (PDAM) -> AM.02/0632/2026 (Coliform & E.coli (Membran Filter) ...)
+224,2026-02-05,"SR. Ida Ratna Puspita,",Maris Land Jl. Anggrek 10 Kalinegoro,1,AM.02/0638/2026,638,Coliform & E.coli (Membran Filter) ..., 638 mikro AM (PDAM) -> AM.02/0638/2026 (Coliform & E.coli (Membran Filter) ...)
+225,2026-02-05,SR. Lukit Wiyono,"Glagah I, 01/04, Banjarnegoro",1,AM.02/0628/2026,628,Coliform & E.coli (Membran Filter) ..., 628 mikro AM (PDAM) -> AM.02/0628/2026 (Coliform & E.coli (Membran Filter) ...)
+226,2026-02-05,SR. Masjid,"Pronogaten, 03/18, Kalinegoro",1,AM.02/0640/2026,640,Coliform & E.coli (Membran Filter) ..., 640 mikro AM (PDAM) -> AM.02/0640/2026 (Coliform & E.coli (Membran Filter) ...)
+227,2026-02-05,SR. Muhadi,"Noyoditan 03/05, Kel. Banjarnegoro",1,AM.02/0636/2026,636,Coliform & E.coli (Membran Filter) ..., 636 mikro AM (PDAM) -> AM.02/0636/2026 (Coliform & E.coli (Membran Filter) ...)
+228,2026-02-05,"SR. Muhammad Latif,","Jonggrangan 04/08, Kalinegoro",1,AM.02/0642/2026,642,Coliform & E.coli (Membran Filter) ..., 642 mikro AM (PDAM) -> AM.02/0642/2026 (Coliform & E.coli (Membran Filter) ...)
+229,2026-02-05,SR. Nur Cholis,"Bangongan, Sukorejo,",1,AM.02/0634/2026,634,Coliform & E.coli (Membran Filter) ..., 634 mikro AM (PDAM) -> AM.02/0634/2026 (Coliform & E.coli (Membran Filter) ...)
+230,2026-02-05,SR. Sukarsih,"Brengkel I 01/07, Salaman",1,AM.02/0644/2026,644,Coliform & E.coli (Membran Filter) ..., 644 mikro AM (PDAM) -> AM.02/0644/2026 (Coliform & E.coli (Membran Filter) ...)
+231,2026-02-05,SR. Winarno Bayu Irianto,"Sepaten, Kel, Madugondo, Salaman",1,AM.02/0646/2026,646,Coliform & E.coli (Membran Filter) ..., 646 mikro AM (PDAM) -> AM.02/0646/2026 (Coliform & E.coli (Membran Filter) ...)
+232,2026-02-05,Yusuf Rifki Susanto,SPPG Magelang Srumbung Mranggen,5,AH.02/0614/2026 | UA.02/0615/2026 | MM.02/0616/2026 | AM.02/0617/2026 | MM.01/0617/2026,614 | 615 | 616 | 617 | 617,"Coliform & E.coli (Membran Filter),Sampling ... | Angka Kuman Alat,Sampling ... | E.coli (Makanan),Sampling ... | Coliform & E.coli (Membran Filter),Sampling ... | Formalin,Sampling ..."," 614 mikro Air Bersih -> AH.02/0614/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+ 615 mikro Usap -> UA.02/0615/2026 (Angka Kuman Alat,Sampling ...)
+ 616 mikro MM Salad Sayur -> MM.02/0616/2026 (E.coli (Makanan),Sampling ...)
+ 617 mikro Air Minum Galon -> AM.02/0617/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+ 617 kimia MM Ayam Katsu -> MM.01/0617/2026 (Formalin,Sampling ...)"
+233,2026-02-06,Murtini,"Sunggingan 32/12,Kajoran",2,MM.01/0657/2026 | MM.01/0658/2026,657 | 658,"Borax, Ketengikan | Borax, Ketengikan"," 657 kimia MM -> MM.01/0657/2026 (Borax, Ketengikan)
+ 658 kimia MM -> MM.01/0658/2026 (Borax, Ketengikan)"
+234,2026-02-07,Ahmad Nurodin,"Mejing 17/09, Banjarsari, Grabag",2,MM.02/0662/2026 | MM.01/0663/2026,662 | 663,"Jamur | Kadar Air, Kadar Abu"," 662 mikro MM Kopi -> MM.02/0662/2026 (Jamur)
+ 663 kimia MM Kopi -> MM.01/0663/2026 (Kadar Air, Kadar Abu)"
+235,2026-02-09,Aditya Setiawan,SPPG Magelang Tempuran Jogomulyo,1,UA.02/0676/2026,676,"Angka Kuman Alat,Sampling ..."," 676 mikro Usap -> UA.02/0676/2026 (Angka Kuman Alat,Sampling ...)"
+236,2026-02-09,Klinik Daqu Sehat,"Jl. Jogja-Magelang Km 23 Jumoyo, Salam",4,AH.02/0677/2026 | AH.01/0678/2026 | AL.02/0679/2026 | AL.01/0680/2026,677 | 678 | 679 | 680,"Coliform & E.coli (Membran Filter),Sampling ... | Fe,pH | Coliform (Air Limbah),Sampling ... | pH,Amoniak,Bau,Bod,Cod,TSS"," 677 mikro Air Bersih -> AH.02/0677/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+ 678 kimia Air Bersih -> AH.01/0678/2026 (Fe,pH)
+ 679 mikro Air Limbah -> AL.02/0679/2026 (Coliform (Air Limbah),Sampling ...)
+ 680 kimia Air Limbah -> AL.01/0680/2026 (pH,Amoniak,Bau,Bod,Cod,TSS)"
+237,2026-02-09,PDAM Tirta Gemilang / Dinkes Kab. Magelang,"Kota Mungkid, Magelang",2,AM.02/0673/2026 | AM.01/0674/2026,673 | 674,Coliform & E.coli (Membran Filter) ... | AM Lengkap menurut permenkes NO 2 th 2023," 673 mikro Air Minum -> AM.02/0673/2026 (Coliform & E.coli (Membran Filter) ...)
+ 674 kimia Air Minum -> AM.01/0674/2026 (AM Lengkap menurut permenkes NO 2 th 2023)"
+238,2026-02-09,SPPG Lukman Hakim Joko S,"Karanganyar, Borobudur",1,AH.02/0675/2026,675,"Coliform & E.coli (Membran Filter),Sampling ..."," 675 mikro Air Bersih -> AH.02/0675/2026 (Coliform & E.coli (Membran Filter),Sampling ...)"
+239,2026-02-09,SR. Ashari,"Kujon 02/11, Borobudur",1,AM.02/0687/2026,687,Coliform & E.coli (Membran Filter) ..., 687 mikro AM (PDAM) -> AM.02/0687/2026 (Coliform & E.coli (Membran Filter) ...)
+240,2026-02-09,SR. Darman,"Kayupuring Rt03,",1,AM.02/0689/2026,689,Coliform & E.coli (Membran Filter) ..., 689 mikro AM (PDAM) -> AM.02/0689/2026 (Coliform & E.coli (Membran Filter) ...)
+241,2026-02-09,"SR. Dwi Astuti,","Dowasan, 03/10, Bondowoso, Mertoyudan",1,AM.02/0701/2026,701,Coliform & E.coli (Membran Filter) ..., 701 mikro AM (PDAM) -> AM.02/0701/2026 (Coliform & E.coli (Membran Filter) ...)
+242,2026-02-09,SR. Heru Frediyanto,"Perum Madani Hill Safira 02, Kalinegoro, Mertoyudan",1,AM.02/0695/2026,695,Coliform & E.coli (Membran Filter) ..., 695 mikro AM (PDAM) -> AM.02/0695/2026 (Coliform & E.coli (Membran Filter) ...)
+243,2026-02-09,SR. Kasmi,"Ngrajek 04/02, Ngrajek",1,AM.02/0683/2026,683,Coliform & E.coli (Membran Filter) ..., 683 mikro AM (PDAM) -> AM.02/0683/2026 (Coliform & E.coli (Membran Filter) ...)
+244,2026-02-09,SR. Muhamad Efeandi,"Prayan04/02, Pucang",1,AM.02/0691/2026,691,Coliform & E.coli (Membran Filter) ..., 691 mikro AM (PDAM) -> AM.02/0691/2026 (Coliform & E.coli (Membran Filter) ...)
+245,2026-02-09,SR. Ngizadin,"Mendut I, Mungkid",1,AM.02/0681/2026,681,Coliform & E.coli (Membran Filter) ..., 681 mikro AM (PDAM) -> AM.02/0681/2026 (Coliform & E.coli (Membran Filter) ...)
+246,2026-02-09,SR. Nurpeny Widyastutik,"Saratan I, 02/03, Sumberrejo, Mertoyudan",1,AM.02/0697/2026,697,Coliform & E.coli (Membran Filter) ..., 697 mikro AM (PDAM) -> AM.02/0697/2026 (Coliform & E.coli (Membran Filter) ...)
+247,2026-02-09,SR. Rudhiyono,"Brontokan 01/06, Danurejo, Mertoyudan",1,AM.02/0693/2026,693,Coliform & E.coli (Membran Filter) ..., 693 mikro AM (PDAM) -> AM.02/0693/2026 (Coliform & E.coli (Membran Filter) ...)
+248,2026-02-09,SR. Sri Wahyuni,"Manggoran, 01/07, Bondowoso, Mertoyudan",1,AM.02/0703/2026,703,Coliform & E.coli (Membran Filter) ..., 703 mikro AM (PDAM) -> AM.02/0703/2026 (Coliform & E.coli (Membran Filter) ...)
+249,2026-02-09,SR. Subani,"Ngroto 04/01, Kel. Deyangan",1,AM.02/0685/2026,685,Coliform & E.coli (Membran Filter) ..., 685 mikro AM (PDAM) -> AM.02/0685/2026 (Coliform & E.coli (Membran Filter) ...)
+250,2026-02-09,SR. Suhadi,"Mantenan 02/01, Mertoyudan",1,AM.02/0699/2026,699,Coliform & E.coli (Membran Filter) ..., 699 mikro AM (PDAM) -> AM.02/0699/2026 (Coliform & E.coli (Membran Filter) ...)
+251,2026-02-10,Dinas Kesehatan Kab. Magelang,"Kota Mungkid, Magelang",1,AM.02/0725/2026,725,E.Coli ..., 725 mikro AM -> AM.02/0725/2026 (E.Coli ...)
+252,2026-02-10,PDAM Tirta Gemilang Makhoa,"Kota Mungkid, Magelang",8,AM.02/0713/2026 | AM.01/0714/2026 | AM.02/0715/2026 | AM.01/0716/2026 | AM.02/0717/2026 | AM.01/0718/2026 | AM.02/0719/2026 | AM.01/0720/2026,713 | 714 | 715 | 716 | 717 | 718 | 719 | 720,"Coliform & E.coli (Membran Filter) , Alt | Bau,Kekeruhan,Ph,Rasa,Suhu,Warna,Zat Terendap/ TDS ... | Coliform & E.coli (Membran Filter) , Alt | Bau,Kekeruhan,Ph,Rasa,Suhu,Warna,Zat Terendap/ TDS ... | Coliform & E.coli (Membran Filter) , Alt | Bau,Kekeruhan,Ph,Rasa,Suhu,Warna,Zat Terendap/ TDS ... | Coliform & E.coli (Membran Filter) , Alt | Bau,Kekeruhan,Ph,Rasa,Suhu,Warna,Zat Terendap/ TDS ..."," 713 mikro AM CUP Kecil -> AM.02/0713/2026 (Coliform & E.coli (Membran Filter) , Alt)
+ 714 kimia AM CUP Kecil -> AM.01/0714/2026 (Bau,Kekeruhan,Ph,Rasa,Suhu,Warna,Zat Terendap/ TDS ...)
+ 715 mikro AM Cup Besar -> AM.02/0715/2026 (Coliform & E.coli (Membran Filter) , Alt)
+ 716 kimia AM Cup Besar -> AM.01/0716/2026 (Bau,Kekeruhan,Ph,Rasa,Suhu,Warna,Zat Terendap/ TDS ...)
+ 717 mikro AM Botol -> AM.02/0717/2026 (Coliform & E.coli (Membran Filter) , Alt)
+ 718 kimia AM Botol -> AM.01/0718/2026 (Bau,Kekeruhan,Ph,Rasa,Suhu,Warna,Zat Terendap/ TDS ...)
+ 719 mikro AM Galon -> AM.02/0719/2026 (Coliform & E.coli (Membran Filter) , Alt)
+ 720 kimia AM Galon -> AM.01/0720/2026 (Bau,Kekeruhan,Ph,Rasa,Suhu,Warna,Zat Terendap/ TDS ...)"
+253,2026-02-10,Puskesmas Pakis,"Jl. Magelang - Kopeng, Km 20, Pakis Magelang",3,AH.02/0726/2026 | AH.02/0728/2026 | AH.01/0729/2026,726 | 728 | 729,"Coliform & E.coli (Membran Filter) | Coliform & E.coli (Membran Filter) | Fe, Bau"," 726 mikro AH Reservoir Bawah -> AH.02/0726/2026 (Coliform & E.coli (Membran Filter))
+ 728 mikro AH Reservoir Atas -> AH.02/0728/2026 (Coliform & E.coli (Membran Filter))
+ 729 kimia AH Reservoir Atas -> AH.01/0729/2026 (Fe, Bau)"
+254,2026-02-10,SR. Ashari,"Kujon 02/11, Borobudur",1,AM.01/0688/2026,688,"Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ..."," 688 kimia AM (PDAM) -> AM.01/0688/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+255,2026-02-10,SR. Baino Harsono,"Kapling I, 05/02, Tegalrejo",2,AM.02/0746/2026 | AM.01/0747/2026,746 | 747,"Coliform & E.coli (Membran Filter) | Bau,Kekeruhan,Ph,Rasa,Suhu,Warna,Zat Terendap/ TDS ..."," 746 mikro AM (PDAM) -> AM.02/0746/2026 (Coliform & E.coli (Membran Filter))
+ 747 kimia AM (PDAM) -> AM.01/0747/2026 (Bau,Kekeruhan,Ph,Rasa,Suhu,Warna,Zat Terendap/ TDS ...)"
+256,2026-02-10,SR. Darman,"Kayupuring Rt03,",1,AM.01/0690/2026,690,"Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ..."," 690 kimia AM (PDAM) -> AM.01/0690/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+257,2026-02-10,SR. Dul Rochim,Kawaluhan Madusari,2,AM.02/0732/2026 | AM.01/0733/2026,732 | 733,"Coliform & E.coli (Membran Filter) | Bau,Kekeruhan,Ph,Rasa,Suhu,Warna,Zat Terendap/ TDS ..."," 732 mikro AM (PDAM) -> AM.02/0732/2026 (Coliform & E.coli (Membran Filter))
+ 733 kimia AM (PDAM) -> AM.01/0733/2026 (Bau,Kekeruhan,Ph,Rasa,Suhu,Warna,Zat Terendap/ TDS ...)"
+258,2026-02-10,"SR. Dwi Astuti,","Dowasan, 03/10, Bondowoso, Mertoyudan",1,AM.01/0702/2026,702,"Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ..."," 702 kimia AM (PDAM) -> AM.01/0702/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+259,2026-02-10,SR. Edy Susanto,"Perum Pondok Asri II 01/07 No. 81, Payaman",2,AM.02/0738/2026 | AM.01/0739/2026,738 | 739,"Coliform & E.coli (Membran Filter) | Bau,Kekeruhan,Ph,Rasa,Suhu,Warna,Zat Terendap/ TDS ..."," 738 mikro AM (PDAM) -> AM.02/0738/2026 (Coliform & E.coli (Membran Filter))
+ 739 kimia AM (PDAM) -> AM.01/0739/2026 (Bau,Kekeruhan,Ph,Rasa,Suhu,Warna,Zat Terendap/ TDS ...)"
+260,2026-02-10,SR. Eko Sulistiyo,"Daleman 03/01, Kel. Gondosuli",2,AM.02/0742/2026 | AM.01/0743/2026,742 | 743,"Coliform & E.coli (Membran Filter) | Bau,Kekeruhan,Ph,Rasa,Suhu,Warna,Zat Terendap/ TDS ..."," 742 mikro AM (PDAM) -> AM.02/0742/2026 (Coliform & E.coli (Membran Filter))
+ 743 kimia AM (PDAM) -> AM.01/0743/2026 (Bau,Kekeruhan,Ph,Rasa,Suhu,Warna,Zat Terendap/ TDS ...)"
+261,2026-02-10,SR. Heru Frediyanto,"Perum Madani Hill Safira 02, Kalinegoro, Mertoyudan",1,AM.01/0696/2026,696,"Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ..."," 696 kimia AM (PDAM) -> AM.01/0696/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+262,2026-02-10,SR. Imam Safi'i,"Kalibening 11/05, Payaman",2,AM.02/0730/2026 | AM.01/0731/2026,730 | 731,"Coliform & E.coli (Membran Filter) | Bau,Kekeruhan,Ph,Rasa,Suhu,Warna,Zat Terendap/ TDS ..."," 730 mikro AM (PDAM) -> AM.02/0730/2026 (Coliform & E.coli (Membran Filter))
+ 731 kimia AM (PDAM) -> AM.01/0731/2026 (Bau,Kekeruhan,Ph,Rasa,Suhu,Warna,Zat Terendap/ TDS ...)"
+263,2026-02-10,SR. Kasmi,"Ngrajek 04/02, Ngrajek",1,AM.01/0684/2026,684,"Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ..."," 684 kimia AM (PDAM) -> AM.01/0684/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+264,2026-02-10,SR. Menik Purwi Iswindari,"Semawung, Sedayu",2,AM.02/0740/2026 | AM.01/0741/2026,740 | 741,"Coliform & E.coli (Membran Filter) | Bau,Kekeruhan,Ph,Rasa,Suhu,Warna,Zat Terendap/ TDS ..."," 740 mikro AM (PDAM) -> AM.02/0740/2026 (Coliform & E.coli (Membran Filter))
+ 741 kimia AM (PDAM) -> AM.01/0741/2026 (Bau,Kekeruhan,Ph,Rasa,Suhu,Warna,Zat Terendap/ TDS ...)"
+265,2026-02-10,SR. Mudakir,"Kuwangsan 03/01, Donorejo",2,AM.02/0736/2026 | AM.01/0737/2026,736 | 737,"Coliform & E.coli (Membran Filter) | Bau,Kekeruhan,Ph,Rasa,Suhu,Warna,Zat Terendap/ TDS ..."," 736 mikro AM (PDAM) -> AM.02/0736/2026 (Coliform & E.coli (Membran Filter))
+ 737 kimia AM (PDAM) -> AM.01/0737/2026 (Bau,Kekeruhan,Ph,Rasa,Suhu,Warna,Zat Terendap/ TDS ...)"
+266,2026-02-10,SR. Muhamad Efeandi,"Prayan04/02, Pucang",1,AM.01/0692/2026,692,"Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ..."," 692 kimia AM (PDAM) -> AM.01/0692/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+267,2026-02-10,SR. Mushola H-Surachmin,"Meijing I 03/01, Kel. Meijing",2,AM.02/0750/2026 | AM.01/0751/2026,750 | 751,"Coliform & E.coli (Membran Filter) | Bau,Kekeruhan,Ph,Rasa,Suhu,Warna,Zat Terendap/ TDS ..."," 750 mikro AM (PDAM) -> AM.02/0750/2026 (Coliform & E.coli (Membran Filter))
+ 751 kimia AM (PDAM) -> AM.01/0751/2026 (Bau,Kekeruhan,Ph,Rasa,Suhu,Warna,Zat Terendap/ TDS ...)"
+268,2026-02-10,SR. Ngizadin,"Mendut I, Mungkid",1,AM.01/0682/2026,682,"Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ..."," 682 kimia AM (PDAM) -> AM.01/0682/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+269,2026-02-10,SR. Nur Latifah,"Citro Dukuh 03/03, Kalijoso, Secang",2,AM.02/0734/2026 | AM.01/0735/2026,734 | 735,"Coliform & E.coli (Membran Filter) | Bau,Kekeruhan,Ph,Rasa,Suhu,Warna,Zat Terendap/ TDS ..."," 734 mikro AM (PDAM) -> AM.02/0734/2026 (Coliform & E.coli (Membran Filter))
+ 735 kimia AM (PDAM) -> AM.01/0735/2026 (Bau,Kekeruhan,Ph,Rasa,Suhu,Warna,Zat Terendap/ TDS ...)"
+270,2026-02-10,SR. Nurpeny Widyastutik,"Saratan I, 02/03, Sumberrejo, Mertoyudan",1,AM.01/0698/2026,698,"Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ..."," 698 kimia AM (PDAM) -> AM.01/0698/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+271,2026-02-10,SR. Rudhiyono,"Brontokan 01/06, Danurejo, Mertoyudan",1,AM.01/0694/2026,694,"Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ..."," 694 kimia AM (PDAM) -> AM.01/0694/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+272,2026-02-10,SR. Said Rudiyanto,"Peterongan, Tegalrejo",2,AM.02/0748/2026 | AM.01/0749/2026,748 | 749,"Coliform & E.coli (Membran Filter) | Bau,Kekeruhan,Ph,Rasa,Suhu,Warna,Zat Terendap/ TDS ..."," 748 mikro AM (PDAM) -> AM.02/0748/2026 (Coliform & E.coli (Membran Filter))
+ 749 kimia AM (PDAM) -> AM.01/0749/2026 (Bau,Kekeruhan,Ph,Rasa,Suhu,Warna,Zat Terendap/ TDS ...)"
+273,2026-02-10,SR. SDN Geneng 1,"Sidomulyo 02/01, Kel. Sidomulyo",2,AM.02/0752/2026 | AM.01/0753/2026,752 | 753,"Coliform & E.coli (Membran Filter) | Bau,Kekeruhan,Ph,Rasa,Suhu,Warna,Zat Terendap/ TDS ..."," 752 mikro AM (PDAM) -> AM.02/0752/2026 (Coliform & E.coli (Membran Filter))
+ 753 kimia AM (PDAM) -> AM.01/0753/2026 (Bau,Kekeruhan,Ph,Rasa,Suhu,Warna,Zat Terendap/ TDS ...)"
+274,2026-02-10,SR. Sri Wahyuni,"Manggoran, 01/07, Bondowoso, Mertoyudan",1,AM.01/0704/2026,704,"Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ..."," 704 kimia AM (PDAM) -> AM.01/0704/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+275,2026-02-10,SR. Subani,"Ngroto 04/01, Kel. Deyangan",1,AM.01/0686/2026,686,"Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ..."," 686 kimia AM (PDAM) -> AM.01/0686/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+276,2026-02-10,SR. Suhadi,"Mantenan 02/01, Mertoyudan",1,AM.01/0700/2026,700,"Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ..."," 700 kimia AM (PDAM) -> AM.01/0700/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+277,2026-02-10,SR. Zaenal Abidin,"Semampir 05/02, Muntilan",2,AM.02/0744/2026 | AM.01/0745/2026,744 | 745,"Coliform & E.coli (Membran Filter) | Bau,Kekeruhan,Ph,Rasa,Suhu,Warna,Zat Terendap/ TDS ..."," 744 mikro AM (PDAM) -> AM.02/0744/2026 (Coliform & E.coli (Membran Filter))
+ 745 kimia AM (PDAM) -> AM.01/0745/2026 (Bau,Kekeruhan,Ph,Rasa,Suhu,Warna,Zat Terendap/ TDS ...)"
+278,2026-02-11,Dedi Windarto,"Sangubanyu Utara 01/12, Banyuwangi, Bandongan",2,MM.02/0767/2026 | MM.01/0768/2026,767 | 768,Salmonella | Formalin," 767 mikro MM Abon Ayam -> MM.02/0767/2026 (Salmonella)
+ 768 kimia MM Abon Ayam -> MM.01/0768/2026 (Formalin)"
+279,2026-02-11,Unimma Tirta,"Jl. Bambang Soegeng KM. 5, Mertoyudan, Magelang",3,AH.02/0764/2026 | AM.02/0765/2026 | AM.01/0766/2026,764 | 765 | 766,Coliform & E.coli (Membran Filter) | Coliform & E.coli (Membran Filter) | AM Lengkap menurut permenkes NO 2 th 2023," 764 mikro AH Penampung -> AH.02/0764/2026 (Coliform & E.coli (Membran Filter))
+ 765 mikro AM Proses -> AM.02/0765/2026 (Coliform & E.coli (Membran Filter))
+ 766 kimia AM Proses -> AM.01/0766/2026 (AM Lengkap menurut permenkes NO 2 th 2023)"
+280,2026-02-12,Damiu Hafidz,"Jl. Sultan Agung Nepak, Bulurejo, Mertoyudan",1,AM.02/0781/2026,781,Coliform & E.coli (Membran Filter), 781 mikro AM -> AM.02/0781/2026 (Coliform & E.coli (Membran Filter))
+281,2026-02-12,Hotel Amanjiwo,Borobudur Magelang,10,AM.02/0792/2026 | AM.01/0793/2026 | AM.02/0794/2026 | AM.01/0795/2026 | AM.02/0796/2026 | AM.01/0797/2026 | MM.02/0798/2026 | MM.01/0799/2026 | AM.02/0800/2026 | AM.01/0801/2026,792 | 793 | 794 | 795 | 796 | 797 | 798 | 799 | 800 | 801,"E.coli, Coliform (Membran), Angka Kuman, Sampling | AM Lengkap menurut permenkes NO 2 th 2023 | E.coli, Coliform (Membran), Angka Kuman, Sampling | AM Lengkap menurut permenkes NO 2 th 2023 | Coliform & E.coli (Membran Filter),Sampling | AM Lengkap menurut permenkes NO 2 th 2024 | Coliform & E.coli (Membran Filter),Sampling | AB Lengkap menurut permenkes NO 2 th 2025 | Coliform & E.coli (Membran Filter),Sampling | AM Lengkap menurut permenkes NO 2 th 2026"," 792 mikro AM Nordaq -> AM.02/0792/2026 (E.coli, Coliform (Membran), Angka Kuman, Sampling)
+ 793 kimia AM Nordaq -> AM.01/0793/2026 (AM Lengkap menurut permenkes NO 2 th 2023)
+ 794 mikro AM Prewash -> AM.02/0794/2026 (E.coli, Coliform (Membran), Angka Kuman, Sampling)
+ 795 kimia AM Prewash -> AM.01/0795/2026 (AM Lengkap menurut permenkes NO 2 th 2023)
+ 796 mikro AM Kran Dapur -> AM.02/0796/2026 (Coliform & E.coli (Membran Filter),Sampling)
+ 797 kimia AM Kran Dapur -> AM.01/0797/2026 (AM Lengkap menurut permenkes NO 2 th 2024)
+ 798 mikro AB Kran Kamar -> MM.02/0798/2026 (Coliform & E.coli (Membran Filter),Sampling)
+ 799 kimia AB Kran Kamar -> MM.01/0799/2026 (AB Lengkap menurut permenkes NO 2 th 2025)
+ 800 mikro AM Es Batu -> AM.02/0800/2026 (Coliform & E.coli (Membran Filter),Sampling)
+ 801 kimia AM Es batu -> AM.01/0801/2026 (AM Lengkap menurut permenkes NO 2 th 2026)"
+282,2026-02-12,Puskesmas Mertoyudan II,"Kalinegoro, Mertoyudan Magelang",3,AH.02/0778/2026 | MM.02/0779/2026 | MM.02/0780/2026,778 | 779 | 780,Coliform & E.coli (Membran Filter) | Coliform (Air Limbah) | Coliform (Air Limbah)," 778 mikro AB -> AH.02/0778/2026 (Coliform & E.coli (Membran Filter))
+ 779 mikro IPAL Inlet -> MM.02/0779/2026 (Coliform (Air Limbah))
+ 780 mikro IPAL Outlet -> MM.02/0780/2026 (Coliform (Air Limbah))"
+283,2026-02-12,SPPG Arya Dimas Darma Wiradika,SPPG Muntilan Tamanagung 4,1,AH.02/0773/2026,773,"Coliform & E.coli (Membran Filter),Sampling"," 773 mikro AB -> AH.02/0773/2026 (Coliform & E.coli (Membran Filter),Sampling)"
+284,2026-02-12,SPPG Arya Dimas Darma Wiradika,SPPG Muntilan Tamanagung 5,1,AM.02/0774/2026,774,"Coliform & E.coli (Membran Filter),Sampling"," 774 mikro AM -> AM.02/0774/2026 (Coliform & E.coli (Membran Filter),Sampling)"
+285,2026-02-12,SPPG Arya Dimas Darma Wiradika,SPPG Muntilan Tamanagung 6,2,MM.02/0775/2026 | MM.01/0776/2026,775 | 776,"E.coli, Sampling | Formalin, Sampling"," 775 mikro MM Ayam Goreng -> MM.02/0775/2026 (E.coli, Sampling)
+ 776 kimia MM Ayam Goreng -> MM.01/0776/2026 (Formalin, Sampling)"
+286,2026-02-12,SPPG Arya Dimas Darma Wiradika,SPPG Muntilan Tamanagung 7,1,UA.02/0777/2026,777,"Angka Kuman, Sampling"," 777 mikro Usap Alat Ompreng -> UA.02/0777/2026 (Angka Kuman, Sampling)"
+287,2026-02-12,SPPG Ilham Ramadhani,SPPG Kajoran Mangunrejo,5,AH.02/0787/2026 | AM.02/0788/2026 | MM.02/0789/2026 | MM.01/0790/2026 | UA.02/0791/2026,787 | 788 | 789 | 790 | 791,"Coliform & E.coli (Membran Filter),Sampling | Coliform & E.coli (Membran Filter),Sampling | E.coli, Sampling | Formalin, Sampling | Angka Kuman, Sampling"," 787 mikro AB -> AH.02/0787/2026 (Coliform & E.coli (Membran Filter),Sampling)
+ 788 mikro AM -> AM.02/0788/2026 (Coliform & E.coli (Membran Filter),Sampling)
+ 789 mikro MM Galantin Saus Tomat -> MM.02/0789/2026 (E.coli, Sampling)
+ 790 kimia MM Galantin Saus Tomat -> MM.01/0790/2026 (Formalin, Sampling)
+ 791 mikro Usap Alat Ompreng -> UA.02/0791/2026 (Angka Kuman, Sampling)"
+288,2026-02-12,SPPG Muhammad Alfian Rakhmawanto,SPPG Salaman Sidomulyo,5,UA.02/0782/2026 | AH.02/0783/2026 | AM.02/0784/2026 | MM.02/0785/2026 | MM.01/0786/2026,782 | 783 | 784 | 785 | 786,"Angka Kuman, Sampling | Coliform & E.coli (Membran Filter),Sampling | Coliform & E.coli (Membran Filter),Sampling | E.coli, Sampling | Formalin, Sampling"," 782 mikro Usap Alat Ompreng -> UA.02/0782/2026 (Angka Kuman, Sampling)
+ 783 mikro AB -> AH.02/0783/2026 (Coliform & E.coli (Membran Filter),Sampling)
+ 784 mikro AM -> AM.02/0784/2026 (Coliform & E.coli (Membran Filter),Sampling)
+ 785 mikro MM Ayam Goreng -> MM.02/0785/2026 (E.coli, Sampling)
+ 786 kimia MM Ayam Goreng -> MM.01/0786/2026 (Formalin, Sampling)"
+289,2026-02-18,Desi Fitria,Santren 01/09 Gunungpring Muntilan,10,MM.02/0834/2026 | MM.02/0836/2026 | MM.01/0837/2026 | MM.01/0838/2026 | MM.02/0838/2026 | MM.01/0839/2026 | MM.02/0840/2026 | MM.01/0841/2026 | MM.02/0842/2026 | MM.01/0843/2026,834 | 836 | 837 | 838 | 838 | 839 | 840 | 841 | 842 | 843,E.coli (Makanan) ... | Parasit/ Jamur/ kapang acr ... | Borax ... | Ketengikan ... | Parasit/ Jamur/ kapang acr ... | Ketengikan ... | Angka Kuman ... | Ketengikan ... | Angka Kuman ... | Ketengikan ...," 834 mikro Makanan -> MM.02/0834/2026 (E.coli (Makanan) ...)
+ 836 mikro Makanan -> MM.02/0836/2026 (Parasit/ Jamur/ kapang acr ...)
+ 837 kimia Makanan -> MM.01/0837/2026 (Borax ...)
+ 838 kimia Makanan -> MM.01/0838/2026 (Ketengikan ...)
+ 838 mikro Makanan -> MM.02/0838/2026 (Parasit/ Jamur/ kapang acr ...)
+ 839 kimia Makanan -> MM.01/0839/2026 (Ketengikan ...)
+ 840 mikro Makanan -> MM.02/0840/2026 (Angka Kuman ...)
+ 841 kimia Makanan -> MM.01/0841/2026 (Ketengikan ...)
+ 842 mikro Makanan -> MM.02/0842/2026 (Angka Kuman ...)
+ 843 kimia Makanan -> MM.01/0843/2026 (Ketengikan ...)"
+290,2026-02-18,Rumah Terapi Bekam Madu dan Herbal/Kedai An Naba,"Perum Kavling UII, Jl. Murai C-18 Besi Sukoharjo, Ngaglik, Sleman",1,MM.01/0833/2026,833,"Enzim diastase dalam madu,Sakarin ..."," 833 kimia Madu -> MM.01/0833/2026 (Enzim diastase dalam madu,Sakarin ...)"
+291,2026-02-19,FIRMAN BAGUS PRAKOSO,"SPPG Magelang, Mertoyudan, Danurejo 2",5,AH.02/0849/2026 | AM.02/0850/2026 | UA.02/0851/2026 | MM.02/0852/2026 | MM.01/0853/2026,849 | 850 | 851 | 852 | 853,"Coliform & E.coli (Membran Filter) ... | Coliform & E.coli (Membran Filter) ... | Angka Kuman Alat,Sampling ... | E.coli (Makanan) ... | Formalin, Sampling"," 849 mikro Air Bersih -> AH.02/0849/2026 (Coliform & E.coli (Membran Filter) ...)
+ 850 mikro Air Minum -> AM.02/0850/2026 (Coliform & E.coli (Membran Filter) ...)
+ 851 mikro Usap -> UA.02/0851/2026 (Angka Kuman Alat,Sampling ...)
+ 852 mikro Makanan -> MM.02/0852/2026 (E.coli (Makanan) ...)
+ 853 kimia MM Ayam Tepung -> MM.01/0853/2026 (Formalin, Sampling)"
+292,2026-02-19,HAFIS MUHAIMIN PERMANA PUTRA,"SPPG Magelang, Secang, Krincing",5,MM.02/0854/2026 | AM.02/0855/2026 | UA.02/0856/2026 | MM.02/0857/2026 | MM.01/0858/2026,854 | 855 | 856 | 857 | 858,"Coliform & E.coli (Membran Filter),Sampling ... | Coliform & E.coli (Membran Filter),Sampling ... | Angka Kuman Alat,Sampling ... | E.coli (Makanan) ... | Formalin, Sampling"," 854 mikro Ab Kran Washbak -> MM.02/0854/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+ 855 mikro AM Galon -> AM.02/0855/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+ 856 mikro Usap Alat Ompreng -> UA.02/0856/2026 (Angka Kuman Alat,Sampling ...)
+ 857 mikro MM Ayam Semur -> MM.02/0857/2026 (E.coli (Makanan) ...)
+ 858 kimia MM Ayam Semur -> MM.01/0858/2026 (Formalin, Sampling)"
+293,2026-02-20,Damiu Mah WIN,"Ngabehan 01/02, Sidowangi, Kajoran",1,AM.02/0864/2026,864,Coliform & E.coli (Membran Filter), 864 mikro AM Kran Proses -> AM.02/0864/2026 (Coliform & E.coli (Membran Filter))
+294,2026-02-20,Fatkhul Huda,"Domban 01/01, Sukasari, Bandongan",1,MM.01/0863/2026,863,"Enzim diastase dalam madu,Sakarin ..."," 863 kimia Madu Laceng -> MM.01/0863/2026 (Enzim diastase dalam madu,Sakarin ...)"
+295,2026-02-21,CV. Sinar Joyo Boyo,"Jl. Beringin III Tidar No.16B, Tidar Utara, Magelang Selatan, Magelang",2,AM.01/0872/2026 | AM.02/0873/2026,872 | 873,AM Lengkap menurut permenkes NO 2 th 2024 | Coliform & E.coli (Membran Filter)," 872 kimia AM Kran Plant A -> AM.01/0872/2026 (AM Lengkap menurut permenkes NO 2 th 2024)
+ 873 mikro AM Kran Plant A -> AM.02/0873/2026 (Coliform & E.coli (Membran Filter))"
+296,2026-02-23,Kelompok SAB TTG Desa Banaran,"Banaran , Grabag, Magelang",2,AM.02/0875/2026 | AM.01/0876/2026,875 | 876,Coliform & E.coli (Membran Filter) | AM Lengkap menurut permenkes NO 2 th 2024," 875 mikro AM Kran Air Proses -> AM.02/0875/2026 (Coliform & E.coli (Membran Filter))
+ 876 kimia AM Kran Air Proses -> AM.01/0876/2026 (AM Lengkap menurut permenkes NO 2 th 2024)"
+297,2026-02-23,Platinum Cineplex Artos,"Mertoyudan, Magelang",2,AM.02/0882/2026 | AM.01/0883/2026,882 | 883,Coliform & E.coli (Membran Filter) | AM Lengkap menurut permenkes NO 2 th 2024," 882 mikro AM Kran Air Proses RO -> AM.02/0882/2026 (Coliform & E.coli (Membran Filter))
+ 883 kimia AM Kran Air Proses RO -> AM.01/0883/2026 (AM Lengkap menurut permenkes NO 2 th 2024)"
+298,2026-02-23,Wiku Trah Sabdo Aji,SPPG Magelang Srumbung Srumbung,5,MM.02/0877/2026 | MM.01/0878/2026 | MM.02/0880/2026 | UA.02/0881/2026 | AM.02/0979/2026,877 | 878 | 880 | 881 | 979,"E.coli (Makanan) ... | Formalin, Sampling | Coliform & E.coli (Membran Filter),Sampling ... | Angka Kuman Alat,Sampling ... | Coliform & E.coli (Membran Filter),Sampling ..."," 877 mikro MM Ayam Goreng -> MM.02/0877/2026 (E.coli (Makanan) ...)
+ 878 kimia MM Ayam Goreng -> MM.01/0878/2026 (Formalin, Sampling)
+ 880 mikro AB Kran Cuci Alat -> MM.02/0880/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+ 881 mikro Usap Alat Ompreng -> UA.02/0881/2026 (Angka Kuman Alat,Sampling ...)
+ 979 mikro AM Galon -> AM.02/0979/2026 (Coliform & E.coli (Membran Filter),Sampling ...)"
+299,2026-02-24,PDAM Tirta Gemilang /Program Dinkes Kab. Magelang,"Gayam, Giripurno, Borobudur",1,AM.02/0884/2026,884,E.Coli ..., 884 mikro AM Bak Penampung Sileng -> AM.02/0884/2026 (E.Coli ...)
+300,2026-02-25,Damiu Cahaya Rizqi,"Krandan, Kebonrejo,Salaman",2,AM.02/0905/2026 | AM.01/0906/2026,905 | 906,"Coliform & E.coli (Membran Filter) | Fe,pH,Mn,TDS,Nitrat"," 905 mikro AM Kran Proses -> AM.02/0905/2026 (Coliform & E.coli (Membran Filter))
+ 906 kimia AM Kran Proses -> AM.01/0906/2026 (Fe,pH,Mn,TDS,Nitrat)"
+301,2026-02-25,Erna Kurnia Sari,"Sawangan, Magelang",2,AM.02/0907/2026 | AM.01/0908/2026,907 | 908,Coliform & E.coli (Membran Filter) | AM Lengkap menurut permenkes NO 2 th 2024," 907 mikro AM MA Tuk Abang -> AM.02/0907/2026 (Coliform & E.coli (Membran Filter))
+ 908 kimia AM MA Tuk Abang -> AM.01/0908/2026 (AM Lengkap menurut permenkes NO 2 th 2024)"
+302,2026-02-25,PDAM Tirta Gemilang /Program Dinkes Kab. Magelang,"SR. Tanjunsari, Borobudur",1,AM.02/0899/2026,899,E.Coli ..., 899 mikro AM Bak Penampung Sileng -> AM.02/0899/2026 (E.Coli ...)
+303,2026-02-25,PDAM Tirta Gemilang /Program Dinkes Kab. Magelang,"SR. Tegalwangi, Tegalwangi, Borobudur",1,AM.02/0898/2026,898,E.Coli ..., 898 mikro AM Bak Penampung Sileng -> AM.02/0898/2026 (E.Coli ...)
+304,2026-02-26,Khoirudin,"Rejosari, 02/09, Mungkid, Magelang",3,MM.02/0913/2026 | MM.01/0914/2026 | MM.01/0915/2026,913 | 914 | 915,Angka Kuman ... | Ketengikan ... | Ketengikan ...," 913 mikro MM Tempe Kripik -> MM.02/0913/2026 (Angka Kuman ...)
+ 914 kimia MM Tempe Kripik -> MM.01/0914/2026 (Ketengikan ...)
+ 915 kimia MM Tempe Kripik -> MM.01/0915/2026 (Ketengikan ...)"
+305,2026-02-26,PDAM Tirta Gemilang /Program Dinkes Kab. Magelang,"Kenalan, Borobudur",1,MM.02/0921/2026,921,E.Coli ..., 921 mikro AB Bak Penampung -> MM.02/0921/2026 (E.Coli ...)
+306,2026-02-26,PDAM Tirta Gemilang /Program Dinkes Kab. Magelang,"Kreten, Candirejo, Borobudur",1,MM.02/0922/2026,922,E.Coli ..., 922 mikro AB Bak Penampung -> MM.02/0922/2026 (E.Coli ...)
+307,2026-02-26,PDAM Tirta Gemilang /Program Dinkes Kab. Magelang,"Rejosari 01/09, Mungkid",1,MM.02/0923/2026,923,E.Coli ..., 923 mikro AB Bak Penampung -> MM.02/0923/2026 (E.Coli ...)
+308,2026-02-26,PDAM Tirta Gemilang /Program Dinkes Kab. Magelang,"Simping, Paremono",1,MM.02/0924/2026,924,E.Coli ..., 924 mikro AB Bak Penampung -> MM.02/0924/2026 (E.Coli ...)
+309,2026-02-26,Septian Adi Kuncoro,SPPG Magelang Candimulyo Podosoko,5,MM.02/0916/2026 | AM.02/0917/2026 | MM.02/0918/2026 | MM.01/0919/2026 | UA.02/0920/2026,916 | 917 | 918 | 919 | 920,"Coliform & E.coli (Membran Filter),Sampling ... | Coliform & E.coli (Membran Filter),Sampling ... | E.coli (Makanan) ... | Formalin, Sampling | Angka Kuman Alat,Sampling ..."," 916 mikro AB Kran Air -> MM.02/0916/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+ 917 mikro AM Galon -> AM.02/0917/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+ 918 mikro MM Ayam Goreng -> MM.02/0918/2026 (E.coli (Makanan) ...)
+ 919 kimia MM Ayam Goreng -> MM.01/0919/2026 (Formalin, Sampling)
+ 920 mikro Usap Alat Ompreng -> UA.02/0920/2026 (Angka Kuman Alat,Sampling ...)"
+310,2026-02-26,SR. Kasmi,"Ngrajek 04/02, Ngrajek",1,AM.01/0925/2026,925,Sisa Klor, 925 kimia AM (PDAM) -> AM.01/0925/2026 (Sisa Klor)
+311,2026-02-26,SR. Menik Purwi Iswindari,"Semawung, Sedayu",1,AM.01/0926/2026,926,Sisa Klor, 926 kimia AM (PDAM) -> AM.01/0926/2026 (Sisa Klor)
+312,2026-02-26,SR. Said Rudiyanto,"Peterongan, Tegalrejo",1,AM.01/0927/2026,927,Sisa Klor, 927 kimia AM (PDAM) -> AM.01/0927/2026 (Sisa Klor)
+313,2026-02-27,Wahyu Karunia,"Karangsari I Ngargoretno, Salaman",1,AL.01/0929/2026,929,Kromium Total, 929 kimia AL Bak Penampung -> AL.01/0929/2026 (Kromium Total)
+314,2026-02-28,Polda Jawa Tengah,"Semarang, Jawa Tengah",3,MM.01/0933/2026 | MM.01/0934/2026 | MM.01/0935/2026,933 | 934 | 935,"Borax, Formalin | Borax, Formalin | Borax, Formalin"," 933 kimia MM Mie Basah 1 -> MM.01/0933/2026 (Borax, Formalin)
+ 934 kimia MM Mie Basah 2 -> MM.01/0934/2026 (Borax, Formalin)
+ 935 kimia MM Mie Basah 3 -> MM.01/0935/2026 (Borax, Formalin)"
+315,2026-04-06,Eksan,"Cabean, Mendut, Mungkid",2,AH.02/1276/2026 | AH.01/1277/2026,1276 | 1277,"Coliform & E.coli (Membran Filter),Sampling ... | AB Lengkap menurut permenkes NO 2 th 2023","1276 mikro Air Bersih -> AH.02/1276/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+1277 kimia Air Bersih -> AH.01/1277/2026 (AB Lengkap menurut permenkes NO 2 th 2023)"
+316,2026-04-06,Pemdes Tirto,"Gentan, Tirto, Grabag I",2,AM.02/1286/2026 | AM.01/1287/2026,1286 | 1287,Coliform & E.coli (Membran Filter) | AM Lengkap menurut permenkes NO 2 th 2023,"1286 mikro AM -> AM.02/1286/2026 (Coliform & E.coli (Membran Filter))
+1287 kimia AM -> AM.01/1287/2026 (AM Lengkap menurut permenkes NO 2 th 2023)"
+317,2026-04-06,Program Kesling Dinkes,"Jl. Soekarno Hatta No. 47, Sawitan, Mungkid, Kab. Magelang",3,AM.02/1279/2026 | AM.02/1280/2026 | AM.02/1281/2026,1279 | 1280 | 1281,E.Coli ... | E.Coli ... | E.Coli ...,"1279 mikro Air Minum -> AM.02/1279/2026 (E.Coli ...)
+1280 mikro Air Minum -> AM.02/1280/2026 (E.Coli ...)
+1281 mikro Air Minum -> AM.02/1281/2026 (E.Coli ...)"
+318,2026-04-06,PT. Sinar Makmur Semarang,"Dsn. Kwangsan, Kec. Bandongan",2,AH.02/1284/2026 | AH.01/1285/2026,1284 | 1285,Coliform & E.coli (Membran Filter) | AB Lengkap menurut permenkes NO 2 th 2023,"1284 mikro AB -> AH.02/1284/2026 (Coliform & E.coli (Membran Filter))
+1285 kimia AB -> AH.01/1285/2026 (AB Lengkap menurut permenkes NO 2 th 2023)"
+319,2026-04-06,SPPG Septian Wahyu Nugroho,"Ngaglik Bawah, Sawangan",1,AH.02/1278/2026,1278,"Coliform & E.coli (Membran Filter),Sampling ...","1278 mikro Air Bersih -> AH.02/1278/2026 (Coliform & E.coli (Membran Filter),Sampling ...)"
+320,2026-04-06,SR. Asnawi,"Sidodadi RT 25/10, Ds. Tegalrejo",2,AM.02/1298/2026 | AM.01/1299/2026,1298 | 1299,"Coliform & E.coli (Membran Filter) | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...","1298 mikro AM (PDAM) -> AM.02/1298/2026 (Coliform & E.coli (Membran Filter))
+1299 kimia AM -> AM.01/1299/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+321,2026-04-06,SR. Daryono,"Daleman 01/01, Gondosuli, Muntilan",2,AM.02/1292/2026 | AM.01/1293/2026,1292 | 1293,"Coliform & E.coli (Membran Filter) | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...","1292 mikro AM (PDAM) -> AM.02/1292/2026 (Coliform & E.coli (Membran Filter))
+1293 kimia AM -> AM.01/1293/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+322,2026-04-06,SR. Edi Sujarwo,"Balemulyo RT 02/08, Kel. Muntilan",2,AM.02/1290/2026 | AM.01/1291/2026,1290 | 1291,"Coliform & E.coli (Membran Filter) | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...","1290 mikro AM (PDAM) -> AM.02/1290/2026 (Coliform & E.coli (Membran Filter))
+1291 kimia AM -> AM.01/1291/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+323,2026-04-06,SR. Haryono,"Banyuurip I 02/02, Ds. Banyuurip",2,AM.02/1296/2026 | AM.01/1297/2026,1296 | 1297,"Coliform & E.coli (Membran Filter) | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...","1296 mikro AM (PDAM) -> AM.02/1296/2026 (Coliform & E.coli (Membran Filter))
+1297 kimia AM -> AM.01/1297/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+324,2026-04-06,SR. Muh Fauzan,"Krajan 03/02, Tegalrejo",2,AM.02/1294/2026 | AM.01/1295/2026,1294 | 1295,"Coliform & E.coli (Membran Filter) | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...","1294 mikro AM (PDAM) -> AM.02/1294/2026 (Coliform & E.coli (Membran Filter))
+1295 kimia AM -> AM.01/1295/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+325,2026-04-06,SR. Sujud,"Tampir Wetan I 03/02, Kel. Tampir Wetan",2,AM.02/1300/2026 | AM.01/1301/2026,1300 | 1301,"Coliform & E.coli (Membran Filter) | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...","1300 mikro AM (PDAM) -> AM.02/1300/2026 (Coliform & E.coli (Membran Filter))
+1301 kimia AM -> AM.01/1301/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+326,2026-04-06,SR. Triwanci Suprihati,Perum Wonolelo Indah Blok A-06 Kel. Muntilan,2,AM.02/1288/2026 | AM.01/1289/2026,1288 | 1289,"Coliform & E.coli (Membran Filter) | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...","1288 mikro AM (PDAM) -> AM.02/1288/2026 (Coliform & E.coli (Membran Filter))
+1289 kimia AM -> AM.01/1289/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+327,2026-04-07,Edy,"Karanggawang, Pagersari, Mungkid",2,AH.02/1301/2026 | AH.02/1302/2026,1301 | 1302,Coliform & E.coli (Membran Filter) ... | Coliform & E.coli (Membran Filter) ...,"1301 mikro Air Bersih -> AH.02/1301/2026 (Coliform & E.coli (Membran Filter) ...)
+1302 mikro Air Bersih -> AH.02/1302/2026 (Coliform & E.coli (Membran Filter) ...)"
+328,2026-04-07,Fian Triadi,"SPPG Magelang, Tegalrejo, Purwodadi",1,MM.01/1336/2026,1336,"Formalin,Sampling ...","1336 kimia Makanan -> MM.01/1336/2026 (Formalin,Sampling ...)"
+329,2026-04-07,Fiyan Triadi,"SPPG Magelang, Tegalrejo, Purwodadi",4,AH.02/1334/2026 | AM.02/1335/2026 | MM.02/1337/2026 | UA.02/1338/2026,1334 | 1335 | 1337 | 1338,"Coliform & E.coli (Membran Filter),Sampling ... | Coliform & E.coli (Membran Filter),Sampling ... | E.coli (Makanan),Sampling ... | Angka Kuman Alat,Sampling ...","1334 mikro Air Bersih -> AH.02/1334/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+1335 mikro Air Minum -> AM.02/1335/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+1337 mikro Makanan -> MM.02/1337/2026 (E.coli (Makanan),Sampling ...)
+1338 mikro Usap -> UA.02/1338/2026 (Angka Kuman Alat,Sampling ...)"
+330,2026-04-07,Program Kesling Dinkes,"Jl. Soekarno Hatta No. 47, Sawitan, Mungkid, Kab. Magelang",3,AM.02/1345/2026 | AM.02/1346/2026 | AM.02/1347/2026,1345 | 1346 | 1347,E.Coli ... | E.Coli ... | E.Coli ...,"1345 mikro Air Minum -> AM.02/1345/2026 (E.Coli ...)
+1346 mikro Air Minum -> AM.02/1346/2026 (E.Coli ...)
+1347 mikro Air Minum -> AM.02/1347/2026 (E.Coli ...)"
+331,2026-04-07,PT. Solutionariez Group Indonesia,"Jl. Dusun Turen 2, Sardonoharjo, Ngaglik, Sleman",4,AM.02/1348/2026 | AM.01/1349/2026 | AH.02/1350/2026 | AH.01/1351/2026,1348 | 1349 | 1350 | 1351,Coliform & E.coli (Membran Filter) ... | AM Lengkap menurut permenkes NO 2 th 2023 | Coliform & E.coli (Membran Filter) ... | AB Lengkap menurut permenkes NO 2 th 2023,"1348 mikro Air Minum -> AM.02/1348/2026 (Coliform & E.coli (Membran Filter) ...)
+1349 kimia Air Minum -> AM.01/1349/2026 (AM Lengkap menurut permenkes NO 2 th 2023)
+1350 mikro Air Bersih -> AH.02/1350/2026 (Coliform & E.coli (Membran Filter) ...)
+1351 kimia Air Bersih -> AH.01/1351/2026 (AB Lengkap menurut permenkes NO 2 th 2023)"
+332,2026-04-07,Ronal Siebel,"SPPG Magelang, Grabag, Sidogede",5,MM.01/1339/2026 | AH.02/1340/2026 | AM.02/1341/2026 | MM.02/1342/2026 | UA.02/1343/2026,1339 | 1340 | 1341 | 1342 | 1343,"Formalin,Sampling ... | Coliform & E.coli (Membran Filter),Sampling ... | Coliform & E.coli (Membran Filter),Sampling ... | E.coli (Makanan),Sampling ... | Angka Kuman Alat,Sampling ...","1339 kimia Makanan -> MM.01/1339/2026 (Formalin,Sampling ...)
+1340 mikro Air Bersih -> AH.02/1340/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+1341 mikro Air Minum -> AM.02/1341/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+1342 mikro Makanan -> MM.02/1342/2026 (E.coli (Makanan),Sampling ...)
+1343 mikro Usap -> UA.02/1343/2026 (Angka Kuman Alat,Sampling ...)"
+333,2026-04-07,SR. Bambang Gunarso,"Gadean, 03/10, Salaman",2,AM.02/1320/2026 | AM.01/1321/2026,1320 | 1321,"Coliform & E.coli (Membran Filter) | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...","1320 mikro AM (PDAM) -> AM.02/1320/2026 (Coliform & E.coli (Membran Filter))
+1321 kimia AM (PDAM) -> AM.01/1321/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+334,2026-04-07,"SR. Garto, Karangmalang","Wringinputih, Borobudur",2,AM.02/1332/2026 | AM.01/1333/2026,1332 | 1333,"Coliform & E.coli (Membran Filter) | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...","1332 mikro AM (PDAM) -> AM.02/1332/2026 (Coliform & E.coli (Membran Filter))
+1333 kimia AM (PDAM) -> AM.01/1333/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+335,2026-04-07,SR. Harsono,"Rejosari 02/01, Tanjunganom",2,AM.02/1324/2026 | AM.01/1325/2026,1324 | 1325,"Coliform & E.coli (Membran Filter) | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...","1324 mikro AM (PDAM) -> AM.02/1324/2026 (Coliform & E.coli (Membran Filter))
+1325 kimia AM (PDAM) -> AM.01/1325/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+336,2026-04-07,SR. Isnawi,"Kranjang Jurang 03/07, Sidosari, Salaman",2,AM.02/1322/2026 | AM.01/1323/2026,1322 | 1323,"Coliform & E.coli (Membran Filter) | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...","1322 mikro AM (PDAM) -> AM.02/1322/2026 (Coliform & E.coli (Membran Filter))
+1323 kimia AM (PDAM) -> AM.01/1323/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+337,2026-04-07,SR. Khabib,"Maitan02/10, Borobudur",2,AM.02/1328/2026 | AM.01/1329/2026,1328 | 1329,"Coliform & E.coli (Membran Filter) | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...","1328 mikro AM (PDAM) -> AM.02/1328/2026 (Coliform & E.coli (Membran Filter))
+1329 kimia AM (PDAM) -> AM.01/1329/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+338,2026-04-07,SR. Nur Muhamad Solichin,"Nglerep 01/11, Deyangan",2,AM.02/1330/2026 | AM.01/1331/2026,1330 | 1331,"Coliform & E.coli (Membran Filter) | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...","1330 mikro AM (PDAM) -> AM.02/1330/2026 (Coliform & E.coli (Membran Filter))
+1331 kimia AM (PDAM) -> AM.01/1331/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+339,2026-04-07,"SR. Winarti,","Kenayan, 01/15, Borobudur",2,AM.02/1326/2026 | AM.01/1327/2026,1326 | 1327,"Coliform & E.coli (Membran Filter) | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...","1326 mikro AM (PDAM) -> AM.02/1326/2026 (Coliform & E.coli (Membran Filter))
+1327 kimia AM (PDAM) -> AM.01/1327/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+340,2026-04-08,Damiu Barik,"Jl. Magelang-Kaliangkrik KM 12 Dsn.Semilir, Girirejo, Kaliangkrik",4,AH.02/1369/2026 | AM.02/1370/2026 | AM.01/1371/2026 | AM.02/1372/2026,1369 | 1370 | 1371 | 1372,Coliform & E.coli (Membran Filter) ... | Coliform & E.coli (Membran Filter) ... | AM Lengkap menurut permenkes NO 2 th 2023 | Coliform & E.coli (Membran Filter) ...,"1369 mikro AB -> AH.02/1369/2026 (Coliform & E.coli (Membran Filter) ...)
+1370 mikro AM -> AM.02/1370/2026 (Coliform & E.coli (Membran Filter) ...)
+1371 kimia AM -> AM.01/1371/2026 (AM Lengkap menurut permenkes NO 2 th 2023)
+1372 mikro AM -> AM.02/1372/2026 (Coliform & E.coli (Membran Filter) ...)"
+341,2026-04-08,Pamsimas Pandean Kidul,"Pandean Kidul, Pandean, Ngablak",1,AM.01/1373/2026,1373,AM Lengkap menurut permenkes NO 2 th 2023,1373 kimia AM -> AM.01/1373/2026 (AM Lengkap menurut permenkes NO 2 th 2023)
+342,2026-04-08,Pemdes Sewukan,"Dukun, Magelang",6,AH.02/1388/2026 | AH.01/1389/2026 | AH.02/1390/2026 | AH.02/1391/2026 | AH.02/1392/2026 | AH.02/1393/2026,1388 | 1389 | 1390 | 1391 | 1392 | 1393,Coliform & E.coli (Membran Filter) ... | AB Lengkap menurut permenkes NO 2 th 2023 | Coliform & E.coli (Membran Filter) ... | Coliform & E.coli (Membran Filter) ... | Coliform & E.coli (Membran Filter) ... | Coliform & E.coli (Membran Filter) ...,"1388 mikro AB -> AH.02/1388/2026 (Coliform & E.coli (Membran Filter) ...)
+1389 kimia AB -> AH.01/1389/2026 (AB Lengkap menurut permenkes NO 2 th 2023)
+1390 mikro AB -> AH.02/1390/2026 (Coliform & E.coli (Membran Filter) ...)
+1391 mikro AB -> AH.02/1391/2026 (Coliform & E.coli (Membran Filter) ...)
+1392 mikro AB -> AH.02/1392/2026 (Coliform & E.coli (Membran Filter) ...)
+1393 mikro AB -> AH.02/1393/2026 (Coliform & E.coli (Membran Filter) ...)"
+343,2026-04-08,Pemdes Tanjungsari,"Windusari, Magelang",4,AM.02/1365/2026 | AM.01/1366/2026 | AM.02/1367/2026 | AM.01/1368/2026,1365 | 1366 | 1367 | 1368,Coliform & E.coli (Membran Filter) ... | AM Lengkap menurut permenkes NO 2 th 2023 | Coliform & E.coli (Membran Filter) ... | AM Lengkap menurut permenkes NO 2 th 2023,"1365 mikro AM -> AM.02/1365/2026 (Coliform & E.coli (Membran Filter) ...)
+1366 kimia AM -> AM.01/1366/2026 (AM Lengkap menurut permenkes NO 2 th 2023)
+1367 mikro AM -> AM.02/1367/2026 (Coliform & E.coli (Membran Filter) ...)
+1368 kimia AM -> AM.01/1368/2026 (AM Lengkap menurut permenkes NO 2 th 2023)"
+344,2026-04-08,SR. Murdoko,"Malangan 29/13, Payaman",2,AM.02/1384/2026 | AM.01/1385/2026,1384 | 1385,"Coliform & E.coli (Membran Filter) ... | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...","1384 mikro AM -> AM.02/1384/2026 (Coliform & E.coli (Membran Filter) ...)
+1385 kimia AM -> AM.01/1385/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+345,2026-04-08,SR. Muryadi Supriyanto,"Karangwetan, 01/01, Kel. Pucang",2,AM.02/1374/2026 | AM.01/1375/2026,1374 | 1375,"Coliform & E.coli (Membran Filter) ... | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...","1374 mikro AM -> AM.02/1374/2026 (Coliform & E.coli (Membran Filter) ...)
+1375 kimia AM -> AM.01/1375/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+346,2026-04-08,SR. Nur Rohim,"Citro Dukuh03/03, Kalijoso, Secang",2,AM.02/1380/2026 | AM.01/1381/2026,1380 | 1381,"Coliform & E.coli (Membran Filter) ... | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...","1380 mikro AM -> AM.02/1380/2026 (Coliform & E.coli (Membran Filter) ...)
+1381 kimia AM -> AM.01/1381/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+347,2026-04-08,SR. Sugiarti,"Krincing 18/08, Secang",2,AM.02/1382/2026 | AM.01/1383/2026,1382 | 1383,"Coliform & E.coli (Membran Filter) ... | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...","1382 mikro AM -> AM.02/1382/2026 (Coliform & E.coli (Membran Filter) ...)
+1383 kimia AM -> AM.01/1383/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+348,2026-04-08,SR. Sunarti,"Pangingan Kleteran,",2,AM.02/1376/2026 | AM.01/1377/2026,1376 | 1377,"Coliform & E.coli (Membran Filter) ... | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...","1376 mikro AM -> AM.02/1376/2026 (Coliform & E.coli (Membran Filter) ...)
+1377 kimia AM -> AM.01/1377/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+349,2026-04-08,SR. Triatmi Puji Astuti,"Kwangsan 01/01,Donorejo",2,AM.02/1378/2026 | AM.01/1379/2026,1378 | 1379,"Coliform & E.coli (Membran Filter) ... | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...","1378 mikro AM -> AM.02/1378/2026 (Coliform & E.coli (Membran Filter) ...)
+1379 kimia AM -> AM.01/1379/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+350,2026-04-08,SR. Varida Ulfah Widiyanti,"Perum Vila Krincing, Secang",2,AM.02/1386/2026 | AM.01/1387/2026,1386 | 1387,"Coliform & E.coli (Membran Filter) ... | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...","1386 mikro AM -> AM.02/1386/2026 (Coliform & E.coli (Membran Filter) ...)
+1387 kimia AM -> AM.01/1387/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+351,2026-04-09,CV. Sedaya Sami Makmur,"Gejayan 010/002, Gondowangi, Sawangan",2,AM.02/1411/2026 | AM.01/1412/2026,1411 | 1412,"Coliform & E.coli (Membran Filter),Sampling ... | AM Lengkap menurut permenkes NO 2 th 2023","1411 mikro Air Minum -> AM.02/1411/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+1412 kimia Air Minum -> AM.01/1412/2026 (AM Lengkap menurut permenkes NO 2 th 2023)"
+352,2026-04-09,Damiu Redhisca Water,"Banaran, Sedayu, Muntilan",1,AM.02/1427/2026,1427,E.coli,1427 mikro AM -> AM.02/1427/2026 (E.coli)
+353,2026-04-09,Damiu Tirto Arto,"Wonolelo, Muntilan",1,AM.02/1428/2026,1428,E.coli,1428 mikro AM -> AM.02/1428/2026 (E.coli)
+354,2026-04-09,Satria,"SPPG Magelang, Dukun, Ngadipuro 2",5,AH.02/1406/2026 | AM.02/1407/2026 | UA.02/1408/2026 | MM.02/1409/2026 | MM.01/1410/2026,1406 | 1407 | 1408 | 1409 | 1410,"Coliform & E.coli (Membran Filter),Sampling ... | Coliform & E.coli (Membran Filter),Sampling ... | Angka Kuman Alat,Sampling ... | E.coli (Makanan),Sampling ... | Formalin,Sampling ...","1406 mikro Air Bersih -> AH.02/1406/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+1407 mikro Air Minum -> AM.02/1407/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+1408 mikro Usap Alat -> UA.02/1408/2026 (Angka Kuman Alat,Sampling ...)
+1409 mikro MM Ayam -> MM.02/1409/2026 (E.coli (Makanan),Sampling ...)
+1410 kimia MM Ayam -> MM.01/1410/2026 (Formalin,Sampling ...)"
+355,2026-04-09,SR. Dodi Ferry Waskito,"Saratan 01/14, Sumberrejo, Mertoyudan",2,AM.02/1417/2026 | AM.01/1418/2026,1417 | 1418,"Coliform & E.coli (Membran Filter) ... | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...","1417 mikro AM -> AM.02/1417/2026 (Coliform & E.coli (Membran Filter) ...)
+1418 kimia AM -> AM.01/1418/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+356,2026-04-09,SR. Firlia Faradila,"Perum Puri Harmoni 5 Blok D-3, Donorojo",2,AM.02/1425/2026 | AM.01/1426/2026,1425 | 1426,"Coliform & E.coli (Membran Filter) ... | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...","1425 mikro AM -> AM.02/1425/2026 (Coliform & E.coli (Membran Filter) ...)
+1426 kimia AM -> AM.01/1426/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+357,2026-04-09,SR. Munandar,"Gedongan Kidul  02/06, Bondowoso, Mertoyudan",2,AM.02/1423/2026 | AM.01/1424/2026,1423 | 1424,"Coliform & E.coli (Membran Filter) ... | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...","1423 mikro AM -> AM.02/1423/2026 (Coliform & E.coli (Membran Filter) ...)
+1424 kimia AM -> AM.01/1424/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+358,2026-04-09,SR. Riyanto Budi,"Bumi Prayudan Estate M-14, Mertoyudan",2,AM.02/1419/2026 | AM.01/1420/2026,1419 | 1420,"Coliform & E.coli (Membran Filter) ... | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...","1419 mikro AM -> AM.02/1419/2026 (Coliform & E.coli (Membran Filter) ...)
+1420 kimia AM -> AM.01/1420/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+359,2026-04-09,SR. Tanu Sandjoyo,"Mantenan, Mertoyudan",2,AM.02/1415/2026 | AM.01/1416/2026,1415 | 1416,"Coliform & E.coli (Membran Filter) ... | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...","1415 mikro AM -> AM.02/1415/2026 (Coliform & E.coli (Membran Filter) ...)
+1416 kimia AM -> AM.01/1416/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+360,2026-04-09,SR. Yonia Kurniawati,"Cluster Green Metro Blok G 9-10, Sumberrejo",2,AM.02/1421/2026 | AM.01/1422/2026,1421 | 1422,"Coliform & E.coli (Membran Filter) ... | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...","1421 mikro AM -> AM.02/1421/2026 (Coliform & E.coli (Membran Filter) ...)
+1422 kimia AM -> AM.01/1422/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+361,2026-04-10,Nur Latifah,"Sangubanyu Utara 02/12, Banyuwangi, Bandongan",2,MM.02/1438/2026 | MM.01/1439/2026,1438 | 1439,Angka Kuman | Ketengikan,"1438 mikro MM Abon Ayam -> MM.02/1438/2026 (Angka Kuman)
+1439 kimia MM Abon Ayam -> MM.01/1439/2026 (Ketengikan)"
+362,2026-04-10,SR. Arif Susanto,"Nepak Kulon 02/02, Bulurejo, Mertoyudan",2,AM.02/1454/2026 | AM.01/1455/2026,1454 | 1455,"Coliform & E.coli (Membran Filter) | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...","1454 mikro AM (PDAM) -> AM.02/1454/2026 (Coliform & E.coli (Membran Filter))
+1455 kimia AM (PDAM) -> AM.01/1455/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+363,2026-04-10,SR. Catur Huda,"Klentengan 02/04, Sukorejo",2,AM.02/1448/2026 | AM.01/1449/2026,1448 | 1449,"Coliform & E.coli (Membran Filter) | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...","1448 mikro AM (PDAM) -> AM.02/1448/2026 (Coliform & E.coli (Membran Filter))
+1449 kimia AM (PDAM) -> AM.01/1449/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+364,2026-04-10,SR. Hariyono,"Ganjuran 06/08, Sukorejo, Mertoyudan",2,AM.02/1452/2026 | AM.01/1453/2026,1452 | 1453,"Coliform & E.coli (Membran Filter) | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...","1452 mikro AM (PDAM) -> AM.02/1452/2026 (Coliform & E.coli (Membran Filter))
+1453 kimia AM (PDAM) -> AM.01/1453/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+365,2026-04-10,SR. Mangun,"Noyoditan, 01/05, Banjarnegoro",2,AM.02/1446/2026 | AM.01/1447/2026,1446 | 1447,"Coliform & E.coli (Membran Filter) | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...","1446 mikro AM (PDAM) -> AM.02/1446/2026 (Coliform & E.coli (Membran Filter))
+1447 kimia AM (PDAM) -> AM.01/1447/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+366,2026-04-10,SR. Rony Derk Laloan,"Pronogaten 02/18, Kalinegoro",2,AM.02/1442/2026 | AM.01/1443/2026,1442 | 1443,"Coliform & E.coli (Membran Filter) | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...","1442 mikro AM (PDAM) -> AM.02/1442/2026 (Coliform & E.coli (Membran Filter))
+1443 kimia AM (PDAM) -> AM.01/1443/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+367,2026-04-10,"SR. Rusmini,","Kelipan 01/10, Kalinegoro",2,AM.02/1440/2026 | AM.01/1441/2026,1440 | 1441,"Coliform & E.coli (Membran Filter) | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...","1440 mikro AM (PDAM) -> AM.02/1440/2026 (Coliform & E.coli (Membran Filter))
+1441 kimia AM (PDAM) -> AM.01/1441/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+368,2026-04-10,"SR. Samsudi,","Perum Tidar Permai 01/02, Sukorejo, Mertoyudan",2,AM.02/1450/2026 | AM.01/1451/2026,1450 | 1451,"Coliform & E.coli (Membran Filter) | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...","1450 mikro AM (PDAM) -> AM.02/1450/2026 (Coliform & E.coli (Membran Filter))
+1451 kimia AM (PDAM) -> AM.01/1451/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+369,2026-04-10,SR. Suroto,Sogaten Jogonegoro,2,AM.02/1444/2026 | AM.01/1445/2026,1444 | 1445,"Coliform & E.coli (Membran Filter) | Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...","1444 mikro AM (PDAM) -> AM.02/1444/2026 (Coliform & E.coli (Membran Filter))
+1445 kimia AM (PDAM) -> AM.01/1445/2026 (Bau,Kekeruhan,Ph,Rasa,Sisa Klor,Suhu,Warna,Zat Ter ...)"
+370,2026-04-13,Kurnia Diki Prasetya,"SPPG Magelang, Mungkid, Pabelan 2",5,UA.02/1568/2026 | MM.02/1569/2026 | AM.02/1570/2026 | MM.01/1570/2026 | MM.02/1572/2026,1568 | 1569 | 1570 | 1570 | 1572,"Angka Kuman Alat,Sampling ... | E.coli (Makanan),Sampling ... | Coliform & E.coli (Membran Filter),Sampling ... | Formalin,Sampling ... | Coliform & E.coli (Membran Filter),Sampling ...","1568 mikro Usap Alat Ompreng -> UA.02/1568/2026 (Angka Kuman Alat,Sampling ...)
+1569 mikro MM Ayam Kecap -> MM.02/1569/2026 (E.coli (Makanan),Sampling ...)
+1570 mikro AM Galon -> AM.02/1570/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+1570 kimia MM Ayam Kecap -> MM.01/1570/2026 (Formalin,Sampling ...)
+1572 mikro AB Kran Cuci Alat -> MM.02/1572/2026 (Coliform & E.coli (Membran Filter),Sampling ...)"
+371,2026-04-13,Mohammad Najib,"Peternakan, Adikarto, Muntilan",1,MM.02/1573/2026,1573,"E.Coli,Sampling ...","1573 mikro AB Kran Toren -> MM.02/1573/2026 (E.Coli,Sampling ...)"
+372,2026-04-13,Puskesmas Mertoyudan I,JL Mayjend Bambang Sugeng KM 5 Mertoyudan,2,AM.02/1566/2026 | AM.01/1567/2026,1566 | 1567,Coliform & E.coli (Membran Filter) ... | AM Lengkap menurut permenkes NO 2 th 2023,"1566 mikro Air Minum -> AM.02/1566/2026 (Coliform & E.coli (Membran Filter) ...)
+1567 kimia Air Minum -> AM.01/1567/2026 (AM Lengkap menurut permenkes NO 2 th 2023)"
+373,2026-04-14,Disdagkop & UKM Kab. Magelang,"Jl. Soekarno - Hatta N0. 24 Sawitan, Kota Mungkid",11,MM.01/1584/2026 | MM.01/1585/2026 | MM.01/1586/2026 | MM.01/1587/2026 | MM.01/1588/2026 | MM.01/1589/2026 | MM.01/1590/2026 | MM.01/1591/2026 | MM.01/1592/2026 | MM.01/1593/2026 | MM.01/1594/2026,1584 | 1585 | 1586 | 1587 | 1588 | 1589 | 1590 | 1591 | 1592 | 1593 | 1594,Borax ... | Formalin ... | Borax ... | Pewarna Rhodamin B ... | Pewarna Rhodamin B ... | Pewarna Rhodamin B ... | Formalin ... | Pewarna Rhodamin B ... | Pewarna Rhodamin B ... | Formalin ... | Pewarna Rhodamin B ...,"1584 kimia Makanan -> MM.01/1584/2026 (Borax ...)
+1585 kimia Makanan -> MM.01/1585/2026 (Formalin ...)
+1586 kimia Makanan -> MM.01/1586/2026 (Borax ...)
+1587 kimia Makanan -> MM.01/1587/2026 (Pewarna Rhodamin B ...)
+1588 kimia Makanan -> MM.01/1588/2026 (Pewarna Rhodamin B ...)
+1589 kimia Makanan -> MM.01/1589/2026 (Pewarna Rhodamin B ...)
+1590 kimia Makanan -> MM.01/1590/2026 (Formalin ...)
+1591 kimia Makanan -> MM.01/1591/2026 (Pewarna Rhodamin B ...)
+1592 kimia Makanan -> MM.01/1592/2026 (Pewarna Rhodamin B ...)
+1593 kimia Makanan -> MM.01/1593/2026 (Formalin ...)
+1594 kimia Makanan -> MM.01/1594/2026 (Pewarna Rhodamin B ...)"
+374,2026-04-14,Ida Rusliyanti,"Kedungombo 04/01, Candirejo, Borobudur",2,MM.02/1582/2026 | MM.01/1583/2026,1582 | 1583,Angka Kuman | Ketengikan ...,"1582 mikro Makanan -> MM.02/1582/2026 (Angka Kuman)
+1583 kimia Makanan -> MM.01/1583/2026 (Ketengikan ...)"
+375,2026-04-15,Hotel Amanjiwo,Borobudur Magelang,4,AM.02/1603/2026 | AM.01/1604/2026 | AM.02/1605/2026 | AM.01/1606/2026,1603 | 1604 | 1605 | 1606,"Angka Kuman,Coliform & E.coli (Membran Filter) ... | Aluminium,Arsen,Bau,Besi,Flourida,Kadmium,Kekeruha ... | Angka Kuman,Coliform & E.coli (Membran Filter) ... | Aluminium,Arsen,Bau,Besi,Flourida,Kadmium,Kekeruha ...","1603 mikro Air Minum -> AM.02/1603/2026 (Angka Kuman,Coliform & E.coli (Membran Filter) ...)
+1604 kimia Air Minum -> AM.01/1604/2026 (Aluminium,Arsen,Bau,Besi,Flourida,Kadmium,Kekeruha ...)
+1605 mikro Air Minum -> AM.02/1605/2026 (Angka Kuman,Coliform & E.coli (Membran Filter) ...)
+1606 kimia Air Minum -> AM.01/1606/2026 (Aluminium,Arsen,Bau,Besi,Flourida,Kadmium,Kekeruha ...)"
+376,2026-04-15,Resep Lima Tujuh,"Jl. Damar No.6, Pondok Mertoyudan, Sejahtera, Mertoyudan",2,AH.02/1607/2026 | AH.01/1608/2026,1607 | 1608,"Coliform & E.coli (Membran Filter) ... | Bau,Besi,Kekeruhan,Kromium Valensi 6,Mangaan,Nitra ...","1607 mikro Air Bersih -> AH.02/1607/2026 (Coliform & E.coli (Membran Filter) ...)
+1608 kimia Air Bersih -> AH.01/1608/2026 (Bau,Besi,Kekeruhan,Kromium Valensi 6,Mangaan,Nitra ...)"
+377,2026-04-15,Shafira Fitri,"Jambu 03/01, Tempurrejo, Tempuran",2,MM.02/1600/2026 | MM.01/1601/2026,1600 | 1601,Angka Kuman ... | Ketengikan ...,"1600 mikro Makanan -> MM.02/1600/2026 (Angka Kuman ...)
+1601 kimia Makanan -> MM.01/1601/2026 (Ketengikan ...)"
+378,2026-04-16,CV. Al - Afiat,"Dsn. Keprekan 01/03, Bojong, Mungkid",2,AH.02/1615/2026 | AH.01/1616/2026,1615 | 1616,"Coliform & E.coli (Membran Filter),Sampling ... | AB Lengkap menurut permenkes NO 2 th 2023","1615 mikro Air Bersih -> AH.02/1615/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+1616 kimia Air Bersih -> AH.01/1616/2026 (AB Lengkap menurut permenkes NO 2 th 2023)"
+379,2026-04-16,Yulinda Pratiwi,"SPPG Magelang, Mungkid, Mendut",5,AH.02/1610/2026 | MM.01/1611/2026 | AM.02/1612/2026 | UA.02/1613/2026 | AH.02/1614/2026,1610 | 1611 | 1612 | 1613 | 1614,"E.coli (Makanan),Sampling ... | Formalin,Sampling ... | Coliform & E.coli (Membran Filter),Sampling ... | Angka Kuman Alat,Sampling ... | Coliform & E.coli (Membran Filter),Sampling ...","1610 mikro Air Bersih -> AH.02/1610/2026 (E.coli (Makanan),Sampling ...)
+1611 kimia Makanan -> MM.01/1611/2026 (Formalin,Sampling ...)
+1612 mikro Air Minum -> AM.02/1612/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+1613 mikro Usap -> UA.02/1613/2026 (Angka Kuman Alat,Sampling ...)
+1614 mikro Air Bersih -> AH.02/1614/2026 (Coliform & E.coli (Membran Filter),Sampling ...)"
+380,2026-04-17,Umi Maskanah,"Dsn. Babakan, 05/01, Madugondo, Kajoran",2,MM.02/1624/2026 | MM.02/1625/2026,1624 | 1625,Kapang | Kapang,"1624 mikro MM -> MM.02/1624/2026 (Kapang)
+1625 mikro MM -> MM.02/1625/2026 (Kapang)"
+381,2026-04-18,Inul Vizta Family KTV,"Jl. Mayjend. Bambang Soegeng No.71. 5, Mertoyudan, Magelang",1,AH.01/1632/2026,1632,"Bau,Besi,Kekeruhan,Ph,Warna ...","1632 kimia Air Bersih -> AH.01/1632/2026 (Bau,Besi,Kekeruhan,Ph,Warna ...)"
+382,2026-04-20,Agus gatot,"Rejomulyo 2, Sidoagung, Tempuran",2,AH.02/1646/2026 | AH.01/1647/2026,1646 | 1647,"Coliform & E.coli (Membran Filter),Sampling ... | Bau,Besi,Kekeruhan,Kromium Valensi 6,Mangaan,Nitra ...","1646 mikro Air Bersih -> AH.02/1646/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+1647 kimia Air Bersih -> AH.01/1647/2026 (Bau,Besi,Kekeruhan,Kromium Valensi 6,Mangaan,Nitra ...)"
+383,2026-04-20,PT Petrogas Prima Services,"Bojong, Mungkid, Magelang",4,AH.02/1648/2026 | AH.01/1649/2026 | AL.02/1650/2026 | AL.01/1651/2026,1648 | 1649 | 1650 | 1651,"Coliform (Air Limbah),Sampling ... | Bau,Besi,Detergent,Flourida,Kekeruhan,Kesadahan,Kr ... | Coliform (Air Limbah),Sampling ... | Ammoniak,Bau,BOD,COD,Ph,Sampling,TSS ...","1648 mikro Air Bersih -> AH.02/1648/2026 (Coliform (Air Limbah),Sampling ...)
+1649 kimia Air Bersih -> AH.01/1649/2026 (Bau,Besi,Detergent,Flourida,Kekeruhan,Kesadahan,Kr ...)
+1650 mikro Air Limbah -> AL.02/1650/2026 (Coliform (Air Limbah),Sampling ...)
+1651 kimia Air Limbah -> AL.01/1651/2026 (Ammoniak,Bau,BOD,COD,Ph,Sampling,TSS ...)"
+384,2026-04-20,Retno Mulyati,"Dsn. Trenten, 010/006, Trenten, Candimulyo",4,MM.02/1653/2026 | MM.01/1654/2026 | MM.02/1655/2026 | MM.01/1656/2026,1653 | 1654 | 1655 | 1656,Angka Kuman ... | Ketengikan ... | Angka Kuman ... | Angka Asam dalam lemak ...,"1653 mikro MM Kripik Tales -> MM.02/1653/2026 (Angka Kuman ...)
+1654 kimia Makanan -> MM.01/1654/2026 (Ketengikan ...)
+1655 mikro MM Stik Bawang -> MM.02/1655/2026 (Angka Kuman ...)
+1656 kimia Makanan -> MM.01/1656/2026 (Angka Asam dalam lemak ...)"
+385,2026-04-20,Riza Handayani,"Sangubanyu Utara 02/12, Banyuwangi, Bandongan",2,MM.02/1644/2026 | MM.01/1645/2026,1644 | 1645,E.coli (Makanan) ... | Formalin ...,"1644 mikro MM Abon Ayam -> MM.02/1644/2026 (E.coli (Makanan) ...)
+1645 kimia Makanan -> MM.01/1645/2026 (Formalin ...)"
+386,2026-04-20,Wafiyah,"Rambeanak IV, 03/07, Rambeanak, Mungkid",2,MM.02/1659/2026 | MM.01/1660/2026,1659 | 1660,Angka Kuman ... | Angka Asam dalam lemak ...,"1659 mikro MM Kripik Singkong -> MM.02/1659/2026 (Angka Kuman ...)
+1660 kimia Makanan -> MM.01/1660/2026 (Angka Asam dalam lemak ...)"
+387,2026-04-21,Bayu Aji Dermawan,"Seloiring, 002/003, Jumoyo, Salam",10,MM.02/1665/2026 | MM.01/1666/2026 | MM.02/1667/2026 | MM.01/1668/2026 | MM.02/1669/2026 | MM.01/1670/2026 | MM.02/1671/2026 | MM.01/1672/2026 | MM.02/1673/2026 | MM.01/1674/2026,1665 | 1666 | 1667 | 1668 | 1669 | 1670 | 1671 | 1672 | 1673 | 1674,E.coli (Makanan) ... | Ketengikan ... | Angka Kuman ... | Ketengikan ... | Parasit/ Jamur/ kapang acr ... | Sakarin ... | Parasit/ Jamur/ kapang acr ... | Ketengikan ... | Parasit/ Jamur/ kapang acr ... | Ketengikan ...,"1665 mikro Makanan -> MM.02/1665/2026 (E.coli (Makanan) ...)
+1666 kimia Makanan -> MM.01/1666/2026 (Ketengikan ...)
+1667 mikro Makanan -> MM.02/1667/2026 (Angka Kuman ...)
+1668 kimia Makanan -> MM.01/1668/2026 (Ketengikan ...)
+1669 mikro Makanan -> MM.02/1669/2026 (Parasit/ Jamur/ kapang acr ...)
+1670 kimia Makanan -> MM.01/1670/2026 (Sakarin ...)
+1671 mikro Makanan -> MM.02/1671/2026 (Parasit/ Jamur/ kapang acr ...)
+1672 kimia Makanan -> MM.01/1672/2026 (Ketengikan ...)
+1673 mikro Makanan -> MM.02/1673/2026 (Parasit/ Jamur/ kapang acr ...)
+1674 kimia Makanan -> MM.01/1674/2026 (Ketengikan ...)"
+388,2026-04-21,Damiu Tirta Sari,"Semaken, Pucungrejo",1,AM.02/1680/2026,1680,"Coliform,E.Coli ...","1680 mikro Air Minum -> AM.02/1680/2026 (Coliform,E.Coli ...)"
+389,2026-04-21,Etik Hendrawati,"Muntilan, Magelang",1,AH.02/1679/2026,1679,Coliform ...,1679 mikro Air Bersih -> AH.02/1679/2026 (Coliform ...)
+390,2026-04-21,Hengky Adrian Kleing,"SPPG Magelang,Muntilan, Ngawen",5,AH.02/1683/2026 | AM.02/1684/2026 | UA.02/1685/2026 | MM.02/1686/2026 | MM.01/1687/2026,1683 | 1684 | 1685 | 1686 | 1687,"Coliform & E.coli (Membran Filter),Sampling ... | Coliform & E.coli (Membran Filter),Sampling ... | Angka Kuman Alat,Sampling ... | E.coli (Makanan),Sampling ... | Formalin,Sampling ...","1683 mikro Air Bersih -> AH.02/1683/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+1684 mikro Air Minum -> AM.02/1684/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+1685 mikro Usap -> UA.02/1685/2026 (Angka Kuman Alat,Sampling ...)
+1686 mikro MM Ayam Goreng -> MM.02/1686/2026 (E.coli (Makanan),Sampling ...)
+1687 kimia MM Ayam Goreng -> MM.01/1687/2026 (Formalin,Sampling ...)"
+391,2026-04-21,Luthfan Fadhila,"SPPG Magelang, Pakis, Kaponan",5,AH.02/1688/2026 | AM.02/1689/2026 | UA.02/1690/2026 | MM.02/1691/2026 | MM.01/1692/2026,1688 | 1689 | 1690 | 1691 | 1692,"Coliform & E.coli (Membran Filter),Sampling ... | Coliform & E.coli (Membran Filter),Sampling ... | Angka Kuman Alat,Sampling ... | E.coli (Makanan),Sampling ... | Formalin,Sampling ...","1688 mikro Air Bersih -> AH.02/1688/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+1689 mikro Air Minum -> AM.02/1689/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+1690 mikro Usap -> UA.02/1690/2026 (Angka Kuman Alat,Sampling ...)
+1691 mikro MM Ayam Goreng -> MM.02/1691/2026 (E.coli (Makanan),Sampling ...)
+1692 kimia MM Ayam Goreng -> MM.01/1692/2026 (Formalin,Sampling ...)"
+392,2026-04-21,PT. Dasar Karya Utama,"Jl. Raya Magelang - Purworejo, KM. 10 Tempuran",2,AH.01/1681/2026 | AH.01/1682/2026,1681 | 1682,"Bau,Besi,Kekeruhan,Kromium Valensi 6,Mangaan,Nitra ... | Bau,Besi,Kekeruhan,Kromium Valensi 6,Mangaan,Nitra ...","1681 kimia Air Bersih -> AH.01/1681/2026 (Bau,Besi,Kekeruhan,Kromium Valensi 6,Mangaan,Nitra ...)
+1682 kimia Air Bersih -> AH.01/1682/2026 (Bau,Besi,Kekeruhan,Kromium Valensi 6,Mangaan,Nitra ...)"
+393,2026-04-21,Sudiyana,"Jl. Pendem KM 2 Ketonggo, 15/07, Tersangede, Salam",4,MM.02/1675/2026 | MM.01/1676/2026 | MM.02/1677/2026 | MM.01/1678/2026,1675 | 1676 | 1677 | 1678,Parasit/ Jamur/ kapang acr ... | Pewarna Rhodamin B ... | Parasit/ Jamur/ kapang acr ... | Ketengikan ...,"1675 mikro Makanan -> MM.02/1675/2026 (Parasit/ Jamur/ kapang acr ...)
+1676 kimia Makanan -> MM.01/1676/2026 (Pewarna Rhodamin B ...)
+1677 mikro Makanan -> MM.02/1677/2026 (Parasit/ Jamur/ kapang acr ...)
+1678 kimia Makanan -> MM.01/1678/2026 (Ketengikan ...)"
+394,2026-04-22,Dyah Amanda Noor Kartika,"Ngentak, Karangrejo, Blongkeng, Ngluwar",2,AH.02/1701/2026 | AH.01/1702/2026,1701 | 1702,"Coliform & E.coli (Membran Filter) ... | DO,Nitrat,Zat Terendap/ TDS ...","1701 mikro Air Bersih -> AH.02/1701/2026 (Coliform & E.coli (Membran Filter) ...)
+1702 kimia Air Bersih -> AH.01/1702/2026 (DO,Nitrat,Zat Terendap/ TDS ...)"
+395,2026-04-22,Fatlatur Rofiah,"Gleyoran, 01/01, Sambeng, Borobudur",2,MM.02/1703/2026 | MM.01/1704/2026,1703 | 1704,Angka Kuman ... | Borax ...,"1703 mikro Makanan -> MM.02/1703/2026 (Angka Kuman ...)
+1704 kimia Makanan -> MM.01/1704/2026 (Borax ...)"
+396,2026-04-22,Puskesmas Sawangan II,"Jl. Tembus Boyolali KM 6, Margowangsan, Sawangan",2,AM.02/1706/2026 | AM.01/1707/2026,1706 | 1707,"Coliform & E.coli (Membran Filter) ... | Aluminium,Arsen,Bau,Besi,Flourida,Kadmium,Kekeruha ...","1706 mikro Air Minum -> AM.02/1706/2026 (Coliform & E.coli (Membran Filter) ...)
+1707 kimia Air Minum -> AM.01/1707/2026 (Aluminium,Arsen,Bau,Besi,Flourida,Kadmium,Kekeruha ...)"
+397,2026-04-22,Sulastri,"Jetis II 20/10, Ngadirejo, Salaman",2,MM.02/1708/2026 | MM.01/1719/2026,1708 | 1719,Angka Kuman ... | Borax ...,"1708 mikro MM Keripik Usus -> MM.02/1708/2026 (Angka Kuman ...)
+1719 kimia MM Keripik Usus -> MM.01/1719/2026 (Borax ...)"
+398,2026-04-23,Robertus Baha Luon,"SPPG Magelang, Tempuran, Semberarum",5,AM.02/1717/2026 | AH.02/1718/2026 | UA.02/1719/2026 | MM.02/1720/2026 | MM.01/1721/2026,1717 | 1718 | 1719 | 1720 | 1721,"Coliform & E.coli (Membran Filter),Sampling ... | Coliform & E.coli (Membran Filter),Sampling ... | Angka Kuman Alat,Sampling ... | E.coli (Makanan) ... | Formalin,Sampling ...","1717 mikro Air Minum Galon -> AM.02/1717/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+1718 mikro Air Bersih -> AH.02/1718/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+1719 mikro Usap -> UA.02/1719/2026 (Angka Kuman Alat,Sampling ...)
+1720 mikro MM Ayam Goreng -> MM.02/1720/2026 (E.coli (Makanan) ...)
+1721 kimia MM Ayam Goreng -> MM.01/1721/2026 (Formalin,Sampling ...)"
+399,2026-04-25,Ahyari,"Sangubanyu Selatan, 02/13, Banyuwangi, Bandongan",2,MM.02/1748/2026 | MM.01/1749/2026,1748 | 1749,Salmonella spp ... | Formalin ...,"1748 mikro Makanan -> MM.02/1748/2026 (Salmonella spp ...)
+1749 kimia Makanan -> MM.01/1749/2026 (Formalin ...)"
+400,2026-04-25,Imam Suhadak,"Sangubanyu Utara 02/12, Banyuwangi, Bandongan",2,MM.02/1744/2026 | MM.01/1745/2026,1744 | 1745,Angka Kuman ... | Formalin ...,"1744 mikro Makanan -> MM.02/1744/2026 (Angka Kuman ...)
+1745 kimia Makanan -> MM.01/1745/2026 (Formalin ...)"
+401,2026-04-25,Jati Kusuma,"Kayuares, Banyuwangi, Bandongan",2,MM.02/1746/2026 | MM.01/1747/2026,1746 | 1747,Angka Kuman ... | Formalin ...,"1746 mikro Makanan -> MM.02/1746/2026 (Angka Kuman ...)
+1747 kimia Makanan -> MM.01/1747/2026 (Formalin ...)"
+402,2026-04-25,Mohammad Fajar Iqbal,"Jl. Mayor Humam No. 10 Pakelsari, Bulurejo, Mertoyudan",1,MM.01/1740/2026,1740,"Enzim diastase dalam madu,Kadar Air,Sakarin ...","1740 kimia Makanan -> MM.01/1740/2026 (Enzim diastase dalam madu,Kadar Air,Sakarin ...)"
+403,2026-04-25,Rahmat Susanto,"Ganjuran, 06/08, Sukorejo, Mertoyudan",1,MM.01/1743/2026,1743,Ketengikan ...,1743 kimia Makanan -> MM.01/1743/2026 (Ketengikan ...)
+404,2026-04-25,Slamet,"Sangubanyu Utara 02/12, Banyuwangi, Bandongan",2,MM.02/1750/2026 | MM.01/1751/2026,1750 | 1751,Angka Kuman ... | Formalin ...,"1750 mikro Makanan -> MM.02/1750/2026 (Angka Kuman ...)
+1751 kimia Makanan -> MM.01/1751/2026 (Formalin ...)"
+405,2026-04-25,Supriyanto,"Sangubanyu Utara 02/12, Banyuwangi, Bandongan",2,MM.02/1752/2026 | MM.01/1753/2026,1752 | 1753,Salmonella spp ... | Formalin ...,"1752 mikro Makanan -> MM.02/1752/2026 (Salmonella spp ...)
+1753 kimia Makanan -> MM.01/1753/2026 (Formalin ...)"
+406,2026-04-27,Alia Maira Maysara,"Sangubanyu Utara 02/12, Banyuwangi, Bandongan",2,MM.02/1793/2026 | MM.01/1794/2026,1793 | 1794,Salmonella spp ... | Formalin ...,"1793 mikro Makanan -> MM.02/1793/2026 (Salmonella spp ...)
+1794 kimia MM Abon Ayam -> MM.01/1794/2026 (Formalin ...)"
+407,2026-04-27,Muhammad Zhafran Anandita Haris,"Jomboran, 02/17, Keji, Muntilan",1,MM.01/1818/2026,1818,Ketengikan ...,1818 kimia MM Keripik Kentang -> MM.01/1818/2026 (Ketengikan ...)
+408,2026-04-27,PDAM Tirta Gemilang Makhoa,"Kota Mungkid, Magelang",8,AM.02/1783/2026 | AM.01/1784/2026 | AM.02/1785/2026 | AM.01/1786/2026 | AM.02/1787/2026 | AM.01/1788/2026 | AM.02/1789/2026 | AM.01/1790/2026,1783 | 1784 | 1785 | 1786 | 1787 | 1788 | 1789 | 1790,"Coliform & E.coli (Membran Filter) , Alt | Bau,Kekeruhan,Ph,Rasa,Suhu,Warna,Zat Terendap/ TDS ... | Coliform & E.coli (Membran Filter) , Alt | Bau,Kekeruhan,Ph,Rasa,Suhu,Warna,Zat Terendap/ TDS ... | Coliform & E.coli (Membran Filter) , Alt | Bau,Kekeruhan,Ph,Rasa,Suhu,Warna,Zat Terendap/ TDS ... | Coliform & E.coli (Membran Filter) , Alt | Bau,Kekeruhan,Ph,Rasa,Suhu,Warna,Zat Terendap/ TDS ...","1783 mikro AM CUP Kecil -> AM.02/1783/2026 (Coliform & E.coli (Membran Filter) , Alt)
+1784 kimia AM CUP Kecil -> AM.01/1784/2026 (Bau,Kekeruhan,Ph,Rasa,Suhu,Warna,Zat Terendap/ TDS ...)
+1785 mikro AM Cup Besar -> AM.02/1785/2026 (Coliform & E.coli (Membran Filter) , Alt)
+1786 kimia AM Cup Besar -> AM.01/1786/2026 (Bau,Kekeruhan,Ph,Rasa,Suhu,Warna,Zat Terendap/ TDS ...)
+1787 mikro AM Botol -> AM.02/1787/2026 (Coliform & E.coli (Membran Filter) , Alt)
+1788 kimia AM Botol -> AM.01/1788/2026 (Bau,Kekeruhan,Ph,Rasa,Suhu,Warna,Zat Terendap/ TDS ...)
+1789 mikro AM Galon -> AM.02/1789/2026 (Coliform & E.coli (Membran Filter) , Alt)
+1790 kimia AM Galon -> AM.01/1790/2026 (Bau,Kekeruhan,Ph,Rasa,Suhu,Warna,Zat Terendap/ TDS ...)"
+409,2026-04-28,Luthfan Fadhila,"SPPG Magelang, Pakis, Kaponan",1,AH.02/1811/2026,1811,"Coliform & E.coli (Membran Filter),Sampling ...","1811 mikro Air Bersih -> AH.02/1811/2026 (Coliform & E.coli (Membran Filter),Sampling ...)"
+410,2026-04-28,Muhammad Zhafran Anandita Haris,"Jomboran, 02/17, Keji, Muntilan",1,MM.02/1817/2026,1817,Angka Kuman ...,1817 mikro Makanan -> MM.02/1817/2026 (Angka Kuman ...)
+411,2026-04-28,Program Kesling Dinkes,"Jl. Soekarno Hatta No. 47, Sawitan, Mungkid, Kab. Magelang",6,AM.02/1819/2026 | AM.02/1820/2026 | AM.02/1821/2026 | AM.02/1822/2026 | AM.02/1823/2026 | AM.02/1824/2026,1819 | 1820 | 1821 | 1822 | 1823 | 1824,E.Coli ... | E.Coli ... | E.Coli ... | E.Coli ... | E.Coli ... | E.Coli ...,"1819 mikro Air Minum -> AM.02/1819/2026 (E.Coli ...)
+1820 mikro Air Minum -> AM.02/1820/2026 (E.Coli ...)
+1821 mikro Air Minum -> AM.02/1821/2026 (E.Coli ...)
+1822 mikro Air Minum -> AM.02/1822/2026 (E.Coli ...)
+1823 mikro Air Minum -> AM.02/1823/2026 (E.Coli ...)
+1824 mikro Air Minum -> AM.02/1824/2026 (E.Coli ...)"
+412,2026-04-28,Supardi Abdullah,"SPPG Magelang, Kaliangkrik, Maduretno",4,AH.02/1812/2026 | AM.02/1813/2026 | UA.02/1814/2026 | MM.02/1816/2026,1812 | 1813 | 1814 | 1816,"Coliform & E.coli (Membran Filter),Sampling ... | Coliform & E.coli (Membran Filter),Sampling ... | Angka Kuman Alat,Sampling ... | E.coli (Makanan),Sampling ...","1812 mikro Air Bersih -> AH.02/1812/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+1813 mikro Air Minum -> AM.02/1813/2026 (Coliform & E.coli (Membran Filter),Sampling ...)
+1814 mikro Usap -> UA.02/1814/2026 (Angka Kuman Alat,Sampling ...)
+1816 mikro Makanan -> MM.02/1816/2026 (E.coli (Makanan),Sampling ...)"
+413,2026-04-30,Fahmi Efendi,"Caban Jurang, Kartoharjo, Grabag",2,MM.02/1870/2026 | MM.01/1871/2026,1870 | 1871,Angka Kuman ... | Ketengikan ...,"1870 mikro MM Keripik Talas -> MM.02/1870/2026 (Angka Kuman ...)
+1871 kimia MM Keripik Talas -> MM.01/1871/2026 (Ketengikan ...)"
+414,2026-04-30,Muhammad Arif Luqman Hakim,"Gebrugan 01/08, Kebonagung, Bandongan",4,MM.02/1866/2026 | MM.01/1867/2026 | MM.02/1868/2026 | MM.01/1869/2026,1866 | 1867 | 1868 | 1869,Angka Kuman ... | Ketengikan ... | Jamur | Ketengikan ...,"1866 mikro MM Ceriping Ketela -> MM.02/1866/2026 (Angka Kuman ...)
+1867 kimia MM Ceriping Ketela -> MM.01/1867/2026 (Ketengikan ...)
+1868 mikro MM Ceriping Kimpul -> MM.02/1868/2026 (Jamur)
+1869 kimia MM Ceriping Kimpul -> MM.01/1869/2026 (Ketengikan ...)"
