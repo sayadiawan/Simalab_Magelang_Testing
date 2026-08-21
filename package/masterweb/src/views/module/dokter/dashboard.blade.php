@@ -705,8 +705,8 @@
                 <div class="card-body">
                     <h4 class="card-title">Peta Wilayah Melewati Baku Mutu</h4>
                     <p class="text-muted mb-2" style="font-size: 13px;">
-                        Pemutusan baku mutu sama seperti statistik: memakai baku mutu yang tersimpan pada hasil pemeriksaan (fallback umur/haji bila kosong).
-                        Titik hanya menampilkan daerah yang punya hasil di luar baku mutu; titik berhimpit digabung.
+                        Titik memakai centroid resmi kecamatan/desa Magelang (bukan koordinat acak).
+                        Pemutusan baku mutu sama seperti statistik. Titik berhimpit digabung; zoom out mengelompokkan titik berdekatan.
                     </p>
                     <div id="map"></div>
                 </div>
@@ -856,6 +856,14 @@
                 marker.bindPopup(buildPopupHtml(data));
                 searchLayer.addLayer(marker);
             });
+
+            if (mapData.length > 0 && searchLayer.getLayers().length > 0) {
+                try {
+                    map.fitBounds(searchLayer.getBounds().pad(0.12), { maxZoom: 13 });
+                } catch (e) {
+                    map.setView([-7.4797, 110.2177], 11);
+                }
+            }
 
             // Initialize search control after markers are added
             initializeMapSearch();

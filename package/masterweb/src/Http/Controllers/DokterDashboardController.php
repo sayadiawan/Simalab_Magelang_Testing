@@ -38,6 +38,9 @@ class DokterDashboardController extends Controller
     /** @var array Cache resolve alamat => wilayah */
     private $alamatWilayahCache = [];
 
+    /** @var array|null Indeks koordinat wilayah Magelang (by_code / by_name) */
+    private $wilayahCoordsIndex = null;
+
     /** @var string|null Filter gender: L | P | null (semua) */
     private $filterGender = null;
 
@@ -1201,7 +1204,7 @@ class DokterDashboardController extends Controller
         $groups = [];
         foreach ($mapData as $point) {
             // ~11m precision — titik berhimpit digabung
-            $key = round((float) $point['lat'], 4) . ':' . round((float) $point['lng'], 4);
+            $key = round((float) $point['lat'], 5) . ':' . round((float) $point['lng'], 5);
             if (!isset($groups[$key])) {
                 $groups[$key] = $point;
                 $groups[$key]['pasien_melewati_baku_mutu'] = (int) ($point['pasien_melewati_baku_mutu'] ?? 0);
@@ -1408,24 +1411,28 @@ class DokterDashboardController extends Controller
     }
 
     /**
-     * Koordinat wilayah tanpa HTTP Nominatim di request dashboard
-     * (geocode live sebelumnya membuat halaman sangat lambat).
+     * Koordinat wilayah: centroid resmi Magelang (kecamatan/desa),
+     * fallback induk kode, lalu lookup nama. Tanpa Nominatim live.
      */
     private function getWilayahCoordinates($wilayahName, $wilayahKode, $tipe)
     {
-        $cacheKey = 'dokter_dash_geo:' . $wilayahKode . ':' . $tipe;
+        $cacheKey = 'dokter_dash_geo_v2:' . $wilayahKode . ':' . $tipe;
         if (isset($this->geocodeRuntimeCache[$cacheKey])) {
             return $this->geocodeRuntimeCache[$cacheKey];
         }
 
-        $coords = Cache::remember($cacheKey, 60 * 60 * 24 * 30, function () use ($wilayahKode) {
-            $defaultLat = -7.4706;
-            $defaultLng = 110.2178;
-            $codeNum = (int) substr((string) $wilayahKode, -4);
-            $latRange = 0.4;
-            $lngRange = 0.4;
-            $latOffset = (($codeNum % 100) / 100) * $latRange - ($latRange / 2);
-            $lngOffset = ((floor($codeNum / 100) % 100) / 100) * $lngRange - ($lngRange / 2);
+        $coords = Cache::remember($cacheKey, 60 * 60 * 24 * 30, function () use ($wilayahName, $wilayahKode, $tipe) {
+            $found = $this->lookupWilayahCoordinates($wilayahName, $wilayahKode, $tipe);
+            if ($found) {
+                return $found;
+            }
+
+            // Fallback terakhir: sebaran kecil di sekitar pusat Magelang (hindari tumpuk exact)
+            $defaultLat = -7.4797;
+            $defaultLng = 110.2177;
+            $codeNum = abs(crc32((string) $wilayahKode));
+            $latOffset = (($codeNum % 1000) / 1000) * 0.08 - 0.04;
+            $lngOffset = (((int) floor($codeNum / 1000) % 1000) / 1000) * 0.08 - 0.04;
 
             return [
                 'lat' => $defaultLat + $latOffset,
@@ -1435,6 +1442,109 @@ class DokterDashboardController extends Controller
 
         $this->geocodeRuntimeCache[$cacheKey] = $coords;
         return $coords;
+    }
+
+    /**
+     * Lookup koordinat dari dataset lokal Magelang.
+     */
+    private function lookupWilayahCoordinates($wilayahName, $wilayahKode, $tipe)
+    {
+        $index = $this->loadWilayahCoordsIndex();
+        $byCode = $index['by_code'] ?? [];
+        $byName = $index['by_name'] ?? [];
+        $kode = preg_replace('/\D+/', '', (string) $wilayahKode);
+
+        // Exact + parent chain: DUSUN(13) → DESA(10) → KEC(7) → KAB(4)
+        $candidates = [];
+        if ($kode !== '') {
+            $candidates[] = $kode;
+            if (strlen($kode) >= 13) {
+                $candidates[] = substr($kode, 0, 10);
+            }
+            if (strlen($kode) >= 10) {
+                $candidates[] = substr($kode, 0, 7);
+            }
+            if (strlen($kode) >= 7) {
+                $candidates[] = substr($kode, 0, 4);
+            }
+        }
+
+        foreach (array_unique($candidates) as $code) {
+            if (isset($byCode[$code]) && is_array($byCode[$code]) && count($byCode[$code]) >= 2) {
+                return [
+                    'lat' => (float) $byCode[$code][0],
+                    'lng' => (float) $byCode[$code][1],
+                ];
+            }
+        }
+
+        // Lookup nama (untuk kode yang beda versi BPS)
+        $nameKey = $this->normalizeWilayahNameForGeo($wilayahName);
+        if ($nameKey !== '') {
+            $tipeKey = strtoupper((string) $tipe);
+            $suffixes = [];
+            if (in_array($tipeKey, ['KEC', 'KAB'], true)) {
+                $suffixes[] = 'kec';
+            } elseif (in_array($tipeKey, ['DESA', 'DUSUN', 'KEL'], true)) {
+                $suffixes[] = 'desa';
+                $suffixes[] = 'kec';
+            } else {
+                $suffixes = ['desa', 'kec'];
+            }
+            foreach ($suffixes as $suffix) {
+                $key = $nameKey . '|' . $suffix;
+                if (isset($byName[$key], $byCode[$byName[$key]])) {
+                    $pair = $byCode[$byName[$key]];
+                    return [
+                        'lat' => (float) $pair[0],
+                        'lng' => (float) $pair[1],
+                    ];
+                }
+            }
+        }
+
+        return null;
+    }
+
+    private function loadWilayahCoordsIndex()
+    {
+        if ($this->wilayahCoordsIndex !== null) {
+            return $this->wilayahCoordsIndex;
+        }
+
+        $paths = [
+            public_path('assets/admin/data/wilayah_coords_magelang.json'),
+            base_path('package/masterweb/src/public/assets/admin/data/wilayah_coords_magelang.json'),
+        ];
+
+        foreach ($paths as $path) {
+            if (is_readable($path)) {
+                $decoded = json_decode(file_get_contents($path), true);
+                if (is_array($decoded)) {
+                    // backward compat: flat map code => [lat,lng]
+                    if (!isset($decoded['by_code']) && !isset($decoded['by_name'])) {
+                        $decoded = ['by_code' => $decoded, 'by_name' => []];
+                    }
+                    $this->wilayahCoordsIndex = $decoded;
+                    return $this->wilayahCoordsIndex;
+                }
+            }
+        }
+
+        $this->wilayahCoordsIndex = ['by_code' => [], 'by_name' => []];
+        return $this->wilayahCoordsIndex;
+    }
+
+    private function normalizeWilayahNameForGeo($name)
+    {
+        $s = mb_strtolower(trim((string) $name), 'UTF-8');
+        foreach (['kelurahan ', 'desa ', 'kecamatan ', 'kec. ', 'kel. ', 'dusun '] as $prefix) {
+            if (strpos($s, $prefix) === 0) {
+                $s = substr($s, strlen($prefix));
+            }
+        }
+        $s = preg_replace('/\s+/u', ' ', $s);
+        return trim($s);
     }
 
     /**
