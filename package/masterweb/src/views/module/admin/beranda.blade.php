@@ -1263,22 +1263,40 @@
     @endif
     </div>
 
-  {{-- Grafik: tab Kesmas / Klinik --}}
+  {{-- Grafik: tab Kesmas / Klinik / Keuangan --}}
   @php
     $showChartKesmas = $showChartKesmas ?? true;
     $showChartKlinik = $showChartKlinik ?? true;
+    $showChartKeuangan = $showChartKeuangan ?? true;
     $defaultChartTab = $defaultChartTab ?? ($showChartKesmas ? 'kesmas' : 'klinik');
-    $activeChart = $defaultChartTab === 'klinik' ? 'klinik' : 'kesmas';
+    if ($defaultChartTab === 'keuangan' && $showChartKeuangan) {
+      $activeChart = 'keuangan';
+    } elseif ($defaultChartTab === 'klinik' && $showChartKlinik) {
+      $activeChart = 'klinik';
+    } elseif ($defaultChartTab === 'kesmas' && $showChartKesmas) {
+      $activeChart = 'kesmas';
+    } else {
+      $activeChart = $showChartKesmas ? 'kesmas' : 'klinik';
+    }
     $chartFrom = $chartFrom ?? now()->subMonths(11)->startOfMonth()->format('Y-m-d');
     $chartTo = $chartTo ?? now()->format('Y-m-d');
-    if ($activeChart === 'kesmas' && $showChartKesmas) {
+    $rangeLabel = \Carbon\Carbon::parse($chartFrom)->format('d/m/Y') . ' – ' . \Carbon\Carbon::parse($chartTo)->format('d/m/Y');
+    if ($activeChart === 'keuangan') {
+      $chartMonths = $chartKeuanganMonths ?? [];
+      $chartSeries = $chartKeuanganSeriesTotal ?? [];
+      $chartSampleLabels = $chartKeuanganLabels ?? [];
+      $chartSampleValues = $chartKeuanganValues ?? [];
+      $donutTitle = 'Komposisi pendapatan';
+      $donutSub = 'Total nota Kesmas vs Klinik';
+      $trendSub = 'Pendapatan (total nota) per bulan (' . $rangeLabel . ')';
+    } elseif ($activeChart === 'kesmas' && $showChartKesmas) {
       $chartMonths = $chartKesmasMonths ?? ($bulans ?? []);
       $chartSeries = $chartKesmasSeries ?? ($pendapatans ?? []);
       $chartSampleLabels = $chartKesmasLabels ?? ($sampleTypes ?? []);
       $chartSampleValues = $chartKesmasValues ?? ($countSample ?? []);
       $donutTitle = 'Komposisi sampel';
       $donutSub = 'Proporsi sampel berdasarkan jenis';
-      $trendSub = 'Volume permohonan uji Kesmas per bulan (' . \Carbon\Carbon::parse($chartFrom)->format('d/m/Y') . ' – ' . \Carbon\Carbon::parse($chartTo)->format('d/m/Y') . ')';
+      $trendSub = 'Volume permohonan uji Kesmas per bulan (' . $rangeLabel . ')';
     } else {
       $chartMonths = $chartKlinikMonths ?? ($bulans ?? []);
       $chartSeries = $chartKlinikSeries ?? ($pendapatans ?? []);
@@ -1286,7 +1304,7 @@
       $chartSampleValues = $chartKlinikValues ?? ($countSample ?? []);
       $donutTitle = 'Pemeriksaan Haji vs Non-Haji';
       $donutSub = 'Proporsi pemeriksaan klinik berdasarkan jenis';
-      $trendSub = 'Jumlah pemeriksaan klinik per bulan (' . \Carbon\Carbon::parse($chartFrom)->format('d/m/Y') . ' – ' . \Carbon\Carbon::parse($chartTo)->format('d/m/Y') . ')';
+      $trendSub = 'Jumlah pemeriksaan klinik per bulan (' . $rangeLabel . ')';
     }
     $chartTotalPermohonan = collect($chartSeries)->sum();
     $chartPeak = count($chartSeries) ? max($chartSeries) : 0;
@@ -1297,7 +1315,7 @@
       <div class="dash-charts-head">
         <div>
           <h3><i class="fas fa-chart-area"></i> Analitik laboratorium</h3>
-          <p>Pilih tab dan rentang tanggal untuk mengendalikan grafik <strong>Kesmas</strong> atau <strong>Klinik</strong>.</p>
+          <p>Pilih tab dan rentang tanggal untuk mengendalikan grafik <strong>Kesmas</strong>, <strong>Klinik</strong>, atau <strong>Keuangan</strong>.</p>
           <div class="dash-chart-tabs" role="tablist" aria-label="Jenis grafik">
             @if ($showChartKesmas)
               <button type="button" class="dash-chart-tab {{ $activeChart === 'kesmas' ? 'is-active' : '' }}" data-chart-tab="kesmas" role="tab" aria-selected="{{ $activeChart === 'kesmas' ? 'true' : 'false' }}">
@@ -1307,6 +1325,11 @@
             @if ($showChartKlinik)
               <button type="button" class="dash-chart-tab {{ $activeChart === 'klinik' ? 'is-active' : '' }}" data-chart-tab="klinik" role="tab" aria-selected="{{ $activeChart === 'klinik' ? 'true' : 'false' }}">
                 <i class="fas fa-notes-medical"></i> Grafik Klinik
+              </button>
+            @endif
+            @if ($showChartKeuangan ?? true)
+              <button type="button" class="dash-chart-tab {{ $activeChart === 'keuangan' ? 'is-active' : '' }}" data-chart-tab="keuangan" role="tab" aria-selected="{{ $activeChart === 'keuangan' ? 'true' : 'false' }}">
+                <i class="fas fa-coins"></i> Keuangan
               </button>
             @endif
           </div>
@@ -1346,7 +1369,7 @@
         <div class="dash-chart-card__top">
           <div class="dash-chart-card__title">
             <div>
-              <i class="fas fa-wave-square"></i> <span id="chartTrendHeading">Tren permohonan</span>
+              <i class="fas fa-wave-square"></i> <span id="chartTrendHeading">{{ $activeChart === 'keuangan' ? 'Tren pendapatan (total nota)' : ($activeChart === 'klinik' ? 'Tren pemeriksaan' : 'Tren permohonan') }}</span>
               <small id="chartTrendSub">{{ $trendSub }}</small>
             </div>
           </div>
@@ -1355,9 +1378,15 @@
           <canvas id="chartPendapatan"></canvas>
         </div>
         <div class="dash-chart-meta">
-          <span class="dash-chart-pill">Total <strong id="metaTrendTotal">{{ number_format($chartTotalPermohonan) }}</strong></span>
-          <span class="dash-chart-pill">Puncak <strong id="metaTrendPeak">{{ number_format($chartPeak) }}</strong></span>
-          <span class="dash-chart-pill">Rata-rata <strong id="metaTrendAvg">{{ $chartAvg }}</strong>/bln</span>
+          @if ($activeChart === 'keuangan')
+            <span class="dash-chart-pill">Total <strong id="metaTrendTotal">Rp {{ number_format($chartTotalPermohonan, 0, ',', '.') }}</strong></span>
+            <span class="dash-chart-pill">Puncak <strong id="metaTrendPeak">Rp {{ number_format($chartPeak, 0, ',', '.') }}</strong></span>
+            <span class="dash-chart-pill">Rata-rata <strong id="metaTrendAvg">Rp {{ number_format(round($chartAvg), 0, ',', '.') }}</strong>/bln</span>
+          @else
+            <span class="dash-chart-pill">Total <strong id="metaTrendTotal">{{ number_format($chartTotalPermohonan) }}</strong></span>
+            <span class="dash-chart-pill">Puncak <strong id="metaTrendPeak">{{ number_format($chartPeak) }}</strong></span>
+            <span class="dash-chart-pill">Rata-rata <strong id="metaTrendAvg">{{ $chartAvg }}</strong>/bln</span>
+          @endif
         </div>
       </div>
 
@@ -1375,7 +1404,11 @@
         </div>
         <div class="dash-chart-meta">
           <span class="dash-chart-pill">Jenis <strong id="metaDonutKinds">{{ count($chartSampleLabels) }}</strong></span>
-          <span class="dash-chart-pill">Total <strong id="metaDonutTotal">{{ number_format($chartSampleTotal) }}</strong></span>
+          @if ($activeChart === 'keuangan')
+            <span class="dash-chart-pill">Total <strong id="metaDonutTotal">Rp {{ number_format($chartSampleTotal, 0, ',', '.') }}</strong></span>
+          @else
+            <span class="dash-chart-pill">Total <strong id="metaDonutTotal">{{ number_format($chartSampleTotal) }}</strong></span>
+          @endif
         </div>
       </div>
 
@@ -1514,6 +1547,7 @@
           paketLabels: [],
           paketValues: [],
           showPaket: false,
+          money: false,
           trendSub: 'Volume permohonan uji Kesmas per bulan ({{ \Carbon\Carbon::parse($chartFrom)->format('d/m/Y') }} – {{ \Carbon\Carbon::parse($chartTo)->format('d/m/Y') }})',
           donutTitle: 'Komposisi sampel',
           donutSub: 'Proporsi sampel berdasarkan jenis'
@@ -1529,15 +1563,37 @@
           paketLabels: {!! json_encode($chartKlinikPaketLabels ?? []) !!},
           paketValues: {!! json_encode($chartKlinikPaketValues ?? []) !!},
           showPaket: true,
+          money: false,
           trendSub: 'Jumlah pemeriksaan klinik per bulan ({{ \Carbon\Carbon::parse($chartFrom)->format('d/m/Y') }} – {{ \Carbon\Carbon::parse($chartTo)->format('d/m/Y') }})',
           donutTitle: 'Pemeriksaan Haji vs Non-Haji',
           donutSub: 'Proporsi pemeriksaan klinik berdasarkan jenis'
+        },
+        keuangan: {
+          months: {!! json_encode($chartKeuanganMonths ?? []) !!},
+          series: {!! json_encode($chartKeuanganSeriesTotal ?? []) !!},
+          seriesKesmas: {!! json_encode($chartKeuanganSeriesKesmas ?? []) !!},
+          seriesKlinik: {!! json_encode($chartKeuanganSeriesKlinik ?? []) !!},
+          multi: true,
+          keuangan: true,
+          money: true,
+          showKesmas: {!! json_encode((bool) ($showChartKesmas ?? true)) !!},
+          labels: {!! json_encode($chartKeuanganLabels ?? []) !!},
+          values: {!! json_encode($chartKeuanganValues ?? []) !!},
+          paketLabels: [],
+          paketValues: [],
+          showPaket: false,
+          trendSub: 'Pendapatan sesuai total nota per bulan ({{ \Carbon\Carbon::parse($chartFrom)->format('d/m/Y') }} – {{ \Carbon\Carbon::parse($chartTo)->format('d/m/Y') }})',
+          donutTitle: 'Komposisi pendapatan',
+          donutSub: 'Total nota Kesmas vs Klinik · Kesmas {{ number_format($jumlahNotaKesmas ?? 0) }} nota · Klinik {{ number_format($jumlahNotaKlinik ?? 0) }} nota'
         }
       };
 
       var activeTab = {!! json_encode($defaultChartTab ?? 'kesmas') !!};
       if (!datasets[activeTab] || (activeTab === 'kesmas' && !{!! json_encode((bool) ($showChartKesmas ?? true)) !!})) {
-        activeTab = 'klinik';
+        activeTab = datasets.keuangan ? 'keuangan' : 'klinik';
+        if (activeTab === 'keuangan' && !{!! json_encode((bool) ($showChartKeuangan ?? true)) !!}) {
+          activeTab = 'klinik';
+        }
       }
 
       var brand = {
@@ -1554,6 +1610,9 @@
       var chartPaket = null;
 
       function fmt(n) { return Number(n || 0).toLocaleString('id-ID'); }
+      function fmtRp(n) {
+        return 'Rp ' + Number(n || 0).toLocaleString('id-ID', { maximumFractionDigits: 0 });
+      }
       function summarize(series) {
         var total = series.reduce(function (a, b) { return a + Number(b || 0); }, 0);
         var peak = series.length ? Math.max.apply(null, series.map(Number)) : 0;
@@ -1569,7 +1628,9 @@
       }
       function updateMeta(pack) {
         var seriesForMeta = pack.series || [];
-        if (pack.multi) {
+        if (pack.keuangan) {
+          seriesForMeta = pack.series || [];
+        } else if (pack.multi) {
           seriesForMeta = (pack.months || []).map(function (_, i) {
             return Number((pack.seriesHaji || [])[i] || 0) + Number((pack.seriesNonHaji || [])[i] || 0);
           });
@@ -1577,19 +1638,52 @@
         var s = summarize(seriesForMeta);
         var donutTotal = (pack.values || []).reduce(function (a, b) { return a + Number(b || 0); }, 0);
         var el;
-        if ((el = document.getElementById('metaTrendTotal'))) el.textContent = fmt(s.total);
-        if ((el = document.getElementById('metaTrendPeak'))) el.textContent = fmt(s.peak);
-        if ((el = document.getElementById('metaTrendAvg'))) el.textContent = s.avg;
+        var asMoney = !!pack.money;
+        if ((el = document.getElementById('metaTrendTotal'))) el.textContent = asMoney ? fmtRp(s.total) : fmt(s.total);
+        if ((el = document.getElementById('metaTrendPeak'))) el.textContent = asMoney ? fmtRp(s.peak) : fmt(s.peak);
+        if ((el = document.getElementById('metaTrendAvg'))) el.textContent = asMoney ? fmtRp(Math.round(s.avg)) : s.avg;
         if ((el = document.getElementById('metaDonutKinds'))) el.textContent = (pack.labels || []).length;
-        if ((el = document.getElementById('metaDonutTotal'))) el.textContent = fmt(donutTotal);
+        if ((el = document.getElementById('metaDonutTotal'))) el.textContent = asMoney ? fmtRp(donutTotal) : fmt(donutTotal);
         if ((el = document.getElementById('chartTrendSub'))) el.textContent = pack.trendSub;
         if ((el = document.getElementById('chartDonutHeading'))) el.textContent = pack.donutTitle;
         if ((el = document.getElementById('chartDonutSub'))) el.textContent = pack.donutSub;
         if ((el = document.getElementById('chartTrendHeading'))) {
-          el.textContent = pack.multi ? 'Tren pemeriksaan' : 'Tren permohonan';
+          el.textContent = pack.keuangan ? 'Tren pendapatan (total nota)' : (pack.multi ? 'Tren pemeriksaan' : 'Tren permohonan');
         }
       }
       function buildTrendDatasets(pack) {
+        if (pack.keuangan) {
+          var sets = [];
+          if (pack.showKesmas) {
+            sets.push({
+              label: 'Kesmas',
+              data: pack.seriesKesmas || [],
+              borderColor: brand.mint,
+              borderWidth: 3,
+              fill: false,
+              tension: 0.42,
+              pointRadius: 4,
+              pointHoverRadius: 7,
+              pointBackgroundColor: brand.white,
+              pointBorderColor: brand.mint,
+              pointBorderWidth: 3
+            });
+          }
+          sets.push({
+            label: 'Klinik',
+            data: pack.seriesKlinik || [],
+            borderColor: '#f59e0b',
+            borderWidth: 3,
+            fill: false,
+            tension: 0.42,
+            pointRadius: 4,
+            pointHoverRadius: 7,
+            pointBackgroundColor: brand.white,
+            pointBorderColor: '#f59e0b',
+            pointBorderWidth: 3
+          });
+          return sets;
+        }
         if (pack.multi) {
           return [
             {
@@ -1658,6 +1752,14 @@
           chartTrend.data.labels = pack.months || [];
           chartTrend.data.datasets = buildTrendDatasets(pack);
           chartTrend.options.plugins.legend.display = !!pack.multi;
+          chartTrend.options.plugins.tooltip.callbacks.label = function (ctx) {
+            var unit = pack.money ? '' : ' pemeriksaan';
+            var val = pack.money ? fmtRp(ctx.parsed.y) : (ctx.parsed.y.toLocaleString('id-ID') + unit);
+            return ' ' + (ctx.dataset.label || (pack.money ? 'Pendapatan' : 'Pemeriksaan')) + ': ' + val;
+          };
+          chartTrend.options.scales.y.ticks.callback = function (value) {
+            return pack.money ? fmtRp(value) : value;
+          };
           chartTrend.update();
         }
         if (chartSample) {
@@ -1666,6 +1768,12 @@
           chartSample.data.datasets[0].backgroundColor = (pack.labels || []).map(function (_, i) {
             return palette[i % palette.length];
           });
+          chartSample.options.plugins.tooltip.callbacks = chartSample.options.plugins.tooltip.callbacks || {};
+          chartSample.options.plugins.tooltip.callbacks.label = function (ctx) {
+            var v = Number(ctx.parsed || ctx.raw || 0);
+            return ' ' + ctx.label + ': ' + (pack.money ? fmtRp(v) : v.toLocaleString('id-ID'));
+          };
+          chartSample._isMoney = !!pack.money;
           chartSample.update();
         }
         var paketCard = document.getElementById('cardChartPaket');
@@ -1715,7 +1823,7 @@
         c.fillText('SIMLAB', padX, 42);
         c.fillStyle = dark ? brand.mint : brand.teal;
         c.font = '600 14px Manrope, Segoe UI, sans-serif';
-        c.fillText('Lingkungan pengujian · Analitik ' + (activeTab === 'klinik' ? 'Klinik' : 'Kesmas'), padX, 66);
+        c.fillText('Lingkungan pengujian · Analitik ' + (activeTab === 'keuangan' ? 'Keuangan' : (activeTab === 'klinik' ? 'Klinik' : 'Kesmas')), padX, 66);
         c.drawImage(sourceCanvas, padX, padTop, w - padX * 2, Math.round(sourceCanvas.height * scale));
         c.fillStyle = dark ? 'rgba(255,255,255,0.55)' : '#5c6d75';
         c.font = '500 12px Manrope, Segoe UI, sans-serif';
@@ -1749,7 +1857,7 @@
         c.fillText('SIMLAB', padX, 40);
         c.font = '600 14px Manrope, Segoe UI, sans-serif';
         c.fillStyle = 'rgba(255,255,255,0.85)';
-        c.fillText('Laporan analitik ' + (activeTab === 'klinik' ? 'Klinik' : 'Kesmas') + ' · Lingkungan pengujian', padX, 64);
+        c.fillText('Laporan analitik ' + (activeTab === 'keuangan' ? 'Keuangan' : (activeTab === 'klinik' ? 'Klinik' : 'Kesmas')) + ' · Lingkungan pengujian', padX, 64);
         function roundRect(ctx, x, y, w, h, r, fill) {
           ctx.beginPath();
           ctx.moveTo(x + r, y);
@@ -1799,13 +1907,28 @@
                 displayColors: true,
                 callbacks: {
                   label: function (ctx) {
+                    var pack = datasets[activeTab] || {};
+                    if (pack.money) {
+                      return ' ' + (ctx.dataset.label || 'Pendapatan') + ': ' + fmtRp(ctx.parsed.y);
+                    }
                     return ' ' + (ctx.dataset.label || 'Pemeriksaan') + ': ' + ctx.parsed.y.toLocaleString('id-ID') + ' pemeriksaan';
                   }
                 }
               }
             },
             scales: {
-              y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.08)', drawBorder: false }, ticks: { color: 'rgba(255,255,255,0.75)', font: { size: 11, weight: '600' } } },
+              y: {
+                beginAtZero: true,
+                grid: { color: 'rgba(255,255,255,0.08)', drawBorder: false },
+                ticks: {
+                  color: 'rgba(255,255,255,0.75)',
+                  font: { size: 11, weight: '600' },
+                  callback: function (value) {
+                    var pack = datasets[activeTab] || {};
+                    return pack.money ? fmtRp(value) : value;
+                  }
+                }
+              },
               x: { grid: { display: false }, ticks: { color: 'rgba(255,255,255,0.8)', font: { size: 11, weight: '600' } } }
             }
           }
@@ -1844,8 +1967,9 @@
               c.save();
               c.textAlign = 'center'; c.textBaseline = 'middle';
               c.fillStyle = '#0b3a5c';
-              c.font = '800 22px Manrope, Segoe UI, sans-serif';
-              c.fillText(total.toLocaleString('id-ID'), width / 2, height / 2 - 6);
+              c.font = '800 18px Manrope, Segoe UI, sans-serif';
+              var centerVal = chart._isMoney ? ('Rp ' + total.toLocaleString('id-ID', { maximumFractionDigits: 0 })) : total.toLocaleString('id-ID');
+              c.fillText(centerVal, width / 2, height / 2 - 6);
               c.fillStyle = '#5c6d75';
               c.font = '600 11px Manrope, Segoe UI, sans-serif';
               c.fillText('total', width / 2, height / 2 + 14);
@@ -1907,6 +2031,14 @@
       }
 
       updateMeta(initPack);
+      if (chartSample) {
+        chartSample._isMoney = !!(initPack && initPack.money);
+      }
+      var paketCardInit = document.getElementById('cardChartPaket');
+      if (paketCardInit) {
+        if (initPack && initPack.showPaket) paketCardInit.classList.remove('is-hidden');
+        else paketCardInit.classList.add('is-hidden');
+      }
       document.querySelectorAll('.dash-chart-tab').forEach(function (btn) {
         btn.addEventListener('click', function () { applyDataset(btn.getAttribute('data-chart-tab')); });
       });

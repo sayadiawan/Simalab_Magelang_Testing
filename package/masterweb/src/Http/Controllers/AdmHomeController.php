@@ -405,8 +405,97 @@ class AdmHomeController extends Controller
 
     $showChartKesmas = !($isDKTR || $isKLI);
     $showChartKlinik = true;
+    $showChartKeuangan = true;
+
+    // —— Tab Keuangan: pendapatan sesuai total nota ——
+    $keuanganMonths = [];
+    $cursorMonth = $chartStart->copy()->startOfMonth();
+    $endMonth = $chartEnd->copy()->startOfMonth();
+    while ($cursorMonth->lte($endMonth)) {
+      $keuanganMonths[] = $cursorMonth->format('Y-m');
+      $cursorMonth->addMonth();
+    }
+
+    $kesmasMap = [];
+    if ($showChartKesmas) {
+      $kesmasRows = PermohonanUji::query()
+        ->select(
+          DB::raw('DATE_FORMAT(created_at, "%Y-%m") as bulan'),
+          DB::raw('COALESCE(SUM(total_harga), 0) as total_nota'),
+          DB::raw('COUNT(*) as jumlah_nota')
+        )
+        ->whereNull('deleted_at')
+        ->whereBetween('created_at', [$chartStart, $chartEnd])
+        ->groupBy(DB::raw('DATE_FORMAT(created_at, "%Y-%m")'))
+        ->orderBy('bulan')
+        ->get();
+      foreach ($kesmasRows as $row) {
+        $kesmasMap[$row->bulan] = [
+          'total' => (float) $row->total_nota,
+          'count' => (int) $row->jumlah_nota,
+        ];
+      }
+    }
+
+    $klinikMap = [];
+    $klinikKeuanganQuery = PermohonanUjiKlinik2::query()
+      ->select(
+        DB::raw('DATE_FORMAT(COALESCE(tglregister_permohonan_uji_klinik, created_at), "%Y-%m") as bulan'),
+        DB::raw('COALESCE(SUM(total_harga_permohonan_uji_klinik), 0) as total_nota'),
+        DB::raw('COUNT(*) as jumlah_nota')
+      )
+      ->whereNull('deleted_at')
+      ->whereRaw('COALESCE(tglregister_permohonan_uji_klinik, created_at) BETWEEN ? AND ?', [
+        $chartStart,
+        $chartEnd,
+      ]);
+    if ($isDKTR) {
+      $klinikKeuanganQuery->where('doctor_type', 'lab');
+    }
+    $klinikKeuanganRows = $klinikKeuanganQuery
+      ->groupBy(DB::raw('DATE_FORMAT(COALESCE(tglregister_permohonan_uji_klinik, created_at), "%Y-%m")'))
+      ->orderBy('bulan')
+      ->get();
+    foreach ($klinikKeuanganRows as $row) {
+      $klinikMap[$row->bulan] = [
+        'total' => (float) $row->total_nota,
+        'count' => (int) $row->jumlah_nota,
+      ];
+    }
+
+    $chartKeuanganMonths = $keuanganMonths;
+    $chartKeuanganSeriesKesmas = [];
+    $chartKeuanganSeriesKlinik = [];
+    $chartKeuanganSeriesTotal = [];
+    $totalPendapatanKesmas = 0.0;
+    $totalPendapatanKlinik = 0.0;
+    $jumlahNotaKesmas = 0;
+    $jumlahNotaKlinik = 0;
+    foreach ($keuanganMonths as $bulan) {
+      $k = (float) ($kesmasMap[$bulan]['total'] ?? 0);
+      $c = (float) ($klinikMap[$bulan]['total'] ?? 0);
+      $chartKeuanganSeriesKesmas[] = $k;
+      $chartKeuanganSeriesKlinik[] = $c;
+      $chartKeuanganSeriesTotal[] = $k + $c;
+      $totalPendapatanKesmas += $k;
+      $totalPendapatanKlinik += $c;
+      $jumlahNotaKesmas += (int) ($kesmasMap[$bulan]['count'] ?? 0);
+      $jumlahNotaKlinik += (int) ($klinikMap[$bulan]['count'] ?? 0);
+    }
+
+    $chartKeuanganLabels = [];
+    $chartKeuanganValues = [];
+    if ($showChartKesmas) {
+      $chartKeuanganLabels[] = 'Kesmas';
+      $chartKeuanganValues[] = $totalPendapatanKesmas;
+    }
+    $chartKeuanganLabels[] = 'Klinik';
+    $chartKeuanganValues[] = $totalPendapatanKlinik;
+
     $requestedTab = $request->query('chart_tab');
-    if ($requestedTab === 'klinik' && $showChartKlinik) {
+    if ($requestedTab === 'keuangan' && $showChartKeuangan) {
+      $defaultChartTab = 'keuangan';
+    } elseif ($requestedTab === 'klinik' && $showChartKlinik) {
       $defaultChartTab = 'klinik';
     } elseif ($requestedTab === 'kesmas' && $showChartKesmas) {
       $defaultChartTab = 'kesmas';
@@ -446,8 +535,19 @@ class AdmHomeController extends Controller
         'chartKlinikValues',
         'chartKlinikPaketLabels',
         'chartKlinikPaketValues',
+        'chartKeuanganMonths',
+        'chartKeuanganSeriesKesmas',
+        'chartKeuanganSeriesKlinik',
+        'chartKeuanganSeriesTotal',
+        'chartKeuanganLabels',
+        'chartKeuanganValues',
+        'totalPendapatanKesmas',
+        'totalPendapatanKlinik',
+        'jumlahNotaKesmas',
+        'jumlahNotaKlinik',
         'showChartKesmas',
         'showChartKlinik',
+        'showChartKeuangan',
         'defaultChartTab',
         'chartFrom',
         'chartTo'
