@@ -2,6 +2,9 @@
 <html lang="id">
 
 <head>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('assets/mobile/css/simlab-mobile-theme.css') }}?v={{ @filemtime(public_path('assets/mobile/css/simlab-mobile-theme.css')) ?: time() }}">
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -15,7 +18,7 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: linear-gradient(135deg, #2D6BCF 0%, #1e4a9e 100%);
+            background: linear-gradient(135deg, #06283f 0%, #0b3a5c 48%, #0d8f7f 100%);
             min-height: 100vh;
             padding: 20px;
             display: flex;
@@ -74,12 +77,12 @@
             padding: 15px;
             border-radius: 12px;
             margin-bottom: 20px;
-            border-left: 4px solid #2D6BCF;
+            border-left: 4px solid #0b3a5c;
         }
 
         .patient-info h3 {
             font-size: 14px;
-            color: #2D6BCF;
+            color: #0b3a5c;
             margin-bottom: 12px;
             font-weight: 600;
         }
@@ -134,8 +137,8 @@
 
         .form-control:focus {
             outline: none;
-            border-color: #2D6BCF;
-            box-shadow: 0 0 0 3px rgba(45, 107, 207, 0.1);
+            border-color: #0b3a5c;
+            box-shadow: 0 0 0 3px rgba(11, 58, 92, 0.1);
         }
 
         .form-text {
@@ -161,7 +164,7 @@
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #2D6BCF 0%, #1e4a9e 100%);
+            background: linear-gradient(135deg, #06283f 0%, #0b3a5c 48%, #0d8f7f 100%);
             color: white;
         }
 
@@ -201,7 +204,7 @@
                 👨‍⚕️
             </div>
             <h1>INPUT DIAGNOSIS</h1>
-            <p>Laboratorium Kesehatan Daerah<br>Kabupaten Magelang</p>
+            <p>Laboratorium SIMLAB<br>Lingkungan pengujian</p>
         </div>
 
         <div class="card">

@@ -457,7 +457,7 @@
                 }
                 // dd($tanggal_validasi);
             @endphp
-            <td width="30%" style="text-align: center">Kota Mungkid,
+            <td width="30%" style="text-align: center">—,
                 {{ isset($tanggal_validasi)
                     ? \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $tanggal_validasi)->isoFormat('D MMMM Y')
                     : '-' }}

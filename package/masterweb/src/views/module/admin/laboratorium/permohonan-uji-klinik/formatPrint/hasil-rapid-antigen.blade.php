@@ -46,7 +46,7 @@
     <div style="margin-left: 3em">
         <p class="nospace"> Berdasarkan pemeriksaan Rapid Antigen Covid-19 yang dilaksanakan pada tanggal 01 Maret 2023,
             Jam
-            : 09.12 WIB di Laboratorium kesehatan Magelang, bersama ini menerangkan bahwa : </p>
+            : 09.12 WIB di Laboratorium kesehatan —, bersama ini menerangkan bahwa : </p>
         <table style="margin-left: 3em">
             <tr>
                 <td> Nama </td>
@@ -77,7 +77,7 @@
     </div>
 
     <div class="" style="float: right; text-align: center; margin-right: 3em; max-width: 20em">
-        <p> Magelang, 01 Maret 2023 </p>
+        <p> —, 01 Maret 2023 </p>
         <p> KEPALA LABORATORIUM KESEHATAN KABUPATEN BOYOLALI </p>
         <br>
         <br>
@@ -388,7 +388,7 @@
 
         <table width="100%" cellspacing="0" cellpadding="0" style="margin-top: 5px">
             <tr>
-                <td style="text-align: right">Magelang, {{ fdate_sas(date('Y-m-d'), 'DDMMYYYY') }}</td>
+                <td style="text-align: right">—, {{ fdate_sas(date('Y-m-d'), 'DDMMYYYY') }}</td>
             </tr>
         </table>
 

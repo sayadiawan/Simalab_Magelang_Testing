@@ -214,7 +214,7 @@ class AdmSatuSehatLocationController extends Controller
         ],
         'status' => $data['status'] ?? 'active',
         'name' => $data['name_satusehat_location'],
-        'description' => $data['description'] ?? $data['name_satusehat_location'] . ' Laboratorium Kesehatan Kabupaten Magelang',
+        'description' => $data['description'] ?? $data['name_satusehat_location'] . ' Laboratorium SIMLAB',
         'mode' => 'instance',
         'physicalType' => [
           'coding' => [
@@ -331,7 +331,7 @@ class AdmSatuSehatLocationController extends Controller
         ],
         'status' => $data['status'] ?? 'active',
         'name' => $data['name_satusehat_location'],
-        'description' => $data['description'] ?? $data['name_satusehat_location'] . ' Laboratorium Kesehatan Kabupaten Magelang',
+        'description' => $data['description'] ?? $data['name_satusehat_location'] . ' Laboratorium SIMLAB',
         'mode' => 'instance',
         'physicalType' => [
           'coding' => [

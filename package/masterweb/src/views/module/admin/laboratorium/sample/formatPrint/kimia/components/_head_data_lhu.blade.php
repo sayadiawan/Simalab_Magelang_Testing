@@ -47,7 +47,7 @@
         }
     }
     if ($pengirim === '' || $pengirim === null) {
-        $pengirim = 'Petugas Dinas Kesehatan Kabupaten Magelang';
+        $pengirim = 'Petugas laboratorium';
     }
 
     if (isset($firstSample->datesampling_samples)) {

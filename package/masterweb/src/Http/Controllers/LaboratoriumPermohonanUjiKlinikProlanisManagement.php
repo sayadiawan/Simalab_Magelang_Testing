@@ -510,7 +510,7 @@ class LaboratoriumPermohonanUjiKlinikProlanisManagement extends Controller
               //simpan verifikkasi
               // Data untuk setiap aktivitas verifikasi
               $activities = [
-                ['id_verification_activity' => 1, 'date' => $tgl_registrasi, 'nama_petugas' => 'Muhammad Fauzan'], // pendaftaran/registrasi
+                ['id_verification_activity' => 1, 'date' => $tgl_registrasi, 'nama_petugas' => 'PETUGAS DUMMY 10'], // pendaftaran/registrasi
                 ['id_verification_activity' => 6, 'date' => $tgl_registrasi, 'nama_petugas' => 'Tatin Prastyo Meiningsih'], // pengambilan sample
                 ['id_verification_activity' => 2, 'date' => $tgl_registrasi, 'nama_petugas' => 'Hewi Yuliati'], // Pemeriksaan / Analitik
                 ['id_verification_activity' => 3, 'date' => $tgl_registrasi, 'nama_petugas' => 'Hewi Yuliati'], // pengambilan sample
@@ -883,7 +883,7 @@ class LaboratoriumPermohonanUjiKlinikProlanisManagement extends Controller
 
           // Simpan verifikasi
           $activities = [
-            ['id_verification_activity' => 1, 'date' => $tgl_registrasi, 'nama_petugas' => 'Muhammad Fauzan'],
+            ['id_verification_activity' => 1, 'date' => $tgl_registrasi, 'nama_petugas' => 'PETUGAS DUMMY 10'],
             ['id_verification_activity' => 6, 'date' => $tgl_registrasi, 'nama_petugas' => 'Tatin Prastyo Meiningsih'],
             ['id_verification_activity' => 2, 'date' => $tgl_registrasi, 'nama_petugas' => 'Hewi Yuliati'],
             ['id_verification_activity' => 3, 'date' => $tgl_registrasi, 'nama_petugas' => 'Hewi Yuliati'],
@@ -1321,7 +1321,7 @@ class LaboratoriumPermohonanUjiKlinikProlanisManagement extends Controller
               //simpan verifikkasi
               // Data untuk setiap aktivitas verifikasi
               $activities = [
-                ['id_verification_activity' => 1, 'date' => $tgl_registrasi, 'nama_petugas' => 'Muhammad Fauzan'], // pendaftaran/registrasi
+                ['id_verification_activity' => 1, 'date' => $tgl_registrasi, 'nama_petugas' => 'PETUGAS DUMMY 10'], // pendaftaran/registrasi
                 ['id_verification_activity' => 6, 'date' => $tgl_registrasi, 'nama_petugas' => 'Tatin Prastyo Meiningsih'], // pengambilan sample
                 ['id_verification_activity' => 2, 'date' => $tgl_registrasi, 'nama_petugas' => 'Hewi Yuliati'], // Pemeriksaan / Analitik
                 ['id_verification_activity' => 3, 'date' => $tgl_registrasi, 'nama_petugas' => 'Hewi Yuliati'], // pengambilan sample
@@ -1697,7 +1697,7 @@ class LaboratoriumPermohonanUjiKlinikProlanisManagement extends Controller
 
           // Simpan verifikasi
           $activities = [
-            ['id_verification_activity' => 1, 'date' => $tgl_registrasi, 'nama_petugas' => 'Muhammad Fauzan'],
+            ['id_verification_activity' => 1, 'date' => $tgl_registrasi, 'nama_petugas' => 'PETUGAS DUMMY 10'],
             ['id_verification_activity' => 6, 'date' => $tgl_registrasi, 'nama_petugas' => 'Tatin Prastyo Meiningsih'],
             ['id_verification_activity' => 2, 'date' => $tgl_registrasi, 'nama_petugas' => 'Hewi Yuliati'],
             ['id_verification_activity' => 3, 'date' => $tgl_registrasi, 'nama_petugas' => 'Hewi Yuliati'],

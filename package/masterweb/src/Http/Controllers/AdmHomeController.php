@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Smt\Masterweb\Rules\Captcha;
 use \Smt\Masterweb\Models\Sample;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 
 
 use App\Http\Controllers\Controller;
@@ -35,7 +36,7 @@ class AdmHomeController extends Controller
    *
    * @return \Illuminate\Contracts\Support\Renderable
    */
-  public function index()
+  public function index(Request $request)
   {
     $auth = Auth()->user();
     $userLevel = $auth->getlevel->level ?? null;
@@ -46,6 +47,33 @@ class AdmHomeController extends Controller
     $isKLI = ($kodeLaboratorium == 'KLI');
     $isKIM = ($kodeLaboratorium == 'KIM');
     $isMBI = ($kodeLaboratorium == 'MBI'); // Mikrobiologi
+
+    // Rentang tanggal grafik (default: 12 bulan terakhir)
+    $chartFromInput = $request->query('chart_from');
+    $chartToInput = $request->query('chart_to');
+    try {
+      $chartStart = $chartFromInput
+        ? Carbon::createFromFormat('Y-m-d', $chartFromInput)->startOfDay()
+        : now()->subMonths(11)->startOfMonth();
+    } catch (\Exception $e) {
+      $chartStart = now()->subMonths(11)->startOfMonth();
+    }
+    try {
+      $chartEnd = $chartToInput
+        ? Carbon::createFromFormat('Y-m-d', $chartToInput)->endOfDay()
+        : now()->endOfDay();
+    } catch (\Exception $e) {
+      $chartEnd = now()->endOfDay();
+    }
+    if ($chartStart->gt($chartEnd)) {
+      [$chartStart, $chartEnd] = [$chartEnd->copy()->startOfDay(), $chartStart->copy()->endOfDay()];
+    }
+    // Batasi maksimal 36 bulan agar query tetap ringan
+    if ($chartStart->diffInMonths($chartEnd) > 36) {
+      $chartStart = $chartEnd->copy()->subMonths(36)->startOfDay();
+    }
+    $chartFrom = $chartStart->format('Y-m-d');
+    $chartTo = $chartEnd->format('Y-m-d');
     
     // Jika user level DKTR atau memiliki laboratorium KLI, hanya ambil data klinik
     if ($isDKTR || $isKLI) {
@@ -116,7 +144,7 @@ class AdmHomeController extends Controller
           DB::raw('COUNT(*) as total_permohonan'),
           DB::raw('DATE_FORMAT(created_at, "%Y-%m") as bulan')
         )
-        ->whereBetween('created_at', [now()->subMonths(12), now()->addMonths(4)])
+        ->whereBetween('created_at', [$chartStart, $chartEnd])
         ->whereNull('deleted_at')
         ->groupBy(DB::raw('DATE_FORMAT(created_at, "%Y-%m")'))
         ->orderBy('bulan')
@@ -202,55 +230,24 @@ class AdmHomeController extends Controller
       $analisa_berjalan_klinik = $dataAnalisaKlinik->analisa_berjalan ?? 0;
       $analisa_selesai_klinik = $dataAnalisaKlinik->analisa_selesai ?? 0;
 
-      // Statistik Kesmas per bulan: jumlah permohonan per bulan
+      // Statistik Kesmas per bulan (terpisah dari klinik)
       $pendapatan = PermohonanUji::query()
         ->select(
           DB::raw('COUNT(*) as total_permohonan'),
           DB::raw('DATE_FORMAT(created_at, "%Y-%m") as bulan')
         )
-        ->whereBetween('created_at', [now()->subMonths(12), now()->addMonths(4)])
-        ->where('status_pembayaran', 1)
-        ->groupBy(DB::raw('DATE_FORMAT(created_at, "%Y-%m")'))
-        ->orderBy('bulan')
-        ->get();
-
-      $pendapatanKlinik = PermohonanUjiKlinik2::query()
-        ->select(
-          DB::raw('COUNT(*) as total_permohonan'),
-          DB::raw('DATE_FORMAT(created_at, "%Y-%m") as bulan')
-        )
-        ->whereBetween('created_at', [now()->subMonths(12), now()->addMonths(4)])
+        ->whereBetween('created_at', [$chartStart, $chartEnd])
         ->where('status_pembayaran', 1)
         ->groupBy(DB::raw('DATE_FORMAT(created_at, "%Y-%m")'))
         ->orderBy('bulan')
         ->get();
 
       $bulans = [];
-      $pendapatans = []; // sekarang: jumlah permohonan per bulan (Kesmas+Klinik)
+      $pendapatans = [];
 
       foreach ($pendapatan as $pd) {
-        $found = false;
-
-        foreach ($pendapatanKlinik as $pdk) {
-          if ($pd->bulan == $pdk->bulan) {
-            $bulans[] = $pd->bulan;
-            $pendapatans[] = $pd->total_permohonan + $pdk->total_permohonan;
-            $found = true;
-            break;
-          }
-        }
-
-        if (!$found) {
-          $bulans[] = $pd->bulan;
-          $pendapatans[] = $pd->total_permohonan;
-        }
-      }
-
-      foreach ($pendapatanKlinik as $pdk) {
-        if (!in_array($pdk->bulan, $bulans)) {
-          $bulans[] = $pdk->bulan;
-          $pendapatans[] = $pdk->total_permohonan;
-        }
+        $bulans[] = $pd->bulan;
+        $pendapatans[] = (int) $pd->total_permohonan;
       }
 
       // Data chart jenis sampel
@@ -268,6 +265,7 @@ class AdmHomeController extends Controller
           ->join('ms_sample_type', 'ms_sample_type.id_sample_type', '=', 'typesample_samples')
           ->where('ms_laboratorium.kode_laboratorium', $kodeLaboratorium)
           ->whereNull('tb_samples.deleted_at')
+          ->whereBetween('tb_samples.created_at', [$chartStart, $chartEnd])
           ->select(DB::raw('COALESCE(COUNT(DISTINCT tb_samples.id_samples), 0) as total_sample'), DB::raw('ms_sample_type.name_sample_type as type'))
           ->groupBy('ms_sample_type.name_sample_type')
           ->get();
@@ -275,6 +273,7 @@ class AdmHomeController extends Controller
         // Semua Kesmas (existing logic)
         $samples = Sample::query()
           ->join('ms_sample_type', 'ms_sample_type.id_sample_type', '=', 'typesample_samples')
+          ->whereBetween('tb_samples.created_at', [$chartStart, $chartEnd])
           ->select(DB::raw('COALESCE(COUNT(id_samples), 0) as total_sample'), DB::raw('ms_sample_type.name_sample_type as type'))
           ->groupBy('ms_sample_type.name_sample_type')
           ->get();
@@ -289,12 +288,130 @@ class AdmHomeController extends Controller
       }
     }
 
+    // —— Dataset grafik terpisah: Kesmas vs Klinik ——
+    $chartKesmasMonths = $isDKTR || $isKLI ? [] : ($bulans ?? []);
+    $chartKesmasSeries = $isDKTR || $isKLI ? [] : ($pendapatans ?? []);
+    $chartKesmasLabels = $isDKTR || $isKLI ? [] : ($sampleTypes ?? []);
+    $chartKesmasValues = $isDKTR || $isKLI ? [] : ($countSample ?? []);
+
+    // Klinik: jumlah pemeriksaan per bulan (Haji vs Non-Haji), acuan tgl register
+    $klinikTrendQuery = PermohonanUjiKlinik2::query()
+      ->select(
+        DB::raw('DATE_FORMAT(COALESCE(tglregister_permohonan_uji_klinik, created_at), "%Y-%m") as bulan'),
+        DB::raw('SUM(CASE WHEN COALESCE(is_haji, 0) = 1 THEN 1 ELSE 0 END) as total_haji'),
+        DB::raw('SUM(CASE WHEN COALESCE(is_haji, 0) = 0 THEN 1 ELSE 0 END) as total_non_haji'),
+        DB::raw('COUNT(*) as total_pemeriksaan')
+      )
+      ->whereNull('deleted_at')
+      ->whereRaw('COALESCE(tglregister_permohonan_uji_klinik, created_at) BETWEEN ? AND ?', [
+        $chartStart,
+        $chartEnd,
+      ]);
+
+    if ($isDKTR) {
+      $klinikTrendQuery->where('doctor_type', 'lab');
+    }
+
+    $pendapatanKlinikOnly = $klinikTrendQuery
+      ->groupBy(DB::raw('DATE_FORMAT(COALESCE(tglregister_permohonan_uji_klinik, created_at), "%Y-%m")'))
+      ->orderBy('bulan')
+      ->get();
+
+    $chartKlinikMonths = [];
+    $chartKlinikSeries = [];
+    $chartKlinikSeriesHaji = [];
+    $chartKlinikSeriesNonHaji = [];
+    foreach ($pendapatanKlinikOnly as $row) {
+      $chartKlinikMonths[] = $row->bulan;
+      $chartKlinikSeries[] = (int) $row->total_pemeriksaan;
+      $chartKlinikSeriesHaji[] = (int) $row->total_haji;
+      $chartKlinikSeriesNonHaji[] = (int) $row->total_non_haji;
+    }
+
+    // Komposisi klinik: Haji vs Non-Haji
+    $klinikHajiRows = PermohonanUjiKlinik2::query()
+      ->select(
+        DB::raw('CASE WHEN COALESCE(is_haji, 0) = 1 THEN "Haji" ELSE "Non-Haji" END as status_label'),
+        DB::raw('COUNT(*) as total')
+      )
+      ->whereNull('deleted_at')
+      ->whereRaw('COALESCE(tglregister_permohonan_uji_klinik, created_at) BETWEEN ? AND ?', [
+        $chartStart,
+        $chartEnd,
+      ])
+      ->when($isDKTR, function ($q) {
+        $q->where('doctor_type', 'lab');
+      })
+      ->groupBy(DB::raw('CASE WHEN COALESCE(is_haji, 0) = 1 THEN "Haji" ELSE "Non-Haji" END'))
+      ->orderByDesc('total')
+      ->get();
+
+    $chartKlinikLabels = [];
+    $chartKlinikValues = [];
+    foreach ($klinikHajiRows as $row) {
+      $chartKlinikLabels[] = (string) $row->status_label;
+      $chartKlinikValues[] = (int) $row->total;
+    }
+
+    // Paket klinik yang paling sering dipilih (top 10)
+    $paketTopQuery = DB::table('tb_permohonan_uji_paket_klinik as p')
+      ->leftJoin('ms_parameter_paket_klinik as m', 'm.id_parameter_paket_klinik', '=', 'p.parameter_paket_klinik')
+      ->leftJoin('tb_permohonan_uji_klinik_2 as k', 'k.id_permohonan_uji_klinik', '=', 'p.permohonan_uji_klinik')
+      ->whereNull('p.deleted_at')
+      ->where(function ($q) {
+        $q->whereNull('k.deleted_at')->orWhereNull('k.id_permohonan_uji_klinik');
+      })
+      ->whereNotNull('p.parameter_paket_klinik')
+      ->whereRaw('COALESCE(k.tglregister_permohonan_uji_klinik, k.created_at, p.created_at) BETWEEN ? AND ?', [
+        $chartStart,
+        $chartEnd,
+      ]);
+
+    if ($isDKTR) {
+      $paketTopQuery->where('k.doctor_type', 'lab');
+    }
+
+    $paketTopRows = $paketTopQuery
+      ->select(
+        DB::raw("COALESCE(NULLIF(TRIM(m.name_parameter_paket_klinik), ''), 'Paket tidak diketahui') as nama_paket"),
+        DB::raw('COUNT(*) as total')
+      )
+      ->groupBy(DB::raw("COALESCE(NULLIF(TRIM(m.name_parameter_paket_klinik), ''), 'Paket tidak diketahui')"))
+      ->orderByDesc('total')
+      ->limit(10)
+      ->get();
+
+    $chartKlinikPaketLabels = [];
+    $chartKlinikPaketValues = [];
+    foreach ($paketTopRows as $row) {
+      $chartKlinikPaketLabels[] = (string) $row->nama_paket;
+      $chartKlinikPaketValues[] = (int) $row->total;
+    }
+
+    // Backward-compatible aliases (default tab: Kesmas jika ada, else Klinik)
+    if ($isDKTR || $isKLI) {
+      $bulans = $chartKlinikMonths;
+      $pendapatans = $chartKlinikSeries;
+      $sampleTypes = $chartKlinikLabels;
+      $countSample = $chartKlinikValues;
+    }
 
     // Set default values untuk non-DKTR dan non-KLI users
     if (!$isDKTR && !$isKLI) {
       $menunggu_diagnosis = 0;
       $sudah_terdiagnosis = 0;
       $dari_rujukan_dokter = 0;
+    }
+
+    $showChartKesmas = !($isDKTR || $isKLI);
+    $showChartKlinik = true;
+    $requestedTab = $request->query('chart_tab');
+    if ($requestedTab === 'klinik' && $showChartKlinik) {
+      $defaultChartTab = 'klinik';
+    } elseif ($requestedTab === 'kesmas' && $showChartKesmas) {
+      $defaultChartTab = 'kesmas';
+    } else {
+      $defaultChartTab = $showChartKesmas ? 'kesmas' : 'klinik';
     }
 
     return view(
@@ -317,6 +434,23 @@ class AdmHomeController extends Controller
         'menunggu_diagnosis',
         'sudah_terdiagnosis',
         'dari_rujukan_dokter',
+        'chartKesmasMonths',
+        'chartKesmasSeries',
+        'chartKesmasLabels',
+        'chartKesmasValues',
+        'chartKlinikMonths',
+        'chartKlinikSeries',
+        'chartKlinikSeriesHaji',
+        'chartKlinikSeriesNonHaji',
+        'chartKlinikLabels',
+        'chartKlinikValues',
+        'chartKlinikPaketLabels',
+        'chartKlinikPaketValues',
+        'showChartKesmas',
+        'showChartKlinik',
+        'defaultChartTab',
+        'chartFrom',
+        'chartTo'
       )
     );
   }

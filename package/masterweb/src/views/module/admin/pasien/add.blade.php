@@ -35,7 +35,7 @@
                     style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); overflow: visible !important;">
                     <div class="card-body" style="overflow: visible !important;">
                         <h5 class="font-weight-bold mb-4"
-                            style="color: #667eea; border-bottom: 3px solid #667eea; padding-bottom: 10px;">
+                            style="color: #0b3a5c; border-bottom: 3px solid #0b3a5c; padding-bottom: 10px;">
                             <i class="fa fa-user-circle mr-2"></i>INFORMASI PASIEN
                         </h5>
 
@@ -43,13 +43,13 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="nik_pasien" class="font-weight-bold" style="color: #495057;">
-                                        <i class="fa fa-id-card mr-2" style="color: #667eea;"></i>NIK PASIEN
+                                        <i class="fa fa-id-card mr-2" style="color: #0b3a5c;"></i>NIK PASIEN
                                         <span style="color: red">*</span>
                                     </label>
                                     <div class="input-group" style="position: relative;">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"
-                                                style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none; color: white;">
+                                                style="background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%); border: none; color: white;">
                                                 <i class="fa fa-id-card"></i>
                                             </span>
                                         </div>
@@ -71,13 +71,13 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="nama_pasien" class="font-weight-bold" style="color: #495057;">
-                                        <i class="fa fa-user mr-2" style="color: #667eea;"></i>NAMA LENGKAP
+                                        <i class="fa fa-user mr-2" style="color: #0b3a5c;"></i>NAMA LENGKAP
                                         <span style="color: red">*</span>
                                     </label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"
-                                                style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none; color: white;">
+                                                style="background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%); border: none; color: white;">
                                                 <i class="fa fa-user"></i>
                                             </span>
                                         </div>
@@ -94,12 +94,12 @@
 
                         <div class="form-group">
                             <label for="no_rekammedis_pasien" class="font-weight-bold" style="color: #495057;">
-                                <i class="fa fa-file-text mr-2" style="color: #667eea;"></i>NOMOR REKAM MEDIS
+                                <i class="fa fa-file-text mr-2" style="color: #0b3a5c;"></i>NOMOR REKAM MEDIS
                             </label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"
-                                        style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none; color: white;">
+                                        style="background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%); border: none; color: white;">
                                         <i class="fa fa-file-text"></i>
                                     </span>
                                 </div>
@@ -122,7 +122,7 @@
 
                         <div class="form-group">
                             <label for="jenis_kelamin" class="font-weight-bold mb-3" style="color: #495057;">
-                                <i class="fa fa-venus-mars mr-2" style="color: #667eea;"></i>JENIS KELAMIN
+                                <i class="fa fa-venus-mars mr-2" style="color: #0b3a5c;"></i>JENIS KELAMIN
                                 <span style="color: red">*</span>
                             </label>
                             <div class="row">
@@ -167,7 +167,7 @@
 
                         <div class="form-group">
                             <label for="tmpt_lahir" class="font-weight-bold" style="color: #495057;">
-                                <i class="fa fa-map-pin mr-2" style="color: #667eea;"></i>TEMPAT LAHIR
+                                <i class="fa fa-map-pin mr-2" style="color: #0b3a5c;"></i>TEMPAT LAHIR
                             </label>
                             <div class="mb-2" style="position: relative; z-index: 200;">
                                 <label class="small font-weight-bold text-muted mb-1" for="search_tmpt_lahir_input">
@@ -179,7 +179,7 @@
                                         autocomplete="off"
                                         style="border: 2px solid #e2e8f0; border-radius: 8px; padding-left: 38px; font-size: 15px; height: 45px;">
                                     <i class="fa fa-search position-absolute"
-                                        style="left: 14px; top: 14px; color: #667eea; pointer-events: none;"></i>
+                                        style="left: 14px; top: 14px; color: #0b3a5c; pointer-events: none;"></i>
                                     <div id="search_tmpt_lahir_results"
                                         style="position: absolute; width: 100%; z-index: 99999; display: none; top: 100%; left: 0; margin-top: 4px;">
                                         <div class="card border-0 shadow-lg">
@@ -192,12 +192,12 @@
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"
-                                        style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none; color: white;">
+                                        style="background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%); border: none; color: white;">
                                         <i class="fa fa-map-pin"></i>
                                     </span>
                                 </div>
                                 <input type="text" class="form-control" name="tmpt_lahir" id="tmpt_lahir"
-                                    placeholder="Contoh: Magelang atau Muntilan"
+                                    placeholder="Contoh: Jakarta atau Bandung"
                                     value="{{ old('tmpt_lahir') }}"
                                     style="border: 2px solid #e2e8f0; border-left: none; font-size: 15px; height: 45px;">
                             </div>
@@ -209,7 +209,7 @@
                         <!-- Tanggal Lahir Section - Similar to permohonan uji klinik -->
                         <div class="form-group">
                             <label for="tgllahir_pasien" class="font-weight-bold mb-3" style="color: #495057;">
-                                <i class="fa fa-calendar mr-2" style="color: #667eea;"></i>TANGGAL LAHIR
+                                <i class="fa fa-calendar mr-2" style="color: #0b3a5c;"></i>TANGGAL LAHIR
                                 <span style="color: red">*</span>
                             </label>
 
@@ -318,12 +318,12 @@
 
                         <div class="form-group">
                             <label for="pekerjaan" class="font-weight-bold" style="color: #495057;">
-                                <i class="fa fa-briefcase mr-2" style="color: #667eea;"></i>PEKERJAAN
+                                <i class="fa fa-briefcase mr-2" style="color: #0b3a5c;"></i>PEKERJAAN
                             </label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"
-                                        style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none; color: white;">
+                                        style="background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%); border: none; color: white;">
                                         <i class="fa fa-briefcase"></i>
                                     </span>
                                 </div>
@@ -339,13 +339,13 @@
 
                         <div class="form-group">
                             <label for="phone_pasien" class="font-weight-bold" style="color: #495057;">
-                                <i class="fa fa-phone mr-2" style="color: #667eea;"></i>NO. TELP/HP
+                                <i class="fa fa-phone mr-2" style="color: #0b3a5c;"></i>NO. TELP/HP
                                 <span style="color: red">*</span>
                             </label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"
-                                        style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none; color: white;">
+                                        style="background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%); border: none; color: white;">
                                         <i class="fa fa-phone"></i>
                                     </span>
                                 </div>
@@ -362,14 +362,14 @@
 
                 <!-- Wilayah Section -->
                 <div class="form-group">
-                    <label class="font-weight-bold mb-3" style="color: #667eea; font-size: 16px;">
+                    <label class="font-weight-bold mb-3" style="color: #0b3a5c; font-size: 16px;">
                         <i class="fa fa-map-marker mr-2"></i>WILAYAH DOMISILI
                     </label>
 
                     <!-- Search Wilayah Box -->
                     <div class="mb-3" style="position: relative; z-index: 100;">
                         <div class="card border-0 shadow-sm"
-                            style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-left: 4px solid #667eea !important; overflow: visible !important;">
+                            style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-left: 4px solid #0b3a5c !important; overflow: visible !important;">
                             <div class="card-body py-3" style="overflow: visible !important;">
                                 <div class="d-flex align-items-center">
                                     <div class="flex-grow-1 position-relative" style="z-index: 1000;">
@@ -397,7 +397,7 @@
                                     </div>
                                     <div class="ml-3 text-center">
                                         <button type="button" class="btn btn-sm" id="btn_toggle_manual_select"
-                                            style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 8px; padding: 8px 16px; font-weight: 600;">
+                                            style="background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%); color: white; border-radius: 8px; padding: 8px 16px; font-weight: 600;">
                                             <i class="fa fa-list mr-1"></i> Pilih Manual
                                         </button>
                                         <div class="small text-muted mt-1">atau pilih bertahap</div>
@@ -412,7 +412,7 @@
                         style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); display: none;">
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-center mb-3">
-                                <h6 class="mb-0 font-weight-bold" style="color: #667eea;">
+                                <h6 class="mb-0 font-weight-bold" style="color: #0b3a5c;">
                                     <i class="fa fa-list-ul mr-2"></i>Pilih Wilayah Secara Bertahap
                                 </h6>
                                 <button type="button" class="btn btn-sm btn-outline-secondary"
@@ -463,7 +463,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="alamat_pasien" class="font-weight-bold" style="color: #667eea;">
+                    <label for="alamat_pasien" class="font-weight-bold" style="color: #0b3a5c;">
                         <i class="fa fa-map-marker mr-2"></i>DETAIL ALAMAT DOMISILI
                     </label>
                     <textarea class="form-control" name="alamat_pasien" id="alamat_pasien" rows="3"

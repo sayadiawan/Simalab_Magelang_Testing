@@ -7,6 +7,9 @@
 @section('css')
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <!-- Leaflet MarkerCluster CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
     <!-- Leaflet Search CSS -->
     <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/gh/stefanocudini/leaflet-search@2.9.8/dist/leaflet-search.min.css" />
@@ -16,6 +19,34 @@
             width: 100%;
             border-radius: 8px;
             margin-top: 20px;
+        }
+
+        .simlab-cluster-icon {
+            background: transparent !important;
+            border: none !important;
+        }
+
+        .simlab-cluster-bubble {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #ef6c00;
+            border: 4px solid #c62828;
+            box-shadow: 0 0 0 3px #fff, 0 2px 8px rgba(0, 0, 0, 0.25);
+            color: #fff;
+            font-weight: 800;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+        }
+
+        .simlab-cluster-bubble--lg {
+            width: 44px;
+            height: 44px;
+            font-size: 13px;
+            border-width: 5px;
         }
 
         .filter-panel {
@@ -85,6 +116,241 @@
         .parameter-item.hidden {
             display: none;
         }
+
+        .param-stats-card {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(11, 58, 92, 0.08);
+            border: 1px solid #e4eeec;
+            margin-top: 8px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .param-stats-card__head {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 16px 18px;
+            background: linear-gradient(135deg, #f3f8f7 0%, #eef5f8 100%);
+            border-bottom: 1px solid #dfecea;
+        }
+
+        .param-stats-card__head h4 {
+            margin: 0;
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: #06283f;
+        }
+
+        .param-stats-card__head p {
+            margin: 4px 0 0;
+            font-size: 12.5px;
+            color: #5c6d75;
+        }
+
+        .param-stats-tools {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .param-stats-search {
+            border: 1px solid #c9dbd7;
+            border-radius: 8px;
+            padding: 8px 12px;
+            min-width: 220px;
+            font-size: 13px;
+            color: #06283f;
+        }
+
+        .param-stats-search:focus {
+            outline: none;
+            border-color: #0d8f7f;
+            box-shadow: 0 0 0 3px rgba(13, 143, 127, 0.12);
+        }
+
+        .param-stats-hint {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11.5px;
+            font-weight: 700;
+            color: #0b3a5c;
+            background: #fff;
+            border: 1px solid #d5e8e4;
+            border-radius: 999px;
+            padding: 6px 10px;
+        }
+
+        .param-stats-table-wrap {
+            max-height: 480px;
+            overflow: auto;
+        }
+
+        .param-stats-table {
+            width: 100%;
+            margin: 0;
+            border-collapse: separate;
+            border-spacing: 0;
+            font-size: 13px;
+        }
+
+        .param-stats-table thead th {
+            position: sticky;
+            top: 0;
+            z-index: 2;
+            background: #0b3a5c;
+            color: #fff;
+            font-weight: 700;
+            font-size: 11.5px;
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
+            padding: 12px 14px;
+            white-space: nowrap;
+            border: none;
+        }
+
+        .param-stats-table tbody td {
+            padding: 12px 14px;
+            vertical-align: middle;
+            border-bottom: 1px solid #eef3f2;
+            color: #24353f;
+            background: #fff;
+        }
+
+        .param-stats-table tbody tr:hover td {
+            background: #f5fbfa;
+        }
+
+        .param-stats-table tbody tr.is-high td {
+            background: #fff7f5;
+        }
+
+        .param-stats-table tbody tr.is-high:hover td {
+            background: #ffefeb;
+        }
+
+        .param-stats-table tbody tr.is-mid td {
+            background: #fffaf0;
+        }
+
+        .param-name {
+            font-weight: 750;
+            color: #06283f;
+            line-height: 1.35;
+        }
+
+        .param-rank {
+            display: inline-flex;
+            width: 28px;
+            height: 28px;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: #e7f4f2;
+            color: #0b3a5c;
+            font-weight: 800;
+            font-size: 12px;
+        }
+
+        .param-num {
+            font-variant-numeric: tabular-nums;
+            font-weight: 650;
+            text-align: right;
+            white-space: nowrap;
+        }
+
+        .param-abnormal-cell {
+            min-width: 160px;
+        }
+
+        .param-abnormal-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 8px;
+            margin-bottom: 6px;
+            font-size: 12px;
+        }
+
+        .param-abnormal-meta strong {
+            color: #c62828;
+            font-size: 13px;
+        }
+
+        .param-abnormal-meta span {
+            color: #5c6d75;
+            font-weight: 600;
+        }
+
+        .param-bar {
+            height: 8px;
+            border-radius: 999px;
+            background: #e8efed;
+            overflow: hidden;
+        }
+
+        .param-bar > i {
+            display: block;
+            height: 100%;
+            border-radius: 999px;
+            background: linear-gradient(90deg, #16a892, #ef6c00);
+        }
+
+        .param-bar > i.is-ok {
+            background: #16a892;
+        }
+
+        .param-bar > i.is-warn {
+            background: linear-gradient(90deg, #f9a825, #ef6c00);
+        }
+
+        .param-bar > i.is-danger {
+            background: linear-gradient(90deg, #ef6c00, #c62828);
+        }
+
+        .param-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            border-radius: 999px;
+            padding: 4px 10px;
+            font-size: 12px;
+            font-weight: 750;
+            white-space: nowrap;
+        }
+
+        .param-pill--ok {
+            background: #e7f4f2;
+            color: #0a7a6c;
+        }
+
+        .param-pill--warn {
+            background: #fff3e0;
+            color: #e65100;
+        }
+
+        .param-pill--danger {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .param-stats-empty {
+            padding: 24px;
+            text-align: center;
+            color: #5c6d75;
+            display: none;
+        }
+
+        @media (max-width: 767px) {
+            .param-stats-search { min-width: 100%; width: 100%; }
+            .param-stats-table thead th,
+            .param-stats-table tbody td { padding: 10px; }
+        }
     </style>
 @endsection
 
@@ -114,7 +380,7 @@
                                 </option>
                                 <option value="DUSUN" {{ $tipeWilayah == 'DUSUN' ? 'selected' : '' }}>Dusun</option>
                                 <option value="luar_daerah" {{ $tipeWilayah == 'luar_daerah' ? 'selected' : '' }}>Luar
-                                    Daerah Kab. Magelang</option>
+                                    Daerah SIMLAB</option>
                             </select>
                         </div>
                         <div class="col-md-3">
@@ -298,78 +564,115 @@
     <div class="row">
         <div class="col-md-3">
             <div class="stat-card">
-                <h3>Total Sampel</h3>
-                <div class="value">{{ number_format($statistics['total_samples']) }}</div>
+                <h3>Total Pengujian</h3>
+                <div class="value">{{ number_format($statistics['total_results'] ?? 0) }}</div>
+                <small>parameter</small>
             </div>
         </div>
         <div class="col-md-3">
             <div class="stat-card" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
-                <h3>Rata-rata Hasil</h3>
-                <div class="value">{{ number_format($statistics['average'], 2) }}</div>
+                <h3>Total Melewati</h3>
+                <div class="value">{{ number_format($statistics['abnormal_count'] ?? 0) }}</div>
+                <small>parameter</small>
             </div>
         </div>
         <div class="col-md-3">
             <div class="stat-card" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
-                <h3>Maksimal</h3>
-                <div class="value">{{ number_format($statistics['max'], 2) }}</div>
+                <h3>Total Tidak Melewati</h3>
+                <div class="value">{{ number_format($statistics['normal_count'] ?? 0) }}</div>
+                <small>parameter</small>
             </div>
         </div>
         <div class="col-md-3">
             <div class="stat-card" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
-                <h3>Abnormal (%)</h3>
-                <div class="value">{{ number_format($statistics['abnormal_percentage'], 2) }}%</div>
-                <small>({{ number_format($statistics['abnormal_count']) }} kasus)</small>
+                <h3>Abnormal</h3>
+                <div class="value">{{ number_format($statistics['abnormal_percentage'] ?? 0, 2) }}%</div>
             </div>
         </div>
     </div>
 
     <!-- Statistics per Parameter -->
     @if (isset($statistics['parameter_stats']) && count($statistics['parameter_stats']) > 0)
+        @php
+            $paramStatsList = $statistics['parameter_stats'];
+            $paramStatsAbnormal = collect($paramStatsList)->where('abnormal_count', '>', 0)->count();
+        @endphp
         <div class="row">
             <div class="col-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">Statistik per Parameter</h4>
-                        <div class="table-responsive">
-                            <table class="table table-striped table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Nama Parameter</th>
-                                        <th>Rata-rata</th>
-                                        <th>Maksimal</th>
-                                        <th>Minimal</th>
-                                        <th>Jumlah Abnormal</th>
-                                        <th>% Abnormal</th>
-                                        <th>Total Hasil</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($statistics['parameter_stats'] as $index => $param)
-                                        <tr>
-                                            <td>{{ $index + 1 }}</td>
-                                            <td><strong>{{ $param['parameter_name'] }}</strong></td>
-                                            <td>{{ number_format($param['average'], 2) }}</td>
-                                            <td>{{ number_format($param['max'], 2) }}</td>
-                                            <td>{{ number_format($param['min'], 2) }}</td>
-                                            <td>
-                                                <span
-                                                    class="badge badge-{{ $param['abnormal_count'] > 0 ? 'danger' : 'success' }}">
-                                                    {{ number_format($param['abnormal_count']) }}
-                                                </span>
-                                            </td>
-                                            <td>
-                                                <span
-                                                    class="badge badge-{{ $param['abnormal_percentage'] > 0 ? 'warning' : 'success' }}">
-                                                    {{ number_format($param['abnormal_percentage'], 2) }}%
-                                                </span>
-                                            </td>
-                                            <td>{{ number_format($param['total_results']) }}</td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                <div class="param-stats-card">
+                    <div class="param-stats-card__head">
+                        <div>
+                            <h4>Statistik per Parameter</h4>
+                            <p>
+                                Diurutkan dari jumlah kasus melewati baku mutu terbanyak.
+                                {{ number_format(count($paramStatsList)) }} parameter ·
+                                {{ number_format($paramStatsAbnormal) }} punya hasil di luar baku mutu.
+                            </p>
                         </div>
+                        <div class="param-stats-tools">
+                            <span class="param-stats-hint"><i class="fas fa-sort-amount-down"></i> Prioritas kasus abnormal</span>
+                            <input type="search" id="paramStatsSearch" class="param-stats-search"
+                                placeholder="Cari nama parameter..." autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="param-stats-table-wrap">
+                        <table class="param-stats-table" id="paramStatsTable">
+                            <thead>
+                                <tr>
+                                    <th style="width:52px;">No</th>
+                                    <th>Parameter</th>
+                                    <th class="text-right">Di bawah baku mutu</th>
+                                    <th class="text-right">Di atas baku mutu</th>
+                                    <th class="text-right">Total melewati</th>
+                                    <th class="text-right">Tidak melewati</th>
+                                    <th class="text-right">Total pengujian</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($paramStatsList as $index => $param)
+                                    @php
+                                        $below = (int) ($param['below_count'] ?? 0);
+                                        $above = (int) ($param['above_count'] ?? 0);
+                                        $abn = (int) ($param['abnormal_count'] ?? 0);
+                                        $normal = (int) ($param['normal_count'] ?? 0);
+                                        $total = (int) ($param['total_results'] ?? 0);
+                                        $pct = (float) ($param['abnormal_percentage'] ?? 0);
+                                        $rowClass = $pct >= 30 ? 'is-high' : ($pct > 0 ? 'is-mid' : '');
+                                    @endphp
+                                    <tr class="{{ $rowClass }}" data-name="{{ strtolower($param['parameter_name']) }}">
+                                        <td><span class="param-rank">{{ $index + 1 }}</span></td>
+                                        <td>
+                                            <div class="param-name">{{ $param['parameter_name'] }}</div>
+                                            <div style="font-size:11px;color:#5c6d75;margin-top:2px;">
+                                                {{ number_format($pct, 1) }}% melewati baku mutu
+                                            </div>
+                                        </td>
+                                        <td class="param-num">
+                                            <span class="param-pill {{ $below > 0 ? 'param-pill--warn' : 'param-pill--ok' }}">
+                                                {{ number_format($below) }} kasus
+                                            </span>
+                                        </td>
+                                        <td class="param-num">
+                                            <span class="param-pill {{ $above > 0 ? 'param-pill--danger' : 'param-pill--ok' }}">
+                                                {{ number_format($above) }} kasus
+                                            </span>
+                                        </td>
+                                        <td class="param-num">
+                                            <strong style="color:{{ $abn > 0 ? '#c62828' : '#0a7a6c' }};">
+                                                {{ number_format($abn) }} kasus
+                                            </strong>
+                                        </td>
+                                        <td class="param-num">
+                                            <span class="param-pill param-pill--ok">
+                                                {{ number_format($normal) }} kasus
+                                            </span>
+                                        </td>
+                                        <td class="param-num"><strong>{{ number_format($total) }}</strong></td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        <div class="param-stats-empty" id="paramStatsEmpty">Tidak ada parameter yang cocok dengan pencarian.</div>
                     </div>
                 </div>
             </div>
@@ -381,7 +684,11 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Peta Persebaran Hasil Klinik</h4>
+                    <h4 class="card-title">Peta Wilayah Melewati Baku Mutu</h4>
+                    <p class="text-muted mb-2" style="font-size: 13px;">
+                        Pemutusan baku mutu sama seperti statistik: memakai baku mutu yang tersimpan pada hasil pemeriksaan (fallback umur/haji bila kosong).
+                        Titik hanya menampilkan daerah yang punya hasil di luar baku mutu; titik berhimpit digabung.
+                    </p>
                     <div id="map"></div>
                 </div>
             </div>
@@ -394,6 +701,9 @@
         <div class="col-12">
             <div class="chart-container">
                 <h4>Grafik Scatter Plot - Jumlah Melewati Baku Mutu per Pemeriksaan</h4>
+                <p class="text-muted mb-2" style="font-size: 13px;">
+                    Jumlah melewati baku mutu memakai aturan yang sama dengan statistik (baku mutu tersimpan pada hasil, fallback umur/haji).
+                </p>
                 <canvas id="scatterChart"></canvas>
             </div>
         </div>
@@ -403,6 +713,8 @@
 @section('scripts')
     <!-- Leaflet JS -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <!-- Leaflet MarkerCluster -->
+    <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
     <!-- Leaflet Search JS - Using GitHub CDN -->
     <script src="https://cdn.jsdelivr.net/gh/stefanocudini/leaflet-search@2.9.8/dist/leaflet-search.min.js"></script>
     <!-- Chart.js -->
@@ -428,40 +740,102 @@
                 attribution: '© OpenStreetMap contributors'
             }).addTo(map);
 
-            // Create search layer group
-            searchLayer = L.layerGroup().addTo(map);
+            // Cluster layer: titik berdekatan digabung
+            searchLayer = L.markerClusterGroup({
+                maxClusterRadius: 45,
+                spiderfyOnMaxZoom: true,
+                showCoverageOnHover: false,
+                zoomToBoundsOnClick: true,
+                disableClusteringAtZoom: 16,
+                iconCreateFunction: function(cluster) {
+                    var childCount = cluster.getChildCount();
+                    var sizeClass = childCount > 8 ? ' simlab-cluster-bubble--lg' : '';
+                    return L.divIcon({
+                        html: '<div class="simlab-cluster-bubble' + sizeClass + '">' + childCount + '</div>',
+                        className: 'simlab-cluster-icon',
+                        iconSize: L.point(childCount > 8 ? 44 : 36, childCount > 8 ? 44 : 36)
+                    });
+                }
+            });
+            map.addLayer(searchLayer);
 
-            // Map data
+            // Map data: hanya wilayah dengan pelanggaran baku mutu
             var mapData = @json($mapData);
+            var maxAbnormal = 0;
+            mapData.forEach(function(d) {
+                if ((d.abnormal_count || 0) > maxAbnormal) maxAbnormal = d.abnormal_count;
+            });
 
-            // Add markers to map and search layer
+            function markerStyleFor(data) {
+                var count = data.abnormal_count || 0;
+                var ratio = maxAbnormal > 0 ? (count / maxAbnormal) : 0;
+                var radius = Math.max(8, Math.min(22, 8 + Math.round(ratio * 14)));
+                var color = count >= Math.max(1, maxAbnormal * 0.66)
+                    ? '#c62828'
+                    : (count >= Math.max(1, maxAbnormal * 0.33) ? '#ef6c00' : '#f9a825');
+                return { radius: radius, color: color };
+            }
+
+            function buildPopupHtml(data) {
+                var rows = '';
+                (data.top_parameters || []).forEach(function(item, idx) {
+                    rows += '<tr>' +
+                        '<td style="padding:2px 8px 2px 0;">' + (idx + 1) + '.</td>' +
+                        '<td style="padding:2px 8px 2px 0;"><strong>' + item.parameter + '</strong></td>' +
+                        '<td style="padding:2px 0; text-align:right;">' + item.abnormal_count + '</td>' +
+                        '</tr>';
+                });
+                if (!rows) {
+                    rows = '<tr><td colspan="3">Tidak ada detail parameter</td></tr>';
+                }
+
+                var wilayahBlock = '';
+                if (data.is_merged && data.wilayah_list && data.wilayah_list.length) {
+                    wilayahBlock = '<div style="margin-top:8px;"><strong>Wilayah dalam titik ini:</strong><ul style="margin:4px 0 0;padding-left:18px;font-size:12px;">';
+                    data.wilayah_list.forEach(function(w) {
+                        wilayahBlock += '<li>' + w.nama + ' <span style="color:#888;">(' + w.abnormal_count + ')</span></li>';
+                    });
+                    wilayahBlock += '</ul></div>';
+                }
+
+                var subtitle = data.is_merged
+                    ? (data.wilayah_list.length + ' wilayah pada titik yang sama')
+                    : ('Kode: ' + data.kode + ' · ' + data.tipe);
+
+                return '' +
+                    '<div style="min-width:220px;">' +
+                    '<strong style="font-size:14px;">' + data.nama + '</strong><br>' +
+                    '<span style="color:#666;font-size:12px;">' + subtitle + '</span><br><br>' +
+                    '<div><strong>Di bawah baku mutu:</strong> ' + (data.below_count || 0) + '</div>' +
+                    '<div><strong>Di atas baku mutu:</strong> ' + (data.above_count || 0) + '</div>' +
+                    '<div><strong>Total melewati baku mutu:</strong> ' + (data.abnormal_count || 0) + ' parameter</div>' +
+                    '<div><strong>Tidak melewati:</strong> ' + (data.normal_count || 0) + '</div>' +
+                    '<div><strong>Total pengujian:</strong> ' + (data.total_results || 0) + ' parameter</div>' +
+                    '<div><strong>Persentase parameter abnormal:</strong> ' + (data.abnormal_percentage || 0) + '%</div>' +
+                    '<div><strong>Total Pasien:</strong> ' + (data.total_samples || 0) + ' pasien</div>' +
+                    wilayahBlock +
+                    '<div style="margin-top:8px;"><strong>Parameter paling sering melewati:</strong></div>' +
+                    '<table style="width:100%;font-size:12px;margin-top:4px;">' + rows + '</table>' +
+                    '</div>';
+            }
+
+            // Add markers to cluster layer
             mapData.forEach(function(data) {
-                var color = data.avg_hasil > 0 ? '#ff0000' : '#00ff00';
+                var style = markerStyleFor(data);
                 var marker = L.circleMarker([data.lat, data.lng], {
-                    radius: 10,
-                    fillColor: color,
+                    radius: style.radius,
+                    fillColor: style.color,
                     color: '#fff',
                     weight: 2,
                     opacity: 1,
-                    fillOpacity: 0.8
+                    fillOpacity: 0.85
                 });
 
-                // Add to search layer
-                marker.addTo(searchLayer);
-
-                // Set title for search (propertyName) - required by leaflet-search
                 marker.options.title = data.nama;
                 marker.options.loc = [data.lat, data.lng];
-
-                marker.bindPopup(`
-                     <strong>${data.nama}</strong><br>
-                     Kode: ${data.kode}<br>
-                     Tipe: ${data.tipe}<br>
-                     Rata-rata: ${data.avg_hasil}<br>
-                     Maksimal: ${data.max_hasil}<br>
-                     Minimal: ${data.min_hasil}<br>
-                     Total Sampel: ${data.total_samples}
-                 `);
+                marker.options.abnormal_count = data.abnormal_count || 0;
+                marker.bindPopup(buildPopupHtml(data));
+                searchLayer.addLayer(marker);
             });
 
             // Initialize search control after markers are added
@@ -535,12 +909,21 @@
                                 return d.nama === e.layer.options.title;
                             });
                             if (foundData) {
-                                var color = foundData.avg_hasil > 0 ? '#ff0000' : '#00ff00';
+                                var maxAbnormal = 0;
+                                mapData.forEach(function(d) {
+                                    if ((d.abnormal_count || 0) > maxAbnormal) maxAbnormal = d.abnormal_count;
+                                });
+                                var count = foundData.abnormal_count || 0;
+                                var ratio = maxAbnormal > 0 ? (count / maxAbnormal) : 0;
+                                var radius = Math.max(8, Math.min(22, 8 + Math.round(ratio * 14)));
+                                var color = count >= Math.max(1, maxAbnormal * 0.66)
+                                    ? '#c62828'
+                                    : (count >= Math.max(1, maxAbnormal * 0.33) ? '#ef6c00' : '#f9a825');
                                 e.layer.setStyle({
                                     fillColor: color,
                                     color: '#fff',
                                     weight: 2,
-                                    radius: 10
+                                    radius: radius
                                 });
                             }
                         }, 3000);
@@ -581,7 +964,10 @@
                     x: point.x + jitter,
                     y: point.y,
                     parameter: point.parameter,
-                    abnormal_count: point.abnormal_count || point.y
+                    abnormal_count: point.abnormal_count || point.y,
+                    below_count: point.below_count || 0,
+                    above_count: point.above_count || 0,
+                    normal_count: point.normal_count || 0
                 });
             });
 
@@ -649,7 +1035,10 @@
                                     var point = context.raw;
                                     return [
                                         'Parameter: ' + (point.parameter || 'N/A'),
-                                        'Jumlah Melewati Baku Mutu: ' + (point.abnormal_count || point.y)
+                                        'Di bawah: ' + (point.below_count || 0),
+                                        'Di atas: ' + (point.above_count || 0),
+                                        'Total melewati: ' + (point.abnormal_count || point.y),
+                                        'Tidak melewati: ' + (point.normal_count || 0)
                                     ];
                                 }
                             }
@@ -685,6 +1074,23 @@
                     document.getElementById('filterForm').submit();
                 }, 100);
             });
+
+            var paramSearch = document.getElementById('paramStatsSearch');
+            if (paramSearch) {
+                paramSearch.addEventListener('input', function() {
+                    var term = (paramSearch.value || '').toLowerCase().trim();
+                    var rows = document.querySelectorAll('#paramStatsTable tbody tr');
+                    var visible = 0;
+                    rows.forEach(function(row) {
+                        var name = row.getAttribute('data-name') || '';
+                        var show = !term || name.indexOf(term) !== -1;
+                        row.style.display = show ? '' : 'none';
+                        if (show) visible++;
+                    });
+                    var empty = document.getElementById('paramStatsEmpty');
+                    if (empty) empty.style.display = visible ? 'none' : 'block';
+                });
+            }
         });
 
         // Set tipe parameter

@@ -173,12 +173,12 @@
     </tr>
     <tr>
         <th style="text-align:left;"></th>
-        <th colspan="27" style="text-align:left;"> - Apabila ada keragu-raguan dengan hasil pemeriksaan mohon menghubungi Laboratorium Kesehatan Kab. Magelang (0293) 3301587</th>
+        <th colspan="27" style="text-align:left;"> - Apabila ada keragu-raguan dengan hasil pemeriksaan mohon menghubungi Laboratorium SIMLAB (0293) 3301587</th>
         <th ></th>
     </tr>
     <tr>
         <th colspan="27"></th>
-        <th style="text-align:center;">Kota Mungkid, {{ \Carbon\Carbon::now()->format('d F Y') }}</th>
+        <th style="text-align:center;">—, {{ \Carbon\Carbon::now()->format('d F Y') }}</th>
         <th></th>
     </tr>
     <tr>
@@ -188,7 +188,7 @@
     </tr>
     <tr>
         <th colspan="27"></th>
-        <th style="text-align:center;">Laboratorium Kesehatan Kabupaten Magelang</th>
+        <th style="text-align:center;">Laboratorium SIMLAB</th>
         <th></th>
     </tr>
     <tr>

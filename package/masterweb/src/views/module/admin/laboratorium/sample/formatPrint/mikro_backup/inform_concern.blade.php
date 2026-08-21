@@ -285,7 +285,7 @@
                     <td style="text-align: justify;">
                         Dengan ini menyatakan bahwa SETUJU/TIDAK SETUJU terhadap sampel yang telah diserahkan
                         berupa AIR MINUM / AIR HIGIENE / MAKANAN / MINUMAN / FASILITAS SANITASI kepada
-                        Laboratorium Kesehatan Kabupaten Magelang, dengan :
+                        Laboratorium SIMLAB, dengan :
                     </td>
                 </tr>
                 <tr>

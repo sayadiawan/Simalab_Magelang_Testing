@@ -365,11 +365,11 @@
         }
 
         .parameter-group-header:hover {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+            background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%) !important;
             color: white !important;
-            border-color: #667eea !important;
+            border-color: #0b3a5c !important;
             transform: translateX(5px);
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 4px 12px rgba(11, 58, 92, 0.3);
         }
 
         .parameter-group-header:hover .collapse-icon {
@@ -380,7 +380,7 @@
             transition: transform 0.3s ease;
             font-size: 14px;
             margin-right: 8px;
-            color: #667eea;
+            color: #0b3a5c;
         }
 
         /* Edit parameter (pensil) — hanya saat mode edit grup aktif */
@@ -583,9 +583,9 @@
         }
 
         .step-item.active .step-number {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%);
             color: white;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 4px 15px rgba(11, 58, 92, 0.4);
             transform: scale(1.1);
         }
 
@@ -606,7 +606,7 @@
         }
 
         .step-item.active .step-title {
-            color: #667eea;
+            color: #0b3a5c;
         }
 
         .step-item.completed .step-title {
@@ -647,14 +647,14 @@
         }
 
         .btn-next {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%);
             color: white;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 4px 15px rgba(11, 58, 92, 0.3);
         }
 
         .btn-next:hover {
             transform: translateX(3px);
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 6px 20px rgba(11, 58, 92, 0.4);
         }
 
         .btn-step:disabled {
@@ -779,7 +779,7 @@
         }
 
         #parameter-cart .card-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%);
             border-bottom: 3px solid #5a67d8;
         }
 
@@ -951,7 +951,7 @@
         }
 
         .cart-total {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%);
             color: white;
             padding: 15px;
             border-radius: 8px;
@@ -1074,7 +1074,7 @@
         }
         .sdd-list { list-style: none; margin: 0; padding: 0; max-height: 200px; overflow-y: auto; }
         .sdd-list li { padding: 7px 12px; cursor: pointer; font-size: 13px; }
-        .sdd-list li:hover { background: #f0f4ff; }
+        .sdd-list li:hover { background: #e7f4f2; }
         .sdd-list li[data-value=""] { color: #aaa; font-style: italic; }
     </style>
 @endsection
@@ -1246,9 +1246,9 @@
 
             <div class="col-lg-6" id="code_sample_mikro_wrapper_top" style="display: none;">
                 <div class="card"
-                    style="border: 2px solid #667eea; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.15);">
+                    style="border: 2px solid #0b3a5c; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(11, 58, 92, 0.15);">
                     <div class="card-header"
-                        style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 15px 20px;">
+                        style="background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%); padding: 15px 20px;">
                         <h6 class="mb-0" style="color: white; font-weight: 600;">
                             <i class="fa fa-microscope"></i> Kode Sampel Mikrobiologi
                         </h6>
@@ -1683,7 +1683,7 @@
                                         <div class="col-lg-8">
                                             <div class="form-section-card-sample" style="padding: 0; overflow: hidden;">
                                                 <div class="card-header d-flex justify-content-between align-items-center"
-                                                    style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; margin: 0;">
+                                                    style="background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%); color: white; padding: 20px; margin: 0;">
                                                     <h5 class="mb-0" style="color: white; font-weight: 600;">
                                                         <i class="fa fa-microscope"></i> Parameter Pengujian
                                                     </h5>
@@ -1692,7 +1692,7 @@
                                                             placeholder="🔍 Cari parameter..."
                                                             style="width: 250px; background: white; border: 2px solid #e2e8f0; padding: 8px 15px;">
                                                         <button type="button" class="btn btn-sm" id="expand-all-params"
-                                                            style="background: white; color: #667eea; border: 2px solid white; font-weight: 600; padding: 8px 15px;">
+                                                            style="background: white; color: #0b3a5c; border: 2px solid white; font-weight: 600; padding: 8px 15px;">
                                                             <i class="fas fa-expand-alt"></i> Expand
                                                         </button>
                                                         <button type="button" class="btn btn-sm"
@@ -1907,7 +1907,7 @@
                                                         style="background: white; padding: 15px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
                                                         <strong style="color: #4a5568;">Total Parameter:</strong>
                                                         <span class="badge badge-lg"
-                                                            style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 8px 15px; font-size: 14px; border-radius: 8px;"
+                                                            style="background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%); color: white; padding: 8px 15px; font-size: 14px; border-radius: 8px;"
                                                             id="cart-total-items">0</span>
                                                     </div>
 
@@ -3159,13 +3159,13 @@
                             <label class="small font-weight-bold d-block mb-1">No. sampel (spesimen) — Kimia (${tcSingle})</label>
                             <div class="card border-0 shadow-sm mb-2" style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);">
                                 <div class="card-body d-flex flex-wrap align-items-center py-2 px-3" style="gap: 8px; font-weight: 600;">
-                                    <span style="color: #667eea;">${tcSingle}.01/</span>
+                                    <span style="color: #0b3a5c;">${tcSingle}.01/</span>
                                     <input type="text" inputmode="numeric" pattern="[0-9]*" class="form-control kesmas-klinik-specimen-review" placeholder="no_urut"
                                         data-specimen-lab-seg="01"
                                         data-specimen-hidden-ids="input_code_sample_kimia"
-                                        style="max-width: 120px; font-weight: 600; color: #667eea; text-align: center; height: 32px;"
+                                        style="max-width: 120px; font-weight: 600; color: #0b3a5c; text-align: center; height: 32px;"
                                         value="${String(initK).replace(/"/g, '&quot;')}" />
-                                    <span style="color: #667eea; white-space: nowrap;">/${yk}</span>
+                                    <span style="color: #0b3a5c; white-space: nowrap;">/${yk}</span>
                                 </div>
                             </div>
                         </div>`;
@@ -3179,13 +3179,13 @@
                             <label class="small font-weight-bold d-block mb-1">No. sampel (spesimen) — Mikrobiologi (${tcSingle})</label>
                             <div class="card border-0 shadow-sm mb-2" style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);">
                                 <div class="card-body d-flex flex-wrap align-items-center py-2 px-3" style="gap: 8px; font-weight: 600;">
-                                    <span style="color: #667eea;">${tcSingle}.02/</span>
+                                    <span style="color: #0b3a5c;">${tcSingle}.02/</span>
                                     <input type="text" inputmode="numeric" pattern="[0-9]*" class="form-control kesmas-klinik-specimen-review" placeholder="no_urut"
                                         data-specimen-lab-seg="02"
                                         data-specimen-hidden-ids="input_code_sample_mikro"
-                                        style="max-width: 120px; font-weight: 600; color: #667eea; text-align: center; height: 32px;"
+                                        style="max-width: 120px; font-weight: 600; color: #0b3a5c; text-align: center; height: 32px;"
                                         value="${String(initM).replace(/"/g, '&quot;')}" />
-                                    <span style="color: #667eea; white-space: nowrap;">/${yk}</span>
+                                    <span style="color: #0b3a5c; white-space: nowrap;">/${yk}</span>
                                 </div>
                             </div>
                         </div>`;
@@ -3309,7 +3309,7 @@
             if (additionalParams.length > 0) {
                 html += '<div style="background: #f8f9fa; padding: 20px; border-radius: 10px;">';
                 html +=
-                    '<h6 style="color: #667eea; margin-bottom: 15px;"><i class="fa fa-plus-circle"></i> Parameter Tambahan (Satuan)</h6>';
+                    '<h6 style="color: #0b3a5c; margin-bottom: 15px;"><i class="fa fa-plus-circle"></i> Parameter Tambahan (Satuan)</h6>';
                 html += `<p><strong>Total Parameter Tambahan:</strong> ${additionalParams.length}</p>`;
 
                 html += '<div style="margin-top: 15px;">';
@@ -3324,7 +3324,7 @@
                     html += `<li style="margin-bottom: 8px; padding: 8px; background: white; border-radius: 5px;">`;
                     html += `<span style="color: #2d3748;">${index + 1}. ${param.name}</span>`;
                     html +=
-                        ` <span style="color: #667eea; font-weight: 600; float: right;">${priceFormatted}</span>`;
+                        ` <span style="color: #0b3a5c; font-weight: 600; float: right;">${priceFormatted}</span>`;
                     html += `</li>`;
                 });
 
@@ -3337,9 +3337,9 @@
                     currency: 'IDR',
                     minimumFractionDigits: 0
                 }).format(additionalPrice);
-                html += `<div style="margin-top: 15px; padding-top: 10px; border-top: 2px solid #667eea;">`;
+                html += `<div style="margin-top: 15px; padding-top: 10px; border-top: 2px solid #0b3a5c;">`;
                 html +=
-                    `<p style="margin: 0;"><strong>Harga Parameter Tambahan:</strong> <span style="color: #667eea; font-size: 18px; font-weight: 700;">${additionalPriceFormatted}</span></p>`;
+                    `<p style="margin: 0;"><strong>Harga Parameter Tambahan:</strong> <span style="color: #0b3a5c; font-size: 18px; font-weight: 700;">${additionalPriceFormatted}</span></p>`;
                 html += `</div>`;
 
                 html += '</div>';
@@ -3349,7 +3349,7 @@
             if (!isPaket && selectedParams.length > 0) {
                 html += '<div style="background: #f8f9fa; padding: 20px; border-radius: 10px;">';
                 html +=
-                    '<h6 style="color: #667eea; margin-bottom: 15px;"><i class="fa fa-microscope"></i> Parameter Terpilih</h6>';
+                    '<h6 style="color: #0b3a5c; margin-bottom: 15px;"><i class="fa fa-microscope"></i> Parameter Terpilih</h6>';
                 html += `<p><strong>Total Parameter:</strong> ${selectedParams.length}</p>`;
 
                 html += '<div style="margin-top: 15px;">';
@@ -3388,9 +3388,9 @@
                         currency: 'IDR',
                         minimumFractionDigits: 0
                     }).format(totalSatuanPrice);
-                    html += `<div style="margin-top: 15px; padding-top: 10px; border-top: 2px solid #667eea;">`;
+                    html += `<div style="margin-top: 15px; padding-top: 10px; border-top: 2px solid #0b3a5c;">`;
                     html +=
-                        `<p style="margin: 0;"><strong>Total Harga Satuan:</strong> <span style="color: #667eea; font-size: 20px; font-weight: 700;">${totalSatuanFormatted}</span></p>`;
+                        `<p style="margin: 0;"><strong>Total Harga Satuan:</strong> <span style="color: #0b3a5c; font-size: 20px; font-weight: 700;">${totalSatuanFormatted}</span></p>`;
                     html += `</div>`;
                 }
 
@@ -3425,7 +3425,7 @@
                 html += '<div>';
                 html += '<p style="margin: 0; color: #666; font-size: 16px;">Harga Satuan</p>';
                 html +=
-                    `<p style="margin: 5px 0 0 0; color: #667eea; font-size: 18px; font-weight: 600;">${additionalPriceFormatted}</p>`;
+                    `<p style="margin: 5px 0 0 0; color: #0b3a5c; font-size: 18px; font-weight: 600;">${additionalPriceFormatted}</p>`;
                 html += '</div>';
             }
 
@@ -5456,8 +5456,8 @@
                     };
 
                     $button.addClass('active').css({
-                        'background': 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                        'border-color': '#667eea',
+                        'background': 'linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%)',
+                        'border-color': '#0b3a5c',
                         'color': 'white'
                     });
                     $checkIcon.show();
@@ -5503,7 +5503,7 @@
 
                         badgesHtml += `
                             <span class="badge badge-lg" 
-                                style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+                                style="background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%); 
                                        color: white; padding: 10px 15px; border-radius: 8px; font-size: 16px; margin-right: 10px; margin-bottom: 10px;">
                                 <i class="fa fa-vial"></i> ${type.code} - ${type.name}
                                 ${countBadgeHtml}
@@ -5591,8 +5591,8 @@
                             end: '#38ef7d'
                         }, // Green (Kimia-like)
                         {
-                            start: '#667eea',
-                            end: '#764ba2'
+                            start: '#0b3a5c',
+                            end: '#0d8f7f'
                         }, // Purple (Mikro-like)
                         {
                             start: '#f093fb',
@@ -5686,8 +5686,8 @@
                                     start: '#11998e',
                                     end: '#38ef7d'
                                 } : {
-                                    start: '#667eea',
-                                    end: '#764ba2'
+                                    start: '#0b3a5c',
+                                    end: '#0d8f7f'
                                 };
 
                                 cardsHtml += `
@@ -7590,13 +7590,13 @@
                         .additional_methods.length : 0);
 
                     html += `
-                        <div class="cart-panel mb-4" style="border: 2px solid ${index === 0 ? '#667eea' : '#e2e8f0'};">
-                            <div class="cart-panel-header" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 10px 10px 0 0;">
+                        <div class="cart-panel mb-4" style="border: 2px solid ${index === 0 ? '#0b3a5c' : '#e2e8f0'};">
+                            <div class="cart-panel-header" style="background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%); color: white; border-radius: 10px 10px 0 0;">
                                 <div class="cart-panel-title" style="color: white;">
                                     <i class="fa fa-vial"></i>
                                     ${type.code} - ${type.name}
                                 </div>
-                                <span class="badge" style="background: white; color: #667eea; font-weight: 700;">
+                                <span class="badge" style="background: white; color: #0b3a5c; font-weight: 700;">
                                     ${totalParams} Parameter
                                 </span>
                             </div>
@@ -7629,13 +7629,13 @@
                                 <p class="small text-muted mb-1" style="margin-top:-2px;">Format: <code>${fullPrefix}[urut]/${yRev}</code></p>
                                 <div class="card border-0 shadow-sm mb-2" style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);">
                                     <div class="card-body d-flex flex-wrap align-items-center py-2 px-3" style="gap: 8px; font-weight: 600;">
-                                        <span style="color: #667eea;">${fullPrefix}</span>
+                                        <span style="color: #0b3a5c;">${fullPrefix}</span>
                                         <input type="text" inputmode="numeric" pattern="[0-9]*" class="form-control kesmas-klinik-specimen-review" placeholder="no_urut"
                                             data-specimen-lab-seg="${String(labSuffix).replace(/"/g, '&quot;')}"
                                             data-specimen-hidden-ids="${String(hiddenId).replace(/"/g, '&quot;')}"
-                                            style="max-width: 120px; font-weight: 600; color: #667eea; text-align: center; height: 32px;"
+                                            style="max-width: 120px; font-weight: 600; color: #0b3a5c; text-align: center; height: 32px;"
                                             value="${String(initSpecDigits).replace(/"/g, '&quot;')}" />
-                                        <span style="color: #667eea; white-space: nowrap;">/${yRev}</span>
+                                        <span style="color: #0b3a5c; white-space: nowrap;">/${yRev}</span>
                                     </div>
                                 </div>
                             </div>`;
@@ -7719,7 +7719,7 @@
                     // Subtotal for this sample type
                     html += `
                                 <hr class="cart-divider">
-                                <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px; border-radius: 8px;">
+                                <div style="background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%); color: white; padding: 15px; border-radius: 8px;">
                                     <div class="d-flex justify-content-between align-items-center">
                                         <span style="font-size: 16px; font-weight: 600;">
                                             <i class="fa fa-calculator"></i> Subtotal
@@ -7747,7 +7747,7 @@
                                 Rp ${(window.formatRupiah || formatRupiah)(totalSamplingFee || 0)}
                             </span>
                         </div>
-                        <div class="cart-total-row" style="font-size: 1.3rem; padding: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 10px; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);">
+                        <div class="cart-total-row" style="font-size: 1.3rem; padding: 20px; background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%); color: white; border-radius: 10px; box-shadow: 0 4px 15px rgba(11, 58, 92, 0.4);">
                             <span class="cart-total-label" style="color: white; font-weight: 600;">
                                 <i class="fa fa-money-bill-wave"></i> TOTAL KESELURUHAN
                             </span>
@@ -8413,7 +8413,7 @@
 
         // Hover style pada baris picker
         $(document).on('mouseenter', '.mpicker-row', function() {
-            $(this).css('background', '#f0f4ff');
+            $(this).css('background', '#e7f4f2');
         }).on('mouseleave', '.mpicker-row', function() {
             $(this).css('background', '');
         });
@@ -9227,7 +9227,7 @@
     <div class="modal fade" id="modal-tambah-param" tabindex="-1" role="dialog" aria-labelledby="modal-tambah-param-label" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
-                <div class="modal-header" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+                <div class="modal-header" style="background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%); color: white;">
                     <h5 class="modal-title" id="modal-tambah-param-title">
                         <i class="fa fa-plus-circle mr-2"></i>Tambah Parameter Baru
                     </h5>
@@ -9240,7 +9240,7 @@
                     <div class="d-flex" style="border-bottom: 1px solid #e2e8f0; background: #f8f9fa;">
                         <div id="modal-param-step-indicator-1" class="flex-1 text-center py-3 active"
                             style="flex:1; border-right:1px solid #e2e8f0; font-size:13px;">
-                            <span class="step-num" style="display:inline-block; width:24px; height:24px; border-radius:50%; background:#667eea; color:white; line-height:24px; font-weight:700; margin-right:6px;">1</span>
+                            <span class="step-num" style="display:inline-block; width:24px; height:24px; border-radius:50%; background:#0b3a5c; color:white; line-height:24px; font-weight:700; margin-right:6px;">1</span>
                             <strong>Detail Parameter</strong>
                         </div>
                         <div id="modal-param-step-indicator-2" class="flex-1 text-center py-3 text-muted"

@@ -36,7 +36,7 @@
         }
 
         .category-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%);
             color: white;
             padding: 10px 15px;
             font-weight: bold;
@@ -167,7 +167,7 @@
             color: #333333 !important;
             text-shadow: none !important;
             -webkit-text-fill-color: #333333 !important;
-            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25) !important;
+            box-shadow: 0 0 0 0.2rem rgba(11, 58, 92, 0.25) !important;
             outline: none !important;
         }
 
@@ -186,14 +186,14 @@
 
         /* Hover effect untuk input field */
         #terbayar_permohonan_uji_payment_klinik:hover {
-            border-color: #667eea !important;
-            box-shadow: 0 0 0 0.1rem rgba(102, 126, 234, 0.15) !important;
+            border-color: #0b3a5c !important;
+            box-shadow: 0 0 0 0.1rem rgba(11, 58, 92, 0.15) !important;
         }
 
         /* Focus state untuk input */
         #terbayar_permohonan_uji_payment_klinik:focus {
-            border-color: #667eea !important;
-            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25) !important;
+            border-color: #0b3a5c !important;
+            box-shadow: 0 0 0 0.2rem rgba(11, 58, 92, 0.25) !important;
         }
 
         /* Styling untuk input group prepend */
@@ -607,7 +607,7 @@
                     <input type="hidden" id="total_harga" name="total_harga">
 
                     <div class="modal-header"
-                        style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+                        style="background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%); color: white;">
                         <h5 class="modal-title" id="paymentModalLabel">
                             <i class="fa fa-cash-register mr-2"></i>
                             <span>Proses Pembayaran</span>
@@ -620,7 +620,7 @@
 
                     <div class="modal-body" style="background-color: #f8f9fa; padding: 30px;">
                         <!-- Patient Info Card -->
-                        <div class="card mb-3" style="border-left: 4px solid #667eea;">
+                        <div class="card mb-3" style="border-left: 4px solid #0b3a5c;">
                             <div class="card-body">
                                 <h6 class="card-subtitle mb-3 text-muted">
                                     <i class="fa fa-user-circle mr-2"></i>Informasi Pasien
@@ -732,7 +732,7 @@
                             <div class="input-group mb-2" style="height: 50px;">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text"
-                                        style="height: 50px; font-size: 18px; font-weight: 600; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 10px 0 0 10px;">
+                                        style="height: 50px; font-size: 18px; font-weight: 600; background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%); color: white; border: none; border-radius: 10px 0 0 10px;">
                                         Rp.
                                     </div>
                                 </div>
@@ -755,12 +755,12 @@
                                     <i class="fa fa-check mr-1"></i> Pas
                                 </button>
                                 <button type="button" class="quick-amount-btn"
-                                    style="flex: 1; padding: 10px; border: 2px solid #667eea; background: white; color: #667eea; border-radius: 8px; font-weight: 600; cursor: pointer;"
+                                    style="flex: 1; padding: 10px; border: 2px solid #0b3a5c; background: white; color: #0b3a5c; border-radius: 8px; font-weight: 600; cursor: pointer;"
                                     data-amount="50000">
                                     + 50rb
                                 </button>
                                 <button type="button" class="quick-amount-btn"
-                                    style="flex: 1; padding: 10px; border: 2px solid #667eea; background: white; color: #667eea; border-radius: 8px; font-weight: 600; cursor: pointer;"
+                                    style="flex: 1; padding: 10px; border: 2px solid #0b3a5c; background: white; color: #0b3a5c; border-radius: 8px; font-weight: 600; cursor: pointer;"
                                     data-amount="100000">
                                     + 100rb
                                 </button>

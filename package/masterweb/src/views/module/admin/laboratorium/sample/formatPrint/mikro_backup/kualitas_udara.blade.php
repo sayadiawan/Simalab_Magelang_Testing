@@ -79,8 +79,7 @@
                 {!! $no_LHU !!}
             </td>
             <td align="right">
-                Magelang,
-                {{ isset($pengesahan_hasil->pengesahan_hasil_date)
+                —, {{ isset($pengesahan_hasil->pengesahan_hasil_date)
                     ? \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $pengesahan_hasil->pengesahan_hasil_date)->isoFormat('D MMMM
                                                                                                                                                                                                                                                                 Y')
                     : '' }}
@@ -443,7 +442,7 @@
         <div class="col-md-12">
             <div class="justify-content-end" style="text-align: center;">
                 Kepala UPT Laboratorium Kesehatan<br>
-                Kabupaten Magelang<br>
+                SIMLAB Testing<br>
                 @if (isset($verifikasi))
                     {{-- <img src="{{ asset('assets/admin/images/ttd.png') }}" width="100px" class="img-fluid">
         <div style="clear: right">

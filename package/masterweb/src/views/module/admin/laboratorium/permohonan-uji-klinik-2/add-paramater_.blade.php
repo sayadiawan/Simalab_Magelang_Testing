@@ -529,7 +529,7 @@
                     <input type="hidden" id="total_harga" name="total_harga">
 
                     <div class="modal-header"
-                        style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+                        style="background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%); color: white;">
                         <h5 class="modal-title" id="paymentModalLabel">
                             <i class="fa fa-cash-register mr-2"></i>
                             <span>Proses Pembayaran</span>
@@ -542,7 +542,7 @@
 
                     <div class="modal-body" style="background-color: #f8f9fa; padding: 30px;">
                         <!-- Patient Info Card -->
-                        <div class="card mb-3" style="border-left: 4px solid #667eea;">
+                        <div class="card mb-3" style="border-left: 4px solid #0b3a5c;">
                             <div class="card-body">
                                 <h6 class="card-subtitle mb-3 text-muted">
                                     <i class="fa fa-user-circle mr-2"></i>Informasi Pasien
@@ -603,12 +603,12 @@
                                     <i class="fa fa-check mr-1"></i> Pas
                                 </button>
                                 <button type="button" class="quick-amount-btn"
-                                    style="flex: 1; padding: 10px; border: 2px solid #667eea; background: white; color: #667eea; border-radius: 8px; font-weight: 600; cursor: pointer;"
+                                    style="flex: 1; padding: 10px; border: 2px solid #0b3a5c; background: white; color: #0b3a5c; border-radius: 8px; font-weight: 600; cursor: pointer;"
                                     data-amount="50000">
                                     + 50rb
                                 </button>
                                 <button type="button" class="quick-amount-btn"
-                                    style="flex: 1; padding: 10px; border: 2px solid #667eea; background: white; color: #667eea; border-radius: 8px; font-weight: 600; cursor: pointer;"
+                                    style="flex: 1; padding: 10px; border: 2px solid #0b3a5c; background: white; color: #0b3a5c; border-radius: 8px; font-weight: 600; cursor: pointer;"
                                     data-amount="100000">
                                     + 100rb
                                 </button>

@@ -362,7 +362,7 @@
 
             <p style="font-size: 11px; margin-bottom: 5px; text-align: justify;">
                 Dengan ini menyatakan bahwa <b>SETUJU</b> terhadap sampel yang telah diserahkan berupa
-                <b>{{ $mainSampleType }}</b> kepada UPTD Laboratorium Kesehatan Kabupaten Magelang, dengan :
+                <b>{{ $mainSampleType }}</b> kepada Laboratorium SIMLAB, dengan :
             </p>
 
             <p style="font-size: 11px; margin: 5px 0; text-align: justify;">
@@ -451,7 +451,7 @@
                             @endif
                         </td>
                         <td width="50%" style="vertical-align: bottom; text-align: center;">
-                            Magelang, {{ \Carbon\Carbon::now()->isoFormat('D MMMM Y') }}<br>
+                            —, {{ \Carbon\Carbon::now()->isoFormat('D MMMM Y') }}<br>
                             Pengirim
                             <br><br><br><br>
                             _____________________

@@ -2,6 +2,9 @@
 <html lang="id">
 
 <head>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('assets/mobile/css/simlab-mobile-theme.css') }}?v={{ @filemtime(public_path('assets/mobile/css/simlab-mobile-theme.css')) ?: time() }}">
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Pengambilan Sampel Berhasil</title>
@@ -15,7 +18,7 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: linear-gradient(135deg, #2D6BCF 0%, #1e4a9e 100%);
+            background: linear-gradient(135deg, #06283f 0%, #0b3a5c 48%, #0d8f7f 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -115,14 +118,14 @@
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #2D6BCF 0%, #1e4a9e 100%);
+            background: linear-gradient(135deg, #06283f 0%, #0b3a5c 48%, #0d8f7f 100%);
             color: white;
         }
 
         .btn-secondary {
             background: white;
-            color: #2D6BCF;
-            border: 2px solid #2D6BCF;
+            color: #0b3a5c;
+            border: 2px solid #0b3a5c;
         }
 
         .btn:active {
@@ -141,7 +144,7 @@
     <div class="container">
         @if(isset($backUrl))
         <div style="background: rgba(255, 255, 255, 0.95); padding: 12px 20px; border-radius: 10px; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; font-size: 14px;">
-            <a href="{{ $backUrl }}" style="color: #2D6BCF; text-decoration: none; display: flex; align-items: center; gap: 5px; font-weight: 500;">
+            <a href="{{ $backUrl }}" style="color: #0b3a5c; text-decoration: none; display: flex; align-items: center; gap: 5px; font-weight: 500;">
                 <span>←</span>
                 <span>Kembali</span>
             </a>
@@ -185,7 +188,7 @@
 
             <div class="footer-text">
                 Terima kasih telah menggunakan sistem<br>
-                Laboratorium Kesehatan Daerah Kab. Magelang
+                Laboratorium Kesehatan Daerah SIMLAB
             </div>
         </div>
     </div>

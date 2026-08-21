@@ -35,11 +35,43 @@ class SatuSehatHelper
     }
 
   /**
+   * Apakah integrasi Satu Sehat aktif.
+   * Nonaktif di testing agar alur verifikasi tidak bergantung nama/NIK resmi.
+   */
+  public static function isEnabled(): bool
+  {
+    return (bool) config('services.satu_sehat.enabled', false);
+  }
+
+  /**
+   * Response kosong yang aman dipakai pemanggil saat Satu Sehat dimatikan.
+   */
+  protected static function disabledResponse(): array
+  {
+    return [
+      'status_code' => 0,
+      'body' => [
+        'resourceType' => 'OperationOutcome',
+        'issue' => [[
+          'severity' => 'information',
+          'code' => 'suppressed',
+          'diagnostics' => 'Satu Sehat disabled (SATUSEHAT_ENABLED=false / VERSION_SATUSEHAT != prd)',
+        ]],
+      ],
+      'skipped' => true,
+    ];
+  }
+
+  /**
    * Ambil token Satu Sehat dari cache/DB, atau minta baru jika perlu.
    * Tidak melempar exception (termasuk 429) agar proses login tetap jalan.
    */
   public static function ensureAccessToken()
   {
+    if (!static::isEnabled()) {
+      return null;
+    }
+
     $cached = Cache::get(self::TOKEN_CACHE_KEY);
     if (!empty($cached)) {
       return $cached;
@@ -126,6 +158,11 @@ class SatuSehatHelper
 
   public function get($endpoint, $queryParams = [])
   {
+    if (!static::isEnabled()) {
+      Log::info('Satu Sehat GET skipped (disabled)', ['endpoint' => $endpoint]);
+      return static::disabledResponse();
+    }
+
     try {
       $response = $this->client->request('GET', $endpoint, [
         'headers' => [
@@ -147,6 +184,11 @@ class SatuSehatHelper
 
   public function post($endpoint, $data = [])
   {
+    if (!static::isEnabled()) {
+      Log::info('Satu Sehat POST skipped (disabled)', ['endpoint' => $endpoint]);
+      return static::disabledResponse();
+    }
+
     try {
       $response = $this->client->post(  config('services.satu_sehat.base_uri').$endpoint, [
         'headers' => [
@@ -168,6 +210,11 @@ class SatuSehatHelper
 
   public function put($endpoint, $id, $data = [])
   {
+    if (!static::isEnabled()) {
+      Log::info('Satu Sehat PUT skipped (disabled)', ['endpoint' => $endpoint, 'id' => $id]);
+      return static::disabledResponse();
+    }
+
     try {
       $response = $this->client->put(config('services.satu_sehat.base_uri') . $endpoint."/".$id, [
         'headers' => [

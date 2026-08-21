@@ -61,7 +61,7 @@
             <th style="text-align: left; border: 1px solid black; background-color: #00dbf8;">Pasien A</th>
             <th style="text-align: left; border: 1px solid black; background-color: #00dbf8;">3308123456789012</th>
             <th style="text-align: left; border: 1px solid black; background-color: #00dbf8;">L</th>
-            <th style="text-align: left; border: 1px solid black; background-color: #00dbf8;">Magelang</th>
+            <th style="text-align: left; border: 1px solid black; background-color: #00dbf8;">SIMLAB</th>
             <th style="text-align: left; border: 1px solid black; background-color: #00dbf8;">02 Januari 1995</th>
             <th style="text-align: left; border: 1px solid black; background-color: red;">= TEXT(F4,"DD MMMM YYYY")
             </th>

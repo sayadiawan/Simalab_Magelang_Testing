@@ -576,7 +576,7 @@
                 <tr>
                     <td width="50%"></td>
                     <td width="50%" style="text-align: center;">
-                        Magelang, {{ \Carbon\Carbon::now()->isoFormat('D MMMM Y') }}<br>
+                        —, {{ \Carbon\Carbon::now()->isoFormat('D MMMM Y') }}<br>
                         Yang Menyerahkan Sampel,<br><br><br><br>
                         ( ________________________ )
                     </td>

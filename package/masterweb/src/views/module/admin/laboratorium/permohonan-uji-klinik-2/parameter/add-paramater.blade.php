@@ -36,7 +36,7 @@
         }
 
         .category-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%);
             color: white;
             padding: 10px 15px;
             font-weight: bold;

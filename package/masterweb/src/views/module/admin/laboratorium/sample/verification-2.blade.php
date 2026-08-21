@@ -24,7 +24,7 @@
         }
 
         .info-card .card-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%);
             color: white;
             border: none;
             padding: 15px 20px;
@@ -277,7 +277,7 @@
                             <div class="mb-3">
                                 @if ($sample->kode_laboratorium == 'KIM')
                                     <span class="badge badge-lab"
-                                        style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+                                        style="background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%); color: white;">
                                         <i class="fa fa-flask"></i> Laboratorium {{ $sample->nama_laboratorium }}
                                     </span>
                                 @elseif($sample->kode_laboratorium == 'MBI')

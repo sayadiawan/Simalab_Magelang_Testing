@@ -1,5 +1,4 @@
-<div style="max-width: 300px; text-align: center; margin-left: auto">
-    Magelang,<br>
+<div style="max-width: 300px; text-align: center; margin-left: auto">—, <br>
     Kepala UPT Laboratorium Kesehatan<br>
     Kabupaten Boyolali<br>
     <br>

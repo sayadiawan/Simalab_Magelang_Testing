@@ -370,11 +370,11 @@
         }
 
         .parameter-group-header:hover {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+            background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%) !important;
             color: white !important;
-            border-color: #667eea !important;
+            border-color: #0b3a5c !important;
             transform: translateX(5px);
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 4px 12px rgba(11, 58, 92, 0.3);
         }
 
         .parameter-group-header:hover .collapse-icon {
@@ -385,7 +385,7 @@
             transition: transform 0.3s ease;
             font-size: 14px;
             margin-right: 8px;
-            color: #667eea;
+            color: #0b3a5c;
         }
 
         /* Checkbox Styling for Parameters */
@@ -545,9 +545,9 @@
         }
 
         .step-item.active .step-number {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%);
             color: white;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 4px 15px rgba(11, 58, 92, 0.4);
             transform: scale(1.1);
         }
 
@@ -568,7 +568,7 @@
         }
 
         .step-item.active .step-title {
-            color: #667eea;
+            color: #0b3a5c;
         }
 
         .step-item.completed .step-title {
@@ -609,14 +609,14 @@
         }
 
         .btn-next {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%);
             color: white;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 4px 15px rgba(11, 58, 92, 0.3);
         }
 
         .btn-next:hover {
             transform: translateX(3px);
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 6px 20px rgba(11, 58, 92, 0.4);
         }
 
         .btn-step:disabled {
@@ -741,7 +741,7 @@
         }
 
         #parameter-cart .card-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%);
             border-bottom: 3px solid #5a67d8;
         }
 
@@ -1046,9 +1046,9 @@
 
             <div class="col-lg-6" id="code_sample_mikro_wrapper_top">
                 <div class="card"
-                    style="border: 2px solid #667eea; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.15);">
+                    style="border: 2px solid #0b3a5c; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(11, 58, 92, 0.15);">
                     <div class="card-header"
-                        style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 15px 20px;">
+                        style="background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%); padding: 15px 20px;">
                         <h6 class="mb-0" style="color: white; font-weight: 600;">
                             <i class="fa fa-microscope"></i> Kode Sampel Mikrobiologi
                         </h6>
@@ -1528,7 +1528,7 @@
                                         <div class="col-lg-8">
                                             <div class="form-section-card-sample" style="padding: 0; overflow: hidden;">
                                                 <div class="card-header d-flex justify-content-between align-items-center"
-                                                    style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; margin: 0;">
+                                                    style="background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%); color: white; padding: 20px; margin: 0;">
                                                     <h5 class="mb-0" style="color: white; font-weight: 600;">
                                                         <i class="fa fa-microscope"></i> Parameter Pengujian
                                                     </h5>
@@ -1537,7 +1537,7 @@
                                                             placeholder="🔍 Cari parameter..."
                                                             style="width: 250px; background: white; border: 2px solid #e2e8f0; padding: 8px 15px;">
                                                         <button type="button" class="btn btn-sm" id="expand-all-params"
-                                                            style="background: white; color: #667eea; border: 2px solid white; font-weight: 600; padding: 8px 15px;">
+                                                            style="background: white; color: #0b3a5c; border: 2px solid white; font-weight: 600; padding: 8px 15px;">
                                                             <i class="fas fa-expand-alt"></i> Expand
                                                         </button>
                                                         <button type="button" class="btn btn-sm"
@@ -1744,7 +1744,7 @@
                                                         style="background: white; padding: 15px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
                                                         <strong style="color: #4a5568;">Total Parameter:</strong>
                                                         <span class="badge badge-lg"
-                                                            style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 8px 15px; font-size: 14px; border-radius: 8px;"
+                                                            style="background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%); color: white; padding: 8px 15px; font-size: 14px; border-radius: 8px;"
                                                             id="cart-total-items">0</span>
                                                     </div>
 
@@ -2051,7 +2051,7 @@
                 }
                 if (mikroVisible && kodeSampelMikro !== '-') {
                     html +=
-                        `<p><strong>Kode Sampel Mikrobiologi:</strong> <span style="color: #667eea; font-weight: 700; font-size: 16px; letter-spacing: 1px;">${kodeSampelMikro}</span></p>`;
+                        `<p><strong>Kode Sampel Mikrobiologi:</strong> <span style="color: #0b3a5c; font-weight: 700; font-size: 16px; letter-spacing: 1px;">${kodeSampelMikro}</span></p>`;
                 }
                 html += '</div>';
             }
@@ -2146,7 +2146,7 @@
             if (additionalParams.length > 0) {
                 html += '<div style="background: #f8f9fa; padding: 20px; border-radius: 10px;">';
                 html +=
-                    '<h6 style="color: #667eea; margin-bottom: 15px;"><i class="fa fa-plus-circle"></i> Parameter Tambahan (Satuan)</h6>';
+                    '<h6 style="color: #0b3a5c; margin-bottom: 15px;"><i class="fa fa-plus-circle"></i> Parameter Tambahan (Satuan)</h6>';
                 html += `<p><strong>Total Parameter Tambahan:</strong> ${additionalParams.length}</p>`;
 
                 html += '<div style="margin-top: 15px;">';
@@ -2161,7 +2161,7 @@
                     html += `<li style="margin-bottom: 8px; padding: 8px; background: white; border-radius: 5px;">`;
                     html += `<span style="color: #2d3748;">${index + 1}. ${param.name}</span>`;
                     html +=
-                        ` <span style="color: #667eea; font-weight: 600; float: right;">${priceFormatted}</span>`;
+                        ` <span style="color: #0b3a5c; font-weight: 600; float: right;">${priceFormatted}</span>`;
                     html += `</li>`;
                 });
 
@@ -2174,9 +2174,9 @@
                     currency: 'IDR',
                     minimumFractionDigits: 0
                 }).format(additionalPrice);
-                html += `<div style="margin-top: 15px; padding-top: 10px; border-top: 2px solid #667eea;">`;
+                html += `<div style="margin-top: 15px; padding-top: 10px; border-top: 2px solid #0b3a5c;">`;
                 html +=
-                    `<p style="margin: 0;"><strong>Harga Parameter Tambahan:</strong> <span style="color: #667eea; font-size: 18px; font-weight: 700;">${additionalPriceFormatted}</span></p>`;
+                    `<p style="margin: 0;"><strong>Harga Parameter Tambahan:</strong> <span style="color: #0b3a5c; font-size: 18px; font-weight: 700;">${additionalPriceFormatted}</span></p>`;
                 html += `</div>`;
 
                 html += '</div>';
@@ -2186,7 +2186,7 @@
             if (!isPaket && selectedParams.length > 0) {
                 html += '<div style="background: #f8f9fa; padding: 20px; border-radius: 10px;">';
                 html +=
-                    '<h6 style="color: #667eea; margin-bottom: 15px;"><i class="fa fa-microscope"></i> Parameter Terpilih</h6>';
+                    '<h6 style="color: #0b3a5c; margin-bottom: 15px;"><i class="fa fa-microscope"></i> Parameter Terpilih</h6>';
                 html += `<p><strong>Total Parameter:</strong> ${selectedParams.length}</p>`;
 
                 html += '<div style="margin-top: 15px;">';
@@ -2225,9 +2225,9 @@
                         currency: 'IDR',
                         minimumFractionDigits: 0
                     }).format(totalSatuanPrice);
-                    html += `<div style="margin-top: 15px; padding-top: 10px; border-top: 2px solid #667eea;">`;
+                    html += `<div style="margin-top: 15px; padding-top: 10px; border-top: 2px solid #0b3a5c;">`;
                     html +=
-                        `<p style="margin: 0;"><strong>Total Harga Satuan:</strong> <span style="color: #667eea; font-size: 20px; font-weight: 700;">${totalSatuanFormatted}</span></p>`;
+                        `<p style="margin: 0;"><strong>Total Harga Satuan:</strong> <span style="color: #0b3a5c; font-size: 20px; font-weight: 700;">${totalSatuanFormatted}</span></p>`;
                     html += `</div>`;
                 }
 
@@ -2262,7 +2262,7 @@
                 html += '<div>';
                 html += '<p style="margin: 0; color: #666; font-size: 14px;">Harga Satuan</p>';
                 html +=
-                    `<p style="margin: 5px 0 0 0; color: #667eea; font-size: 18px; font-weight: 600;">${additionalPriceFormatted}</p>`;
+                    `<p style="margin: 5px 0 0 0; color: #0b3a5c; font-size: 18px; font-weight: 600;">${additionalPriceFormatted}</p>`;
                 html += '</div>';
             }
 

@@ -36,7 +36,7 @@
                 $pengirimSampel = optional($sample->permohonanuji)->pengirim_sample
                     ?? ($sample->pengirim_sample ?? '');
                 if ($pengirimSampel === '' || $pengirimSampel === null) {
-                    $pengirimSampel = 'Petugas Dinas Kesehatan Kabupaten Magelang';
+                    $pengirimSampel = 'Petugas laboratorium';
                 }
             @endphp
             {{ $pengirimSampel }}

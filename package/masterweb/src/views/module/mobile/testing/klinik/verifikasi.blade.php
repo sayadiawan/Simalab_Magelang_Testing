@@ -2,6 +2,9 @@
 <html lang="id">
 
 <head>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('assets/mobile/css/simlab-mobile-theme.css') }}?v={{ @filemtime(public_path('assets/mobile/css/simlab-mobile-theme.css')) ?: time() }}">
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -33,7 +36,7 @@
         }
 
         .header {
-            background: linear-gradient(135deg, #2D6BCF 0%, #1e4a9e 100%);
+            background: linear-gradient(135deg, #06283f 0%, #0b3a5c 48%, #0d8f7f 100%);
             color: white;
             padding: 20px;
             border-radius: 15px;
@@ -117,8 +120,8 @@
 
         .form-control:focus {
             outline: none;
-            border-color: #2D6BCF;
-            box-shadow: 0 0 0 3px rgba(45, 107, 207, 0.1);
+            border-color: #0b3a5c;
+            box-shadow: 0 0 0 3px rgba(11, 58, 92, 0.1);
         }
 
         .parameter-card {
@@ -127,7 +130,7 @@
             padding: 15px;
             margin-bottom: 15px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-            border-left: 4px solid #2D6BCF;
+            border-left: 4px solid #0b3a5c;
         }
 
         .parameter-header {
@@ -196,7 +199,7 @@
         }
 
         input:checked + .slider {
-            background-color: #2D6BCF;
+            background-color: #0b3a5c;
         }
 
         input:checked + .slider:before {
@@ -236,7 +239,7 @@
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #2D6BCF 0%, #1e4a9e 100%);
+            background: linear-gradient(135deg, #06283f 0%, #0b3a5c 48%, #0d8f7f 100%);
             color: white;
         }
 
@@ -283,7 +286,7 @@
         }
 
         .step-item.active {
-            color: #2D6BCF;
+            color: #0b3a5c;
             font-weight: 600;
         }
 
@@ -356,7 +359,7 @@
         }
 
         .modal-header {
-            background: linear-gradient(135deg, #2D6BCF 0%, #1e4a9e 100%);
+            background: linear-gradient(135deg, #06283f 0%, #0b3a5c 48%, #0d8f7f 100%);
             color: white;
             border-radius: 12px 12px 0 0;
         }
@@ -432,8 +435,8 @@
         
         .inline-hasil-input:focus {
             outline: none;
-            border-color: #2D6BCF;
-            box-shadow: 0 0 0 3px rgba(45, 107, 207, 0.1);
+            border-color: #0b3a5c;
+            box-shadow: 0 0 0 3px rgba(11, 58, 92, 0.1);
         }
         
         .inline-hasil-editor {
@@ -454,8 +457,8 @@
         
         .inline-hasil-editor:focus {
             outline: none;
-            border-color: #2D6BCF;
-            box-shadow: 0 0 0 3px rgba(45, 107, 207, 0.1);
+            border-color: #0b3a5c;
+            box-shadow: 0 0 0 3px rgba(11, 58, 92, 0.1);
         }
         
         .inline-hasil-editor[data-placeholder]:empty:before {
@@ -476,8 +479,8 @@
         
         .inline-keterangan-editor:focus {
             outline: none;
-            border-color: #2D6BCF;
-            box-shadow: 0 0 0 3px rgba(45, 107, 207, 0.1);
+            border-color: #0b3a5c;
+            box-shadow: 0 0 0 3px rgba(11, 58, 92, 0.1);
         }
         
         .result-badge-inline {
@@ -505,10 +508,10 @@
         .nav-arrow-btn {
             flex: 1;
             padding: 10px;
-            border: 2px solid #2D6BCF;
+            border: 2px solid #0b3a5c;
             border-radius: 8px;
             background: white;
-            color: #2D6BCF;
+            color: #0b3a5c;
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
@@ -523,7 +526,7 @@
         }
         
         .nav-arrow-btn:hover {
-            background: #2D6BCF;
+            background: #0b3a5c;
             color: white;
         }
         
@@ -958,10 +961,10 @@
                                                     <!-- Hasil Analis Section -->
                                                     <div class="comparison-section" style="margin-bottom: 20px;">
                                                         <div style="display: flex; align-items: center; margin-bottom: 10px;">
-                                                            <i class="fa fa-user-md" style="color: #2D6BCF; font-size: 18px; margin-right: 8px;"></i>
+                                                            <i class="fa fa-user-md" style="color: #0b3a5c; font-size: 18px; margin-right: 8px;"></i>
                                                             <h6 style="margin: 0; font-weight: 600; color: #333;">Hasil Analis (Pemeriksa)</h6>
                                                         </div>
-                                                        <div class="result-box" style="padding: 15px; background: #f8f9fa; border-left: 4px solid #2D6BCF; border-radius: 6px;">
+                                                        <div class="result-box" style="padding: 15px; background: #f8f9fa; border-left: 4px solid #0b3a5c; border-radius: 6px;">
                                                             <div id="history_hasil_analis_{{ $parameter->id_permohonan_uji_parameter_klinik }}" style="font-size: 16px; color: #333;">
                                                                 {!! cek_hasil_color(
                                                                     $current_result,
@@ -1203,7 +1206,7 @@
     <div class="modal fade" id="infoSampleModal" tabindex="-1" role="dialog" aria-labelledby="infoSampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document" style="max-width: 95%; margin: 10px auto;">
             <div class="modal-content">
-                <div class="modal-header" style="background: linear-gradient(135deg, #2D6BCF 0%, #1e4a9e 100%); color: white;">
+                <div class="modal-header" style="background: linear-gradient(135deg, #06283f 0%, #0b3a5c 48%, #0d8f7f 100%); color: white;">
                     <h5 class="modal-title" id="infoSampleModalLabel">
                         <i class="fa fa-info-circle mr-2"></i>Informasi Sample
                     </h5>
@@ -1631,9 +1634,9 @@
                         
                         // Highlight target card briefly
                         $targetCard.css({
-                            'box-shadow': '0 0 0 3px rgba(45, 107, 207, 0.5)',
+                            'box-shadow': '0 0 0 3px rgba(11, 58, 92, 0.5)',
                             'transition': 'box-shadow 0.3s',
-                            'background-color': 'rgba(45, 107, 207, 0.05)'
+                            'background-color': 'rgba(11, 58, 92, 0.05)'
                         });
                         setTimeout(function() {
                             $targetCard.css({
@@ -2110,7 +2113,7 @@
                                     '<span style="font-weight: 600; color: #dc3545;">Hasil Berbeda</span>' +
                                     '</div>' +
                                     '<div style="padding: 10px; background: white; border-radius: 6px; margin-top: 10px;">' +
-                                    '<div style="margin-bottom: 8px;"><strong>Hasil Analis:</strong> <span style="color: #2D6BCF;">' + 
+                                    '<div style="margin-bottom: 8px;"><strong>Hasil Analis:</strong> <span style="color: #0b3a5c;">' + 
                                     $('<div>').text(hasilAnalis).html() + '</span></div>' +
                                     '<div><strong>Hasil Koreksi:</strong> <span style="color: #28a745;">' + 
                                     $('<div>').text(hasilKoreksi).html() + '</span></div>' +

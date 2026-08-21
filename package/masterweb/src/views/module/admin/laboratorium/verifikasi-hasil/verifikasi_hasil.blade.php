@@ -120,8 +120,8 @@
         
         .inline-hasil-input:focus {
             outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+            border-color: #0b3a5c;
+            box-shadow: 0 0 0 0.2rem rgba(11, 58, 92, 0.25);
         }
         
         .inline-hasil-editor {
@@ -142,8 +142,8 @@
         
         .inline-hasil-editor:focus {
             outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+            border-color: #0b3a5c;
+            box-shadow: 0 0 0 0.2rem rgba(11, 58, 92, 0.25);
         }
         
         .inline-hasil-editor[data-placeholder]:empty:before {
@@ -152,7 +152,7 @@
         }
         
         .inline-hasil-editor sup {
-            color: #667eea;
+            color: #0b3a5c;
             font-weight: 600;
         }
         
@@ -178,8 +178,8 @@
         
         .inline-keterangan-editor:focus {
             outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+            border-color: #0b3a5c;
+            box-shadow: 0 0 0 0.2rem rgba(11, 58, 92, 0.25);
         }
         
         .inline-keterangan-editor.empty {
@@ -212,7 +212,7 @@
         
         /* TinyMCE toolbar customization for inline */
         .tox.tox-tinymce-inline .tox-toolbar__primary {
-            background: #667eea !important;
+            background: #0b3a5c !important;
             border-radius: 6px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
@@ -271,7 +271,7 @@
         }
         
         .offset-option:hover {
-            border-color: #667eea;
+            border-color: #0b3a5c;
             background-color: #f8f9ff;
         }
         

@@ -2,6 +2,9 @@
 <html lang="id">
 
 <head>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('assets/mobile/css/simlab-mobile-theme.css') }}?v={{ @filemtime(public_path('assets/mobile/css/simlab-mobile-theme.css')) ?: time() }}">
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Scan QR Code - Sampling</title>
@@ -14,7 +17,7 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: linear-gradient(135deg, #2D6BCF 0%, #1e4a9e 100%);
+            background: linear-gradient(135deg, #06283f 0%, #0b3a5c 48%, #0d8f7f 100%);
             min-height: 100vh;
             padding: 20px;
             display: flex;
@@ -105,7 +108,7 @@
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #2D6BCF 0%, #1e4a9e 100%);
+            background: linear-gradient(135deg, #06283f 0%, #0b3a5c 48%, #0d8f7f 100%);
             color: #fff;
         }
 
@@ -157,7 +160,7 @@
 
         .form-control:focus {
             outline: none;
-            border-color: #2D6BCF;
+            border-color: #0b3a5c;
         }
 
         #reader {
@@ -195,7 +198,7 @@
             <img src="{{ asset('/assets/public/images/logo_magelang.png') }}" alt="Logo Magelang" style="max-width: 100px; height: auto; margin-bottom: 15px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
             <div class="header-icon">🧪</div>
             <h1>SAMPLING KESMAS</h1>
-            <p>Laboratorium Kesehatan Daerah<br>Kabupaten Magelang</p>
+            <p>Laboratorium SIMLAB<br>Lingkungan pengujian</p>
         </div>
 
         <div class="card">

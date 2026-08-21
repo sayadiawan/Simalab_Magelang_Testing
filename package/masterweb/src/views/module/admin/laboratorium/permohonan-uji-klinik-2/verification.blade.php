@@ -67,7 +67,7 @@
         }
 
         .badge-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%);
         }
 
         /* Smooth card styling - keep transitions for normal UI */
@@ -707,7 +707,7 @@
                         <!-- Patient Information Card -->
                         <div class="card shadow-sm mb-4" style="border-left: 4px solid #007bff;">
                             <div class="card-header bg-gradient-primary text-white"
-                                style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                                style="background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%);">
                                 <h5 class="mb-0"><i class="fa fa-user-circle mr-2"></i>Informasi Pasien</h5>
                             </div>
                             <div class="card-body">
@@ -1590,7 +1590,7 @@
                                     </td>
                                     <td>
                                         <select name="nama_petugas" id="namaPetugasRegistrasi" required>
-                                            @foreach (['Muhammad Fauzan', 'Abdul Rohman', 'Haryanti', 'Khusna Nur Aziza'] as $nama_petugas)
+                                            @foreach (['PETUGAS DUMMY 10', 'PETUGAS DUMMY 01', 'PETUGAS DUMMY 08', 'PETUGAS DUMMY 09'] as $nama_petugas)
                                                 <option value="{{ $nama_petugas }}"
                                                     {{ isset($listVerifications[1]->nama_petugas) && $listVerifications[1]->nama_petugas == $nama_petugas
                                                         ? 'selected'

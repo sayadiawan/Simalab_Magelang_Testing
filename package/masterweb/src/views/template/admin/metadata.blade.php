@@ -34,6 +34,10 @@
     <link rel="stylesheet" href="{{ asset('assets/admin/css/bootstrap-datetimepicker.min.css') }}?v={{ $assetVer('assets/admin/css/bootstrap-datetimepicker.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/admin/css/custom.css') }}?v={{ $adminCssV }}">
     <link rel="stylesheet" href="{{ asset('assets/admin/css/responsive.css') }}?v={{ $adminCssV }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Material+Icons&family=Material+Icons+Outlined&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('assets/admin/css/material-theme.css') }}?v={{ @filemtime(public_path('assets/admin/css/material-theme.css')) ?: 0 }}">
     <link rel="stylesheet"
         href="{{ asset('assets/admin/vendors/iconfonts/simple-line-icon/css/simple-line-icons.css') }}?v={{ $assetVer('assets/admin/vendors/iconfonts/simple-line-icon/css/simple-line-icons.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/admin/vendors/iconfonts/ti-icons/css/themify-icons.css') }}?v={{ $assetVer('assets/admin/vendors/iconfonts/ti-icons/css/themify-icons.css') }}">
@@ -90,7 +94,7 @@
 
     <style>
         .smt-table th {
-            background: #2D6BCF !important;
+            background: #0b3a5c !important;
             color: #fff;
         }
 

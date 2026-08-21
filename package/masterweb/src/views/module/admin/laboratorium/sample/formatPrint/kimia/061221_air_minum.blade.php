@@ -81,8 +81,7 @@
               {!! $no_LHU !!}
             </td>
             <td align="right">
-              Magelang,
-              {{ isset($pengesahan_hasil->pengesahan_hasil_date) ? \Carbon\Carbon::createFromFormat('Y-m-d H:i:s',
+              —, {{ isset($pengesahan_hasil->pengesahan_hasil_date) ? \Carbon\Carbon::createFromFormat('Y-m-d H:i:s',
               $pengesahan_hasil->pengesahan_hasil_date)->isoFormat('D MMMM Y') : '' }}
 
             </td>

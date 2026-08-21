@@ -2,6 +2,9 @@
 <html lang="id">
 
 <head>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('assets/mobile/css/simlab-mobile-theme.css') }}?v={{ @filemtime(public_path('assets/mobile/css/simlab-mobile-theme.css')) ?: time() }}">
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -16,7 +19,7 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: linear-gradient(135deg, #2D6BCF 0%, #1e4a9e 100%);
+            background: linear-gradient(135deg, #06283f 0%, #0b3a5c 48%, #0d8f7f 100%);
             min-height: 100vh;
             padding: 20px;
             padding-bottom: 100px;
@@ -37,7 +40,7 @@
         .top-bar h1 {
             font-size: 18px;
             font-weight: 600;
-            color: #2D6BCF;
+            color: #0b3a5c;
         }
 
         .logout-btn {
@@ -110,7 +113,7 @@
         }
         
         .breadcrumb a {
-            color: #2D6BCF;
+            color: #0b3a5c;
             text-decoration: none;
             display: flex;
             align-items: center;
@@ -146,12 +149,12 @@
             padding: 15px;
             border-radius: 12px;
             margin-bottom: 20px;
-            border-left: 4px solid #2D6BCF;
+            border-left: 4px solid #0b3a5c;
         }
 
         .permohonan-info h3 {
             font-size: 14px;
-            color: #2D6BCF;
+            color: #0b3a5c;
             margin-bottom: 10px;
             font-weight: 600;
         }
@@ -236,14 +239,14 @@
         .group-title {
             font-size: 16px;
             font-weight: 600;
-            color: #2D6BCF;
+            color: #0b3a5c;
             display: flex;
             align-items: center;
             gap: 8px;
         }
 
         .group-count {
-            background: #2D6BCF;
+            background: #0b3a5c;
             color: white;
             padding: 4px 10px;
             border-radius: 12px;
@@ -256,7 +259,7 @@
             border-radius: 10px;
             padding: 12px;
             margin-bottom: 10px;
-            border-left: 3px solid #2D6BCF;
+            border-left: 3px solid #0b3a5c;
         }
 
         .draft-item:last-child {
@@ -317,7 +320,7 @@
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #2D6BCF 0%, #1e4a9e 100%);
+            background: linear-gradient(135deg, #06283f 0%, #0b3a5c 48%, #0d8f7f 100%);
             color: white;
         }
 
@@ -331,7 +334,7 @@
         }
 
         .add-new-btn {
-            background: linear-gradient(135deg, #2D6BCF 0%, #1e4a9e 100%);
+            background: linear-gradient(135deg, #06283f 0%, #0b3a5c 48%, #0d8f7f 100%);
             color: white;
             padding: 16px;
             border: none;
@@ -469,7 +472,7 @@
 
         .modal-header {
             margin-bottom: 20px;
-            color: #2D6BCF;
+            color: #0b3a5c;
             font-size: 18px;
             font-weight: 600;
         }
@@ -557,7 +560,7 @@
         }
 
         .modal-btn-submit {
-            background: linear-gradient(135deg, #2D6BCF 0%, #1e4a9e 100%);
+            background: linear-gradient(135deg, #06283f 0%, #0b3a5c 48%, #0d8f7f 100%);
             color: white;
         }
     </style>
@@ -894,7 +897,7 @@
         style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000; align-items: center; justify-content: center;">
         <div
             style="background: white; border-radius: 20px; padding: 25px; max-width: 500px; width: 90%; max-height: 90vh; overflow-y: auto;">
-            <h2 style="margin-bottom: 20px; color: #2D6BCF; font-size: 20px;">Selesaikan Sampling</h2>
+            <h2 style="margin-bottom: 20px; color: #0b3a5c; font-size: 20px;">Selesaikan Sampling</h2>
             <p style="margin-bottom: 20px; color: #666; font-size: 14px;">Masukkan data pelanggan untuk menyelesaikan
                 proses sampling. Semua draft akan dikonversi menjadi sample.</p>
 

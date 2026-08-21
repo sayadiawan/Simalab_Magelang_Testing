@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Nota Klinik Haji Konsolidasi">
-    <meta name="author" content="Klinik Magelang">
-    <title>Nota Magelang-KLINIK - {{ $customer->name_customer }}</title>
+    <meta name="author" content="SIMLAB Klinik">
+    <title>Nota SIMLAB-KLINIK - {{ $customer->name_customer }}</title>
     <link rel="shortcut icon" href="favicon.ico">
     <style>
         html, body {
@@ -218,7 +218,7 @@
                 <b>Keterangan</b>
                 <ol style="margin-left: -20px !Important">
                     <li>Parameter yang telah didaftarkan untuk pemeriksaan tidak bisa dibatalkan oleh pelanggan</li>
-                    <li>Pelanggan menyetujui semua metode uji yang digunakan di Labkesmas Kab. Magelang</li>
+                    <li>Pelanggan menyetujui semua metode uji yang digunakan di Laboratorium SIMLAB</li>
                 </ol>
             </td>
             <td style="padding: 0; vertical-align: bottom; border-top-color: transparent !important;">
@@ -387,7 +387,7 @@
                 <b>Keterangan</b>
                 <ol style="margin-left: -20px !Important">
                     <li>Parameter yang telah didaftarkan untuk pemeriksaan tidak bisa dibatalkan oleh pelanggan</li>
-                    <li>Pelanggan menyetujui semua metode uji yang digunakan di Labkesmas Kab. Magelang</li>
+                    <li>Pelanggan menyetujui semua metode uji yang digunakan di Laboratorium SIMLAB</li>
                 </ol>
             </td>
             <td style="padding: 0; vertical-align: bottom; border-top-color: transparent !important;">
@@ -556,7 +556,7 @@
                 <b>Keterangan</b>
                 <ol style="margin-left: -20px !Important">
                     <li>Parameter yang telah didaftarkan untuk pemeriksaan tidak bisa dibatalkan oleh pelanggan</li>
-                    <li>Pelanggan menyetujui semua metode uji yang digunakan di Labkesmas Kab. Magelang</li>
+                    <li>Pelanggan menyetujui semua metode uji yang digunakan di Laboratorium SIMLAB</li>
                 </ol>
             </td>
             <td style="padding: 0; vertical-align: bottom; border-top-color: transparent !important;">

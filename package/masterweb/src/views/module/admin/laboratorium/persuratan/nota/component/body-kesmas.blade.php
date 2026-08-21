@@ -9,7 +9,7 @@
             <b style="font-size: 12pt">{{ $nama_customer ?? "Sutrisno" }}</b>
             <br>
             <br>
-            {{ ucwords(strtolower($alamat_customer ?? 'Jl. Raya Kedungwuni, RT.01/RW.01, Kedungwuni, Kec. Mungkid, Kabupaten Magelang, Jawa Tengah 56151')) }}
+            {{ ucwords(strtolower($alamat_customer ?? 'Alamat pelanggan')) }}
         </td>
         <td rowspan="4" style="vertical-align: top; padding: 0; border-bottom: none !important;">
             <table border="1" cellspacing="0" cellpadding="2" width="100%" style="border-collapse: collapse; border-bottom: none !important;">
@@ -213,7 +213,7 @@
                 <li>Parameter yang telah didaftarkan untuk<br>
                     pemeriksaan tidak bisa dibatalkan oleh pelanggan</li>
                 <li>Pelanggan menyetujui semua metode uji yang <br>
-                    digunakan di Labkesmas Kab. Magelang</li>
+                    digunakan di Laboratorium SIMLAB</li>
             </ol>
         </td>
     </tr>

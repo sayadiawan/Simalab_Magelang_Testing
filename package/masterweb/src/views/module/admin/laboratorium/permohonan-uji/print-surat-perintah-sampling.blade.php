@@ -297,7 +297,7 @@
 
     <!-- Footer -->
     <div class="footer">
-        <p>* Surat ini dicetak secara otomatis dari Sistem Informasi Laboratorium Kesehatan Daerah Kabupaten Magelang
+        <p>* Surat ini dicetak secara otomatis dari Sistem Informasi Laboratorium Kesehatan Daerah SIMLAB Testing
         </p>
         <p>* Dicetak pada: {{ \Carbon\Carbon::now()->isoFormat('DD MMMM YYYY, HH:mm') }} WIB</p>
     </div>

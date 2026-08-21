@@ -93,7 +93,7 @@
     <p> Demikian surat keterangan ini dibuat dengan sebenar-benarnya agar dapat dipergunakan sebagaimana mestinya. </p>
 
     <div class="" style="float: right; text-align: center; margin-right: 3em">
-        <p> Magelang, 2 Februari 2024 </p>
+        <p> —, 2 Februari 2024 </p>
         <br>
         <br>
         <br>
@@ -391,7 +391,7 @@
 
         <table width="100%" cellspacing="0" cellpadding="0" style="margin-top: 5px">
             <tr>
-                <td style="text-align: right">Magelang, {{ fdate_sas(date('Y-m-d'), 'DDMMYYYY') }}</td>
+                <td style="text-align: right">—, {{ fdate_sas(date('Y-m-d'), 'DDMMYYYY') }}</td>
             </tr>
         </table>
 

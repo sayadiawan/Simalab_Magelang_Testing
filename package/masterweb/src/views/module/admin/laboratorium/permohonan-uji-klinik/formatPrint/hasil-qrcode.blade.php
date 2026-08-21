@@ -76,8 +76,7 @@
                 -
             </td>
             <td align="right">
-                Magelang,
-                {{ isset($item_permohonan_uji_klinik->tglregister_permohonan_uji_klinik)
+                —, {{ isset($item_permohonan_uji_klinik->tglregister_permohonan_uji_klinik)
                     ? \Carbon\Carbon::createFromFormat(
                         'Y-m-d',
                         $item_permohonan_uji_klinik->tglregister_permohonan_uji_klinik,

@@ -122,6 +122,8 @@
                 e.stopPropagation();
                 var $body = $('body');
                 $body.removeClass(SIDEBAR_EXPANDED_CLICK).removeClass(SIDEBAR_WAS_ICON_ONLY);
+                $('.sidebar .nav-item').removeClass('hover-open');
+                $('#sidebar .collapse.show').collapse('hide');
                 if ($body.hasClass('sidebar-toggle-display') || $body.hasClass('sidebar-absolute')) {
                     $body.toggleClass('sidebar-hidden');
                 } else {

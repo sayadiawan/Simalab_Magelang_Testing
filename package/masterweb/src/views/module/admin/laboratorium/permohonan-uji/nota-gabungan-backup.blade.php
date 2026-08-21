@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Nota Kesmas Gabungan">
-    <meta name="author" content="Labkes Magelang">
+    <meta name="author" content="SIMLAB">
     <title>Nota MAGELANG-KESMAS Gabungan</title>
     <link rel="shortcut icon" href="favicon.ico">
     <style>
@@ -328,7 +328,7 @@
                         <ol>
                             <li>Parameter yang telah didaftarkan untuk pemeriksaan tidak bisa dibatalkan oleh pelanggan
                             </li>
-                            <li>Pelanggan menyetujui semua metode saji yang digunakan di Laboratorium Kab. Magelang</li>
+                            <li>Pelanggan menyetujui semua metode saji yang digunakan di Laboratorium SIMLAB</li>
                         </ol>
                     </td>
                     <td style="vertical-align: bottom; padding: 0; border-top: none !important;">

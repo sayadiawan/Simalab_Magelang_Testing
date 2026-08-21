@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Nota Klinik">
-    <meta name="author" content="Klinik Kota Mungkid">
+    <meta name="author" content="Klinik —">
     <title>Nota BOYOLALI-KLINIK</title>
     <link rel="shortcut icon" href="favicon.ico">
 
@@ -265,7 +265,7 @@
                         </td>
                         <td></td>
                         <td>
-                            <p>Kota Mungkid, @if ($item_permohonan_uji_klinik->status_pembayaran == '1')
+                            <p>—, @if ($item_permohonan_uji_klinik->status_pembayaran == '1')
                                     {{ \Smt\Masterweb\Helpers\DateHelper::formatDateIndo(date('d F, Y')) }}
                                 @endif
                             </p>
@@ -434,7 +434,7 @@
                         </td>
                         <td></td>
                         <td>
-                            <p>Kota Mungkid, @if ($item_permohonan_uji_klinik->status_pembayaran == '1')
+                            <p>—, @if ($item_permohonan_uji_klinik->status_pembayaran == '1')
                                     {{ \Smt\Masterweb\Helpers\DateHelper::formatDateIndo(date('d F, Y')) }}
                                 @endif
                             </p>
@@ -597,7 +597,7 @@
                         </td>
                         <td></td>
                         <td>
-                            <p>Kota Mungkid, @if ($item_permohonan_uji_klinik->status_pembayaran == '1')
+                            <p>—, @if ($item_permohonan_uji_klinik->status_pembayaran == '1')
                                     {{ \Smt\Masterweb\Helpers\DateHelper::formatDateIndo(date('d F, Y')) }}
                                 @endif
                             </p>

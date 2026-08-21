@@ -30,7 +30,7 @@
         <td colspan="{{ $totalColumns }}" style="text-align: center; font-size: 14px; font-weight: bold; padding: 10px;">
             PEMERINTAH KABUPATEN MAGELANG<br>
             UPTD LABORATORIUM KESEHATAN<br>
-            Jl. Soekarno-Hatta, Tegalrejo, Kabupaten Magelang, Kode Pos 56192<br>
+            Jl. Soekarno-Hatta, Tegalrejo, SIMLAB Testing, Kode Pos 56192<br>
             Telp. (0293) 314197
         </td>
     </tr>
@@ -156,13 +156,13 @@
     <tr></tr>
     <tr>
         <td colspan="{{ $totalColumns }}" style="padding: 20px; text-align: right;">
-            Magelang, {{ \Carbon\Carbon::now()->format('d F Y') }}
+            —, {{ \Carbon\Carbon::now()->format('d F Y') }}
         </td>
     </tr>
     <tr>
         <td colspan="{{ $totalColumns }}" style="padding: 5px; text-align: center;">
             Dokter Penanggung Jawab<br>
-            Laboratorium Kesehatan Kabupaten Magelang
+            Laboratorium SIMLAB
         </td>
     </tr>
     <tr>

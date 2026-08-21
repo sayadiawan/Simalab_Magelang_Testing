@@ -533,7 +533,7 @@
                             <td style="text-align: justify;">
                                 Dengan ini menyatakan bahwa <b>SETUJU</b> terhadap sampel yang telah diserahkan
                                 berupa <b>{{ implode(', ', array_unique($allJenisSample)) }}</b> kepada
-                                UPTD Laboratorium Kesehatan Kabupaten Magelang, dengan :
+                                Laboratorium SIMLAB, dengan :
                             </td>
                         </tr>
                         <tr>
@@ -1081,7 +1081,7 @@
                         <tr>
                             <td style="text-align: justify;">
                                 Dengan ini menyatakan bahwa <b>SETUJU</b> terhadap sampel yang telah diserahkan berupa
-                                <b>{{ $mainSampleType }}</b> kepada UPTD Laboratorium Kesehatan Kabupaten Magelang,
+                                <b>{{ $mainSampleType }}</b> kepada Laboratorium SIMLAB,
                                 dengan :
                             </td>
                         </tr>

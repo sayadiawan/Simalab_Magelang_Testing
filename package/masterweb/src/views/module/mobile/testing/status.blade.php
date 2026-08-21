@@ -2,6 +2,9 @@
 <html lang="id">
 
 <head>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('assets/mobile/css/simlab-mobile-theme.css') }}?v={{ @filemtime(public_path('assets/mobile/css/simlab-mobile-theme.css')) ?: time() }}">
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -26,7 +29,7 @@
         }
 
         .header {
-            background: linear-gradient(135deg, #2D6BCF 0%, #1e4a9e 100%);
+            background: linear-gradient(135deg, #06283f 0%, #0b3a5c 48%, #0d8f7f 100%);
             color: white;
             padding: 20px;
             border-radius: 15px;
@@ -121,8 +124,8 @@
         }
 
         .step.active .step-circle {
-            border-color: #2D6BCF;
-            background: #2D6BCF;
+            border-color: #0b3a5c;
+            background: #0b3a5c;
             color: white;
         }
 
@@ -145,7 +148,7 @@
         }
 
         .step.active .step-label {
-            color: #2D6BCF;
+            color: #0b3a5c;
             font-weight: 600;
         }
 
@@ -180,8 +183,8 @@
 
         .form-control:focus {
             outline: none;
-            border-color: #2D6BCF;
-            box-shadow: 0 0 0 3px rgba(45, 107, 207, 0.1);
+            border-color: #0b3a5c;
+            box-shadow: 0 0 0 3px rgba(11, 58, 92, 0.1);
         }
 
         .form-control:disabled {
@@ -194,7 +197,7 @@
             border-radius: 10px;
             padding: 15px;
             margin-bottom: 15px;
-            border-left: 4px solid #2D6BCF;
+            border-left: 4px solid #0b3a5c;
         }
 
         .sample-card h4 {
@@ -262,7 +265,7 @@
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #2D6BCF 0%, #1e4a9e 100%);
+            background: linear-gradient(135deg, #06283f 0%, #0b3a5c 48%, #0d8f7f 100%);
             color: white;
         }
 
@@ -423,7 +426,7 @@
             @if (!$step_penerima_done)
                 <!-- Single form for all labs (KIM and MBI) -->
                 <div class="card" id="step-1">
-                    <h3 style="margin-bottom: 15px; font-size: 16px; color: #2D6BCF;">Step 1: Penerima Sampel</h3>
+                    <h3 style="margin-bottom: 15px; font-size: 16px; color: #0b3a5c;">Step 1: Penerima Sampel</h3>
 
                     <div class="form-group">
                         <label for="penerima_sampel">Nama Penerima <span class="required">*</span></label>
@@ -676,7 +679,7 @@
                 <!-- OLD CODE - Separate forms for KIM and MBI - DISABLED -->
                 @if (false && $can_manage_kim && !$step_penerima_done_kim)
                     <div class="card" id="step-1-kim">
-                        <h3 style="margin-bottom: 15px; font-size: 16px; color: #2D6BCF;">Step 1: Penerima Sampel -
+                        <h3 style="margin-bottom: 15px; font-size: 16px; color: #0b3a5c;">Step 1: Penerima Sampel -
                             Lab Kimia</h3>
 
                         <div class="form-group">
@@ -939,7 +942,7 @@
                 <!-- Form untuk Lab Mikro -->
                 @if ($can_manage_mbi && !$step_penerima_done_mbi)
                     <div class="card" id="step-1-mbi">
-                        <h3 style="margin-bottom: 15px; font-size: 16px; color: #2D6BCF;">Step 1: Penerima Sampel -
+                        <h3 style="margin-bottom: 15px; font-size: 16px; color: #0b3a5c;">Step 1: Penerima Sampel -
                             Lab Mikro</h3>
 
                         <div class="form-group">
@@ -1206,7 +1209,7 @@
                         document.getElementById('lab_type').value = '{{ $single_lab_type }}';
                     </script>
                     <div class="card" id="step-1">
-                        <h3 style="margin-bottom: 15px; font-size: 16px; color: #2D6BCF;">Step 1: Penerima Sampel
+                        <h3 style="margin-bottom: 15px; font-size: 16px; color: #0b3a5c;">Step 1: Penerima Sampel
                         </h3>
 
                         <div class="form-group">
@@ -1465,7 +1468,7 @@
                     <!-- Form untuk Lab Kimia -->
                     @if ($show_step2_kim)
                         <div class="card" id="step-2-kim">
-                            <h3 style="margin-bottom: 15px; font-size: 16px; color: #2D6BCF;">Step 2: Disposisi ke
+                            <h3 style="margin-bottom: 15px; font-size: 16px; color: #0b3a5c;">Step 2: Disposisi ke
                                 Koordinator Kesmas - Lab Kimia</h3>
 
                             <div class="form-group">
@@ -1512,7 +1515,7 @@
                     @if ($show_step2_mbi)
 
                         <div class="card" id="step-2-mbi">
-                            <h3 style="margin-bottom: 15px; font-size: 16px; color: #2D6BCF;">Step 2: Disposisi ke
+                            <h3 style="margin-bottom: 15px; font-size: 16px; color: #0b3a5c;">Step 2: Disposisi ke
                                 Koordinator Kesmas - Lab Mikro</h3>
 
                             <div class="form-group">
@@ -1578,7 +1581,7 @@
                             document.getElementById('lab_type').value = '{{ $single_lab_type }}';
                         </script>
                         <div class="card" id="step-2">
-                            <h3 style="margin-bottom: 15px; font-size: 16px; color: #2D6BCF;">Step 2: Disposisi ke
+                            <h3 style="margin-bottom: 15px; font-size: 16px; color: #0b3a5c;">Step 2: Disposisi ke
                                 Koordinator Kesmas</h3>
 
                             <div class="form-group">
@@ -1644,7 +1647,7 @@
                     <!-- Form untuk Lab Kimia -->
                     @if ($show_step3_kim)
                         <div class="card" id="step-3-kim">
-                            <h3 style="margin-bottom: 15px; font-size: 16px; color: #2D6BCF;">Step 3: Disposisi ke
+                            <h3 style="margin-bottom: 15px; font-size: 16px; color: #0b3a5c;">Step 3: Disposisi ke
                                 Analis - Lab Kimia</h3>
 
 
@@ -1692,7 +1695,7 @@
                     <!-- Form untuk Lab Mikro -->
                     @if ($show_step3_mbi)
                         <div class="card" id="step-3-mbi">
-                            <h3 style="margin-bottom: 15px; font-size: 16px; color: #2D6BCF;">Step 3: Disposisi ke
+                            <h3 style="margin-bottom: 15px; font-size: 16px; color: #0b3a5c;">Step 3: Disposisi ke
                                 Analis - Lab Mikro</h3>
 
 
@@ -1758,7 +1761,7 @@
                             document.getElementById('lab_type').value = '{{ $single_lab_type_analis }}';
                         </script>
                         <div class="card" id="step-3">
-                            <h3 style="margin-bottom: 15px; font-size: 16px; color: #2D6BCF;">Step 3: Disposisi ke
+                            <h3 style="margin-bottom: 15px; font-size: 16px; color: #0b3a5c;">Step 3: Disposisi ke
                                 Analis
                             </h3>
 

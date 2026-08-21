@@ -13,7 +13,7 @@
         }
 
         .card-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%);
             color: #fff;
             border-top-left-radius: 14px;
             border-top-right-radius: 14px;
@@ -40,7 +40,7 @@
             width: 10px;
             height: 10px;
             border-radius: 10px;
-            background: #667eea;
+            background: #0b3a5c;
         }
 
         .table-borderless th {
@@ -66,7 +66,7 @@
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%);
             border: none;
         }
 
@@ -107,7 +107,7 @@
 
         .inline-edit-btn {
             cursor: pointer;
-            color: #667eea;
+            color: #0b3a5c;
             padding: 6px 10px;
             border-radius: 4px;
             transition: all .2s;
@@ -129,8 +129,8 @@
 
         .inline-edit-btn:hover {
             background: #eef2ff;
-            color: #764ba2;
-            border-color: #667eea;
+            color: #0d8f7f;
+            border-color: #0b3a5c;
         }
 
         .inline-edit-btn i {
@@ -193,7 +193,7 @@
         .form-disabled-overlay-content i {
             font-size: 32px;
             margin-bottom: 10px;
-            color: #667eea;
+            color: #0b3a5c;
         }
 
         .form-section-disabled {

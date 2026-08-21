@@ -2,6 +2,9 @@
 <html lang="id">
 
 <head>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('assets/mobile/css/simlab-mobile-theme.css') }}?v={{ @filemtime(public_path('assets/mobile/css/simlab-mobile-theme.css')) ?: time() }}">
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -29,7 +32,7 @@
         }
 
         .top-bar {
-            background: linear-gradient(135deg, #2D6BCF 0%, #1e4a9e 100%);
+            background: linear-gradient(135deg, #06283f 0%, #0b3a5c 48%, #0d8f7f 100%);
             color: white;
             padding: 15px 20px;
             position: sticky;
@@ -63,7 +66,7 @@
         }
 
         .section-title i {
-            color: #2D6BCF;
+            color: #0b3a5c;
         }
 
         .form-group {
@@ -88,7 +91,7 @@
 
         .form-control:focus {
             outline: none;
-            border-color: #2D6BCF;
+            border-color: #0b3a5c;
         }
 
         textarea.form-control {
@@ -120,9 +123,9 @@
         }
 
         .btn-picker.active {
-            background: linear-gradient(135deg, #2D6BCF 0%, #1e4a9e 100%);
+            background: linear-gradient(135deg, #06283f 0%, #0b3a5c 48%, #0d8f7f 100%);
             color: white;
-            border-color: #2D6BCF;
+            border-color: #0b3a5c;
         }
 
         /* Number Input */
@@ -137,7 +140,7 @@
             width: 50px;
             height: 50px;
             border: none;
-            background: #2D6BCF;
+            background: #0b3a5c;
             color: white;
             border-radius: 12px;
             font-size: 24px;
@@ -221,7 +224,7 @@
         .parameter-item input[type="checkbox"] {
             width: 20px;
             height: 20px;
-            accent-color: #2D6BCF;
+            accent-color: #0b3a5c;
         }
 
         .parameter-item label {
@@ -246,7 +249,7 @@
         .btn-submit {
             width: 100%;
             padding: 16px;
-            background: linear-gradient(135deg, #2D6BCF 0%, #1e4a9e 100%);
+            background: linear-gradient(135deg, #06283f 0%, #0b3a5c 48%, #0d8f7f 100%);
             color: white;
             border: none;
             border-radius: 12px;
@@ -329,7 +332,7 @@
 
         .spinner {
             border: 4px solid #f3f3f3;
-            border-top: 4px solid #2D6BCF;
+            border-top: 4px solid #0b3a5c;
             border-radius: 50%;
             width: 50px;
             height: 50px;
@@ -397,8 +400,8 @@
         }
 
         .flatpickr-day.selected {
-            background: linear-gradient(135deg, #2D6BCF 0%, #1e4a9e 100%) !important;
-            border-color: #2D6BCF !important;
+            background: linear-gradient(135deg, #06283f 0%, #0b3a5c 48%, #0d8f7f 100%) !important;
+            border-color: #0b3a5c !important;
         }
 
         .flatpickr-day:hover {
@@ -431,7 +434,7 @@
     <div class="container">
         @if(isset($backUrl))
         <div style="background: rgba(255, 255, 255, 0.95); padding: 12px 20px; border-radius: 10px; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; font-size: 14px;">
-            <a href="{{ $backUrl }}" style="color: #2D6BCF; text-decoration: none; display: flex; align-items: center; gap: 5px; font-weight: 500;">
+            <a href="{{ $backUrl }}" style="color: #0b3a5c; text-decoration: none; display: flex; align-items: center; gap: 5px; font-weight: 500;">
                 <span>←</span>
                 <span>Kembali</span>
             </a>
@@ -471,7 +474,7 @@
                         <i class="fas fa-barcode"></i> Kode Sampel (Tidak dapat diubah)
                     </div>
                     <div style="background: #f8f9fa; padding: 15px; border-radius: 10px; text-align: center;">
-                        <div style="font-weight: 700; font-size: 18px; color: #2D6BCF; letter-spacing: 1px;">
+                        <div style="font-weight: 700; font-size: 18px; color: #0b3a5c; letter-spacing: 1px;">
                             {!! \Smt\Masterweb\Models\Sample::codesampleTableCellHtmlFrom($sample) !!}
                         </div>
                     </div>

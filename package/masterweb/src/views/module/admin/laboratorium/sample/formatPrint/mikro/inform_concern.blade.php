@@ -319,7 +319,7 @@
                     <td style="text-align: justify;">
                         Dengan ini menyatakan bahwa <b>SETUJU</b> terhadap sampel yang telah diserahkan
                         berupa <b>{{ strtoupper($sample->name_sample_type) }}</b> kepada
-                        UPTD Laboratorium Kesehatan Kabupaten Magelang, dengan :
+                        Laboratorium SIMLAB, dengan :
                     </td>
                 </tr>
                 <tr>

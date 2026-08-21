@@ -18,7 +18,7 @@
 <br><br><br>
 <table width="100%" cellspacing="0" cellpadding="0">
     <tr>
-        @include('masterweb::module.admin.laboratorium.sample.formatPrint._tanggal_cetak_footer_lhu', ['footerKotaLabel' => 'Magelang'])
+        @include('masterweb::module.admin.laboratorium.sample.formatPrint._tanggal_cetak_footer_lhu', ['footerKotaLabel' => '—'])
     </tr>
     <tr>
         <td colspan="3" style="text-align: left; padding-left:80px;"></td>

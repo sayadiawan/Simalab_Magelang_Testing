@@ -244,7 +244,7 @@
         .dataTables_wrapper #empTable.dataTable thead th.sorting,
         .dataTables_wrapper #empTable.dataTable thead th.sorting_asc,
         .dataTables_wrapper #empTable.dataTable thead th.sorting_desc {
-            background-color: #2D6BCF !important;
+            background-color: #0b3a5c !important;
             color: #fff !important;
             font-weight: 600;
             border: none;
@@ -317,7 +317,7 @@
 
         #empTable .dropdown-item:hover {
             background-color: #f8f9fa;
-            color: #2D6BCF;
+            color: #0b3a5c;
         }
 
         #empTable .dropdown-item i {

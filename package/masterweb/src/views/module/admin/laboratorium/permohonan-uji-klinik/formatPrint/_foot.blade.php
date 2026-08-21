@@ -1,7 +1,7 @@
 <p> Demikian surat keterangan ini dibuat dengan sebenar-benarnya agar dapat dipergunakan sebagaimana mestinya. </p>
 
 <div class="" style="float: right; text-align: center; margin-right: 3em">
-    <p> Magelang, 2 Februari 2024 </p>
+    <p> —, 2 Februari 2024 </p>
     <br>
     <br>
     <br>

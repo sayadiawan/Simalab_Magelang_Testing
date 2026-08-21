@@ -188,7 +188,7 @@
             <td colspan="4"></td>
 
             <td>
-                Magelang, {{ fdate_carbon_sas(date('Y-m-d'), 'DDMMYYYY') }}
+                —, {{ fdate_carbon_sas(date('Y-m-d'), 'DDMMYYYY') }}
                 <br>
                 Kepala UPT Laboratorium Kesehatan
                 <br>

@@ -18,7 +18,7 @@
         .selected-parameter-item {
             display: inline-flex;
             align-items: center;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%);
             color: white;
             padding: 8px 15px;
             border-radius: 20px;
@@ -66,7 +66,7 @@
 
         .parameters-count {
             font-weight: 600;
-            color: #667eea;
+            color: #0b3a5c;
             font-size: 16px;
         }
 
@@ -102,7 +102,7 @@
         }
 
         .price-summary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%);
             color: white;
             padding: 20px;
             border-radius: 10px;

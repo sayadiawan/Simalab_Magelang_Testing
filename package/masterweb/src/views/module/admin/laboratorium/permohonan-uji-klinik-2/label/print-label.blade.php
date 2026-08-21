@@ -197,7 +197,7 @@
 
     /* Badge untuk jenis sampel (disamakan konsepnya dengan penerima-sampel) */
     .clinic-label-sample .badge-custom {
-      background: #667eea;
+      background: #0b3a5c;
       color: #ffffff;
       padding: 1px 3px;
       border-radius: 3px;

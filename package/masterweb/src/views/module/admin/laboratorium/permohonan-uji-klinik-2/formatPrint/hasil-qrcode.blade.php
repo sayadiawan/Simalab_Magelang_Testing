@@ -76,7 +76,7 @@
                 -
             </td>
             <td align="right">
-                Kota Mungkid,
+                —,
                 @php
                     $tgl_register = null;
                     if (

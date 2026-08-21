@@ -112,11 +112,11 @@
         }
 
         .wizard-step.active .wizard-step-circle {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-color: #667eea;
+            background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%);
+            border-color: #0b3a5c;
             color: white;
             transform: scale(1.1);
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 6px 20px rgba(11, 58, 92, 0.4);
         }
 
         .wizard-step.completed .wizard-step-circle {
@@ -139,7 +139,7 @@
         }
 
         .wizard-step.active .wizard-step-title {
-            color: #667eea;
+            color: #0b3a5c;
             font-size: 15px;
         }
 
@@ -176,14 +176,14 @@
             left: 0;
             width: 100%;
             height: 5px;
-            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(90deg, #0b3a5c 0%, #0d8f7f 100%);
             transform: scaleX(0);
             transition: transform 0.4s ease;
         }
 
         .doctor-type-card:hover {
-            border-color: #667eea;
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.25);
+            border-color: #0b3a5c;
+            box-shadow: 0 10px 30px rgba(11, 58, 92, 0.25);
             transform: translateY(-8px);
         }
 
@@ -192,9 +192,9 @@
         }
 
         .doctor-type-card.selected {
-            border-color: #667eea;
-            background: linear-gradient(135deg, #f0f4ff 0%, #e8eeff 100%);
-            box-shadow: 0 10px 35px rgba(102, 126, 234, 0.3);
+            border-color: #0b3a5c;
+            background: linear-gradient(135deg, #e7f4f2 0%, #dcefeb 100%);
+            box-shadow: 0 10px 35px rgba(11, 58, 92, 0.3);
             transform: translateY(-5px) scale(1.02);
         }
 
@@ -223,7 +223,7 @@
         .doctor-type-icon {
             font-size: 70px;
             margin-bottom: 20px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -263,7 +263,7 @@
             margin-bottom: 25px;
             padding-bottom: 15px;
             border-bottom: 3px solid transparent;
-            border-image: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            border-image: linear-gradient(90deg, #0b3a5c 0%, #0d8f7f 100%);
             border-image-slice: 1;
             display: flex;
             align-items: center;
@@ -272,7 +272,7 @@
         .form-section-title i {
             margin-right: 12px;
             font-size: 24px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -305,7 +305,7 @@
         }
 
         .btn-step.btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%);
             border: none;
         }
 
@@ -373,8 +373,8 @@
 
         .form-control:focus,
         .form-select:focus {
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            border-color: #0b3a5c;
+            box-shadow: 0 0 0 3px rgba(11, 58, 92, 0.1);
         }
 
         .form-label {

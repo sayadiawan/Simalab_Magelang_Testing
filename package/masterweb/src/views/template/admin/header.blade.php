@@ -435,19 +435,19 @@
     }
 </style>
 <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row navbar-info default-layout-navbar">
-    <div class="text-start navbar-brand-wrapper d-flex align-items-center justify-content-center"
-        style="background:#7facf5">
+    <div class="text-start navbar-brand-wrapper d-flex align-items-center justify-content-center">
         <a class="navbar-brand brand-logo" href="{{ url('') }}" target="_blank">
-            <img src="{{ asset('/assets/public/images/logo_magelang.png') }}" style="width:40px; margin-right: 20px; margin-left: 20px;" alt="Logo" />
+            <img src="{{ asset('/assets/public/images/logo_magelang.png') }}" style="width:40px; margin-right: 16px; margin-left: 16px;" alt="Logo SIMLAB" />
         </a>
         <div class="brand-text d-none d-lg-block">
-            <p>Sistem Informasi Laboratorium Kesehatan</p>
+            <p>SIMLAB</p>
+            <small>Lingkungan pengujian</small>
         </div>
         <a class="navbar-brand brand-logo-mini" href="{{ url('') }}" target="_blank" style="display: none;">
-            <img src="{{ asset('/assets/public/images/logo_magelang.png') }}" style="width:40px;" alt="Logo" />
+            <img src="{{ asset('/assets/public/images/logo_magelang.png') }}" style="width:40px;" alt="Logo SIMLAB" />
         </a>
     </div>
-    <div class="navbar-menu-wrapper d-flex align-items-stretch" style="background-color: #2D6BCF">
+    <div class="navbar-menu-wrapper d-flex align-items-stretch">
         <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
             <span class="fas fa-bars"></span>
         </button>

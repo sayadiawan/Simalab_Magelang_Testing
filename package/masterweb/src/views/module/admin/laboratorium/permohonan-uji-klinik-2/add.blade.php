@@ -60,7 +60,7 @@
         }
 
         .form-check-input:checked {
-            background-color: #0d6efd;
+            background-color: #0d8f7f;
         }
 
         .form-check-input:before {
@@ -131,11 +131,11 @@
         }
 
         .wizard-step.active .wizard-step-circle {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-color: #667eea;
+            background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%);
+            border-color: #0b3a5c;
             color: white;
             transform: scale(1.1);
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 6px 20px rgba(11, 58, 92, 0.4);
         }
 
         .wizard-step.completed .wizard-step-circle {
@@ -158,7 +158,7 @@
         }
 
         .wizard-step.active .wizard-step-title {
-            color: #667eea;
+            color: #0b3a5c;
             font-size: 15px;
         }
 
@@ -195,14 +195,14 @@
             left: 0;
             width: 100%;
             height: 5px;
-            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(90deg, #0b3a5c 0%, #0d8f7f 100%);
             transform: scaleX(0);
             transition: transform 0.4s ease;
         }
 
         .doctor-type-card:hover {
-            border-color: #667eea;
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.25);
+            border-color: #0b3a5c;
+            box-shadow: 0 10px 30px rgba(11, 58, 92, 0.25);
             transform: translateY(-8px);
         }
 
@@ -211,9 +211,9 @@
         }
 
         .doctor-type-card.selected {
-            border-color: #667eea;
-            background: linear-gradient(135deg, #f0f4ff 0%, #e8eeff 100%);
-            box-shadow: 0 10px 35px rgba(102, 126, 234, 0.3);
+            border-color: #0b3a5c;
+            background: linear-gradient(135deg, #e7f4f2 0%, #dcefeb 100%);
+            box-shadow: 0 10px 35px rgba(11, 58, 92, 0.3);
             transform: translateY(-5px) scale(1.02);
         }
 
@@ -242,7 +242,7 @@
         .doctor-type-icon {
             font-size: 70px;
             margin-bottom: 20px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -268,21 +268,21 @@
 
         .form-section {
             background: white;
-            padding: 0;
-            border-radius: 0;
-            margin-bottom: 0;
-            border: none;
-            box-shadow: none;
+            padding: 28px 32px 32px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            border: 1px solid #e2ebe9;
+            box-shadow: 0 2px 10px rgba(11, 58, 92, 0.06);
         }
 
         .form-section-title {
             font-size: 20px;
             font-weight: 700;
             color: #2d3748;
-            margin-bottom: 25px;
-            padding-bottom: 15px;
+            margin-bottom: 28px;
+            padding-bottom: 16px;
             border-bottom: 3px solid transparent;
-            border-image: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            border-image: linear-gradient(90deg, #0b3a5c 0%, #0d8f7f 100%);
             border-image-slice: 1;
             display: flex;
             align-items: center;
@@ -291,7 +291,7 @@
         .form-section-title i {
             margin-right: 12px;
             font-size: 24px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -324,7 +324,7 @@
         }
 
         .btn-step.btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%);
             border: none;
         }
 
@@ -376,8 +376,31 @@
         .patient-search-buttons {
             display: flex;
             gap: 20px;
-            margin-bottom: 30px;
+            margin: 4px 0 28px;
             flex-wrap: wrap;
+        }
+
+        #patient-search-container,
+        #patient-detail-display {
+            margin-top: 8px;
+            padding: 0 2px;
+        }
+
+        #patient-search-container .card,
+        #patient-detail-display .card {
+            margin-left: 0;
+            margin-right: 0;
+        }
+
+        #patient-search-container .card-body,
+        #patient-detail-display .card-body {
+            padding: 20px 22px !important;
+        }
+
+        @media (max-width: 767px) {
+            .form-section {
+                padding: 20px 16px 22px;
+            }
         }
 
         .btn-patient-search {
@@ -407,16 +430,16 @@
             left: 0;
             width: 100%;
             height: 4px;
-            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(90deg, #0b3a5c 0%, #0d8f7f 100%);
             transform: scaleX(0);
             transition: transform 0.4s ease;
         }
 
         .btn-patient-search:hover {
-            border-color: #667eea;
-            background: linear-gradient(135deg, #f0f4ff 0%, #e8eeff 100%);
+            border-color: #0b3a5c;
+            background: linear-gradient(135deg, #e7f4f2 0%, #dcefeb 100%);
             transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.2);
+            box-shadow: 0 8px 20px rgba(11, 58, 92, 0.2);
         }
 
         .btn-patient-search:hover::before {
@@ -425,16 +448,16 @@
 
         .btn-patient-search i {
             font-size: 24px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
 
         .btn-patient-search.active {
-            border-color: #667eea;
-            background: linear-gradient(135deg, #f0f4ff 0%, #e8eeff 100%);
-            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.25);
+            border-color: #0b3a5c;
+            background: linear-gradient(135deg, #e7f4f2 0%, #dcefeb 100%);
+            box-shadow: 0 8px 20px rgba(11, 58, 92, 0.25);
         }
 
         .btn-patient-search.active::before {
@@ -445,13 +468,13 @@
             display: inline-block;
             padding: 6px 14px;
             background: linear-gradient(135deg, #e7f3ff 0%, #d4e9ff 100%);
-            color: #667eea;
+            color: #0b3a5c;
             border-radius: 20px;
             font-size: 12px;
             font-weight: 700;
             margin-left: 10px;
-            border: 2px solid #667eea;
-            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.15);
+            border: 2px solid #0b3a5c;
+            box-shadow: 0 2px 8px rgba(11, 58, 92, 0.15);
         }
 
         /* Enhanced Form Controls */
@@ -466,8 +489,8 @@
 
         .form-control:focus,
         .form-select:focus {
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            border-color: #0b3a5c;
+            box-shadow: 0 0 0 3px rgba(11, 58, 92, 0.1);
         }
 
         .form-label {
@@ -575,8 +598,8 @@
 
         .alert-info {
             background: linear-gradient(135deg, #e7f3ff 0%, #d4e9ff 100%);
-            color: #667eea;
-            border-left: 4px solid #667eea;
+            color: #0b3a5c;
+            border-left: 4px solid #0b3a5c;
         }
 
         .alert-success {
@@ -602,13 +625,13 @@
         }
 
         .select2-container--classic .select2-selection--single:hover {
-            border-color: #667eea !important;
+            border-color: #0b3a5c !important;
         }
 
         .select2-container--classic.select2-container--focus .select2-selection--single,
         .select2-container--classic.select2-container--open .select2-selection--single {
-            border-color: #667eea !important;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1) !important;
+            border-color: #0b3a5c !important;
+            box-shadow: 0 0 0 3px rgba(11, 58, 92, 0.1) !important;
         }
 
         .select2-container--classic .select2-selection--single .select2-selection__rendered {
@@ -628,7 +651,7 @@
         }
 
         .select2-container--classic .select2-dropdown {
-            border: 2px solid #667eea !important;
+            border: 2px solid #0b3a5c !important;
             border-radius: 10px !important;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15) !important;
             margin-top: 5px !important;
@@ -641,7 +664,7 @@
         }
 
         .select2-container--classic .select2-results__option--highlighted {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+            background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%) !important;
             color: white !important;
         }
 
@@ -653,9 +676,9 @@
         }
 
         .select2-container--classic .select2-search--dropdown .select2-search__field:focus {
-            border-color: #667eea !important;
+            border-color: #0b3a5c !important;
             outline: none !important;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1) !important;
+            box-shadow: 0 0 0 3px rgba(11, 58, 92, 0.1) !important;
         }
 
         /* Select2 di dalam input-group (Petugas Pengambil Sampel) */
@@ -721,7 +744,7 @@
         }
 
         .modal-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+            background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%) !important;
             color: white !important;
             border-radius: 15px 15px 0 0 !important;
             padding: 20px 30px !important;
@@ -763,13 +786,13 @@
         }
 
         .dataTables_wrapper .dataTables_filter input:focus {
-            border-color: #667eea !important;
+            border-color: #0b3a5c !important;
             outline: none !important;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1) !important;
+            box-shadow: 0 0 0 3px rgba(11, 58, 92, 0.1) !important;
         }
 
         .table-hover tbody tr:hover {
-            background: linear-gradient(135deg, #f0f4ff 0%, #e8eeff 100%) !important;
+            background: linear-gradient(135deg, #e7f4f2 0%, #dcefeb 100%) !important;
         }
 
         /* Close Button Enhancement */
@@ -808,13 +831,13 @@
         }
 
         #patientsTableBody .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+            background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%) !important;
             border: none !important;
         }
 
         #patientsTableBody .btn-primary:hover {
             transform: translateY(-2px) !important;
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3) !important;
+            box-shadow: 0 4px 12px rgba(11, 58, 92, 0.3) !important;
         }
 
         /* Wilayah Dropdown Styling */
@@ -828,8 +851,8 @@
         }
 
         .select-wilayah:focus {
-            border-color: #667eea !important;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1) !important;
+            border-color: #0b3a5c !important;
+            box-shadow: 0 0 0 3px rgba(11, 58, 92, 0.1) !important;
             outline: none !important;
         }
 
@@ -845,7 +868,7 @@
 
         /* Loading state for select */
         .select-wilayah.loading {
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24'%3E%3Cpath fill='%23667eea' d='M12,1A11,11,0,1,0,23,12,11,11,0,0,0,12,1Zm0,19a8,8,0,1,1,8-8A8,8,0,0,1,12,20Z' opacity='.25'/%3E%3Cpath fill='%23667eea' d='M10.14,1.16a11,11,0,0,0-9,8.92A1.59,1.59,0,0,0,2.46,12,1.52,1.52,0,0,0,4.11,10.7a8,8,0,0,1,6.66-6.61A1.42,1.42,0,0,0,12,2.69h0A1.57,1.57,0,0,0,10.14,1.16Z'%3E%3CanimateTransform attributeName='transform' type='rotate' dur='0.75s' values='0 12 12;360 12 12' repeatCount='indefinite'/%3E%3C/path%3E%3C/svg%3E");
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24'%3E%3Cpath fill='%230b3a5c' d='M12,1A11,11,0,1,0,23,12,11,11,0,0,0,12,1Zm0,19a8,8,0,1,1,8-8A8,8,0,0,1,12,20Z' opacity='.25'/%3E%3Cpath fill='%230d8f7f' d='M10.14,1.16a11,11,0,0,0-9,8.92A1.59,1.59,0,0,0,2.46,12,1.52,1.52,0,0,0,4.11,10.7a8,8,0,0,1,6.66-6.61A1.42,1.42,0,0,0,12,2.69h0A1.57,1.57,0,0,0,10.14,1.16Z'%3E%3CanimateTransform attributeName='transform' type='rotate' dur='0.75s' values='0 12 12;360 12 12' repeatCount='indefinite'/%3E%3C/path%3E%3C/svg%3E");
             background-repeat: no-repeat !important;
             background-position: calc(100% - 12px) center !important;
             background-size: 20px 20px !important;
@@ -863,8 +886,8 @@
         }
 
         #search_wilayah_input:focus {
-            border-color: #667eea !important;
-            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.2) !important;
+            border-color: #0b3a5c !important;
+            box-shadow: 0 0 0 4px rgba(11, 58, 92, 0.2) !important;
         }
 
         #search_wilayah_results {
@@ -889,12 +912,12 @@
         }
 
         #search_wilayah_results .list-group-item:hover {
-            background: linear-gradient(135deg, #f0f4ff 0%, #e8eeff 100%);
+            background: linear-gradient(135deg, #e7f4f2 0%, #dcefeb 100%);
             transform: translateX(5px);
         }
 
         #search_wilayah_results .list-group-item:active {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%);
             color: white !important;
         }
 
@@ -1081,10 +1104,10 @@
 
     <!-- Modern Page Header -->
     <div class="page-header-card"
-        style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 15px; padding: 30px; margin-bottom: 30px; box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3); color: white;">
-        <h2 style="margin: 0; font-size: 28px; font-weight: 700; display: flex; align-items: center;">
+        style="background: linear-gradient(135deg, #06283f 0%, #0b3a5c 48%, #0d8f7f 100%); border-radius: 12px; padding: 28px 30px; margin-bottom: 24px; box-shadow: 0 8px 24px rgba(11, 58, 92, 0.22); color: white;">
+        <h2 style="margin: 0; font-size: 26px; font-weight: 800; display: flex; align-items: center; letter-spacing: -0.02em;">
             <i class="fa fa-{{ $isEdit ? 'edit' : 'plus-circle' }}"
-                style="margin-right: 15px; font-size: 32px; background: rgba(255, 255, 255, 0.2); padding: 12px; border-radius: 12px;"></i>
+                style="margin-right: 15px; font-size: 28px; background: rgba(255, 255, 255, 0.18); padding: 12px; border-radius: 12px;"></i>
             {{ $isEdit ? 'Edit Permohonan Uji Klinik' : 'Permohonan Uji Klinik Baru' }}
         </h2>
         <div style="margin-top: 10px; opacity: 0.9; font-size: 14px;">
@@ -1252,14 +1275,14 @@
                                     <label class="font-weight-bold">{{ !empty($isEdit) ? 'Ubah Nomor Spesimen' : 'Input Manual Nomor Spesimen' }}</label>
                                     <div class="card border-0 shadow-sm mb-3" style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); position: relative;">
                                         <div class="card-body" style="display: flex; align-items: center; gap: 8px; font-weight: 600; padding: 8px 12px;">
-                                            <span style="color: #667eea;">03/</span>
+                                            <span style="color: #0b3a5c;">03/</span>
                                             <input type="text" class="form-control"
                                                 name="nomor_spesimen_manual" id="nomor_spesimen_manual"
                                                 placeholder="no_urut"
                                                 value="{{ $nomor_spesimen_manual_default ?? '' }}"
                                                 inputmode="numeric"
-                                                style="text-align: center; flex: 0 1 auto; max-width: 120px; font-weight: 600; color: #667eea; height: 32px;">
-                                            <span style="color: #667eea; white-space: nowrap;">/{{ (int) ($seqYear ?? date('Y')) }}</span>
+                                                style="text-align: center; flex: 0 1 auto; max-width: 120px; font-weight: 600; color: #0b3a5c; height: 32px;">
+                                            <span style="color: #0b3a5c; white-space: nowrap;">/{{ (int) ($seqYear ?? date('Y')) }}</span>
                                         </div>
                                     </div>
                                     <small class="form-text text-muted mt-2">
@@ -1302,14 +1325,14 @@
                                     </div>
                                     <div class="card border-0 shadow-sm mb-3 mt-2" style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); position: relative;">
                                         <div class="card-body" style="display: flex; align-items: center; gap: 8px; font-weight: 600; padding: 8px 12px;">
-                                            <span style="color: #667eea;">449.5/03/</span>
+                                            <span style="color: #0b3a5c;">449.5/03/</span>
                                             <input type="text" class="form-control"
                                                 name="nomor_lab_manual" id="nomor_lab_manual"
                                                 placeholder="no_urut"
                                                 value="{{ $nomor_lab_manual_default ?? '' }}"
                                                 inputmode="numeric"
-                                                style="text-align: center; flex: 0 1 auto; max-width: 120px; font-weight: 600; color: #667eea; height: 32px;">
-                                            <span style="color: #667eea; white-space: nowrap;">/{{ (int) ($seqYear ?? date('Y')) }}</span>
+                                                style="text-align: center; flex: 0 1 auto; max-width: 120px; font-weight: 600; color: #0b3a5c; height: 32px;">
+                                            <span style="color: #0b3a5c; white-space: nowrap;">/{{ (int) ($seqYear ?? date('Y')) }}</span>
                                         </div>
                                     </div>
                                     <small class="form-text text-muted mt-2">
@@ -1844,9 +1867,9 @@
         {{-- Search Silaboy Template - Hidden --}}
         <div class="d-none" id="search_silaboy_template">
             <div class="mb-4"
-                style="display: flex; align-items: center; justify-content: space-between; padding: 20px; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border-radius: 10px; border-left: 4px solid #667eea;">
+                style="display: flex; align-items: center; justify-content: space-between; padding: 20px; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border-radius: 10px; border-left: 4px solid #0b3a5c;">
                 <div style="display: flex; align-items: center; gap: 12px;">
-                    <i class="fa fa-search" style="font-size: 24px; color: #667eea;"></i>
+                    <i class="fa fa-search" style="font-size: 24px; color: #0b3a5c;"></i>
                     <P style="font-size: 18px; margin: 0; font-weight: 700; color: #2d3748;">Cari Pasien</P>
                 </div>
                 <button type="button" class="btn btn-close-modal btn-close-search"
@@ -1857,7 +1880,7 @@
             <div class="form-group" style="margin-top: 20px;">
                 <label
                     style="font-weight: 600; color: #2d3748; margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">
-                    <i class="fa fa-user" style="color: #667eea;"></i>
+                    <i class="fa fa-user" style="color: #0b3a5c;"></i>
                     Pilih Pasien
                 </label>
                 <select class="form-control patient-select-silaboy" name="pasien_permohonan_uji_klinik"
@@ -1888,7 +1911,7 @@
                         <div class="form-group" style="margin-bottom: 25px;">
                             <label
                                 style="font-weight: 600; color: #2d3748; margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">
-                                <i class="fa fa-search" style="color: #667eea;"></i>
+                                <i class="fa fa-search" style="color: #0b3a5c;"></i>
                                 Cari Berdasarkan Alamat
                             </label>
                             <input type="text" id="searchAddress" class="form-control"
@@ -1897,7 +1920,7 @@
                         </div>
                         <div style="overflow-x: auto; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
                             <table class="table table-bordered table-hover" style="margin-bottom: 0;">
-                                <thead style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                                <thead style="background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%);">
                                     <tr>
                                         <th style="color: white; font-weight: 600; padding: 15px; border: none;">NIK</th>
                                         <th style="color: white; font-weight: 600; padding: 15px; border: none;">Gender
@@ -2129,7 +2152,7 @@
                             style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); overflow: visible !important;">
                             <div class="card-body" style="overflow: visible !important;">
                                 <h5 class="font-weight-bold mb-4"
-                                    style="color: #667eea; border-bottom: 3px solid #667eea; padding-bottom: 10px;">
+                                    style="color: #0b3a5c; border-bottom: 3px solid #0b3a5c; padding-bottom: 10px;">
                                     <i class="fa fa-user-circle mr-2"></i>INFORMASI PASIEN
                                 </h5>
 
@@ -2137,12 +2160,12 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="nik_pasien-2" class="font-weight-bold" style="color: #495057;">
-                                                <i class="fa fa-id-card mr-2" style="color: #667eea;"></i>NIK PASIEN
+                                                <i class="fa fa-id-card mr-2" style="color: #0b3a5c;"></i>NIK PASIEN
                                             </label>
                                             <div class="input-group" style="position: relative;">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"
-                                                        style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none; color: white;">
+                                                        style="background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%); border: none; color: white;">
                                                         <i class="fa fa-id-card"></i>
                                                     </span>
                                                 </div>
@@ -2160,13 +2183,13 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="nama_pasien-2" class="font-weight-bold" style="color: #495057;">
-                                                <i class="fa fa-user mr-2" style="color: #667eea;"></i>NAMA LENGKAP
+                                                <i class="fa fa-user mr-2" style="color: #0b3a5c;"></i>NAMA LENGKAP
                                                 <span style="color: red">*</span>
                                             </label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"
-                                                        style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none; color: white;">
+                                                        style="background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%); border: none; color: white;">
                                                         <i class="fa fa-user"></i>
                                                     </span>
                                                 </div>
@@ -2183,13 +2206,13 @@
 
                                 <div class="form-group">
                                     <label for="no_rekammedis_pasien" class="font-weight-bold" style="color: #495057;">
-                                        <i class="fa fa-file-text mr-2" style="color: #667eea;"></i>NOMOR REKAM MEDIS
+                                        <i class="fa fa-file-text mr-2" style="color: #0b3a5c;"></i>NOMOR REKAM MEDIS
                                         <span style="color: red">*</span>
                                     </label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"
-                                                style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none; color: white;">
+                                                style="background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%); border: none; color: white;">
                                                 <i class="fa fa-file-text"></i>
                                             </span>
                                         </div>
@@ -2197,7 +2220,7 @@
                                             name="no_rekammedis_pasien" id="no_rekammedis_pasien_2"
                                             placeholder="Nomor rekam medis"
                                             value="{{ str_pad((int) $count_pasien, 4, '0', STR_PAD_LEFT) }}" readonly
-                                            style="border: 2px solid #e2e8f0; border-left: none; font-size: 15px; height: 45px; background-color: #f8f9fa; font-weight: bold; color: #667eea;">
+                                            style="border: 2px solid #e2e8f0; border-left: none; font-size: 15px; height: 45px; background-color: #f8f9fa; font-weight: bold; color: #0b3a5c;">
                                     </div>
                                     <small class="form-text text-muted">
                                         <i class="fa fa-lock mr-1"></i>Nomor otomatis tergenerate
@@ -2213,7 +2236,7 @@
 
                                 <div class="form-group">
                                     <label for="jenis_kelamin-2" class="font-weight-bold mb-3" style="color: #495057;">
-                                        <i class="fa fa-venus-mars mr-2" style="color: #667eea;"></i>JENIS KELAMIN
+                                        <i class="fa fa-venus-mars mr-2" style="color: #0b3a5c;"></i>JENIS KELAMIN
                                         <span style="color: red">*</span>
                                     </label>
                                     <div class="row">
@@ -2261,7 +2284,7 @@
 
                                 <div class="form-group">
                                     <label for="tmpt_lahir_2" class="font-weight-bold" style="color: #495057;">
-                                        <i class="fa fa-map-pin mr-2" style="color: #667eea;"></i>TEMPAT LAHIR
+                                        <i class="fa fa-map-pin mr-2" style="color: #0b3a5c;"></i>TEMPAT LAHIR
                                     </label>
                                     <div class="mb-2" style="position: relative; z-index: 200;">
                                         <label class="small font-weight-bold text-muted mb-1" for="search_tmpt_lahir_input">
@@ -2273,7 +2296,7 @@
                                                 autocomplete="off"
                                                 style="border: 2px solid #e2e8f0; border-radius: 8px; padding-left: 38px; font-size: 14px; height: 42px;">
                                             <i class="fa fa-search position-absolute"
-                                                style="left: 14px; top: 12px; color: #667eea; pointer-events: none;"></i>
+                                                style="left: 14px; top: 12px; color: #0b3a5c; pointer-events: none;"></i>
                                             <div id="search_tmpt_lahir_results"
                                                 style="position: absolute; width: 100%; z-index: 99999; display: none; top: 100%; left: 0; margin-top: 4px;">
                                                 <div class="card border-0 shadow-lg">
@@ -2286,12 +2309,12 @@
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"
-                                                style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none; color: white;">
+                                                style="background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%); border: none; color: white;">
                                                 <i class="fa fa-map-pin"></i>
                                             </span>
                                         </div>
                                         <input type="text" class="form-control" name="tmpt_lahir"
-                                            id="tmpt_lahir_2" placeholder="Contoh: Magelang atau Muntilan"
+                                            id="tmpt_lahir_2" placeholder="Contoh: Jakarta atau Bandung"
                                             style="border: 2px solid #e2e8f0; border-left: none; font-size: 15px; height: 45px;">
                                     </div>
                                     <small class="form-text text-muted">
@@ -2301,7 +2324,7 @@
 
                                 <div class="form-group">
                                     <label for="datelab_samples" class="font-weight-bold mb-3" style="color: #495057;">
-                                        <i class="fa fa-calendar mr-2" style="color: #667eea;"></i>TANGGAL LAHIR
+                                        <i class="fa fa-calendar mr-2" style="color: #0b3a5c;"></i>TANGGAL LAHIR
                                         <span style="color: red">*</span>
                                     </label>
 
@@ -3084,12 +3107,12 @@
 
                                 <div class="form-group">
                                     <label for="pekerjaan_2" class="font-weight-bold" style="color: #495057;">
-                                        <i class="fa fa-briefcase mr-2" style="color: #667eea;"></i>PEKERJAAN
+                                        <i class="fa fa-briefcase mr-2" style="color: #0b3a5c;"></i>PEKERJAAN
                                     </label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"
-                                                style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none; color: white;">
+                                                style="background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%); border: none; color: white;">
                                                 <i class="fa fa-briefcase"></i>
                                             </span>
                                         </div>
@@ -3104,12 +3127,12 @@
 
                                 <div class="form-group">
                                     <label for="phone_pasien_2" class="font-weight-bold" style="color: #495057;">
-                                        <i class="fa fa-phone mr-2" style="color: #667eea;"></i>NO. TELP/HP
+                                        <i class="fa fa-phone mr-2" style="color: #0b3a5c;"></i>NO. TELP/HP
                                     </label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"
-                                                style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none; color: white;">
+                                                style="background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%); border: none; color: white;">
                                                 <i class="fa fa-phone"></i>
                                             </span>
                                         </div>
@@ -3136,14 +3159,14 @@
 
                         <!-- Wilayah Section with Beautiful Design -->
                         <div class="form-group">
-                            <label class="font-weight-bold mb-3" style="color: #667eea; font-size: 16px;">
+                            <label class="font-weight-bold mb-3" style="color: #0b3a5c; font-size: 16px;">
                                 <i class="fa fa-map-marker mr-2"></i>WILAYAH DOMISILI
                             </label>
 
                             <!-- Search Wilayah Box -->
                             <div class="mb-3" style="position: relative; z-index: 100;">
                                 <div class="card border-0 shadow-sm"
-                                    style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-left: 4px solid #667eea !important; overflow: visible !important;">
+                                    style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-left: 4px solid #0b3a5c !important; overflow: visible !important;">
                                     <div class="card-body py-3" style="overflow: visible !important;">
                                         <div class="d-flex align-items-center">
                                             <div class="flex-grow-1 position-relative" style="z-index: 1000;">
@@ -3175,7 +3198,7 @@
                                             </div>
                                             <div class="ml-3 text-center">
                                                 <button type="button" class="btn btn-sm" id="btn_toggle_manual_select"
-                                                    style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 8px; padding: 8px 16px; font-weight: 600;">
+                                                    style="background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%); color: white; border-radius: 8px; padding: 8px 16px; font-weight: 600;">
                                                     <i class="fa fa-list mr-1"></i> Pilih Manual
                                                 </button>
                                                 <div class="small text-muted mt-1">atau pilih bertahap</div>
@@ -3184,7 +3207,7 @@
                                         <div class="small text-muted mt-2">
                                             <i class="fa fa-info-circle mr-1"></i>
                                             <strong>Tips:</strong> Ketik minimal 2 karakter untuk melihat rekomendasi.
-                                            Contoh: "Magelang", "Secang", "Pucungrejo"
+                                            Contoh: "Jakarta", "Bandung", "Surabaya"
                                         </div>
                                     </div>
                                 </div>
@@ -3195,7 +3218,7 @@
                                 style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); display: none; position: relative; z-index: 10;">
                                 <div class="card-body" style="overflow: visible !important;">
                                     <div class="d-flex justify-content-between align-items-center mb-3">
-                                        <h6 class="mb-0 font-weight-bold" style="color: #667eea;">
+                                        <h6 class="mb-0 font-weight-bold" style="color: #0b3a5c;">
                                             <i class="fa fa-list-ul mr-2"></i>Pilih Wilayah Secara Bertahap
                                         </h6>
                                         <button type="button" class="btn btn-sm btn-outline-secondary"
@@ -3254,7 +3277,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="alamat_pasien_2" class="font-weight-bold" style="color: #667eea;">
+                            <label for="alamat_pasien_2" class="font-weight-bold" style="color: #0b3a5c;">
                                 <i class="fa fa-map-marker mr-2"></i>ALAMAT <span style="color: red">*</span>
                             </label>
                             <textarea class="form-control" name="alamat_pasien" id="alamat_pasien_2" rows="3"
@@ -3443,7 +3466,7 @@
         <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
             <div class="modal-content border-0 shadow-lg">
                 <div class="modal-header"
-                    style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+                    style="background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%); color: white;">
                     <h5 class="modal-title" id="modalEditPasienTerpilihLabel">
                         <i class="fa fa-edit mr-2"></i>Edit Data Pasien
                     </h5>
@@ -3502,7 +3525,7 @@
                                 placeholder="Cari kabupaten/kota atau kecamatan..." autocomplete="off"
                                 style="padding-left: 36px;">
                             <i class="fa fa-search position-absolute"
-                                style="left: 12px; top: 11px; color: #667eea; pointer-events: none;"></i>
+                                style="left: 12px; top: 11px; color: #0b3a5c; pointer-events: none;"></i>
                             <div id="search_tmpt_lahir_modal_results"
                                 style="position: absolute; width: 100%; z-index: 20060; display: none; top: 100%; left: 0; margin-top: 4px;">
                                 <div class="card border-0 shadow-lg mb-0">
@@ -3512,7 +3535,7 @@
                             </div>
                         </div>
                         <input type="text" class="form-control" id="edit_pasien_tmpt_lahir"
-                            placeholder="Contoh: Magelang atau Muntilan">
+                            placeholder="Contoh: Jakarta atau Bandung">
                         <small class="form-text text-muted">Opsional — pilih dari master wilayah atau ketik manual</small>
                     </div>
 
@@ -3546,7 +3569,7 @@
                         <i class="fa fa-times mr-1"></i>Batal
                     </button>
                     <button type="button" class="btn btn-primary" id="btn-save-edit-pasien-terpilih"
-                        style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none;">
+                        style="background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%); border: none;">
                         <i class="fa fa-check mr-1"></i>Simpan Perubahan
                     </button>
                 </div>

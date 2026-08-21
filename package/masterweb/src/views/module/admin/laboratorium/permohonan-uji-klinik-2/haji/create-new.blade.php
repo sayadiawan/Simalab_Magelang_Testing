@@ -79,7 +79,7 @@
               <div class="col-md-6 mb-3">
                 <label for="mode_search" class="mode-option-card" style="cursor: pointer; display: block; margin: 0;">
                   <input class="form-check-input" type="radio" name="customer_mode" id="mode_search" value="search" checked style="display: none;">
-                  <div class="card mode-card" id="card_mode_search" style="border: 2px solid #007bff; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; transition: all 0.3s;">
+                  <div class="card mode-card" id="card_mode_search" style="border: 2px solid #007bff; background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%); color: white; transition: all 0.3s;">
                     <div class="card-body text-center" style="padding: 30px;">
                       <i class="fa fa-search" id="icon_mode_search" style="font-size: 48px; margin-bottom: 15px; color: white; transition: all 0.3s;"></i>
                       <h5 class="card-title mb-0" style="font-size: 20px; font-weight: bold;">Cari dari Sistem</h5>
@@ -554,7 +554,7 @@
     }
 
     .step-item.active .step-number {
-      background: #667eea;
+      background: #0b3a5c;
       color: white;
     }
 
@@ -573,7 +573,7 @@
     }
 
     .step-item.active .step-label {
-      color: #667eea;
+      color: #0b3a5c;
       font-weight: bold;
     }
 
@@ -608,7 +608,7 @@
     }
 
     .category-header {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%);
       color: white;
       padding: 10px 15px;
       font-weight: bold;
@@ -727,7 +727,7 @@
     }
 
     .new-customer-card .form-group label i {
-      color: #667eea;
+      color: #0b3a5c;
       margin-right: 6px;
     }
 
@@ -740,8 +740,8 @@
     }
 
     .new-customer-card .form-control:focus {
-      border-color: #667eea;
-      box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+      border-color: #0b3a5c;
+      box-shadow: 0 0 0 4px rgba(11, 58, 92, 0.1);
     }
 
     .pasien-row .js-search-wilayah-results .list-group-item {
@@ -750,7 +750,7 @@
     }
 
     .pasien-row .js-search-wilayah-results .list-group-item:hover {
-      background: linear-gradient(135deg, #f0f4ff 0%, #e8eeff 100%);
+      background: linear-gradient(135deg, #e7f4f2 0%, #dcefeb 100%);
     }
 
     .pasien-row .select-wilayah.loading {
@@ -1182,9 +1182,9 @@
           // Active state for search
           $('#card_mode_search').css({
             'border': '3px solid #007bff',
-            'background': 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+            'background': 'linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%)',
             'color': 'white',
-            'box-shadow': '0 8px 16px rgba(102, 126, 234, 0.4)',
+            'box-shadow': '0 8px 16px rgba(11, 58, 92, 0.4)',
             'transform': 'scale(1.02)'
           });
           $('#icon_mode_search').css('color', 'white');
@@ -1215,7 +1215,7 @@
             'box-shadow': 'none',
             'transform': 'scale(1)'
           });
-          $('#icon_mode_search').css('color', '#667eea');
+          $('#icon_mode_search').css('color', '#0b3a5c');
         }
       }
 

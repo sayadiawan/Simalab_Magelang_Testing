@@ -101,7 +101,7 @@
     Mengetahui
   </td>
   <td colspan="{{ ceil(($daysInMonth + 4) / 2) }}" style="text-align: center; vertical-align: top; padding-top: 10px;">
-    Magelang, {{ \Carbon\Carbon::create($year, $month, \Carbon\Carbon::create($year, $month, 1)->daysInMonth)->isoFormat('D MMMM Y') }}
+    —, {{ \Carbon\Carbon::create($year, $month, \Carbon\Carbon::create($year, $month, 1)->daysInMonth)->isoFormat('D MMMM Y') }}
   </td>
 </tr>
 <tr>
@@ -114,7 +114,7 @@
 </tr>
 <tr>
   <td colspan="{{ floor(($daysInMonth + 4) / 2) }}" style="text-align: center; vertical-align: top;">
-    Kabupaten Magelang
+    SIMLAB Testing
   </td>
   <td colspan="{{ ceil(($daysInMonth + 4) / 2) }}" style="text-align: center; vertical-align: top;">
     &nbsp;

@@ -4,22 +4,36 @@ namespace Smt\Masterweb\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Smt\Masterweb\Models\PermohonanUjiParameterKlinik;
-use Smt\Masterweb\Models\PermohonanUjiKlinik2;
-use Smt\Masterweb\Models\Pasien;
 use Smt\Masterweb\Models\Wilayah;
 use Smt\Masterweb\Models\BakuMutu;
 use Smt\Masterweb\Models\ParameterSatuanKlinik;
 use Smt\Masterweb\Models\ParameterPaketKlinik;
 use Smt\Masterweb\Models\ParameterPaketJenisKlinik;
 use Smt\Masterweb\Models\ParameterSatuanPaketKlinik;
-use Smt\Masterweb\Models\ParameterJenisKlinik;
-use Carbon\Carbon;
 
 class DokterDashboardController extends Controller
 {
+    /** @var array|null In-request baku mutu lookup by id_baku_mutu */
+    private $bakuMutuById = null;
+
+    /** @var array param|jenis => list BakuMutu (untuk fallback umur/haji) */
+    private $bakuMutuByParamJenis = [];
+
+    /** @var array parameter_satuan_id => 'id'|'en' */
+    private $parameterFormatMap = [];
+
+    /** @var array In-request geocode cache */
+    private $geocodeRuntimeCache = [];
+
+    /** @var array|null Index nama wilayah dinormalisasi => list record */
+    private $wilayahNameIndex = null;
+
+    /** @var array Cache resolve alamat => wilayah */
+    private $alamatWilayahCache = [];
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -38,31 +52,35 @@ class DokterDashboardController extends Controller
         $parameterIds = [];
         if (!empty($parameterIdsInput) && trim($parameterIdsInput) !== '') {
             $parameterIds = array_filter(array_map('trim', explode(',', $parameterIdsInput)));
-            $parameterIds = array_values($parameterIds); // Re-index array
+            $parameterIds = array_values($parameterIds);
         }
-        $tipeParameter = $request->get('tipe_parameter', 'satuan'); // 'satuan' or 'paket'
-        $viewType = $request->get('view_type', 'both'); // 'map', 'scatter', or 'both'
-        
-        // Get data wilayah berdasarkan filter
+        $tipeParameter = $request->get('tipe_parameter', 'satuan');
+        $viewType = $request->get('view_type', 'both');
+
         $wilayahOptions = $this->getWilayahOptions($tipeWilayah);
-        
-        // Get data parameter untuk popup
+
         $parameterSatuans = ParameterSatuanKlinik::whereNull('deleted_at')
             ->orderBy('name_parameter_satuan_klinik', 'ASC')
-            ->get();
+            ->get(['id_parameter_satuan_klinik', 'name_parameter_satuan_klinik']);
         $parameterPakets = ParameterPaketKlinik::whereNull('deleted_at')
             ->orderBy('name_parameter_paket_klinik', 'ASC')
-            ->get();
-        
-        // Get data statistik
-        $statistics = $this->getStatistics($tipeWilayah, $wilayahId, $bulan, $tahun, $parameterIds, $tipeParameter);
-        
-        // Get data untuk peta
-        $mapData = $this->getMapData($tipeWilayah, $wilayahId, $bulan, $tahun, $parameterIds, $tipeParameter);
-        
-        // Get data untuk scatter plot
-        $scatterData = $this->getScatterData($tipeWilayah, $wilayahId, $bulan, $tahun, $parameterIds, $tipeParameter);
-        
+            ->get(['id_parameter_paket_klinik', 'name_parameter_paket_klinik']);
+
+        // Satu query set: permohonan terakhir per pasien (bukan N+1 × 3)
+        $latestPermohonanIds = $this->getLatestPermohonanPerPasien($tipeWilayah, $wilayahId, $bulan, $tahun);
+        $this->warmBakuMutuCache();
+
+        $statistics = $this->getStatistics($latestPermohonanIds, $parameterIds, $tipeParameter);
+
+        $mapData = [];
+        $scatterData = ['data' => [], 'labels' => []];
+        if ($viewType === 'map' || $viewType === 'both') {
+            $mapData = $this->getMapData($latestPermohonanIds, $parameterIds, $tipeParameter);
+        }
+        if ($viewType === 'scatter' || $viewType === 'both') {
+            $scatterData = $this->getScatterData($latestPermohonanIds, $parameterIds, $tipeParameter);
+        }
+
         return view('masterweb::module.dokter.dashboard', compact(
             'tipeWilayah',
             'wilayahId',
@@ -86,121 +104,499 @@ class DokterDashboardController extends Controller
     private function getWilayahOptions($tipeWilayah)
     {
         if ($tipeWilayah === 'luar_daerah') {
-            // Luar daerah Kabupaten Magelang (selain 3308)
             return Wilayah::where('tipe', 'KAB')
                 ->where('wilayah_kode', 'NOT LIKE', '3308%')
                 ->orderBy('wilayah', 'ASC')
-                ->get();
-        } else {
-            // Dalam daerah Kabupaten Magelang (3308)
-            if ($tipeWilayah === 'DESA') {
-                return Wilayah::where('tipe', 'DESA')
-                    ->where('wilayah_kode', 'LIKE', '3308%')
-                    ->orderBy('wilayah', 'ASC')
-                    ->get();
-            } elseif ($tipeWilayah === 'DUSUN') {
-                // Jika ada tipe DUSUN, sesuaikan dengan struktur database
-                return Wilayah::where('tipe', 'DUSUN')
-                    ->where('wilayah_kode', 'LIKE', '3308%')
-                    ->orderBy('wilayah', 'ASC')
-                    ->get();
-            } else {
-                // Default KEC
-                return Wilayah::where('tipe', 'KEC')
-                    ->where('wilayah_kode', 'LIKE', '3308%')
-                    ->orderBy('wilayah', 'ASC')
-                    ->get();
-            }
+                ->get(['id_wilayah', 'wilayah', 'wilayah_kode', 'tipe']);
         }
+
+        if ($tipeWilayah === 'DESA') {
+            return Wilayah::where('tipe', 'DESA')
+                ->where('wilayah_kode', 'LIKE', '3308%')
+                ->orderBy('wilayah', 'ASC')
+                ->get(['id_wilayah', 'wilayah', 'wilayah_kode', 'tipe']);
+        }
+
+        if ($tipeWilayah === 'DUSUN') {
+            return Wilayah::where('tipe', 'DUSUN')
+                ->where('wilayah_kode', 'LIKE', '3308%')
+                ->orderBy('wilayah', 'ASC')
+                ->get(['id_wilayah', 'wilayah', 'wilayah_kode', 'tipe']);
+        }
+
+        return Wilayah::where('tipe', 'KEC')
+            ->where('wilayah_kode', 'LIKE', '3308%')
+            ->orderBy('wilayah', 'ASC')
+            ->get(['id_wilayah', 'wilayah', 'wilayah_kode', 'tipe']);
     }
 
     /**
-     * Get latest permohonan per pasien based on filters
+     * Latest permohonan per pasien — single SQL + filter wilayah
+     * (wilayah_id pasien ATAU fallback dari alamat teks berpemisah koma).
      */
-    private function getLatestPermohonanPerPasien($tipeWilayah, $wilayahId, $bulan, $tahun, $parameterIds, $tipeParameter)
+    private function getLatestPermohonanPerPasien($tipeWilayah, $wilayahId, $bulan, $tahun)
     {
-        // First, get all pasien IDs that match wilayah filter
-        $pasienQuery = Pasien::query()
-            ->join('ms_wilayah', 'ms_pasien.wilayah_id', '=', 'ms_wilayah.id_wilayah');
-        
-        // Apply wilayah filter
-        if ($tipeWilayah === 'luar_daerah') {
-            $pasienQuery->where('ms_wilayah.wilayah_kode', 'NOT LIKE', '3308%');
-        } else {
-            $pasienQuery->where('ms_wilayah.wilayah_kode', 'LIKE', '3308%');
-            
-            if ($wilayahId) {
-                $wilayah = Wilayah::find($wilayahId);
-                if ($wilayah) {
-                    if ($tipeWilayah === 'DESA' || $tipeWilayah === 'DUSUN') {
-                        $pasienQuery->where('ms_pasien.wilayah_id', $wilayahId);
-                    } elseif ($tipeWilayah === 'KEC') {
-                        $desaIds = Wilayah::where('tipe', 'DESA')
-                            ->where('wilayah_kode', 'LIKE', $wilayah->wilayah_kode . '%')
-                            ->pluck('id_wilayah');
-                        $pasienQuery->where(function($q) use ($desaIds, $wilayahId) {
-                            $q->whereIn('ms_pasien.wilayah_id', $desaIds)
-                            ->orWhere('ms_pasien.wilayah_id', $wilayahId);
-                        });
+        $bindings = [];
+        $dateSql = '';
+        if ($bulan && $tahun) {
+            $dateSql = ' AND (
+                (k.tglpengujian_permohonan_uji_klinik IS NOT NULL
+                    AND YEAR(k.tglpengujian_permohonan_uji_klinik) = ?
+                    AND MONTH(k.tglpengujian_permohonan_uji_klinik) = ?)
+                OR (k.tglpengujian_permohonan_uji_klinik IS NULL
+                    AND YEAR(k.created_at) = ?
+                    AND MONTH(k.created_at) = ?)
+            ) ';
+            $bindings[] = (int) $tahun;
+            $bindings[] = (int) $bulan;
+            $bindings[] = (int) $tahun;
+            $bindings[] = (int) $bulan;
+        }
+
+        // LEFT JOIN wilayah: pasien tanpa wilayah_id tetap diambil untuk fallback alamat
+        $sql = "
+            SELECT
+                id_permohonan_uji_klinik,
+                pasien_permohonan_uji_klinik,
+                wilayah_id,
+                alamat_pasien,
+                wilayah_kode,
+                wilayah_nama,
+                wilayah_tipe
+            FROM (
+                SELECT
+                    k.id_permohonan_uji_klinik,
+                    k.pasien_permohonan_uji_klinik,
+                    p.wilayah_id,
+                    p.alamat_pasien,
+                    w.wilayah_kode,
+                    w.wilayah AS wilayah_nama,
+                    w.tipe AS wilayah_tipe,
+                    ROW_NUMBER() OVER (
+                        PARTITION BY k.pasien_permohonan_uji_klinik
+                        ORDER BY COALESCE(k.tglpengujian_permohonan_uji_klinik, k.created_at) DESC,
+                                 k.created_at DESC
+                    ) AS rn
+                FROM tb_permohonan_uji_klinik_2 k
+                INNER JOIN ms_pasien p ON p.id_pasien = k.pasien_permohonan_uji_klinik
+                LEFT JOIN ms_wilayah w ON w.id_wilayah = p.wilayah_id
+                WHERE k.deleted_at IS NULL
+                {$dateSql}
+            ) ranked
+            WHERE rn = 1
+        ";
+
+        $rows = DB::select($sql, $bindings);
+        $ids = [];
+        foreach ($rows as $row) {
+            $resolved = $this->resolvePasienWilayah(
+                $row->wilayah_id,
+                $row->alamat_pasien,
+                $row->wilayah_kode,
+                $row->wilayah_nama,
+                $row->wilayah_tipe
+            );
+            if (!$resolved) {
+                continue;
+            }
+            if (!$this->wilayahMatchesFilter($resolved, $tipeWilayah, $wilayahId)) {
+                continue;
+            }
+            $ids[] = $row->id_permohonan_uji_klinik;
+        }
+
+        return $ids;
+    }
+
+    /**
+     * Bangun index nama wilayah (Magelang + luar) untuk matching alamat.
+     */
+    private function warmWilayahNameIndex()
+    {
+        if ($this->wilayahNameIndex !== null) {
+            return;
+        }
+
+        $this->wilayahNameIndex = [
+            'DESA' => [],
+            'KEC' => [],
+            'DUSUN' => [],
+            'KAB' => [],
+        ];
+
+        Wilayah::query()
+            ->whereIn('tipe', ['DESA', 'KEC', 'DUSUN', 'KAB'])
+            ->get(['id_wilayah', 'wilayah', 'wilayah_kode', 'tipe'])
+            ->each(function ($w) {
+                $norm = $this->normalizeWilayahToken($w->wilayah);
+                if ($norm === '') {
+                    return;
+                }
+                $tipe = $w->tipe;
+                if (!isset($this->wilayahNameIndex[$tipe])) {
+                    $this->wilayahNameIndex[$tipe] = [];
+                }
+                if (!isset($this->wilayahNameIndex[$tipe][$norm])) {
+                    $this->wilayahNameIndex[$tipe][$norm] = [];
+                }
+                $this->wilayahNameIndex[$tipe][$norm][] = [
+                    'id' => $w->id_wilayah,
+                    'nama' => $w->wilayah,
+                    'kode' => $w->wilayah_kode,
+                    'tipe' => $w->tipe,
+                ];
+            });
+    }
+
+    private function normalizeWilayahToken($text)
+    {
+        $text = strtolower(trim((string) $text));
+        if ($text === '') {
+            return '';
+        }
+        $text = preg_replace('/^(desa|kelurahan|kel\.|kecamatan|kec\.|kabupaten|kab\.|kota|dusun)\s+/iu', '', $text);
+        $text = preg_replace('/\s+/u', ' ', $text);
+        return trim($text);
+    }
+
+    /**
+     * Resolve wilayah pasien: prioritaskan wilayah_id spesifik,
+     * fallback parse alamat (dipisah koma).
+     */
+    private function resolvePasienWilayah($wilayahId, $alamat, $existingKode = null, $existingNama = null, $existingTipe = null)
+    {
+        $fromId = null;
+        if ($wilayahId && $existingKode && $existingNama && $existingTipe) {
+            $fromId = [
+                'id' => $wilayahId,
+                'nama' => $existingNama,
+                'kode' => $existingKode,
+                'tipe' => $existingTipe,
+            ];
+        } elseif ($wilayahId) {
+            $w = Wilayah::find($wilayahId);
+            if ($w) {
+                $fromId = [
+                    'id' => $w->id_wilayah,
+                    'nama' => $w->wilayah,
+                    'kode' => $w->wilayah_kode,
+                    'tipe' => $w->tipe,
+                ];
+            }
+        }
+
+        $fromAlamat = $this->resolveWilayahFromAlamat($alamat);
+
+        // Pakai alamat jika belum ada wilayah, atau wilayah hanya KAB/PROV, atau alamat lebih spesifik (DESA)
+        if ($fromAlamat) {
+            if (!$fromId) {
+                return $fromAlamat;
+            }
+            if (in_array($fromId['tipe'], ['KAB', 'PROV'], true)) {
+                return $fromAlamat;
+            }
+            if ($fromId['tipe'] === 'KEC' && in_array($fromAlamat['tipe'], ['DESA', 'DUSUN'], true)) {
+                return $fromAlamat;
+            }
+        }
+
+        return $fromId ?: $fromAlamat;
+    }
+
+    /**
+     * Ambil wilayah dari alamat teks (segmen dipisah koma).
+     * Contoh: "Jl ..., Desa X, Kecamatan Y, Kabupaten Magelang"
+     */
+    private function resolveWilayahFromAlamat($alamat)
+    {
+        $alamat = trim((string) $alamat);
+        if ($alamat === '' || $alamat === '-') {
+            return null;
+        }
+
+        $cacheKey = md5(mb_strtolower($alamat));
+        if (array_key_exists($cacheKey, $this->alamatWilayahCache)) {
+            return $this->alamatWilayahCache[$cacheKey];
+        }
+
+        $this->warmWilayahNameIndex();
+        $parts = array_values(array_filter(array_map(function ($p) {
+            return $this->normalizeWilayahToken($p);
+        }, explode(',', $alamat))));
+
+        if (empty($parts)) {
+            return $this->alamatWilayahCache[$cacheKey] = null;
+        }
+
+        $matchedKec = null;
+        foreach ($parts as $part) {
+            if (isset($this->wilayahNameIndex['KEC'][$part])) {
+                $candidates = $this->wilayahNameIndex['KEC'][$part];
+                $matchedKec = $this->preferMagelangCandidate($candidates) ?: $candidates[0];
+            }
+        }
+
+        $preferTipeOrder = ['DESA', 'DUSUN', 'KEC', 'KAB'];
+        foreach ($preferTipeOrder as $tipe) {
+            foreach ($parts as $part) {
+                if (!isset($this->wilayahNameIndex[$tipe][$part])) {
+                    continue;
+                }
+                $candidates = $this->wilayahNameIndex[$tipe][$part];
+                if ($matchedKec && in_array($tipe, ['DESA', 'DUSUN'], true)) {
+                    $kecPrefix = substr((string) $matchedKec['kode'], 0, 6);
+                    $filtered = array_values(array_filter($candidates, function ($c) use ($kecPrefix) {
+                        return strpos((string) $c['kode'], $kecPrefix) === 0;
+                    }));
+                    if (!empty($filtered)) {
+                        $candidates = $filtered;
                     }
+                }
+                $picked = $this->preferMagelangCandidate($candidates) ?: $candidates[0];
+                return $this->alamatWilayahCache[$cacheKey] = $picked;
+            }
+        }
+
+        return $this->alamatWilayahCache[$cacheKey] = ($matchedKec ?: null);
+    }
+
+    private function preferMagelangCandidate(array $candidates)
+    {
+        foreach ($candidates as $c) {
+            if (strpos((string) $c['kode'], '3308') === 0) {
+                return $c;
+            }
+        }
+        return null;
+    }
+
+    private function wilayahMatchesFilter(array $resolved, $tipeWilayah, $wilayahId)
+    {
+        $kode = (string) ($resolved['kode'] ?? '');
+        $isMagelang = strpos($kode, '3308') === 0;
+
+        if ($tipeWilayah === 'luar_daerah') {
+            return !$isMagelang;
+        }
+
+        if (!$isMagelang) {
+            return false;
+        }
+
+        if (!$wilayahId) {
+            return true;
+        }
+
+        $filter = Wilayah::find($wilayahId);
+        if (!$filter) {
+            return true;
+        }
+
+        if ($tipeWilayah === 'DESA' || $tipeWilayah === 'DUSUN') {
+            return (string) $resolved['id'] === (string) $wilayahId
+                || strpos($kode, (string) $filter->wilayah_kode) === 0;
+        }
+
+        if ($tipeWilayah === 'KEC') {
+            $prefix = substr((string) $filter->wilayah_kode, 0, 6);
+            return strpos($kode, $prefix) === 0
+                || (string) $resolved['id'] === (string) $wilayahId;
+        }
+
+        return true;
+    }
+
+    /**
+     * Resolve parameter satuan IDs from filter (satuan / paket).
+     * null = no filter; [] = filter that matches nothing.
+     */
+    /**
+     * Resolve parameter satuan IDs from filter (satuan / paket).
+     * null = no filter; [] = filter that matches nothing.
+     */
+    private function resolveParameterSatuanIds(array $parameterIds, $tipeParameter)
+    {
+        if (empty($parameterIds)) {
+            return null;
+        }
+
+        $filterIds = array_map(function ($id) {
+            return is_numeric($id) ? (int) $id : $id;
+        }, $parameterIds);
+
+        if ($tipeParameter === 'paket') {
+            $paketJenisIds = ParameterPaketJenisKlinik::whereIn('parameter_paket_klinik_id', $filterIds)
+                ->whereNull('deleted_at')
+                ->pluck('id_parameter_paket_jenis_klinik')
+                ->toArray();
+
+            return ParameterSatuanPaketKlinik::whereIn('parameter_paket_jenis_klinik', $paketJenisIds)
+                ->whereNull('deleted_at')
+                ->pluck('parameter_satuan_klinik')
+                ->unique()
+                ->values()
+                ->all();
+        }
+
+        return $filterIds;
+    }
+
+    private function applyParameterFilter($query, array $parameterIds, $tipeParameter)
+    {
+        $satuanIds = $this->resolveParameterSatuanIds($parameterIds, $tipeParameter);
+        if ($satuanIds === null) {
+            return $query;
+        }
+        if (empty($satuanIds)) {
+            return $query->whereRaw('1 = 0');
+        }
+        return $query->whereIn('tb_permohonan_uji_parameter_klinik.parameter_satuan_klinik', $satuanIds);
+    }
+
+    /**
+     * Preload baku mutu + number_format parameter sekali per request.
+     */
+    private function warmBakuMutuCache()
+    {
+        if ($this->bakuMutuById !== null) {
+            return;
+        }
+
+        $this->bakuMutuById = [];
+        $this->bakuMutuByParamJenis = [];
+        $this->parameterFormatMap = ParameterSatuanKlinik::query()
+            ->whereNull('deleted_at')
+            ->pluck('number_format', 'id_parameter_satuan_klinik')
+            ->map(function ($fmt) {
+                return ($fmt === 'id') ? 'id' : 'en';
+            })
+            ->all();
+
+        BakuMutu::query()
+            ->select([
+                'id_baku_mutu',
+                'parameter_satuan_klinik_id',
+                'parameter_jenis_klinik_id',
+                'equal',
+                'min',
+                'max',
+                'is_khusus_baku_mutu',
+                'gender_baku_mutu',
+                'minimal_umur_baku_mutu',
+                'maksimal_umur_baku_mutu',
+                'is_haji',
+                'is_normal',
+            ])
+            ->orderBy('id_baku_mutu')
+            ->get()
+            ->each(function ($bm) {
+                $this->bakuMutuById[$bm->id_baku_mutu] = $bm;
+                $key = $bm->parameter_satuan_klinik_id . '|' . $bm->parameter_jenis_klinik_id;
+                if (!isset($this->bakuMutuByParamJenis[$key])) {
+                    $this->bakuMutuByParamJenis[$key] = [];
+                }
+                $this->bakuMutuByParamJenis[$key][] = $bm;
+            });
+    }
+
+    /**
+     * Parse angka mengikuti number_format parameter (sama seperti parseNumberInput di JS).
+     * ID: titik = pemisah ribuan, koma = desimal → "1.010" = 1010, "1,025" = 1.025
+     * EN: koma = ribuan, titik = desimal → "1.010" = 1.01
+     */
+    private function parseNumericValue($value, $format = 'en')
+    {
+        if ($value === null || $value === '' || $value === '-') {
+            return null;
+        }
+
+        if (is_int($value) || is_float($value)) {
+            return (float) $value;
+        }
+
+        $value = trim(strip_tags((string) $value));
+        $value = preg_replace('/\s+/u', '', $value);
+        if ($value === '' || $value === '-') {
+            return null;
+        }
+
+        // Ambil token numerik pertama jika ada teks lain
+        if (preg_match('/-?\d+(?:[.,]\d+)*/', $value, $m)) {
+            $value = $m[0];
+        }
+
+        $format = ($format === 'id') ? 'id' : 'en';
+
+        if ($format === 'id') {
+            // 1.234,56 → 1234.56 ; 1.010 → 1010
+            if (strpos($value, ',') !== false) {
+                $value = str_replace('.', '', $value);
+                $value = str_replace(',', '.', $value);
+            } else {
+                $value = str_replace('.', '', $value);
+            }
+        } else {
+            // 1,234.56 → 1234.56
+            $value = str_replace(',', '', $value);
+        }
+
+        $value = preg_replace('/[^\d.\-]/', '', $value);
+        if ($value === '' || $value === '-' || $value === '.' || !is_numeric($value)) {
+            return null;
+        }
+
+        return (float) $value;
+    }
+
+    /**
+     * Format angka untuk tampilan sesuai number_format parameter.
+     */
+    private function formatNumericValue($value, $format = 'en', $decimals = null)
+    {
+        if ($value === null || !is_numeric($value)) {
+            return '-';
+        }
+
+        $value = (float) $value;
+        if ($decimals === null) {
+            // Nilai BJ-style ID (1005, 1020): tampilkan sebagai 1.005 / 1.020
+            if ($format === 'id' && abs($value) >= 100 && abs($value - round($value)) < 0.0001) {
+                $decimals = 0;
+            } else {
+                $asString = rtrim(rtrim(sprintf('%.6F', $value), '0'), '.');
+                $decimals = (strpos($asString, '.') !== false)
+                    ? strlen(substr(strrchr($asString, '.'), 1))
+                    : 0;
+                $decimals = max(0, min(4, $decimals));
+                if ($decimals < 2 && abs($value) < 100 && abs($value - round($value)) > 0.00001) {
+                    $decimals = 2;
                 }
             }
         }
-        
-        $pasienIds = $pasienQuery->pluck('ms_pasien.id_pasien')->toArray();
-        
-        if (empty($pasienIds)) {
-            return [];
+
+        if ($format === 'id') {
+            return number_format($value, $decimals, ',', '.');
         }
-        
-        // Get latest permohonan per pasien
-        // For each pasien, get the latest permohonan based on tglpengujian or created_at
-        $permohonanIds = [];
-        
-        foreach ($pasienIds as $pasienId) {
-            $permohonanQuery = PermohonanUjiKlinik2::where('pasien_permohonan_uji_klinik', $pasienId)
-                ->whereNull('deleted_at');
-            
-            // Filter bulan dan tahun
-            if ($bulan && $tahun) {
-                $permohonanQuery->where(function($q) use ($bulan, $tahun) {
-                    $q->where(function($subQ) use ($bulan, $tahun) {
-                        $subQ->whereNotNull('tglpengujian_permohonan_uji_klinik')
-                            ->whereYear('tglpengujian_permohonan_uji_klinik', $tahun)
-                            ->whereMonth('tglpengujian_permohonan_uji_klinik', $bulan);
-                    })->orWhere(function($subQ) use ($bulan, $tahun) {
-                        $subQ->whereNull('tglpengujian_permohonan_uji_klinik')
-                            ->whereYear('created_at', $tahun)
-                            ->whereMonth('created_at', $bulan);
-                    });
-                });
-            }
-            
-            // Get the latest permohonan for this pasien
-            $latestPermohonan = $permohonanQuery
-                ->orderByRaw('COALESCE(tglpengujian_permohonan_uji_klinik, created_at) DESC')
-                ->orderBy('created_at', 'DESC')
-                ->first();
-            
-            if ($latestPermohonan) {
-                $permohonanIds[] = $latestPermohonan->id_permohonan_uji_klinik;
-            }
-        }
-        
-        return $permohonanIds;
+
+        return number_format($value, $decimals, '.', ',');
+    }
+
+    private function getParameterNumberFormat($parameterSatuanKlinikId)
+    {
+        $this->warmBakuMutuCache();
+        return $this->parameterFormatMap[$parameterSatuanKlinikId] ?? 'en';
     }
 
     /**
      * Get statistics data - per pasien, menggunakan hasil terakhir
      */
-    private function getStatistics($tipeWilayah, $wilayahId, $bulan, $tahun, $parameterIds, $tipeParameter)
+    private function getStatistics(array $latestPermohonanIds, $parameterIds, $tipeParameter)
     {
-        // Get latest permohonan IDs per pasien
-        $latestPermohonanIds = $this->getLatestPermohonanPerPasien($tipeWilayah, $wilayahId, $bulan, $tahun, $parameterIds, $tipeParameter);
-        
         if (empty($latestPermohonanIds)) {
             return [
                 'total_samples' => 0,
+                'total_results' => 0,
+                'normal_count' => 0,
                 'average' => 0,
                 'max' => 0,
                 'min' => 0,
@@ -209,572 +605,670 @@ class DokterDashboardController extends Controller
                 'parameter_stats' => [],
             ];
         }
-        
+
         $query = PermohonanUjiParameterKlinik::query()
             ->join('tb_permohonan_uji_klinik_2', 'tb_permohonan_uji_parameter_klinik.permohonan_uji_klinik', '=', 'tb_permohonan_uji_klinik_2.id_permohonan_uji_klinik')
             ->join('ms_pasien', 'tb_permohonan_uji_klinik_2.pasien_permohonan_uji_klinik', '=', 'ms_pasien.id_pasien')
-            ->join('ms_wilayah', 'ms_pasien.wilayah_id', '=', 'ms_wilayah.id_wilayah')
             ->leftJoin('ms_parameter_satuan_klinik', 'tb_permohonan_uji_parameter_klinik.parameter_satuan_klinik', '=', 'ms_parameter_satuan_klinik.id_parameter_satuan_klinik')
             ->whereIn('tb_permohonan_uji_klinik_2.id_permohonan_uji_klinik', $latestPermohonanIds)
             ->whereNotNull('tb_permohonan_uji_parameter_klinik.hasil_permohonan_uji_parameter_klinik')
             ->where('tb_permohonan_uji_parameter_klinik.hasil_permohonan_uji_parameter_klinik', '!=', '-')
             ->whereNull('tb_permohonan_uji_parameter_klinik.deleted_at')
             ->whereNull('tb_permohonan_uji_klinik_2.deleted_at');
-        
-        // Filter parameter
-        if (!empty($parameterIds) && count($parameterIds) > 0) {
-            $filterIds = array_map(function($id) {
-                return is_numeric($id) ? (int)$id : $id;
-            }, $parameterIds);
-            
-            if ($tipeParameter === 'paket') {
-                $paketJenisIds = ParameterPaketJenisKlinik::whereIn('parameter_paket_klinik_id', $filterIds)
-                    ->whereNull('deleted_at')
-                    ->pluck('id_parameter_paket_jenis_klinik')
-                    ->toArray();
-                
-                $parameterSatuanIds = ParameterSatuanPaketKlinik::whereIn('parameter_paket_jenis_klinik', $paketJenisIds)
-                    ->whereNull('deleted_at')
-                    ->pluck('parameter_satuan_klinik')
-                    ->unique()
-                    ->toArray();
-                
-                if (!empty($parameterSatuanIds)) {
-                    $query->whereIn('tb_permohonan_uji_parameter_klinik.parameter_satuan_klinik', $parameterSatuanIds);
-                } else {
-                    $query->whereRaw('1 = 0');
-                }
-            } else {
-                $query->whereIn('tb_permohonan_uji_parameter_klinik.parameter_satuan_klinik', $filterIds);
-            }
-        }
+
+        $query = $this->applyParameterFilter($query, $parameterIds ?: [], $tipeParameter);
 
         $results = $query->select(
-            'tb_permohonan_uji_parameter_klinik.*',
-            'tb_permohonan_uji_klinik_2.id_permohonan_uji_klinik',
+            'tb_permohonan_uji_parameter_klinik.hasil_permohonan_uji_parameter_klinik',
+            'tb_permohonan_uji_parameter_klinik.parameter_satuan_klinik',
+            'tb_permohonan_uji_parameter_klinik.jenis_parameter_klinik_id',
+            'tb_permohonan_uji_parameter_klinik.baku_mutu_permohonan_uji_parameter_klinik',
             'tb_permohonan_uji_klinik_2.pasien_permohonan_uji_klinik',
-            'ms_wilayah.wilayah_kode',
-            'ms_wilayah.wilayah',
-            'ms_wilayah.tipe as wilayah_tipe',
-            'ms_pasien.wilayah_id',
-            'ms_parameter_satuan_klinik.name_parameter_satuan_klinik'
+            'tb_permohonan_uji_klinik_2.is_haji',
+            'ms_pasien.tgllahir_pasien',
+            'ms_parameter_satuan_klinik.name_parameter_satuan_klinik',
+            'ms_parameter_satuan_klinik.number_format',
+            DB::raw('TIMESTAMPDIFF(YEAR, ms_pasien.tgllahir_pasien, COALESCE(tb_permohonan_uji_klinik_2.tglpengujian_permohonan_uji_klinik, tb_permohonan_uji_klinik_2.created_at)) as umur_tahun')
         )->get();
 
-        // Calculate statistics
-        // Total samples = distinct pasien (karena sudah diambil hasil terakhir per pasien)
-        $uniquePasien = $results->unique('pasien_permohonan_uji_klinik');
-        $totalSamples = $uniquePasien->count();
-        
-        // Group hasil per parameter untuk menghitung rata-rata dan maksimal per parameter
-        $parameterResults = [];
-        $parameterAbnormalCounts = [];
+        $totalSamples = $results->unique('pasien_permohonan_uji_klinik')->count();
+
+        $parameterBuckets = [];
         $allResultsNumeric = [];
-        
+        $totalAbnormalCount = 0;
+
         foreach ($results as $result) {
             $hasil = $result->hasil_permohonan_uji_parameter_klinik;
             $parameterId = $result->parameter_satuan_klinik;
-            
-            if (is_numeric($hasil)) {
-                $hasilNumeric = (float)$hasil;
-                $allResultsNumeric[] = $hasilNumeric;
-                
-                // Group by parameter
-                if (!isset($parameterResults[$parameterId])) {
-                    $parameterResults[$parameterId] = [];
-                    $parameterAbnormalCounts[$parameterId] = 0;
-                }
-                $parameterResults[$parameterId][] = $hasilNumeric;
-                
-                // Check if abnormal (melewati baku mutu)
-                if ($this->isAbnormal($result)) {
-                    $parameterAbnormalCounts[$parameterId]++;
-                }
+            $format = ($result->number_format === 'id') ? 'id' : $this->getParameterNumberFormat($parameterId);
+
+            $hasilNumeric = $this->parseNumericValue($hasil, $format);
+            if ($hasilNumeric === null) {
+                continue;
             }
-        }
-        
-        // Hitung statistik per parameter
-        $parameterStats = [];
-        $totalAbnormalCount = 0;
-        
-        // Get parameter names from results
-        $parameterNames = [];
-        foreach ($results as $result) {
-            $parameterId = $result->parameter_satuan_klinik;
-            if (!isset($parameterNames[$parameterId])) {
-                $parameterNames[$parameterId] = $result->name_parameter_satuan_klinik ?? 'Parameter #' . $parameterId;
-            }
-        }
-        
-        foreach ($parameterResults as $parameterId => $values) {
-            if (count($values) > 0) {
-                $parameterName = $parameterNames[$parameterId] ?? 'Parameter #' . $parameterId;
-                
-                $avg = array_sum($values) / count($values);
-                $max = max($values);
-                $min = min($values);
-                $abnormalCount = $parameterAbnormalCounts[$parameterId] ?? 0;
-                $abnormalPercentage = count($values) > 0 ? ($abnormalCount / count($values)) * 100 : 0;
-                
-                $parameterStats[] = [
-                    'parameter_id' => $parameterId,
-                    'parameter_name' => $parameterName,
-                    'average' => round($avg, 2),
-                    'max' => round($max, 2),
-                    'min' => round($min, 2),
-                    'abnormal_count' => $abnormalCount,
-                    'abnormal_percentage' => round($abnormalPercentage, 2),
-                    'total_results' => count($values)
+
+            $allResultsNumeric[] = $hasilNumeric;
+
+            if (!isset($parameterBuckets[$parameterId])) {
+                $parameterBuckets[$parameterId] = [
+                    'parameter_name' => $result->name_parameter_satuan_klinik ?? ('Parameter #' . $parameterId),
+                    'number_format' => $format,
+                    'total' => 0,
+                    'below' => 0,
+                    'above' => 0,
+                    'other_abnormal' => 0,
+                    'normal' => 0,
                 ];
-                
-                $totalAbnormalCount += $abnormalCount;
+            }
+
+            $parameterBuckets[$parameterId]['total']++;
+            $status = $this->classifyVsBakuMutu($result);
+
+            if ($status === 'below') {
+                $parameterBuckets[$parameterId]['below']++;
+                $totalAbnormalCount++;
+            } elseif ($status === 'above') {
+                $parameterBuckets[$parameterId]['above']++;
+                $totalAbnormalCount++;
+            } elseif ($status === 'abnormal') {
+                $parameterBuckets[$parameterId]['other_abnormal']++;
+                $totalAbnormalCount++;
+            } else {
+                $parameterBuckets[$parameterId]['normal']++;
             }
         }
-        
-        // Sort by parameter name
-        usort($parameterStats, function($a, $b) {
+
+        $parameterStats = [];
+        foreach ($parameterBuckets as $parameterId => $bucket) {
+            if ($bucket['total'] === 0) {
+                continue;
+            }
+
+            $abnormalCount = $bucket['below'] + $bucket['above'] + $bucket['other_abnormal'];
+            $parameterStats[] = [
+                'parameter_id' => $parameterId,
+                'parameter_name' => $bucket['parameter_name'],
+                'number_format' => $bucket['number_format'],
+                'below_count' => $bucket['below'],
+                'above_count' => $bucket['above'],
+                'other_abnormal_count' => $bucket['other_abnormal'],
+                'abnormal_count' => $abnormalCount,
+                'normal_count' => $bucket['normal'],
+                'abnormal_percentage' => round(($abnormalCount / $bucket['total']) * 100, 2),
+                'normal_percentage' => round(($bucket['normal'] / $bucket['total']) * 100, 2),
+                'total_results' => $bucket['total'],
+            ];
+        }
+
+        usort($parameterStats, function ($a, $b) {
+            if ($b['abnormal_count'] != $a['abnormal_count']) {
+                return $b['abnormal_count'] <=> $a['abnormal_count'];
+            }
+            if ($b['abnormal_percentage'] != $a['abnormal_percentage']) {
+                return $b['abnormal_percentage'] <=> $a['abnormal_percentage'];
+            }
             return strcmp($a['parameter_name'], $b['parameter_name']);
         });
-        
-        // Calculate overall statistics
-        $overallAverage = count($parameterStats) > 0 ? array_sum(array_column($parameterStats, 'average')) / count($parameterStats) : 0;
-        $overallMax = count($parameterStats) > 0 ? max(array_column($parameterStats, 'max')) : 0;
-        $overallMin = count($parameterStats) > 0 ? min(array_column($parameterStats, 'min')) : 0;
-        $overallAbnormalPercentage = count($allResultsNumeric) > 0 ? ($totalAbnormalCount / count($allResultsNumeric)) * 100 : 0;
+
+        $totalResults = count($allResultsNumeric);
+        $totalNormalCount = max(0, $totalResults - $totalAbnormalCount);
+        $overallAbnormalPercentage = $totalResults > 0
+            ? ($totalAbnormalCount / $totalResults) * 100
+            : 0;
 
         return [
             'total_samples' => $totalSamples,
-            'average' => round($overallAverage, 2),
-            'max' => round($overallMax, 2),
-            'min' => round($overallMin, 2),
+            'total_results' => $totalResults,
+            'normal_count' => $totalNormalCount,
+            'average' => 0,
+            'max' => 0,
+            'min' => 0,
             'abnormal_count' => $totalAbnormalCount,
             'abnormal_percentage' => round($overallAbnormalPercentage, 2),
-            'parameter_stats' => $parameterStats, // Data per parameter
+            'parameter_stats' => $parameterStats,
         ];
     }
 
     /**
-     * Check if result is abnormal (melewati baku mutu)
+     * Ambil baku mutu yang benar untuk 1 hasil:
+     * 1) ID baku mutu tersimpan di baris hasil (sama seperti layar analis)
+     * 2) Fallback: cocokkan umur / haji / non-khusus
      */
-    private function isAbnormal($parameterKlinik)
+    private function resolveBakuMutuForResult($parameterKlinik)
     {
-        $parameterSatuanKlinikId = is_object($parameterKlinik) ? $parameterKlinik->parameter_satuan_klinik : $parameterKlinik['parameter_satuan_klinik'] ?? null;
-        $jenisParameterKlinikId = is_object($parameterKlinik) ? $parameterKlinik->jenis_parameter_klinik_id : $parameterKlinik['jenis_parameter_klinik_id'] ?? null;
-        $hasil = is_object($parameterKlinik) ? $parameterKlinik->hasil_permohonan_uji_parameter_klinik : $parameterKlinik['hasil_permohonan_uji_parameter_klinik'] ?? null;
-        
-        if (!$parameterSatuanKlinikId || !$jenisParameterKlinikId || !$hasil) {
-            return false;
-        }
-        
-        // Get baku mutu
-        $bakuMutu = BakuMutu::where('parameter_satuan_klinik_id', $parameterSatuanKlinikId)
-            ->where('parameter_jenis_klinik_id', $jenisParameterKlinikId)
-            ->first();
+        $this->warmBakuMutuCache();
 
-        if (!$bakuMutu) {
-            return false;
+        $parameterSatuanKlinikId = is_object($parameterKlinik) ? $parameterKlinik->parameter_satuan_klinik : ($parameterKlinik['parameter_satuan_klinik'] ?? null);
+        $jenisParameterKlinikId = is_object($parameterKlinik) ? $parameterKlinik->jenis_parameter_klinik_id : ($parameterKlinik['jenis_parameter_klinik_id'] ?? null);
+        $storedBmId = is_object($parameterKlinik)
+            ? ($parameterKlinik->baku_mutu_permohonan_uji_parameter_klinik ?? null)
+            : ($parameterKlinik['baku_mutu_permohonan_uji_parameter_klinik'] ?? null);
+
+        if (is_string($storedBmId) && preg_match('/^[0-9a-f\-]{36}$/i', $storedBmId) && isset($this->bakuMutuById[$storedBmId])) {
+            return $this->bakuMutuById[$storedBmId];
         }
 
-        if (!is_numeric($hasil)) {
-            return false;
+        $key = $parameterSatuanKlinikId . '|' . $jenisParameterKlinikId;
+        $candidates = $this->bakuMutuByParamJenis[$key] ?? [];
+        if (empty($candidates)) {
+            return null;
         }
 
-        $hasilNumeric = (float)$hasil;
+        $umur = is_object($parameterKlinik) ? ($parameterKlinik->umur_tahun ?? null) : ($parameterKlinik['umur_tahun'] ?? null);
+        $isHaji = is_object($parameterKlinik) ? (int) ($parameterKlinik->is_haji ?? 0) : (int) ($parameterKlinik['is_haji'] ?? 0);
 
-        // Check equal
-        if ($bakuMutu->equal !== null && $bakuMutu->equal !== '' && $bakuMutu->equal != '0') {
-            if ($hasilNumeric != (float)$bakuMutu->equal) {
-                return true;
+        $matched = [];
+        foreach ($candidates as $bm) {
+            if ((int) ($bm->is_haji ?? 0) === 1 && $isHaji !== 1) {
+                continue;
             }
-        }
-
-        // Check min and max
-        if ($bakuMutu->min !== null && $bakuMutu->max !== null) {
-            if ($hasilNumeric < (float)$bakuMutu->min || $hasilNumeric > (float)$bakuMutu->max) {
-                return true;
+            if ((int) ($bm->is_haji ?? 0) !== 1 && $isHaji === 1) {
+                // boleh tetap dipakai sebagai fallback non-haji, tapi prioritaskan haji nanti
             }
+
+            if ((int) ($bm->is_khusus_baku_mutu ?? 0) === 1 && $umur !== null && $umur !== '') {
+                $minAge = $bm->minimal_umur_baku_mutu;
+                $maxAge = $bm->maksimal_umur_baku_mutu;
+                if ($minAge !== null && $maxAge !== null) {
+                    if ((float) $umur < (float) $minAge || (float) $umur > (float) $maxAge) {
+                        continue;
+                    }
+                }
+            }
+            $matched[] = $bm;
         }
 
-        return false;
+        if (empty($matched)) {
+            $matched = $candidates;
+        }
+
+        // Prioritas: is_haji cocok, lalu non-khusus (umum), lalu yang punya min/max
+        usort($matched, function ($a, $b) use ($isHaji) {
+            $score = function ($bm) use ($isHaji) {
+                $s = 0;
+                if ((int) ($bm->is_haji ?? 0) === $isHaji) {
+                    $s += 10;
+                }
+                if ((int) ($bm->is_khusus_baku_mutu ?? 0) === 0) {
+                    $s += 5;
+                }
+                if ($bm->min !== null && $bm->max !== null) {
+                    $s += 2;
+                }
+                return $s;
+            };
+            return $score($b) <=> $score($a);
+        });
+
+        return $matched[0] ?? null;
     }
 
     /**
-     * Get data untuk peta Leaflet - per pasien, menggunakan hasil terakhir
+     * Klasifikasi hasil vs baku mutu: below|above|abnormal|normal|skip
      */
-    private function getMapData($tipeWilayah, $wilayahId, $bulan, $tahun, $parameterIds, $tipeParameter)
+    private function classifyVsBakuMutu($parameterKlinik)
     {
-        // Get latest permohonan IDs per pasien
-        $latestPermohonanIds = $this->getLatestPermohonanPerPasien($tipeWilayah, $wilayahId, $bulan, $tahun, $parameterIds, $tipeParameter);
-        
+        $parameterSatuanKlinikId = is_object($parameterKlinik) ? $parameterKlinik->parameter_satuan_klinik : ($parameterKlinik['parameter_satuan_klinik'] ?? null);
+        $jenisParameterKlinikId = is_object($parameterKlinik) ? $parameterKlinik->jenis_parameter_klinik_id : ($parameterKlinik['jenis_parameter_klinik_id'] ?? null);
+        $hasil = is_object($parameterKlinik) ? $parameterKlinik->hasil_permohonan_uji_parameter_klinik : ($parameterKlinik['hasil_permohonan_uji_parameter_klinik'] ?? null);
+
+        if (!$parameterSatuanKlinikId || !$jenisParameterKlinikId || $hasil === null || $hasil === '') {
+            return 'skip';
+        }
+
+        $format = $this->getParameterNumberFormat($parameterSatuanKlinikId);
+        $hasilNumeric = $this->parseNumericValue($hasil, $format);
+        if ($hasilNumeric === null) {
+            return 'skip';
+        }
+
+        $bakuMutu = $this->resolveBakuMutuForResult($parameterKlinik);
+        if (!$bakuMutu) {
+            return 'normal';
+        }
+
+        $hasEqual = $bakuMutu->equal !== null && $bakuMutu->equal !== '' && $bakuMutu->equal != '0';
+        if ($hasEqual) {
+            $equalNumeric = $this->parseNumericValue($bakuMutu->equal, $format);
+            if ($equalNumeric !== null && abs($hasilNumeric - $equalNumeric) > 0.0000001) {
+                return 'abnormal';
+            }
+        }
+
+        if ($bakuMutu->min !== null && $bakuMutu->max !== null) {
+            $min = (float) $bakuMutu->min;
+            $max = (float) $bakuMutu->max;
+            if ($hasilNumeric < $min) {
+                return 'below';
+            }
+            if ($hasilNumeric > $max) {
+                return 'above';
+            }
+        }
+
+        return 'normal';
+    }
+
+    /**
+     * Check if result is abnormal — respect number_format parameter (EN/ID).
+     */
+    private function isAbnormal($parameterKlinik)
+    {
+        $status = $this->classifyVsBakuMutu($parameterKlinik);
+        return in_array($status, ['below', 'above', 'abnormal'], true);
+    }
+
+    /**
+     * Data peta: hanya wilayah yang punya hasil melewati baku mutu.
+     * Marker diurutkan menurut jumlah pelanggaran; popup menampilkan parameter teratas.
+     */
+    private function getMapData(array $latestPermohonanIds, $parameterIds, $tipeParameter)
+    {
         if (empty($latestPermohonanIds)) {
             return [];
         }
-        
+
         $query = PermohonanUjiParameterKlinik::query()
             ->join('tb_permohonan_uji_klinik_2', 'tb_permohonan_uji_parameter_klinik.permohonan_uji_klinik', '=', 'tb_permohonan_uji_klinik_2.id_permohonan_uji_klinik')
             ->join('ms_pasien', 'tb_permohonan_uji_klinik_2.pasien_permohonan_uji_klinik', '=', 'ms_pasien.id_pasien')
-            ->join('ms_wilayah', 'ms_pasien.wilayah_id', '=', 'ms_wilayah.id_wilayah')
+            ->leftJoin('ms_wilayah', 'ms_pasien.wilayah_id', '=', 'ms_wilayah.id_wilayah')
+            ->leftJoin('ms_parameter_satuan_klinik', 'tb_permohonan_uji_parameter_klinik.parameter_satuan_klinik', '=', 'ms_parameter_satuan_klinik.id_parameter_satuan_klinik')
             ->whereIn('tb_permohonan_uji_klinik_2.id_permohonan_uji_klinik', $latestPermohonanIds)
             ->whereNotNull('tb_permohonan_uji_parameter_klinik.hasil_permohonan_uji_parameter_klinik')
             ->where('tb_permohonan_uji_parameter_klinik.hasil_permohonan_uji_parameter_klinik', '!=', '-')
             ->whereNull('tb_permohonan_uji_parameter_klinik.deleted_at')
             ->whereNull('tb_permohonan_uji_klinik_2.deleted_at');
-        
-        // Filter parameter
-        if (!empty($parameterIds) && count($parameterIds) > 0) {
-            $filterIds = array_map(function($id) {
-                return is_numeric($id) ? (int)$id : $id;
-            }, $parameterIds);
-            
-            if ($tipeParameter === 'paket') {
-                $paketJenisIds = ParameterPaketJenisKlinik::whereIn('parameter_paket_klinik_id', $filterIds)
-                    ->whereNull('deleted_at')
-                    ->pluck('id_parameter_paket_jenis_klinik')
-                    ->toArray();
-                
-                $parameterSatuanIds = ParameterSatuanPaketKlinik::whereIn('parameter_paket_jenis_klinik', $paketJenisIds)
-                    ->whereNull('deleted_at')
-                    ->pluck('parameter_satuan_klinik')
-                    ->unique()
-                    ->toArray();
-                
-                if (!empty($parameterSatuanIds)) {
-                    $query->whereIn('tb_permohonan_uji_parameter_klinik.parameter_satuan_klinik', $parameterSatuanIds);
-                } else {
-                    $query->whereRaw('1 = 0');
-                }
-            } else {
-                $query->whereIn('tb_permohonan_uji_parameter_klinik.parameter_satuan_klinik', $filterIds);
-            }
-        }
 
-        $results = $query->select(
+        $query = $this->applyParameterFilter($query, $parameterIds ?: [], $tipeParameter);
+
+        $rows = $query->select(
+            'ms_pasien.wilayah_id as pasien_wilayah_id',
+            'ms_pasien.alamat_pasien',
             'ms_wilayah.id_wilayah',
             'ms_wilayah.wilayah',
             'ms_wilayah.wilayah_kode',
             'ms_wilayah.tipe as wilayah_tipe',
-            DB::raw('AVG(CAST(tb_permohonan_uji_parameter_klinik.hasil_permohonan_uji_parameter_klinik AS DECIMAL(10,2))) as avg_hasil'),
-            DB::raw('MAX(CAST(tb_permohonan_uji_parameter_klinik.hasil_permohonan_uji_parameter_klinik AS DECIMAL(10,2))) as max_hasil'),
-            DB::raw('MIN(CAST(tb_permohonan_uji_parameter_klinik.hasil_permohonan_uji_parameter_klinik AS DECIMAL(10,2))) as min_hasil'),
-            DB::raw('COUNT(DISTINCT tb_permohonan_uji_klinik_2.pasien_permohonan_uji_klinik) as total_samples')
-        )
-        ->groupBy('ms_wilayah.id_wilayah', 'ms_wilayah.wilayah', 'ms_wilayah.wilayah_kode', 'ms_wilayah.tipe')
-        ->get();
+            'tb_permohonan_uji_klinik_2.pasien_permohonan_uji_klinik',
+            'tb_permohonan_uji_klinik_2.id_permohonan_uji_klinik',
+            'tb_permohonan_uji_klinik_2.is_haji',
+            'tb_permohonan_uji_parameter_klinik.hasil_permohonan_uji_parameter_klinik',
+            'tb_permohonan_uji_parameter_klinik.parameter_satuan_klinik',
+            'tb_permohonan_uji_parameter_klinik.jenis_parameter_klinik_id',
+            'tb_permohonan_uji_parameter_klinik.baku_mutu_permohonan_uji_parameter_klinik',
+            'ms_parameter_satuan_klinik.name_parameter_satuan_klinik',
+            DB::raw('TIMESTAMPDIFF(YEAR, ms_pasien.tgllahir_pasien, COALESCE(tb_permohonan_uji_klinik_2.tglpengujian_permohonan_uji_klinik, tb_permohonan_uji_klinik_2.created_at)) as umur_tahun')
+        )->get();
+
+        $byWilayah = [];
+        foreach ($rows as $row) {
+            $format = $this->getParameterNumberFormat($row->parameter_satuan_klinik);
+            $hasilNumeric = $this->parseNumericValue($row->hasil_permohonan_uji_parameter_klinik, $format);
+            if ($hasilNumeric === null) {
+                continue;
+            }
+
+            $resolved = $this->resolvePasienWilayah(
+                $row->pasien_wilayah_id,
+                $row->alamat_pasien,
+                $row->wilayah_kode,
+                $row->wilayah,
+                $row->wilayah_tipe
+            );
+            if (!$resolved) {
+                continue;
+            }
+
+            $wid = $resolved['id'];
+            if (!isset($byWilayah[$wid])) {
+                $byWilayah[$wid] = [
+                    'id' => $wid,
+                    'nama' => $resolved['nama'],
+                    'kode' => $resolved['kode'],
+                    'tipe' => $resolved['tipe'],
+                    'pasien_ids' => [],
+                    'pasien_abnormal_ids' => [],
+                    'pengujian_ids' => [],
+                    'abnormal_count' => 0,
+                    'below_count' => 0,
+                    'above_count' => 0,
+                    'normal_count' => 0,
+                    'total_results' => 0,
+                    'param_abnormal' => [],
+                ];
+            }
+
+            $byWilayah[$wid]['total_results']++;
+            $byWilayah[$wid]['pasien_ids'][$row->pasien_permohonan_uji_klinik] = true;
+            $byWilayah[$wid]['pengujian_ids'][$row->id_permohonan_uji_klinik] = true;
+
+            // Pakai baku mutu tersimpan di hasil (sama seperti statistik & layar analis)
+            $status = $this->classifyVsBakuMutu($row);
+            if ($status === 'below') {
+                $byWilayah[$wid]['below_count']++;
+                $byWilayah[$wid]['abnormal_count']++;
+            } elseif ($status === 'above') {
+                $byWilayah[$wid]['above_count']++;
+                $byWilayah[$wid]['abnormal_count']++;
+            } elseif ($status === 'abnormal') {
+                $byWilayah[$wid]['abnormal_count']++;
+            } else {
+                $byWilayah[$wid]['normal_count']++;
+                continue;
+            }
+
+            $byWilayah[$wid]['pasien_abnormal_ids'][$row->pasien_permohonan_uji_klinik] = true;
+            $paramName = $row->name_parameter_satuan_klinik ?: ('Parameter #' . $row->parameter_satuan_klinik);
+            if (!isset($byWilayah[$wid]['param_abnormal'][$paramName])) {
+                $byWilayah[$wid]['param_abnormal'][$paramName] = 0;
+            }
+            $byWilayah[$wid]['param_abnormal'][$paramName]++;
+        }
 
         $mapData = [];
-        foreach ($results as $result) {
-            // Get coordinates using geocoding
-            $coordinates = $this->getWilayahCoordinates($result->wilayah, $result->wilayah_kode, $result->wilayah_tipe);
-            
+        foreach ($byWilayah as $wilayah) {
+            if ($wilayah['abnormal_count'] < 1) {
+                continue; // hanya tampilkan daerah yang melewati baku mutu
+            }
+
+            arsort($wilayah['param_abnormal']);
+            $topParameters = [];
+            $rank = 0;
+            foreach ($wilayah['param_abnormal'] as $paramName => $count) {
+                $topParameters[] = [
+                    'parameter' => $paramName,
+                    'abnormal_count' => $count,
+                ];
+                $rank++;
+                if ($rank >= 5) {
+                    break;
+                }
+            }
+
+            $topParameter = $topParameters[0]['parameter'] ?? '-';
+            $topParameterCount = $topParameters[0]['abnormal_count'] ?? 0;
+            $totalSamples = count($wilayah['pasien_ids']);
+            $totalPengujian = count($wilayah['pengujian_ids']);
+            $pasienMelewati = count($wilayah['pasien_abnormal_ids']);
+            $abnormalPct = $wilayah['total_results'] > 0
+                ? round(($wilayah['abnormal_count'] / $wilayah['total_results']) * 100, 2)
+                : 0;
+
+            $coordinates = $this->getWilayahCoordinates($wilayah['nama'], $wilayah['kode'], $wilayah['tipe']);
+
             $mapData[] = [
-                'id' => $result->id_wilayah,
-                'nama' => $result->wilayah,
-                'kode' => $result->wilayah_kode,
-                'tipe' => $result->wilayah_tipe,
+                'id' => $wilayah['id'],
+                'nama' => $wilayah['nama'],
+                'kode' => $wilayah['kode'],
+                'tipe' => $wilayah['tipe'],
                 'lat' => $coordinates['lat'],
                 'lng' => $coordinates['lng'],
-                'avg_hasil' => round($result->avg_hasil, 2),
-                'max_hasil' => round($result->max_hasil, 2),
-                'min_hasil' => round($result->min_hasil, 2),
-                'total_samples' => $result->total_samples,
+                'abnormal_count' => $wilayah['abnormal_count'],
+                'below_count' => $wilayah['below_count'],
+                'above_count' => $wilayah['above_count'],
+                'normal_count' => $wilayah['normal_count'],
+                'abnormal_percentage' => $abnormalPct,
+                'total_samples' => $totalSamples,
+                'total_pengujian' => $totalPengujian,
+                'pasien_melewati_baku_mutu' => $pasienMelewati,
+                'total_results' => $wilayah['total_results'],
+                'top_parameter' => $topParameter,
+                'top_parameter_count' => $topParameterCount,
+                'top_parameters' => $topParameters,
+                'avg_hasil' => $wilayah['abnormal_count'],
+                'max_hasil' => $wilayah['abnormal_count'],
+                'min_hasil' => 0,
             ];
         }
 
-        return $mapData;
+        usort($mapData, function ($a, $b) {
+            return $b['abnormal_count'] <=> $a['abnormal_count'];
+        });
+
+        // Gabungkan titik yang jatuh di koordinat yang sama / berhimpit
+        return $this->mergeColocatedMapPoints($mapData);
     }
 
     /**
-     * Get data untuk scatter plot - per pasien, menggunakan hasil terakhir
+     * Gabungkan marker yang berada di titik yang sama (atau hampir sama).
      */
-    private function getScatterData($tipeWilayah, $wilayahId, $bulan, $tahun, $parameterIds, $tipeParameter)
+    private function mergeColocatedMapPoints(array $mapData)
     {
-        // Get latest permohonan IDs per pasien
-        $latestPermohonanIds = $this->getLatestPermohonanPerPasien($tipeWilayah, $wilayahId, $bulan, $tahun, $parameterIds, $tipeParameter);
-        
+        $groups = [];
+        foreach ($mapData as $point) {
+            // ~11m precision — titik berhimpit digabung
+            $key = round((float) $point['lat'], 4) . ':' . round((float) $point['lng'], 4);
+            if (!isset($groups[$key])) {
+                $groups[$key] = $point;
+                $groups[$key]['pasien_melewati_baku_mutu'] = (int) ($point['pasien_melewati_baku_mutu'] ?? 0);
+                $groups[$key]['total_pengujian'] = (int) ($point['total_pengujian'] ?? $point['total_samples'] ?? 0);
+                $groups[$key]['below_count'] = (int) ($point['below_count'] ?? 0);
+                $groups[$key]['above_count'] = (int) ($point['above_count'] ?? 0);
+                $groups[$key]['normal_count'] = (int) ($point['normal_count'] ?? 0);
+                $groups[$key]['wilayah_list'] = [[
+                    'nama' => $point['nama'],
+                    'kode' => $point['kode'],
+                    'tipe' => $point['tipe'],
+                    'abnormal_count' => $point['abnormal_count'],
+                    'pasien_melewati_baku_mutu' => (int) ($point['pasien_melewati_baku_mutu'] ?? 0),
+                ]];
+                $groups[$key]['merged_param_map'] = [];
+                foreach ($point['top_parameters'] as $tp) {
+                    $groups[$key]['merged_param_map'][$tp['parameter']] = $tp['abnormal_count'];
+                }
+                continue;
+            }
+
+            $groups[$key]['abnormal_count'] += $point['abnormal_count'];
+            $groups[$key]['below_count'] = (int) ($groups[$key]['below_count'] ?? 0) + (int) ($point['below_count'] ?? 0);
+            $groups[$key]['above_count'] = (int) ($groups[$key]['above_count'] ?? 0) + (int) ($point['above_count'] ?? 0);
+            $groups[$key]['normal_count'] = (int) ($groups[$key]['normal_count'] ?? 0) + (int) ($point['normal_count'] ?? 0);
+            $groups[$key]['total_samples'] += $point['total_samples'];
+            $groups[$key]['total_pengujian'] = (int) ($groups[$key]['total_pengujian'] ?? 0)
+                + (int) ($point['total_pengujian'] ?? $point['total_samples'] ?? 0);
+            $groups[$key]['total_results'] += $point['total_results'];
+            $groups[$key]['pasien_melewati_baku_mutu'] = (int) ($groups[$key]['pasien_melewati_baku_mutu'] ?? 0)
+                + (int) ($point['pasien_melewati_baku_mutu'] ?? 0);
+            $groups[$key]['wilayah_list'][] = [
+                'nama' => $point['nama'],
+                'kode' => $point['kode'],
+                'tipe' => $point['tipe'],
+                'abnormal_count' => $point['abnormal_count'],
+                'pasien_melewati_baku_mutu' => (int) ($point['pasien_melewati_baku_mutu'] ?? 0),
+            ];
+
+            foreach ($point['top_parameters'] as $tp) {
+                $name = $tp['parameter'];
+                if (!isset($groups[$key]['merged_param_map'][$name])) {
+                    $groups[$key]['merged_param_map'][$name] = 0;
+                }
+                $groups[$key]['merged_param_map'][$name] += $tp['abnormal_count'];
+            }
+        }
+
+        $merged = [];
+        foreach ($groups as $group) {
+            $paramMap = $group['merged_param_map'] ?? [];
+            arsort($paramMap);
+            $topParameters = [];
+            $i = 0;
+            foreach ($paramMap as $paramName => $count) {
+                $topParameters[] = [
+                    'parameter' => $paramName,
+                    'abnormal_count' => $count,
+                ];
+                if (++$i >= 5) {
+                    break;
+                }
+            }
+
+            $wilayahCount = count($group['wilayah_list']);
+            $isMerged = $wilayahCount > 1;
+            $nama = $isMerged
+                ? ($wilayahCount . ' wilayah digabung')
+                : $group['nama'];
+            $kode = $isMerged ? 'multi' : $group['kode'];
+            $tipe = $isMerged ? 'CLUSTER' : $group['tipe'];
+
+            $abnormalPct = $group['total_results'] > 0
+                ? round(($group['abnormal_count'] / $group['total_results']) * 100, 2)
+                : 0;
+
+            $merged[] = [
+                'id' => $isMerged ? ('cluster-' . md5($group['lat'] . ':' . $group['lng'])) : $group['id'],
+                'nama' => $nama,
+                'kode' => $kode,
+                'tipe' => $tipe,
+                'lat' => $group['lat'],
+                'lng' => $group['lng'],
+                'abnormal_count' => $group['abnormal_count'],
+                'below_count' => (int) ($group['below_count'] ?? 0),
+                'above_count' => (int) ($group['above_count'] ?? 0),
+                'normal_count' => (int) ($group['normal_count'] ?? 0),
+                'abnormal_percentage' => $abnormalPct,
+                'total_samples' => $group['total_samples'],
+                'total_pengujian' => (int) ($group['total_pengujian'] ?? $group['total_samples'] ?? 0),
+                'pasien_melewati_baku_mutu' => (int) ($group['pasien_melewati_baku_mutu'] ?? 0),
+                'total_results' => $group['total_results'],
+                'top_parameter' => $topParameters[0]['parameter'] ?? '-',
+                'top_parameter_count' => $topParameters[0]['abnormal_count'] ?? 0,
+                'top_parameters' => $topParameters,
+                'wilayah_list' => $group['wilayah_list'],
+                'is_merged' => $isMerged,
+                'avg_hasil' => $group['abnormal_count'],
+                'max_hasil' => $group['abnormal_count'],
+                'min_hasil' => 0,
+            ];
+        }
+
+        usort($merged, function ($a, $b) {
+            return $b['abnormal_count'] <=> $a['abnormal_count'];
+        });
+
+        return $merged;
+    }
+
+    /**
+     * Get data untuk scatter plot
+     */
+    private function getScatterData(array $latestPermohonanIds, $parameterIds, $tipeParameter)
+    {
         if (empty($latestPermohonanIds)) {
             return [
                 'data' => [],
-                'labels' => []
+                'labels' => [],
             ];
         }
-        
+
         $query = PermohonanUjiParameterKlinik::query()
             ->join('tb_permohonan_uji_klinik_2', 'tb_permohonan_uji_parameter_klinik.permohonan_uji_klinik', '=', 'tb_permohonan_uji_klinik_2.id_permohonan_uji_klinik')
             ->join('ms_pasien', 'tb_permohonan_uji_klinik_2.pasien_permohonan_uji_klinik', '=', 'ms_pasien.id_pasien')
-            ->join('ms_wilayah', 'ms_pasien.wilayah_id', '=', 'ms_wilayah.id_wilayah')
             ->join('ms_parameter_satuan_klinik', 'tb_permohonan_uji_parameter_klinik.parameter_satuan_klinik', '=', 'ms_parameter_satuan_klinik.id_parameter_satuan_klinik')
             ->whereIn('tb_permohonan_uji_klinik_2.id_permohonan_uji_klinik', $latestPermohonanIds)
             ->whereNotNull('tb_permohonan_uji_parameter_klinik.hasil_permohonan_uji_parameter_klinik')
             ->where('tb_permohonan_uji_parameter_klinik.hasil_permohonan_uji_parameter_klinik', '!=', '-')
             ->whereNull('tb_permohonan_uji_parameter_klinik.deleted_at')
             ->whereNull('tb_permohonan_uji_klinik_2.deleted_at');
-        
-        // Filter parameter
-        if (!empty($parameterIds) && count($parameterIds) > 0) {
-            $filterIds = array_map(function($id) {
-                return is_numeric($id) ? (int)$id : $id;
-            }, $parameterIds);
-            
-            if ($tipeParameter === 'paket') {
-                $paketJenisIds = ParameterPaketJenisKlinik::whereIn('parameter_paket_klinik_id', $filterIds)
-                    ->whereNull('deleted_at')
-                    ->pluck('id_parameter_paket_jenis_klinik')
-                    ->toArray();
-                
-                $parameterSatuanIds = ParameterSatuanPaketKlinik::whereIn('parameter_paket_jenis_klinik', $paketJenisIds)
-                    ->whereNull('deleted_at')
-                    ->pluck('parameter_satuan_klinik')
-                    ->unique()
-                    ->toArray();
-                
-                if (!empty($parameterSatuanIds)) {
-                    $query->whereIn('tb_permohonan_uji_parameter_klinik.parameter_satuan_klinik', $parameterSatuanIds);
-                } else {
-                    $query->whereRaw('1 = 0');
-                }
-            } else {
-                $query->whereIn('tb_permohonan_uji_parameter_klinik.parameter_satuan_klinik', $filterIds);
-            }
-        }
+
+        $query = $this->applyParameterFilter($query, $parameterIds ?: [], $tipeParameter);
 
         $results = $query->select(
             'tb_permohonan_uji_parameter_klinik.hasil_permohonan_uji_parameter_klinik',
             'ms_parameter_satuan_klinik.name_parameter_satuan_klinik',
             'tb_permohonan_uji_parameter_klinik.parameter_satuan_klinik',
-            'tb_permohonan_uji_parameter_klinik.jenis_parameter_klinik_id'
+            'tb_permohonan_uji_parameter_klinik.jenis_parameter_klinik_id',
+            'tb_permohonan_uji_parameter_klinik.baku_mutu_permohonan_uji_parameter_klinik',
+            'tb_permohonan_uji_klinik_2.is_haji',
+            DB::raw('TIMESTAMPDIFF(YEAR, ms_pasien.tgllahir_pasien, COALESCE(tb_permohonan_uji_klinik_2.tglpengujian_permohonan_uji_klinik, tb_permohonan_uji_klinik_2.created_at)) as umur_tahun')
         )->get();
 
-        // Group by parameter name and count abnormal (melewati baku mutu)
         $parameterGroups = [];
         foreach ($results as $result) {
-            $hasil = $result->hasil_permohonan_uji_parameter_klinik;
-            if (is_numeric($hasil)) {
-                $parameterName = $result->name_parameter_satuan_klinik;
-                $isAbnormal = $this->isAbnormal($result);
-                
-                if (!isset($parameterGroups[$parameterName])) {
-                    $parameterGroups[$parameterName] = 0;
-                }
-                
-                if ($isAbnormal) {
-                    $parameterGroups[$parameterName]++;
-                }
+            $format = $this->getParameterNumberFormat($result->parameter_satuan_klinik);
+            if ($this->parseNumericValue($result->hasil_permohonan_uji_parameter_klinik, $format) === null) {
+                continue;
+            }
+            $parameterName = $result->name_parameter_satuan_klinik;
+            if (!isset($parameterGroups[$parameterName])) {
+                $parameterGroups[$parameterName] = [
+                    'abnormal_count' => 0,
+                    'below_count' => 0,
+                    'above_count' => 0,
+                    'normal_count' => 0,
+                ];
+            }
+
+            // Sama seperti statistik: baku mutu tersimpan di hasil, fallback umur/haji
+            $status = $this->classifyVsBakuMutu($result);
+            if ($status === 'below') {
+                $parameterGroups[$parameterName]['below_count']++;
+                $parameterGroups[$parameterName]['abnormal_count']++;
+            } elseif ($status === 'above') {
+                $parameterGroups[$parameterName]['above_count']++;
+                $parameterGroups[$parameterName]['abnormal_count']++;
+            } elseif ($status === 'abnormal') {
+                $parameterGroups[$parameterName]['abnormal_count']++;
+            } else {
+                $parameterGroups[$parameterName]['normal_count']++;
             }
         }
 
-        // Convert to array format for chart: X = parameter name, Y = jumlah abnormal
+        uasort($parameterGroups, function ($a, $b) {
+            return $b['abnormal_count'] <=> $a['abnormal_count'];
+        });
+
         $scatterData = [];
         $parameterNames = [];
         $index = 0;
-        foreach ($parameterGroups as $parameterName => $abnormalCount) {
-            if ($abnormalCount > 0) { // Only show parameters with abnormal cases
+        foreach ($parameterGroups as $parameterName => $counts) {
+            if ($counts['abnormal_count'] > 0) {
                 $parameterNames[] = $parameterName;
-                
                 $scatterData[] = [
                     'x' => $index,
-                    'y' => $abnormalCount,
+                    'y' => $counts['abnormal_count'],
                     'parameter' => $parameterName,
-                    'abnormal_count' => $abnormalCount
+                    'abnormal_count' => $counts['abnormal_count'],
+                    'below_count' => $counts['below_count'],
+                    'above_count' => $counts['above_count'],
+                    'normal_count' => $counts['normal_count'],
                 ];
-                
                 $index++;
             }
         }
 
         return [
             'data' => $scatterData,
-            'labels' => $parameterNames
+            'labels' => $parameterNames,
         ];
     }
 
     /**
-     * Get baku mutu value for scatter plot
-     */
-    private function getBakuMutuValue($parameterSatuanKlinikId, $jenisParameterKlinikId)
-    {
-        $bakuMutu = BakuMutu::where('parameter_satuan_klinik_id', $parameterSatuanKlinikId)
-            ->where('parameter_jenis_klinik_id', $jenisParameterKlinikId)
-            ->first();
-
-        if ($bakuMutu) {
-            if ($bakuMutu->max !== null) {
-                return (float)$bakuMutu->max;
-            } elseif ($bakuMutu->min !== null) {
-                return (float)$bakuMutu->min;
-            } elseif ($bakuMutu->equal !== null) {
-                return (float)$bakuMutu->equal;
-            }
-        }
-
-        return 0;
-    }
-
-    /**
-     * Get coordinates for wilayah using geocoding with multiple strategies
+     * Koordinat wilayah tanpa HTTP Nominatim di request dashboard
+     * (geocode live sebelumnya membuat halaman sangat lambat).
      */
     private function getWilayahCoordinates($wilayahName, $wilayahKode, $tipe)
     {
-        // Default coordinates for Magelang Regency center
-        $defaultLat = -7.4706;
-        $defaultLng = 110.2178;
-        
-        // Get parent wilayah information for more specific queries
-        $kecamatan = null;
-        $kabupaten = null;
-        
-        if ($tipe === 'DESA' || $tipe === 'DUSUN') {
-            // Extract kecamatan code from wilayah_kode (first 6 digits)
-            $kecCode = substr($wilayahKode, 0, 6);
-            $kecamatan = Wilayah::where('wilayah_kode', $kecCode)
-                ->where('tipe', 'KEC')
-                ->first();
+        $cacheKey = 'dokter_dash_geo:' . $wilayahKode . ':' . $tipe;
+        if (isset($this->geocodeRuntimeCache[$cacheKey])) {
+            return $this->geocodeRuntimeCache[$cacheKey];
         }
-        
-        // Build multiple query variations for better accuracy
-        $queries = [];
-        
-        if ($tipe === 'DESA' || $tipe === 'DUSUN') {
-            if ($kecamatan) {
-                // Most specific: Desa, Kecamatan, Kabupaten Magelang
-                $queries[] = $wilayahName . ', Kecamatan ' . $kecamatan->wilayah . ', Kabupaten Magelang, Jawa Tengah, Indonesia';
-                $queries[] = 'Desa ' . $wilayahName . ', ' . $kecamatan->wilayah . ', Magelang, Jawa Tengah';
-                $queries[] = $wilayahName . ', ' . $kecamatan->wilayah . ', Magelang Regency, Central Java, Indonesia';
-            }
-            $queries[] = $wilayahName . ', Kabupaten Magelang, Jawa Tengah, Indonesia';
-            $queries[] = 'Desa ' . $wilayahName . ', Magelang, Jawa Tengah';
-        } elseif ($tipe === 'KEC') {
-            $queries[] = 'Kecamatan ' . $wilayahName . ', Kabupaten Magelang, Jawa Tengah, Indonesia';
-            $queries[] = $wilayahName . ', Kabupaten Magelang, Central Java, Indonesia';
-            $queries[] = 'Kecamatan ' . $wilayahName . ', Magelang Regency, Indonesia';
-        } else {
-            $queries[] = $wilayahName . ', Kabupaten Magelang, Jawa Tengah, Indonesia';
-        }
-        
-        $context = stream_context_create([
-            'http' => [
-                'method' => 'GET',
-                'header' => [
-                    'User-Agent: MagelangLabkes/1.0 (Contact: admin@magelanglabkes.go.id)',
-                    'Accept-Language: id,en-US;q=0.9,en;q=0.8'
-                ],
-                'timeout' => 10
-            ]
-        ]);
-        
-        // Try each query variation
-        foreach ($queries as $query) {
-            $url = 'https://nominatim.openstreetmap.org/search?' . http_build_query([
-                'q' => $query,
-                'format' => 'json',
-                'limit' => 5, // Get more results for better matching
-                'countrycodes' => 'id',
-                'addressdetails' => 1,
-                'extratags' => 1,
-                'namedetails' => 1
-            ]);
-            
-            try {
-                $response = @file_get_contents($url, false, $context);
-                if ($response) {
-                    $data = json_decode($response, true);
-                    if (!empty($data)) {
-                        $bestMatch = $this->findBestGeocodeMatch($data, $wilayahName, $kecamatan, $tipe);
-                        if ($bestMatch) {
-                            return [
-                                'lat' => (float)$bestMatch['lat'],
-                                'lng' => (float)$bestMatch['lon']
-                            ];
-                        }
-                    }
-                }
-                
-                // Small delay to respect rate limits
-                usleep(200000); // 0.2 seconds
-            } catch (\Exception $e) {
-                continue;
-            }
-        }
-        
-        // Fallback: Use calculated coordinates with better distribution
-        // Magelang Regency bounds: Lat: -7.2 to -7.6, Lng: 110.0 to 110.4
-        $codeNum = (int)substr($wilayahKode, -4);
-        $latRange = 0.4; // Total range
-        $lngRange = 0.4;
-        
-        // Distribute based on code
-        $latOffset = (($codeNum % 100) / 100) * $latRange - ($latRange / 2);
-        $lngOffset = ((floor($codeNum / 100) % 100) / 100) * $lngRange - ($lngRange / 2);
-        
-        return [
-            'lat' => $defaultLat + $latOffset,
-            'lng' => $defaultLng + $lngOffset
-        ];
-    }
-    
-    /**
-     * Find best geocode match from results
-     */
-    private function findBestGeocodeMatch($results, $wilayahName, $kecamatan = null, $tipe = null)
-    {
-        $bestMatch = null;
-        $bestScore = 0;
-        
-        foreach ($results as $result) {
-            $score = 0;
-            $address = isset($result['display_name']) ? strtolower($result['display_name']) : '';
-            $addressDetails = isset($result['address']) ? $result['address'] : [];
-            
-            // Must contain Magelang
-            if (stripos($address, 'magelang') === false) {
-                continue;
-            }
-            
-            // Check if wilayah name matches
-            $wilayahLower = strtolower($wilayahName);
-            if (stripos($address, $wilayahLower) !== false) {
-                $score += 50;
-            }
-            
-            // Check if kecamatan matches (for desa)
-            if ($kecamatan && $tipe === 'DESA') {
-                $kecLower = strtolower($kecamatan->wilayah);
-                if (stripos($address, $kecLower) !== false) {
-                    $score += 30;
-                }
-            }
-            
-            // Check address type matches
-            if ($tipe === 'DESA' || $tipe === 'DUSUN') {
-                if (isset($addressDetails['village']) || isset($addressDetails['hamlet'])) {
-                    $score += 20;
-                }
-            } elseif ($tipe === 'KEC') {
-                if (isset($addressDetails['county']) || isset($addressDetails['municipality'])) {
-                    $score += 20;
-                }
-            }
-            
-            // Add importance score
-            $importance = isset($result['importance']) ? (float)$result['importance'] : 0;
-            $score += $importance * 10;
-            
-            // Prefer results in Central Java / Jawa Tengah
-            if (stripos($address, 'jawa tengah') !== false || stripos($address, 'central java') !== false) {
-                $score += 10;
-            }
-            
-            if ($score > $bestScore) {
-                $bestScore = $score;
-                $bestMatch = $result;
-            }
-        }
-        
-        // If we found a good match (score > 50), return it
-        if ($bestMatch && $bestScore > 50) {
-            return $bestMatch;
-        }
-        
-        // Otherwise return first result if available
-        return !empty($results[0]) ? $results[0] : null;
+
+        $coords = Cache::remember($cacheKey, 60 * 60 * 24 * 30, function () use ($wilayahKode) {
+            $defaultLat = -7.4706;
+            $defaultLng = 110.2178;
+            $codeNum = (int) substr((string) $wilayahKode, -4);
+            $latRange = 0.4;
+            $lngRange = 0.4;
+            $latOffset = (($codeNum % 100) / 100) * $latRange - ($latRange / 2);
+            $lngOffset = ((floor($codeNum / 100) % 100) / 100) * $lngRange - ($lngRange / 2);
+
+            return [
+                'lat' => $defaultLat + $latOffset,
+                'lng' => $defaultLng + $lngOffset,
+            ];
+        });
+
+        $this->geocodeRuntimeCache[$cacheKey] = $coords;
+        return $coords;
     }
 
     /**
@@ -784,16 +1278,16 @@ class DokterDashboardController extends Controller
     {
         $tipeWilayah = $request->get('tipe_wilayah', 'KEC');
         $wilayahOptions = $this->getWilayahOptions($tipeWilayah);
-        
+
         return response()->json([
             'success' => true,
-            'data' => $wilayahOptions->map(function($wilayah) {
+            'data' => $wilayahOptions->map(function ($wilayah) {
                 return [
                     'id' => $wilayah->id_wilayah,
                     'nama' => $wilayah->wilayah,
                     'kode' => $wilayah->wilayah_kode,
                 ];
-            })
+            }),
         ]);
     }
 }

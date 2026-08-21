@@ -32,6 +32,11 @@ return [
 
     'satu_sehat' => [
       'version' => env('VERSION_SATUSEHAT'),
+      // Testing/demo: set SATUSEHAT_ENABLED=false agar verifikasi tidak memanggil API
+      // (nama/NIK dummy tidak cocok dengan data resmi Satu Sehat).
+      'enabled' => env('SATUSEHAT_ENABLED') !== null
+        ? filter_var(env('SATUSEHAT_ENABLED'), FILTER_VALIDATE_BOOLEAN)
+        : (env('VERSION_SATUSEHAT') === 'prd'),
       'base_uri' => env('BASE_URL_SATUSEHAT'),
       'url' => env('URL_SATUSEHAT'), // Alias untuk base_uri
       'auth_url' => env('AUTH_URL_SATUSEHAT'),

@@ -21,7 +21,7 @@
             <br>
             <br>
             <br>
-            {{ $alamat_customer ?? "Jl. Raya Kedungwuni, RT.01/RW.01, Kedungwuni, Kec. Mungkid, Kabupaten Magelang, Jawa Tengah 56151" }}
+            {{ $alamat_customer ?? "Alamat pelanggan" }}
         </td>
         <td rowspan="2" style="vertical-align: top; padding: 0;">
             <table width="100%" cellspacing="0" cellpadding="0" border="0">
@@ -237,7 +237,7 @@
                 <li>Parameter yang telah didaftarkan untuk <br>
                     pemeriksaan tidak bisa dibatalkan oleh pelanggan</li>
                 <li>Pelanggan menyetujui semua metode saji yang <br>
-                    digunakan di Labkesmas Kab. Magelang</li>
+                    digunakan di Laboratorium SIMLAB</li>
             </ol>
         </td>
     </tr>

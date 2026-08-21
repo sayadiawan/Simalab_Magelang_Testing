@@ -2,6 +2,9 @@
 <html lang="id">
 
 <head>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('assets/mobile/css/simlab-mobile-theme.css') }}?v={{ @filemtime(public_path('assets/mobile/css/simlab-mobile-theme.css')) ?: time() }}">
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -47,7 +50,7 @@
         }
 
         .top-bar {
-            background: linear-gradient(135deg, #2D6BCF 0%, #1e4a9e 100%);
+            background: linear-gradient(135deg, #06283f 0%, #0b3a5c 48%, #0d8f7f 100%);
             color: white;
             padding: 15px 20px;
             position: sticky;
@@ -101,7 +104,7 @@
         }
 
         .section-title i {
-            color: #2D6BCF;
+            color: #0b3a5c;
         }
 
         .info-box {
@@ -109,7 +112,7 @@
             padding: 15px;
             border-radius: 10px;
             margin-bottom: 15px;
-            border-left: 4px solid #2D6BCF;
+            border-left: 4px solid #0b3a5c;
             font-size: 13px;
         }
 
@@ -135,8 +138,8 @@
 
         .form-control:focus {
             outline: none;
-            border-color: #2D6BCF;
-            box-shadow: 0 0 0 3px rgba(45, 107, 207, 0.1);
+            border-color: #0b3a5c;
+            box-shadow: 0 0 0 3px rgba(11, 58, 92, 0.1);
         }
 
         textarea.form-control {
@@ -188,7 +191,7 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
-            background: linear-gradient(135deg, #2D6BCF 0%, #1e4a9e 100%);
+            background: linear-gradient(135deg, #06283f 0%, #0b3a5c 48%, #0d8f7f 100%);
             color: white;
         }
 
@@ -202,7 +205,7 @@
         }
 
         .parameter-badge {
-            background: #2D6BCF;
+            background: #0b3a5c;
             color: white;
             padding: 5px 12px;
             border-radius: 15px;

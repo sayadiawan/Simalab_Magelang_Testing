@@ -60,8 +60,8 @@
         
         .inline-hasil-input:focus {
             outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+            border-color: #0b3a5c;
+            box-shadow: 0 0 0 0.2rem rgba(11, 58, 92, 0.25);
         }
         
         .inline-hasil-editor {
@@ -82,8 +82,8 @@
         
         .inline-hasil-editor:focus {
             outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+            border-color: #0b3a5c;
+            box-shadow: 0 0 0 0.2rem rgba(11, 58, 92, 0.25);
         }
         
         .inline-hasil-editor[data-placeholder]:empty:before {
@@ -92,7 +92,7 @@
         }
         
         .inline-hasil-editor sup {
-            color: #667eea;
+            color: #0b3a5c;
             font-weight: 600;
         }
         
@@ -118,8 +118,8 @@
         
         .inline-keterangan-editor:focus {
             outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+            border-color: #0b3a5c;
+            box-shadow: 0 0 0 0.2rem rgba(11, 58, 92, 0.25);
         }
         
         .inline-keterangan-editor.empty {
@@ -204,7 +204,7 @@
         
         /* TinyMCE toolbar customization for inline */
         .tox.tox-tinymce-inline .tox-toolbar__primary {
-            background: #667eea !important;
+            background: #0b3a5c !important;
             border-radius: 6px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
@@ -222,12 +222,12 @@
         }
         
         .info-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%);
             border-radius: 15px;
             padding: 25px;
             color: white;
             margin-bottom: 25px;
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 10px 30px rgba(11, 58, 92, 0.3);
         }
 
         .info-card h4 {
@@ -278,7 +278,7 @@
         .patient-data-compact {
             display: none;
             padding: 8px 15px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%);
             color: white;
             border-radius: 0;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -404,14 +404,14 @@
             font-weight: 600;
             margin-bottom: 20px;
             padding-bottom: 12px;
-            border-bottom: 2px solid #667eea;
+            border-bottom: 2px solid #0b3a5c;
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
         .data-card h5 i {
-            color: #667eea;
+            color: #0b3a5c;
         }
 
         .info-table th {
@@ -581,7 +581,7 @@
 
         .form-section h5 {
             padding-bottom: 15px;
-            border-bottom: 3px solid #667eea;
+            border-bottom: 3px solid #0b3a5c;
             display: flex;
             align-items: center;
             gap: 10px;
@@ -612,7 +612,7 @@
         }
 
         .form-section h5 i {
-            color: #667eea;
+            color: #0b3a5c;
             font-size: 22px;
         }
 
@@ -630,8 +630,8 @@
         }
 
         .form-control:focus {
-            border-color: #667eea;
-            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+            border-color: #0b3a5c;
+            box-shadow: 0 0 0 0.2rem rgba(11, 58, 92, 0.25);
         }
 
         .btn-action {
@@ -643,13 +643,13 @@
         }
 
         .btn-primary.btn-action {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%);
             border: none;
         }
 
         .btn-primary.btn-action:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 6px 20px rgba(11, 58, 92, 0.4);
         }
 
         .btn-light.btn-action {
@@ -670,7 +670,7 @@
         }
 
         #table-parameter thead {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%);
             color: white;
         }
 
@@ -759,12 +759,12 @@
         .inline-metode-editor:focus,
         .inline-metode-editor.mce-edit-focus {
             outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+            border-color: #0b3a5c;
+            box-shadow: 0 0 0 0.2rem rgba(11, 58, 92, 0.25);
         }
 
         .inline-metode-editor sup {
-            color: #667eea;
+            color: #0b3a5c;
             font-weight: 600;
         }
 
@@ -787,8 +787,8 @@
         #table-parameter tbody input[type="text"]:focus,
         #table-parameter tbody textarea:focus,
         #table-parameter tbody select:focus {
-            border-color: #667eea;
-            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+            border-color: #0b3a5c;
+            box-shadow: 0 0 0 0.2rem rgba(11, 58, 92, 0.25);
         }
 
         /* Responsive wrapper untuk table */
@@ -894,7 +894,7 @@
         }
 
         .table-scroll-indicator-content {
-            background: rgba(102, 126, 234, 0.9);
+            background: rgba(11, 58, 92, 0.9);
             color: white;
             padding: 6px 15px;
             border-radius: 20px;
@@ -928,7 +928,7 @@
             left: 0;
             right: 0;
             height: 20px;
-            background: linear-gradient(to top, rgba(102, 126, 234, 0.08) 0%, transparent 100%);
+            background: linear-gradient(to top, rgba(11, 58, 92, 0.08) 0%, transparent 100%);
             pointer-events: none;
             z-index: 2;
             opacity: 0;
@@ -947,7 +947,7 @@
             left: 0;
             right: 0;
             height: 20px;
-            background: linear-gradient(to bottom, rgba(102, 126, 234, 0.08) 0%, transparent 100%);
+            background: linear-gradient(to bottom, rgba(11, 58, 92, 0.08) 0%, transparent 100%);
             pointer-events: none;
             z-index: 2;
             opacity: 0;
@@ -964,7 +964,7 @@
             top: 8px;
             right: 8px;
             bottom: auto;
-            background: rgba(102, 126, 234, 0.9);
+            background: rgba(11, 58, 92, 0.9);
             color: white;
             padding: 4px 10px;
             border-radius: 12px;
@@ -992,7 +992,7 @@
         }
 
         #table-parameter thead th {
-            background-color: #667eea;
+            background-color: #0b3a5c;
             color: #fff;
             font-weight: 600;
             border-bottom: 2px solid #5568d3;
@@ -1305,7 +1305,7 @@
         }
 
         .badge-custom {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%);
             color: white;
             padding: 6px 12px;
             border-radius: 6px;
@@ -1480,7 +1480,7 @@
         }
 
         .modal-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%);
             color: white;
             border-radius: 12px 12px 0 0;
             padding: 20px;
@@ -1543,12 +1543,12 @@
         }
 
         .offset-option:hover {
-            border-color: #667eea;
-            background: #f0f4ff;
+            border-color: #0b3a5c;
+            background: #e7f4f2;
         }
 
         .offset-option input[type="radio"]:checked + label {
-            color: #667eea;
+            color: #0b3a5c;
         }
 
         .offset-option input[type="radio"] {
@@ -1621,7 +1621,7 @@
             width: 52px;
             height: 52px;
             border: 5px solid #e0e0e0;
-            border-top-color: #667eea;
+            border-top-color: #0b3a5c;
             border-radius: 50%;
             animation: loading-spin 0.8s linear infinite;
         }
@@ -1647,7 +1647,7 @@
             display: inline-block;
             width: 7px;
             height: 7px;
-            background: #667eea;
+            background: #0b3a5c;
             border-radius: 50%;
             margin: 0 3px;
             animation: loading-dot-bounce 1.2s ease-in-out infinite;
@@ -2187,7 +2187,7 @@
                                                 @foreach ($penerimaan_data as $jenis => $catatan)
                                                     <div style="margin-bottom: 8px;">
                                                         <span
-                                                            style="display: inline-block; background: #667eea; color: white; padding: 3px 10px; border-radius: 4px; font-size: 11px; font-weight: 600; margin-right: 8px;">{{ $jenis }}</span>
+                                                            style="display: inline-block; background: #0b3a5c; color: white; padding: 3px 10px; border-radius: 4px; font-size: 11px; font-weight: 600; margin-right: 8px;">{{ $jenis }}</span>
                                                         <span style="color: #495057;">{{ is_array($catatan) ? implode(', ', $catatan) : $catatan }}</span>
                                                     </div>
                                                 @endforeach
@@ -2208,7 +2208,7 @@
                                                 <div class="d-flex flex-wrap gap-2">
                                                     @foreach ($volume_data as $jenis => $volume)
                                                         <span
-                                                            style="display: inline-block; background: #f0f4ff; border: 1px solid #667eea; color: #667eea; padding: 5px 12px; border-radius: 6px; font-size: 12px; font-weight: 600; margin-right: 8px; margin-bottom: 5px;">
+                                                            style="display: inline-block; background: #e7f4f2; border: 1px solid #0b3a5c; color: #0b3a5c; padding: 5px 12px; border-radius: 6px; font-size: 12px; font-weight: 600; margin-right: 8px; margin-bottom: 5px;">
                                                             <i class="fa fa-vial"
                                                                 style="margin-right: 5px;"></i>{{ $jenis }}:
                                                             <strong>{{ is_array($volume) ? implode(', ', $volume) : $volume }}</strong>
@@ -2244,7 +2244,7 @@
                                             @foreach ($kualitas_data as $jenis => $kualitas_arr)
                                                 <div style="margin-bottom: 12px;">
                                                     <span
-                                                        style="display: inline-block; background: #667eea; color: white; padding: 3px 10px; border-radius: 4px; font-size: 11px; font-weight: 600; margin-right: 8px; margin-bottom: 5px;">{{ $jenis }}</span>
+                                                        style="display: inline-block; background: #0b3a5c; color: white; padding: 3px 10px; border-radius: 4px; font-size: 11px; font-weight: 600; margin-right: 8px; margin-bottom: 5px;">{{ $jenis }}</span>
                                                     <div style="display: inline-block;">
                                                         @if (is_array($kualitas_arr))
                                                             @foreach ($kualitas_arr as $kualitas)

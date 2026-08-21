@@ -39,7 +39,7 @@
 
     /* Hover state untuk semua menu utama (kecuali nav-profile) */
     .sidebar .nav>.nav-item:not(.nav-profile)>.nav-link:hover {
-        background-color: #4A7FD9 !important;
+        background-color: rgba(22, 168, 146, 0.35) !important;
         color: #ffffff !important;
     }
 
@@ -69,7 +69,7 @@
 
     /* Hover state untuk submenu - background biru lebih terang, text putih */
     .sidebar .nav .sub-menu .nav-item .nav-link:hover {
-        background-color: #4A7FD9 !important;
+        background-color: rgba(22, 168, 146, 0.35) !important;
         color: #ffffff !important;
         transition: none !important;
     }
@@ -172,7 +172,7 @@
         }
     }
 </style>
-<nav class="sidebar sidebar-offcanvas" id="sidebar" style="background-color: #2D6BCF;">
+<nav class="sidebar sidebar-offcanvas" id="sidebar" style="background-color: #0b3a5c;">
     <ul class="nav">
         <li class="nav-item nav-profile">
             <div class="nav-link menu">

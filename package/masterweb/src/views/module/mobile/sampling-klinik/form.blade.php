@@ -2,6 +2,9 @@
 <html lang="id">
 
 <head>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('assets/mobile/css/simlab-mobile-theme.css') }}?v={{ @filemtime(public_path('assets/mobile/css/simlab-mobile-theme.css')) ?: time() }}">
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -32,7 +35,7 @@
         }
 
         .top-bar {
-            background: linear-gradient(135deg, #2D6BCF 0%, #1e4a9e 100%);
+            background: linear-gradient(135deg, #06283f 0%, #0b3a5c 48%, #0d8f7f 100%);
             color: white;
             padding: 15px 20px;
             position: sticky;
@@ -66,7 +69,7 @@
         }
 
         .section-title i {
-            color: #2D6BCF;
+            color: #0b3a5c;
         }
 
         .form-group {
@@ -91,7 +94,7 @@
 
         .form-control:focus {
             outline: none;
-            border-color: #2D6BCF;
+            border-color: #0b3a5c;
         }
 
         textarea.form-control {
@@ -131,7 +134,7 @@
         .form-check-input {
             width: 20px;
             height: 20px;
-            accent-color: #2D6BCF;
+            accent-color: #0b3a5c;
         }
 
         .floating-submit {
@@ -148,7 +151,7 @@
         .btn-submit {
             width: 100%;
             padding: 16px;
-            background: linear-gradient(135deg, #2D6BCF 0%, #1e4a9e 100%);
+            background: linear-gradient(135deg, #06283f 0%, #0b3a5c 48%, #0d8f7f 100%);
             color: white;
             border: none;
             border-radius: 12px;
@@ -198,7 +201,7 @@
 
         .spinner {
             border: 4px solid #f3f3f3;
-            border-top: 4px solid #2D6BCF;
+            border-top: 4px solid #0b3a5c;
             border-radius: 50%;
             width: 50px;
             height: 50px;
@@ -275,7 +278,7 @@
 
         .inline-edit-btn {
             cursor: pointer;
-            color: #2D6BCF;
+            color: #0b3a5c;
             padding: 12px 16px;
             border-radius: 10px;
             transition: all .2s;
@@ -298,8 +301,8 @@
 
         .inline-edit-btn:active {
             background: #eef2ff;
-            color: #1e4a9e;
-            border-color: #2D6BCF;
+            color: #0d8f7f;
+            border-color: #0b3a5c;
             transform: scale(0.95);
         }
 
@@ -374,7 +377,7 @@
         }
 
         .select2-container--bootstrap4 .select2-selection__choice {
-            background-color: #2D6BCF;
+            background-color: #0b3a5c;
             border: none;
             color: white;
             padding: 6px 12px;
@@ -409,13 +412,13 @@
         }
 
         .select2-container--bootstrap4 .select2-results__option--highlighted {
-            background-color: #2D6BCF;
+            background-color: #0b3a5c;
             color: white;
         }
 
         .select2-container--bootstrap4 .select2-results__option[aria-selected=true] {
             background-color: #eef2ff;
-            color: #2D6BCF;
+            color: #0b3a5c;
         }
 
         .select2-container--bootstrap4 .select2-search--dropdown .select2-search__field {
@@ -443,7 +446,7 @@
         }
 
         .select2-container--bootstrap4 .select2-selection__arrow b {
-            border-color: #2D6BCF transparent transparent transparent;
+            border-color: #0b3a5c transparent transparent transparent;
             border-width: 6px 5px 0 5px;
             margin-top: -3px;
         }

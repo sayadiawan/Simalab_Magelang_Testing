@@ -11,7 +11,7 @@
       style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); overflow: visible !important;">
       <div class="card-body" style="overflow: visible !important;">
         <h5 class="font-weight-bold mb-4"
-          style="color: #667eea; border-bottom: 3px solid #667eea; padding-bottom: 10px;">
+          style="color: #0b3a5c; border-bottom: 3px solid #0b3a5c; padding-bottom: 10px;">
           <i class="fa fa-user-circle mr-2"></i>INFORMASI PASIEN
         </h5>
 
@@ -19,12 +19,12 @@
           <div class="col-md-6">
             <div class="form-group">
               <label class="font-weight-bold" style="color: #495057;">
-                <i class="fa fa-id-card mr-2" style="color: #667eea;"></i>NIK PASIEN
+                <i class="fa fa-id-card mr-2" style="color: #0b3a5c;"></i>NIK PASIEN
               </label>
               <div class="input-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text"
-                    style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none; color: white;">
+                    style="background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%); border: none; color: white;">
                     <i class="fa fa-id-card"></i>
                   </span>
                 </div>
@@ -40,12 +40,12 @@
           <div class="col-md-6">
             <div class="form-group">
               <label class="font-weight-bold" style="color: #495057;">
-                <i class="fa fa-user mr-2" style="color: #667eea;"></i>NAMA LENGKAP <span style="color: red">*</span>
+                <i class="fa fa-user mr-2" style="color: #0b3a5c;"></i>NAMA LENGKAP <span style="color: red">*</span>
               </label>
               <div class="input-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text"
-                    style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none; color: white;">
+                    style="background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%); border: none; color: white;">
                     <i class="fa fa-user"></i>
                   </span>
                 </div>
@@ -64,12 +64,12 @@
           <div class="col-md-6">
             <div class="form-group">
               <label class="font-weight-bold" style="color: #495057;">
-                <i class="fa fa-map-marker-alt mr-2" style="color: #667eea;"></i>TEMPAT LAHIR
+                <i class="fa fa-map-marker-alt mr-2" style="color: #0b3a5c;"></i>TEMPAT LAHIR
               </label>
               <div class="input-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text"
-                    style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none; color: white;">
+                    style="background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%); border: none; color: white;">
                     <i class="fa fa-map-marker-alt"></i>
                   </span>
                 </div>
@@ -84,12 +84,12 @@
           <div class="col-md-6">
             <div class="form-group">
               <label class="font-weight-bold" style="color: #495057;">
-                <i class="fa fa-briefcase mr-2" style="color: #667eea;"></i>PEKERJAAN
+                <i class="fa fa-briefcase mr-2" style="color: #0b3a5c;"></i>PEKERJAAN
               </label>
               <div class="input-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text"
-                    style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none; color: white;">
+                    style="background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%); border: none; color: white;">
                     <i class="fa fa-briefcase"></i>
                   </span>
                 </div>
@@ -105,18 +105,18 @@
 
         <div class="form-group">
           <label class="font-weight-bold" style="color: #495057;">
-            <i class="fa fa-file-text mr-2" style="color: #667eea;"></i>NOMOR REKAM MEDIS <span style="color: red">*</span>
+            <i class="fa fa-file-text mr-2" style="color: #0b3a5c;"></i>NOMOR REKAM MEDIS <span style="color: red">*</span>
           </label>
           <div class="input-group">
             <div class="input-group-prepend">
               <span class="input-group-text"
-                style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none; color: white;">
+                style="background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%); border: none; color: white;">
                 <i class="fa fa-file-text"></i>
               </span>
             </div>
             <input type="text" class="form-control js-no-rm" name="pasien[__IDX__][no_rekammedis_pasien]" readonly
               value="__NO_RM__"
-              style="border: 2px solid #e2e8f0; border-left: none; font-size: 15px; height: 45px; background-color: #f8f9fa; font-weight: bold; color: #667eea;">
+              style="border: 2px solid #e2e8f0; border-left: none; font-size: 15px; height: 45px; background-color: #f8f9fa; font-weight: bold; color: #0b3a5c;">
           </div>
           <small class="form-text text-muted">
             <i class="fa fa-lock mr-1"></i>Nomor otomatis tergenerate
@@ -132,18 +132,18 @@
           <div class="col-md-6">
             <div class="form-group">
               <label class="font-weight-bold" style="color: #495057;">
-                <i class="fa fa-flask mr-2" style="color: #667eea;"></i>NOMOR LAB <span style="color: red">*</span>
+                <i class="fa fa-flask mr-2" style="color: #0b3a5c;"></i>NOMOR LAB <span style="color: red">*</span>
               </label>
               <div class="input-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text"
-                    style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none; color: white;">
+                    style="background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%); border: none; color: white;">
                     <i class="fa fa-flask"></i>
                   </span>
                 </div>
                 <input type="text" class="form-control js-nomor-lab-manual" name="pasien[__IDX__][nomor_lab_manual]"
                   placeholder="Masukkan nomor urut lab" inputmode="numeric" required
-                  style="border: 2px solid #e2e8f0; border-left: none; font-size: 15px; height: 45px; font-weight: 600; color: #667eea;">
+                  style="border: 2px solid #e2e8f0; border-left: none; font-size: 15px; height: 45px; font-weight: 600; color: #0b3a5c;">
               </div>
               <small class="form-text text-muted">
                 <i class="fa fa-info-circle mr-1"></i>Wajib diisi (hanya angka)
@@ -155,18 +155,18 @@
           <div class="col-md-6">
             <div class="form-group">
               <label class="font-weight-bold" style="color: #495057;">
-                <i class="fa fa-vial mr-2" style="color: #667eea;"></i>NOMOR SAMPLE <span style="color: red">*</span>
+                <i class="fa fa-vial mr-2" style="color: #0b3a5c;"></i>NOMOR SAMPLE <span style="color: red">*</span>
               </label>
               <div class="input-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text"
-                    style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none; color: white;">
+                    style="background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%); border: none; color: white;">
                     <i class="fa fa-vial"></i>
                   </span>
                 </div>
                 <input type="text" class="form-control js-nomor-sample-manual" name="pasien[__IDX__][nomor_spesimen_manual]"
                   placeholder="Masukkan nomor urut sample" inputmode="numeric" required
-                  style="border: 2px solid #e2e8f0; border-left: none; font-size: 15px; height: 45px; font-weight: 600; color: #667eea;">
+                  style="border: 2px solid #e2e8f0; border-left: none; font-size: 15px; height: 45px; font-weight: 600; color: #0b3a5c;">
               </div>
               <small class="form-text text-muted">
                 <i class="fa fa-info-circle mr-1"></i>Wajib diisi (hanya angka)
@@ -179,7 +179,7 @@
 
         <div class="form-group">
           <label class="font-weight-bold mb-3" style="color: #495057;">
-            <i class="fa fa-venus-mars mr-2" style="color: #667eea;"></i>JENIS KELAMIN <span style="color: red">*</span>
+            <i class="fa fa-venus-mars mr-2" style="color: #0b3a5c;"></i>JENIS KELAMIN <span style="color: red">*</span>
           </label>
           <div class="row">
             <div class="col-md-6">
@@ -215,7 +215,7 @@
 
         <div class="form-group">
           <label class="font-weight-bold mb-3" style="color: #495057;">
-            <i class="fa fa-calendar mr-2" style="color: #667eea;"></i>TANGGAL LAHIR <span style="color: red">*</span>
+            <i class="fa fa-calendar mr-2" style="color: #0b3a5c;"></i>TANGGAL LAHIR <span style="color: red">*</span>
           </label>
 
           <input type="hidden" class="js-tgllahir-hidden" name="pasien[__IDX__][tgllahir_pasien]">
@@ -347,12 +347,12 @@
 
         <div class="form-group">
           <label class="font-weight-bold" style="color: #495057;">
-            <i class="fa fa-phone mr-2" style="color: #667eea;"></i>NO. TELP/HP
+            <i class="fa fa-phone mr-2" style="color: #0b3a5c;"></i>NO. TELP/HP
           </label>
           <div class="input-group">
             <div class="input-group-prepend">
               <span class="input-group-text"
-                style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none; color: white;">
+                style="background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%); border: none; color: white;">
                 <i class="fa fa-phone"></i>
               </span>
             </div>
@@ -368,13 +368,13 @@
     </div>
 
     <div class="form-group mt-3">
-      <label class="font-weight-bold mb-3" style="color: #667eea; font-size: 16px;">
+      <label class="font-weight-bold mb-3" style="color: #0b3a5c; font-size: 16px;">
         <i class="fa fa-map-marker mr-2"></i>WILAYAH DOMISILI
       </label>
 
       <div class="mb-3" style="position: relative; z-index: 100;">
         <div class="card border-0 shadow-sm"
-          style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-left: 4px solid #667eea !important;">
+          style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-left: 4px solid #0b3a5c !important;">
           <div class="card-body py-3">
             <label class="small font-weight-bold mb-2" style="color: #1976d2;">
               <i class="fa fa-search mr-1"></i> Pencarian Cepat Wilayah
@@ -393,7 +393,7 @@
             </div>
             <div class="mt-2">
               <button type="button" class="btn btn-sm js-btn-toggle-manual-wilayah"
-                style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 8px; padding: 8px 16px; font-weight: 600;">
+                style="background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%); color: white; border-radius: 8px; padding: 8px 16px; font-weight: 600;">
                 <i class="fa fa-list mr-1"></i> Pilih Manual
               </button>
             </div>
@@ -405,7 +405,7 @@
         style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); display: none;">
         <div class="card-body">
           <div class="d-flex justify-content-between align-items-center mb-3">
-            <h6 class="mb-0 font-weight-bold" style="color: #667eea;">
+            <h6 class="mb-0 font-weight-bold" style="color: #0b3a5c;">
               <i class="fa fa-list-ul mr-2"></i>Pilih Wilayah Secara Bertahap
             </h6>
             <button type="button" class="btn btn-sm btn-outline-secondary js-btn-hide-manual-wilayah">
@@ -451,7 +451,7 @@
     </div>
 
     <div class="form-group">
-      <label class="font-weight-bold" style="color: #667eea;">
+      <label class="font-weight-bold" style="color: #0b3a5c;">
         <i class="fa fa-map-marker mr-2"></i>ALAMAT
       </label>
       <textarea class="form-control js-alamat-pasien" name="pasien[__IDX__][alamat_pasien]" rows="3"

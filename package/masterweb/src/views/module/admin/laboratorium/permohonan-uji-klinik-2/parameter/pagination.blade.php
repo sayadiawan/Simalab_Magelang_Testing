@@ -118,7 +118,7 @@
 
             <div class="row mt-4">
                 <div class="col-md-6">
-                    <div class="card" style="border-left: 4px solid #667eea;">
+                    <div class="card" style="border-left: 4px solid #0b3a5c;">
                         <div class="card-body">
                             <h5 class="mb-3"><i class="fa fa-calculator mr-2"></i>Rincian Biaya</h5>
                             <div class="row mb-2">

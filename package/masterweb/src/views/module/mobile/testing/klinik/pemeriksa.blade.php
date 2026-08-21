@@ -2,6 +2,9 @@
 <html lang="id">
 
 <head>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('assets/mobile/css/simlab-mobile-theme.css') }}?v={{ @filemtime(public_path('assets/mobile/css/simlab-mobile-theme.css')) ?: time() }}">
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -33,7 +36,7 @@
         }
 
         .header {
-            background: linear-gradient(135deg, #2D6BCF 0%, #1e4a9e 100%);
+            background: linear-gradient(135deg, #06283f 0%, #0b3a5c 48%, #0d8f7f 100%);
             color: white;
             padding: 20px;
             border-radius: 15px;
@@ -117,8 +120,8 @@
 
         .form-control:focus {
             outline: none;
-            border-color: #2D6BCF;
-            box-shadow: 0 0 0 3px rgba(45, 107, 207, 0.1);
+            border-color: #0b3a5c;
+            box-shadow: 0 0 0 3px rgba(11, 58, 92, 0.1);
         }
 
         .parameter-card {
@@ -127,7 +130,7 @@
             padding: 15px;
             margin-bottom: 15px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-            border-left: 4px solid #2D6BCF;
+            border-left: 4px solid #0b3a5c;
         }
 
         .parameter-card.rejected {
@@ -217,7 +220,7 @@
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #2D6BCF 0%, #1e4a9e 100%);
+            background: linear-gradient(135deg, #06283f 0%, #0b3a5c 48%, #0d8f7f 100%);
             color: white;
         }
 
@@ -264,7 +267,7 @@
         }
 
         .step-item.active {
-            color: #2D6BCF;
+            color: #0b3a5c;
             font-weight: 600;
         }
 
@@ -311,8 +314,8 @@
         
         .inline-hasil-input:focus {
             outline: none;
-            border-color: #2D6BCF;
-            box-shadow: 0 0 0 3px rgba(45, 107, 207, 0.1);
+            border-color: #0b3a5c;
+            box-shadow: 0 0 0 3px rgba(11, 58, 92, 0.1);
         }
         
         .inline-hasil-editor {
@@ -333,8 +336,8 @@
         
         .inline-hasil-editor:focus {
             outline: none;
-            border-color: #2D6BCF;
-            box-shadow: 0 0 0 3px rgba(45, 107, 207, 0.1);
+            border-color: #0b3a5c;
+            box-shadow: 0 0 0 3px rgba(11, 58, 92, 0.1);
         }
         
         .inline-hasil-editor[data-placeholder]:empty:before {
@@ -355,8 +358,8 @@
         
         .inline-keterangan-editor:focus {
             outline: none;
-            border-color: #2D6BCF;
-            box-shadow: 0 0 0 3px rgba(45, 107, 207, 0.1);
+            border-color: #0b3a5c;
+            box-shadow: 0 0 0 3px rgba(11, 58, 92, 0.1);
         }
         
         .result-badge-inline {
@@ -385,10 +388,10 @@
         .nav-arrow-btn {
             flex: 1;
             padding: 10px;
-            border: 2px solid #2D6BCF;
+            border: 2px solid #0b3a5c;
             border-radius: 8px;
             background: white;
-            color: #2D6BCF;
+            color: #0b3a5c;
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
@@ -403,7 +406,7 @@
         }
         
         .nav-arrow-btn:hover {
-            background: #2D6BCF;
+            background: #0b3a5c;
             color: white;
         }
         
@@ -1997,7 +2000,7 @@
     <div class="modal fade" id="editorModal" tabindex="-1" role="dialog" aria-labelledby="editorModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document" style="max-width: 95%; margin: 10px auto;">
             <div class="modal-content">
-                <div class="modal-header" style="background: linear-gradient(135deg, #2D6BCF 0%, #1e4a9e 100%); color: white;">
+                <div class="modal-header" style="background: linear-gradient(135deg, #06283f 0%, #0b3a5c 48%, #0d8f7f 100%); color: white;">
                     <h5 class="modal-title" id="editorModalLabel">
                         <i class="fa fa-edit mr-2"></i>Editor Hasil
                     </h5>
@@ -2075,7 +2078,7 @@
     <div class="modal fade" id="infoSampleModal" tabindex="-1" role="dialog" aria-labelledby="infoSampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document" style="max-width: 95%; margin: 10px auto;">
             <div class="modal-content">
-                <div class="modal-header" style="background: linear-gradient(135deg, #2D6BCF 0%, #1e4a9e 100%); color: white;">
+                <div class="modal-header" style="background: linear-gradient(135deg, #06283f 0%, #0b3a5c 48%, #0d8f7f 100%); color: white;">
                     <h5 class="modal-title" id="infoSampleModalLabel">
                         <i class="fa fa-info-circle mr-2"></i>Informasi Sample
                     </h5>
@@ -2503,9 +2506,9 @@
                         
                         // Highlight target card briefly
                         $targetCard.css({
-                            'box-shadow': '0 0 0 3px rgba(45, 107, 207, 0.5)',
+                            'box-shadow': '0 0 0 3px rgba(11, 58, 92, 0.5)',
                             'transition': 'box-shadow 0.3s',
-                            'background-color': 'rgba(45, 107, 207, 0.05)'
+                            'background-color': 'rgba(11, 58, 92, 0.05)'
                         });
                         setTimeout(function() {
                             $targetCard.css({

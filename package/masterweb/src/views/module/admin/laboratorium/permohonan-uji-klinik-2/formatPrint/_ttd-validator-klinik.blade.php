@@ -1,7 +1,7 @@
 {{--
   Blok TTD tetap di kanan halaman.
   Kolom kanan mengecil mengikuti teks (nowrap).
-  Bulan panjang → blok tetap nempel kanan, sisi kiri mundur, Kota Mungkid s/d NIP tetap lurus.
+  Bulan panjang → blok tetap nempel kanan, sisi kiri mundur, — s/d NIP tetap lurus.
 --}}
 @php
     $tglTtdLabel = $tglTtdLabel ?? '';
@@ -17,7 +17,7 @@
     <tr>
         <td style="width: 99%;">&nbsp;</td>
         <td style="width: 1%; white-space: nowrap; text-align: left; vertical-align: top; font-size: {{ $fsTtd }}pt !important; line-height: {{ $lhTtd }} !important;">
-            <div style="white-space: nowrap; text-align: left;">Kota Mungkid, {{ $tglTtdLabel }}</div>
+            <div style="white-space: nowrap; text-align: left;">—, {{ $tglTtdLabel }}</div>
             @if ($showManualTtd)
             <div style="white-space: nowrap; text-align: left;">Validator</div>
             <div style="white-space: nowrap; text-align: left;"><br><br><br></div>

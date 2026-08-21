@@ -352,7 +352,7 @@
     {{-- <div class="row batas" style="float: right; justify-content: center; margin-top: 20px;">
         <div class="col-md-12">
             <div class="justify-content-end" style="text-align: center;">
-                Magelang,...............2024 <br>
+                SIMLAB,...............2024 <br>
                 Kepala Laboratorium Kesehatan<br>
                 Kabupaten Boyolali<br>
                 @if (isset($verifikasi))
@@ -412,7 +412,7 @@
     {{--    <table width="100%" cellspacing="0" cellpadding="0"> --}}
     {{--        --}}{{-- <tr style="padding-bottom: 1em"> --}}
     {{--      <td style="width: 70%;"></td> --}}
-    {{--      <td style="text-align: left;  padding-bottom: 1em">Magelang, --}}
+    {{--      <td style="text-align: left;  padding-bottom: 1em">SIMLAB, --}}
     {{--        {{ isset($date_verif_max) --}}
     {{--        ? \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $date_verif_max)->isoFormat('D MMMM Y') --}}
     {{--        : '-' }} --}}

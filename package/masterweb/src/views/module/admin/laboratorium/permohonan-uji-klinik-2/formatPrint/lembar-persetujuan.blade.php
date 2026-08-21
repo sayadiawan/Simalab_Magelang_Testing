@@ -346,7 +346,7 @@
 
                 <div style="display: table-cell; width: 50%; text-align: center; vertical-align: top; padding: 0 20px;">
                     <div style="font-size: 12px; margin-bottom: 15px; text-align: right; padding-right: 20px;">
-                        Kota Mungkid, {{ \Carbon\Carbon::now()->locale('id')->isoFormat('D MMMM YYYY') }}
+                        —, {{ \Carbon\Carbon::now()->locale('id')->isoFormat('D MMMM YYYY') }}
                     </div>
                     <div style="font-weight: bold; font-size: 13px; margin-bottom: 6px;">Yang Menerangkan</div>
                     <div style="font-size: 12px; margin-bottom: 12px;">{{ $petugas_menerangkan ?? 'Petugas Registrasi' }}</div>

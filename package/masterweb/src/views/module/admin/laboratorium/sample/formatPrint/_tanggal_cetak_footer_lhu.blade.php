@@ -1,5 +1,5 @@
 @php
-    $footerKotaLabel = $footerKotaLabel ?? 'Kota Mungkid';
+    $footerKotaLabel = $footerKotaLabel ?? '—';
 
     // Tanggal footer: hanya dari pengesahan (stop verifikasi id 5 atau kolom pengesahan_hasil).
     // Jika belum ada pengesahan → tampilkan placeholder (pratinjau sebelum pengesahan).

@@ -459,7 +459,7 @@ class LaboratoriumPermohonanUjiKlinikProlanisUrineManagement extends Controller
               //simpan verifikkasi
               // Data untuk setiap aktivitas verifikasi
               $activities = [
-                ['id_verification_activity' => 1, 'date' => $tgl_registrasi, 'nama_petugas' => 'Muhammad Fauzan'], // pendaftaran/registrasi
+                ['id_verification_activity' => 1, 'date' => $tgl_registrasi, 'nama_petugas' => 'PETUGAS DUMMY 10'], // pendaftaran/registrasi
                 ['id_verification_activity' => 6, 'date' => $tgl_registrasi, 'nama_petugas' => 'Tatin Prastyo Meiningsih'], // pengambilan sample
                 ['id_verification_activity' => 2, 'date' => $tgl_registrasi, 'nama_petugas' => 'Hewi Yuliati'], // Pemeriksaan / Analitik
                 ['id_verification_activity' => 3, 'date' => $tgl_registrasi, 'nama_petugas' => 'Hewi Yuliati'], // pengambilan sample

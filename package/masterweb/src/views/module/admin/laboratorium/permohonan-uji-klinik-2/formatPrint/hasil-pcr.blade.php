@@ -340,7 +340,7 @@
 
     <table width="100%" cellspacing="0" cellpadding="0" style="margin-top: 5px">
         <tr>
-            <td style="text-align: right">Kota Mungkid, {{ fdate_sas(date('Y-m-d'), 'DDMMYYYY') }}</td>
+            <td style="text-align: right">—, {{ fdate_sas(date('Y-m-d'), 'DDMMYYYY') }}</td>
         </tr>
     </table>
 

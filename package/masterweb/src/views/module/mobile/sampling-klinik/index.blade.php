@@ -2,6 +2,9 @@
 <html lang="id">
 
 <head>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('assets/mobile/css/simlab-mobile-theme.css') }}?v={{ @filemtime(public_path('assets/mobile/css/simlab-mobile-theme.css')) ?: time() }}">
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -16,7 +19,7 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: linear-gradient(135deg, #2D6BCF 0%, #1e4a9e 100%);
+            background: linear-gradient(135deg, #06283f 0%, #0b3a5c 48%, #0d8f7f 100%);
             min-height: 100vh;
             padding: 20px;
             display: flex;
@@ -107,7 +110,7 @@
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #2D6BCF 0%, #1e4a9e 100%);
+            background: linear-gradient(135deg, #06283f 0%, #0b3a5c 48%, #0d8f7f 100%);
             color: white;
         }
 
@@ -159,7 +162,7 @@
 
         .form-control:focus {
             outline: none;
-            border-color: #2D6BCF;
+            border-color: #0b3a5c;
         }
 
         #reader {
@@ -181,7 +184,7 @@
         }
 
         #reader__scan_region {
-            border: 2px solid #2D6BCF !important;
+            border: 2px solid #0b3a5c !important;
             border-radius: 10px;
         }
 
@@ -199,7 +202,7 @@
                 🏥
             </div>
             <h1>SAMPLING KLINIK</h1>
-            <p>Laboratorium Kesehatan Daerah<br>Kabupaten Magelang</p>
+            <p>Laboratorium SIMLAB<br>Lingkungan pengujian</p>
         </div>
 
         <div class="card">

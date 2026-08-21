@@ -10,12 +10,12 @@
 
     <style>
         .info-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%);
             border-radius: 15px;
             padding: 25px;
             color: white;
             margin-bottom: 25px;
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 10px 30px rgba(11, 58, 92, 0.3);
         }
 
         .info-card h4 {
@@ -45,14 +45,14 @@
             font-weight: 600;
             margin-bottom: 20px;
             padding-bottom: 12px;
-            border-bottom: 2px solid #667eea;
+            border-bottom: 2px solid #0b3a5c;
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
         .data-card h5 i {
-            color: #667eea;
+            color: #0b3a5c;
         }
 
         .info-table th {
@@ -93,14 +93,14 @@
             font-weight: 600;
             margin-bottom: 25px;
             padding-bottom: 15px;
-            border-bottom: 3px solid #667eea;
+            border-bottom: 3px solid #0b3a5c;
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
         .form-section h5 i {
-            color: #667eea;
+            color: #0b3a5c;
             font-size: 22px;
         }
 
@@ -118,8 +118,8 @@
         }
 
         .form-control:focus {
-            border-color: #667eea;
-            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+            border-color: #0b3a5c;
+            box-shadow: 0 0 0 0.2rem rgba(11, 58, 92, 0.25);
         }
 
         .quality-checkbox-group {
@@ -181,13 +181,13 @@
         }
 
         .btn-primary.btn-action {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%);
             border: none;
         }
 
         .btn-primary.btn-action:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 6px 20px rgba(11, 58, 92, 0.4);
         }
 
         .btn-light.btn-action {
@@ -200,7 +200,7 @@
         }
 
         .badge-custom {
-            background: #667eea;
+            background: #0b3a5c;
             color: white;
             padding: 5px 12px;
             border-radius: 6px;
@@ -616,8 +616,8 @@
                     <div class="row sample-section" data-sample-index="{{ $index }}" data-sample-type="{{ $sampel_type }}"
                         style="{{ in_array($sampel_type, $jenis_sampel_array, true) ? '' : 'display:none;' }}">
                         <div class="col-md-12">
-                            <div style="background: #f0f4ff; border-radius: 10px; padding: 20px; margin-bottom: 20px; border-left: 4px solid #667eea;">
-                                <h6 style="color: #667eea; font-weight: 600; margin-bottom: 20px;">
+                            <div style="background: #e7f4f2; border-radius: 10px; padding: 20px; margin-bottom: 20px; border-left: 4px solid #0b3a5c;">
+                                <h6 style="color: #0b3a5c; font-weight: 600; margin-bottom: 20px;">
                                     <i class="fa fa-vial mr-2"></i>
                                     Sampel: <span class="badge-custom">{{ $sampel_type }}</span>
                                 </h6>

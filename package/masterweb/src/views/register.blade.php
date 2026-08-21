@@ -317,7 +317,7 @@
                     <div class="footer-2-text-cont">
                         <address>
                             Jalan Stonen Timur No. 7A, Gajah Mungkur<br>
-                            Magelang, Jawa Tengah 50233
+                            —, Jawa Tengah 50233
                         </address>
                     </div>
                     <div class="footer-2-text-cont">

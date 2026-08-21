@@ -24,23 +24,23 @@
 @section('content')
   <style>
     .dash-page {
-      --dash-primary: #2D6BCF;
-      --dash-primary-dark: #1e4a8e;
-      --dash-accent: #667eea;
-      --dash-accent-dark: #764ba2;
+      --dash-primary: #0b3a5c;
+      --dash-primary-dark: #06283f;
+      --dash-accent: #0d8f7f;
+      --dash-accent-dark: #0a7a6c;
       --dash-surface: #ffffff;
-      --dash-muted: #64748b;
-      --dash-radius: 16px;
-      --dash-shadow: 0 10px 40px rgba(15, 23, 42, 0.08);
-      --dash-shadow-hover: 0 16px 48px rgba(15, 23, 42, 0.14);
+      --dash-muted: #5c6d75;
+      --dash-radius: 12px;
+      --dash-shadow: 0 1px 2px rgba(6, 40, 63, 0.06), 0 1px 3px rgba(6, 40, 63, 0.1);
+      --dash-shadow-hover: 0 10px 20px rgba(6, 40, 63, 0.12), 0 3px 6px rgba(6, 40, 63, 0.08);
     }
 
     .dash-hero {
       position: relative;
       overflow: hidden;
       border-radius: var(--dash-radius);
-      background: linear-gradient(135deg, #1e3a8a 0%, #2D6BCF 45%, #667eea 100%);
-      box-shadow: var(--dash-shadow);
+      background: linear-gradient(135deg, #06283f 0%, #0b3a5c 42%, #0d8f7f 100%);
+      box-shadow: var(--dash-shadow-hover);
       padding: 2rem 2.25rem;
       min-height: 200px;
       display: flex;
@@ -180,6 +180,7 @@
       align-items: center;
       padding: 1.5rem;
       text-align: center;
+      background: transparent !important;
     }
 
     .dash-stat-card__icon {
@@ -194,31 +195,32 @@
       box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     }
 
-    .dash-stat-card__value {
+    .dash-stat-card__value,
+    .dash-stat-card .counter {
       font-size: 2.25rem;
       font-weight: 800;
-      color: #fff;
+      color: #fff !important;
       line-height: 1;
       margin-bottom: 0.35rem;
     }
 
     .dash-stat-card__label {
-      color: rgba(255,255,255,0.92);
+      color: rgba(255,255,255,0.95) !important;
       font-size: 0.85rem;
-      font-weight: 500;
+      font-weight: 600;
       margin: 0;
     }
 
-    .dash-stat-card--blue { background: linear-gradient(135deg, #2D6BCF 0%, #1e4a8e 100%); }
-    .dash-stat-card--blue .dash-stat-card__icon i { color: #2D6BCF; font-size: 1.75rem; }
-    .dash-stat-card--green { background: linear-gradient(135deg, #22c55e 0%, #15803d 100%); }
-    .dash-stat-card--green .dash-stat-card__icon i { color: #22c55e; font-size: 1.75rem; }
-    .dash-stat-card--amber { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); }
+    .dash-stat-card--blue { background: linear-gradient(135deg, #0b3a5c 0%, #06283f 100%) !important; }
+    .dash-stat-card--blue .dash-stat-card__icon i { color: #0b3a5c; font-size: 1.75rem; }
+    .dash-stat-card--green { background: linear-gradient(135deg, #0d8f7f 0%, #0a7a6c 100%) !important; }
+    .dash-stat-card--green .dash-stat-card__icon i { color: #0d8f7f; font-size: 1.75rem; }
+    .dash-stat-card--amber { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%) !important; }
     .dash-stat-card--amber .dash-stat-card__icon i { color: #f59e0b; font-size: 1.75rem; }
-    .dash-stat-card--teal { background: linear-gradient(135deg, #06b6d4 0%, #0e7490 100%); }
-    .dash-stat-card--teal .dash-stat-card__icon i { color: #06b6d4; font-size: 1.75rem; }
-    .dash-stat-card--purple { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
-    .dash-stat-card--purple .dash-stat-card__icon i { color: #667eea; font-size: 1.75rem; }
+    .dash-stat-card--teal { background: linear-gradient(135deg, #16a892 0%, #0d8f7f 100%) !important; }
+    .dash-stat-card--teal .dash-stat-card__icon i { color: #16a892; font-size: 1.75rem; }
+    .dash-stat-card--purple { background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%) !important; }
+    .dash-stat-card--purple .dash-stat-card__icon i { color: #0d8f7f; font-size: 1.75rem; }
 
     .dash-mini-stat {
       border: none;
@@ -239,7 +241,7 @@
     .dash-mini-stat--teal { border-left-color: #06b6d4; }
 
     .solab-card {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%);
       border: none;
       box-shadow: var(--dash-shadow);
       transition: all 0.3s ease;
@@ -280,36 +282,364 @@
 
     .dash-charts {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: 1.35fr 1fr;
       gap: 1.25rem;
       margin-top: 1.75rem;
     }
 
-    .dash-chart-card {
-      background: var(--dash-surface);
-      border-radius: var(--dash-radius);
-      box-shadow: var(--dash-shadow);
-      padding: 1.5rem;
-      min-height: 380px;
+    .dash-charts-head {
+      grid-column: 1 / -1;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 0.25rem;
     }
 
-    .dash-chart-card canvas {
-      max-height: 300px;
-    }
-
-    .dash-chart-card__title {
-      font-size: 0.95rem;
-      font-weight: 700;
-      color: #1e293b;
-      margin-bottom: 1rem;
-      padding-bottom: 0.75rem;
-      border-bottom: 2px solid #f1f5f9;
+    .dash-charts-head h3 {
+      margin: 0;
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #06283f;
+      letter-spacing: -0.02em;
       display: flex;
       align-items: center;
       gap: 0.5rem;
     }
 
-    .dash-chart-card__title i { color: var(--dash-primary); }
+    .dash-charts-head h3 i { color: #0d8f7f; }
+
+    .dash-charts-head p {
+      margin: 4px 0 0;
+      font-size: 13px;
+      color: #5c6d75;
+    }
+
+    .dash-chart-tabs {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.28rem;
+      border-radius: 999px;
+      background: #e7f4f2;
+      border: 1px solid #d5e8e4;
+      margin-top: 0.75rem;
+    }
+
+    .dash-chart-tab {
+      border: none;
+      background: transparent;
+      color: #0b3a5c;
+      font-weight: 700;
+      font-size: 0.82rem;
+      padding: 0.42rem 1rem;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .dash-chart-tab:hover { background: rgba(13, 143, 127, 0.12); }
+
+    .dash-chart-tab.is-active {
+      background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(11, 58, 92, 0.22);
+    }
+
+    .dash-chart-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .dash-chart-range {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      gap: 0.55rem;
+      padding: 0.55rem 0.7rem;
+      border-radius: 12px;
+      background: #f3f8f7;
+      border: 1px solid #d5e8e4;
+    }
+
+    .dash-chart-range__field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .dash-chart-range__field label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: #5c6d75;
+      margin: 0;
+    }
+
+    .dash-chart-range__field input[type="date"] {
+      border: 1px solid #c9dbd7;
+      border-radius: 8px;
+      padding: 0.4rem 0.55rem;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #06283f;
+      background: #fff;
+      font-family: inherit;
+      min-width: 9.5rem;
+    }
+
+    .dash-chart-range__field input[type="date"]:focus {
+      outline: none;
+      border-color: #0d8f7f;
+      box-shadow: 0 0 0 3px rgba(13, 143, 127, 0.15);
+    }
+
+    .dash-chart-range__sep {
+      align-self: center;
+      color: #8a9a9f;
+      font-weight: 700;
+      padding-bottom: 0.15rem;
+    }
+
+    .dash-chart-range__apply {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: none;
+      border-radius: 8px;
+      padding: 0.45rem 0.9rem;
+      font-size: 0.78rem;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      color: #fff;
+      background: linear-gradient(135deg, #0b3a5c, #0d8f7f);
+      box-shadow: 0 4px 12px rgba(11, 58, 92, 0.18);
+    }
+
+    .dash-chart-range__apply:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 16px rgba(11, 58, 92, 0.24);
+    }
+
+    .dash-chart-range__reset {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      border: 1px solid #dbe5e3;
+      border-radius: 8px;
+      padding: 0.45rem 0.75rem;
+      font-size: 0.78rem;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      color: #0b3a5c;
+      background: #fff;
+      text-decoration: none;
+    }
+
+    .dash-chart-range__reset:hover {
+      background: #e7f4f2;
+      border-color: #0d8f7f;
+      color: #0b3a5c;
+      text-decoration: none;
+    }
+
+    .btn-chart-dl {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      border: none;
+      border-radius: 8px;
+      padding: 9px 14px;
+      font-size: 12.5px;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s;
+    }
+
+    .btn-chart-dl--primary {
+      background: linear-gradient(135deg, #0b3a5c, #0d8f7f);
+      color: #fff;
+      box-shadow: 0 6px 16px rgba(11, 58, 92, 0.22);
+    }
+
+    .btn-chart-dl--primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 22px rgba(11, 58, 92, 0.28);
+    }
+
+    .btn-chart-dl--ghost {
+      background: #fff;
+      color: #0b3a5c;
+      border: 1px solid #dbe5e3;
+    }
+
+    .btn-chart-dl--ghost:hover {
+      background: #e7f4f2;
+      border-color: #0d8f7f;
+      color: #0d8f7f;
+      transform: translateY(-1px);
+    }
+
+    .dash-chart-card {
+      position: relative;
+      background: #fff;
+      border-radius: var(--dash-radius);
+      box-shadow: var(--dash-shadow);
+      padding: 1.25rem 1.35rem 1.1rem;
+      min-height: 420px;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .dash-chart-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 100% 0%, rgba(13, 143, 127, 0.1), transparent 60%),
+        radial-gradient(ellipse 50% 45% at 0% 100%, rgba(11, 58, 92, 0.08), transparent 55%);
+      pointer-events: none;
+    }
+
+    .dash-chart-card--dark {
+      background: linear-gradient(155deg, #06283f 0%, #0b3a5c 48%, #0a5a58 100%);
+      color: #fff;
+    }
+
+    .dash-chart-card--dark::before {
+      background:
+        radial-gradient(ellipse 55% 45% at 85% 15%, rgba(42, 211, 182, 0.22), transparent 60%),
+        radial-gradient(ellipse 40% 40% at 10% 90%, rgba(255,255,255,0.06), transparent 55%);
+    }
+
+    .dash-chart-card__top {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 0.85rem;
+    }
+
+    .dash-chart-card__title {
+      font-size: 0.98rem;
+      font-weight: 800;
+      color: #06283f;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      border: none;
+      padding: 0;
+    }
+
+    .dash-chart-card__title small {
+      display: block;
+      font-size: 11.5px;
+      font-weight: 500;
+      color: #5c6d75;
+      margin-top: 3px;
+      letter-spacing: 0;
+    }
+
+    .dash-chart-card__title i { color: #0d8f7f; }
+
+    .dash-chart-card--dark .dash-chart-card__title {
+      color: #fff;
+    }
+
+    .dash-chart-card--dark .dash-chart-card__title small {
+      color: rgba(255,255,255,0.7);
+    }
+
+    .dash-chart-card--dark .dash-chart-card__title i {
+      color: #7fd4c8;
+    }
+
+    .dash-chart-card__canvas-wrap {
+      position: relative;
+      z-index: 1;
+      height: 320px;
+    }
+
+    .dash-chart-card--donut .dash-chart-card__canvas-wrap {
+      height: 300px;
+      max-width: 340px;
+      margin: 0 auto;
+    }
+
+    .dash-chart-card--paket {
+      grid-column: 1 / -1;
+    }
+
+    .dash-chart-card--paket.is-hidden {
+      display: none !important;
+    }
+
+    .dash-chart-card--paket .dash-chart-card__canvas-wrap {
+      height: 340px;
+      max-width: none;
+      margin: 0;
+    }
+
+    .dash-chart-meta {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .dash-chart-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 11.5px;
+      font-weight: 700;
+      background: #e7f4f2;
+      color: #0b3a5c;
+    }
+
+    .dash-chart-card--dark .dash-chart-pill {
+      background: rgba(255,255,255,0.12);
+      color: #fff;
+    }
+
+    .dash-chart-pill strong {
+      font-weight: 800;
+      color: #0d8f7f;
+    }
+
+    .dash-chart-card--dark .dash-chart-pill strong {
+      color: #7fd4c8;
+    }
+
+    @media (max-width: 1023px) {
+      .dash-charts {
+        grid-template-columns: 1fr;
+      }
+
+      .dash-chart-card,
+      .dash-chart-card__canvas-wrap {
+        min-height: 0;
+      }
+
+      .dash-chart-card__canvas-wrap {
+        height: 280px;
+      }
+    }
 
     .dash-quick-bar {
       border: none;
@@ -317,10 +647,11 @@
       overflow: hidden;
       box-shadow: var(--dash-shadow);
       margin-top: 1.75rem;
+      background: linear-gradient(135deg, #06283f 0%, #0b3a5c 55%, #0d8f7f 100%) !important;
     }
 
     .dash-quick-bar .card-body {
-      background: linear-gradient(135deg, #1e3a8a 0%, #2D6BCF 60%, #3b82f6 100%);
+      background: transparent !important;
       padding: 1.5rem 2rem;
     }
 
@@ -329,17 +660,18 @@
       padding: 0.5rem 1rem;
     }
 
-    .dash-quick-bar__item h5 {
-      color: #fff;
+    .dash-quick-bar__item h5,
+    .dash-quick-bar__item h5 i {
+      color: #fff !important;
       font-size: 0.95rem;
       font-weight: 600;
       margin-bottom: 0.75rem;
     }
 
     .dash-quick-bar__item .btn {
-      background: rgba(255,255,255,0.95);
-      color: var(--dash-primary);
-      border: none;
+      background: #fff !important;
+      color: #0b3a5c !important;
+      border: none !important;
       border-radius: 8px;
       font-weight: 600;
       padding: 0.45rem 1.1rem;
@@ -347,7 +679,8 @@
     }
 
     .dash-quick-bar__item .btn:hover {
-      background: #fff;
+      background: #e7f4f2 !important;
+      color: #06283f !important;
       transform: translateY(-1px);
       box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     }
@@ -377,11 +710,11 @@
     <div class="dash-hero">
       <div class="dash-hero__content">
         <div class="dash-hero__badge">
-          <i class="fas fa-flask"></i> Sistem Laboratorium
+          <i class="fas fa-flask"></i> SIMLAB · Lingkungan pengujian
         </div>
         <h1 class="dash-hero__title">{{ $greeting }}, {{ $user->name }}!</h1>
         <p class="dash-hero__subtitle">
-          Selamat datang di dashboard Labkes Magelang. Pantau ringkasan permohonan uji,
+          Selamat datang di dashboard SIMLAB. Pantau ringkasan permohonan uji,
           sampel, dan analisa laboratorium Anda di satu tempat.
         </p>
         @if(Auth::user()->getlevel->level == 'DKTR' || (Auth::user()->laboratorium && Auth::user()->laboratorium->kode_laboratorium == 'KLI'))
@@ -487,16 +820,16 @@
       <div class="col-12 mb-4">
         <div class="row">
           <div class="col-md-6 mb-3">
-            <div class="card border-0 shadow-sm" style="border-radius: 12px; border-left: 4px solid #2D6BCF;">
+            <div class="card border-0 shadow-sm" style="border-radius: 12px; border-left: 4px solid #0b3a5c;">
               <div class="card-body p-4">
                 <div class="d-flex align-items-center justify-content-between">
                   <div>
                     <h6 class="text-muted mb-2" style="font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; color: #6c757d;">Permohonan Uji Klinik</h6>
-                    <h2 class="mb-0" style="font-weight: 700; color: #2D6BCF;">{{ $total_permohonan_uji_klinik ?? 0 }}</h2>
+                    <h2 class="mb-0" style="font-weight: 700; color: #0b3a5c;">{{ $total_permohonan_uji_klinik ?? 0 }}</h2>
                     <small class="text-muted">Total permohonan yang telah dibuat</small>
                   </div>
                   <div class="bg-light rounded-circle p-4" style="width: 80px; height: 80px; display: flex; align-items: center; justify-content: center; background-color: #e3f2fd !important;">
-                    <i class="fas fa-clipboard-list" style="font-size: 36px; color: #2D6BCF;"></i>
+                    <i class="fas fa-clipboard-list" style="font-size: 36px; color: #0b3a5c;"></i>
                   </div>
                 </div>
               </div>
@@ -587,10 +920,10 @@
             <div class="row">
               <div class="col-md-4 mb-3">
                 <a href="{{ url('elits-permohonan-uji-klinik-2') }}" class="text-decoration-none">
-                  <div class="card border-0 shadow-sm h-100 quick-action-card" style="border-radius: 12px; transition: all 0.3s ease; border-left: 4px solid #2D6BCF;">
+                  <div class="card border-0 shadow-sm h-100 quick-action-card" style="border-radius: 12px; transition: all 0.3s ease; border-left: 4px solid #0b3a5c;">
                     <div class="card-body text-center p-4">
                       <div class="bg-light rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 70px; height: 70px; background-color: #e3f2fd !important;">
-                        <i class="fas fa-clipboard-list" style="font-size: 32px; color: #2D6BCF;"></i>
+                        <i class="fas fa-clipboard-list" style="font-size: 32px; color: #0b3a5c;"></i>
                       </div>
                       <h6 class="text-dark mb-1" style="font-weight: 600;">Permohonan Uji Klinik</h6>
                       <small class="text-muted">Kelola permohonan uji</small>
@@ -642,7 +975,7 @@
                 <div class="flex-grow-1">
                   <div class="d-flex align-items-center mb-3">
                     <div class="bg-white rounded-circle p-3 me-3" style="width: 60px; height: 60px; display: flex; align-items: center; justify-content: center;">
-                      <i class="fas fa-users" style="font-size: 24px; color: #2D6BCF;"></i>
+                      <i class="fas fa-users" style="font-size: 24px; color: #0b3a5c;"></i>
                     </div>
                     <div>
                       <h5 class="text-white mb-0" style="font-weight: 600;">Total Pasien</h5>
@@ -664,7 +997,7 @@
                 <div class="flex-grow-1">
                   <div class="d-flex align-items-center mb-3">
                     <div class="bg-white rounded-circle p-3 me-3" style="width: 60px; height: 60px; display: flex; align-items: center; justify-content: center;">
-                      <i class="fas fa-vial" style="font-size: 24px; color: #2D6BCF;"></i>
+                      <i class="fas fa-vial" style="font-size: 24px; color: #0b3a5c;"></i>
                     </div>
                     <div>
                       <h5 class="text-white mb-0" style="font-weight: 600;">Total Sampel</h5>
@@ -727,7 +1060,7 @@
       <div class="col-12">
         <div class="card border-0 shadow-sm" style="border-radius: 15px;">
           <div class="card-body p-4">
-            <h5 class="mb-4" style="color: #2D6BCF; font-weight: 600;">
+            <h5 class="mb-4" style="color: #0b3a5c; font-weight: 600;">
               <i class="fas fa-bolt me-2"></i>Quick Actions
             </h5>
             <div class="row">
@@ -930,25 +1263,146 @@
     @endif
     </div>
 
-  @if (
-    Auth::user()->getlevel->level != 'SOLAB' &&
-    Auth::user()->getlevel->level != 'DKTR' &&
-    (
-      !Auth::user()->laboratorium ||
-      Auth::user()->laboratorium->kode_laboratorium != 'KLI'
-    )
-  )
-    <div class="dash-charts">
-      <div class="dash-chart-card">
-        <div class="dash-chart-card__title"><i class="fas fa-chart-line"></i> Permohonan per Bulan</div>
-        <canvas id="chartPendapatan" height="280"></canvas>
+  {{-- Grafik: tab Kesmas / Klinik --}}
+  @php
+    $showChartKesmas = $showChartKesmas ?? true;
+    $showChartKlinik = $showChartKlinik ?? true;
+    $defaultChartTab = $defaultChartTab ?? ($showChartKesmas ? 'kesmas' : 'klinik');
+    $activeChart = $defaultChartTab === 'klinik' ? 'klinik' : 'kesmas';
+    $chartFrom = $chartFrom ?? now()->subMonths(11)->startOfMonth()->format('Y-m-d');
+    $chartTo = $chartTo ?? now()->format('Y-m-d');
+    if ($activeChart === 'kesmas' && $showChartKesmas) {
+      $chartMonths = $chartKesmasMonths ?? ($bulans ?? []);
+      $chartSeries = $chartKesmasSeries ?? ($pendapatans ?? []);
+      $chartSampleLabels = $chartKesmasLabels ?? ($sampleTypes ?? []);
+      $chartSampleValues = $chartKesmasValues ?? ($countSample ?? []);
+      $donutTitle = 'Komposisi sampel';
+      $donutSub = 'Proporsi sampel berdasarkan jenis';
+      $trendSub = 'Volume permohonan uji Kesmas per bulan (' . \Carbon\Carbon::parse($chartFrom)->format('d/m/Y') . ' – ' . \Carbon\Carbon::parse($chartTo)->format('d/m/Y') . ')';
+    } else {
+      $chartMonths = $chartKlinikMonths ?? ($bulans ?? []);
+      $chartSeries = $chartKlinikSeries ?? ($pendapatans ?? []);
+      $chartSampleLabels = $chartKlinikLabels ?? ($sampleTypes ?? []);
+      $chartSampleValues = $chartKlinikValues ?? ($countSample ?? []);
+      $donutTitle = 'Pemeriksaan Haji vs Non-Haji';
+      $donutSub = 'Proporsi pemeriksaan klinik berdasarkan jenis';
+      $trendSub = 'Jumlah pemeriksaan klinik per bulan (' . \Carbon\Carbon::parse($chartFrom)->format('d/m/Y') . ' – ' . \Carbon\Carbon::parse($chartTo)->format('d/m/Y') . ')';
+    }
+    $chartTotalPermohonan = collect($chartSeries)->sum();
+    $chartPeak = count($chartSeries) ? max($chartSeries) : 0;
+    $chartAvg = count($chartSeries) ? round($chartTotalPermohonan / max(count($chartSeries), 1), 1) : 0;
+    $chartSampleTotal = collect($chartSampleValues)->sum();
+  @endphp
+  <div class="dash-charts" id="dashChartsShowcase">
+      <div class="dash-charts-head">
+        <div>
+          <h3><i class="fas fa-chart-area"></i> Analitik laboratorium</h3>
+          <p>Pilih tab dan rentang tanggal untuk mengendalikan grafik <strong>Kesmas</strong> atau <strong>Klinik</strong>.</p>
+          <div class="dash-chart-tabs" role="tablist" aria-label="Jenis grafik">
+            @if ($showChartKesmas)
+              <button type="button" class="dash-chart-tab {{ $activeChart === 'kesmas' ? 'is-active' : '' }}" data-chart-tab="kesmas" role="tab" aria-selected="{{ $activeChart === 'kesmas' ? 'true' : 'false' }}">
+                <i class="fas fa-flask"></i> Grafik Kesmas
+              </button>
+            @endif
+            @if ($showChartKlinik)
+              <button type="button" class="dash-chart-tab {{ $activeChart === 'klinik' ? 'is-active' : '' }}" data-chart-tab="klinik" role="tab" aria-selected="{{ $activeChart === 'klinik' ? 'true' : 'false' }}">
+                <i class="fas fa-notes-medical"></i> Grafik Klinik
+              </button>
+            @endif
+          </div>
+        </div>
+        <div class="dash-chart-actions">
+          <form method="GET" action="{{ url()->current() }}" class="dash-chart-range" id="formChartRange" aria-label="Filter rentang tanggal grafik">
+            <input type="hidden" name="chart_tab" id="chartTabInput" value="{{ $activeChart }}">
+            <div class="dash-chart-range__field">
+              <label for="chartFrom">Dari</label>
+              <input type="date" id="chartFrom" name="chart_from" value="{{ $chartFrom }}" required>
+            </div>
+            <span class="dash-chart-range__sep" aria-hidden="true">—</span>
+            <div class="dash-chart-range__field">
+              <label for="chartTo">Sampai</label>
+              <input type="date" id="chartTo" name="chart_to" value="{{ $chartTo }}" required>
+            </div>
+            <button type="submit" class="dash-chart-range__apply">
+              <i class="fas fa-filter"></i> Terapkan
+            </button>
+            <a href="{{ url()->current() }}?chart_tab={{ $activeChart }}" class="dash-chart-range__reset" title="Reset ke 12 bulan terakhir">
+              <i class="fas fa-undo"></i> Reset
+            </a>
+          </form>
+          <button type="button" class="btn-chart-dl btn-chart-dl--ghost" id="btnDlTrend">
+            <i class="fas fa-download"></i> Unduh tren
+          </button>
+          <button type="button" class="btn-chart-dl btn-chart-dl--ghost" id="btnDlSample">
+            <i class="fas fa-download"></i> Unduh komposisi
+          </button>
+          <button type="button" class="btn-chart-dl btn-chart-dl--primary" id="btnDlAll">
+            <i class="fas fa-file-image"></i> Unduh semua (HD)
+          </button>
+        </div>
       </div>
-      <div class="dash-chart-card">
-        <div class="dash-chart-card__title"><i class="fas fa-chart-bar"></i> Sampel berdasarkan Jenis</div>
-        <canvas id="chartSample" height="280"></canvas>
+
+      <div class="dash-chart-card dash-chart-card--dark" id="cardChartTrend">
+        <div class="dash-chart-card__top">
+          <div class="dash-chart-card__title">
+            <div>
+              <i class="fas fa-wave-square"></i> <span id="chartTrendHeading">Tren permohonan</span>
+              <small id="chartTrendSub">{{ $trendSub }}</small>
+            </div>
+          </div>
+        </div>
+        <div class="dash-chart-card__canvas-wrap">
+          <canvas id="chartPendapatan"></canvas>
+        </div>
+        <div class="dash-chart-meta">
+          <span class="dash-chart-pill">Total <strong id="metaTrendTotal">{{ number_format($chartTotalPermohonan) }}</strong></span>
+          <span class="dash-chart-pill">Puncak <strong id="metaTrendPeak">{{ number_format($chartPeak) }}</strong></span>
+          <span class="dash-chart-pill">Rata-rata <strong id="metaTrendAvg">{{ $chartAvg }}</strong>/bln</span>
+        </div>
+      </div>
+
+      <div class="dash-chart-card dash-chart-card--donut" id="cardChartSample">
+        <div class="dash-chart-card__top">
+          <div class="dash-chart-card__title">
+            <div>
+              <i class="fas fa-chart-pie"></i> <span id="chartDonutHeading">{{ $donutTitle }}</span>
+              <small id="chartDonutSub">{{ $donutSub }}</small>
+            </div>
+          </div>
+        </div>
+        <div class="dash-chart-card__canvas-wrap">
+          <canvas id="chartSample"></canvas>
+        </div>
+        <div class="dash-chart-meta">
+          <span class="dash-chart-pill">Jenis <strong id="metaDonutKinds">{{ count($chartSampleLabels) }}</strong></span>
+          <span class="dash-chart-pill">Total <strong id="metaDonutTotal">{{ number_format($chartSampleTotal) }}</strong></span>
+        </div>
+      </div>
+
+      @php
+        $paketLabelsInit = $chartKlinikPaketLabels ?? [];
+        $paketValuesInit = $chartKlinikPaketValues ?? [];
+        $paketTotalInit = collect($paketValuesInit)->sum();
+        $showPaketInit = ($activeChart === 'klinik');
+      @endphp
+      <div class="dash-chart-card dash-chart-card--paket {{ $showPaketInit ? '' : 'is-hidden' }}" id="cardChartPaket">
+        <div class="dash-chart-card__top">
+          <div class="dash-chart-card__title">
+            <div>
+              <i class="fas fa-boxes"></i> <span>Paket sering dipilih</span>
+              <small>10 paket pemeriksaan klinik dengan frekuensi tertinggi</small>
+            </div>
+          </div>
+        </div>
+        <div class="dash-chart-card__canvas-wrap">
+          <canvas id="chartPaketKlinik"></canvas>
+        </div>
+        <div class="dash-chart-meta">
+          <span class="dash-chart-pill">Paket top <strong id="metaPaketKinds">{{ count($paketLabelsInit) }}</strong></span>
+          <span class="dash-chart-pill">Total dipilih <strong id="metaPaketTotal">{{ number_format($paketTotalInit) }}</strong></span>
+        </div>
       </div>
     </div>
-  @endif
 
   @if (Auth::user()->laboratorium && Auth::user()->laboratorium->kode_laboratorium == 'KIM')
     {{-- KIM: Quick links --}}
@@ -1046,82 +1500,438 @@
       });
     });
   </script>
-  @if (
-    Auth::user()->getlevel->level != 'SOLAB' &&
-    Auth::user()->getlevel->level != 'DKTR' &&
-    (
-      !Auth::user()->laboratorium ||
-      Auth::user()->laboratorium->kode_laboratorium != 'KLI'
-    )
-  )
-  <script src="{{asset('assets/admin/cdn-local/js/chart.min.js')}}"></script>
+    <script src="{{asset('assets/admin/cdn-local/js/chart.min.js')}}"></script>
   <script>
-      const ctx = document.getElementById('chartPendapatan');
-      if (ctx) {
-        const chartCtx = ctx.getContext('2d');
-        new Chart(chartCtx, {
-      type: 'line',
-      data: {
-        labels: {!! json_encode($bulans) !!},
-        datasets: [{
-          label: 'Jumlah Permohonan',
-          data: {!! json_encode($pendapatans) !!},
-          borderColor: '#2D6BCF',
-          backgroundColor: 'rgba(45, 107, 207, 0.1)',
-          borderWidth: 2.5,
+    (function () {
+      if (!document.getElementById('dashChartsShowcase')) return;
+
+      var datasets = {
+        kesmas: {
+          months: {!! json_encode($chartKesmasMonths ?? []) !!},
+          series: {!! json_encode($chartKesmasSeries ?? []) !!},
+          labels: {!! json_encode($chartKesmasLabels ?? []) !!},
+          values: {!! json_encode($chartKesmasValues ?? []) !!},
+          paketLabels: [],
+          paketValues: [],
+          showPaket: false,
+          trendSub: 'Volume permohonan uji Kesmas per bulan ({{ \Carbon\Carbon::parse($chartFrom)->format('d/m/Y') }} – {{ \Carbon\Carbon::parse($chartTo)->format('d/m/Y') }})',
+          donutTitle: 'Komposisi sampel',
+          donutSub: 'Proporsi sampel berdasarkan jenis'
+        },
+        klinik: {
+          months: {!! json_encode($chartKlinikMonths ?? []) !!},
+          series: {!! json_encode($chartKlinikSeries ?? []) !!},
+          seriesHaji: {!! json_encode($chartKlinikSeriesHaji ?? []) !!},
+          seriesNonHaji: {!! json_encode($chartKlinikSeriesNonHaji ?? []) !!},
+          multi: true,
+          labels: {!! json_encode($chartKlinikLabels ?? []) !!},
+          values: {!! json_encode($chartKlinikValues ?? []) !!},
+          paketLabels: {!! json_encode($chartKlinikPaketLabels ?? []) !!},
+          paketValues: {!! json_encode($chartKlinikPaketValues ?? []) !!},
+          showPaket: true,
+          trendSub: 'Jumlah pemeriksaan klinik per bulan ({{ \Carbon\Carbon::parse($chartFrom)->format('d/m/Y') }} – {{ \Carbon\Carbon::parse($chartTo)->format('d/m/Y') }})',
+          donutTitle: 'Pemeriksaan Haji vs Non-Haji',
+          donutSub: 'Proporsi pemeriksaan klinik berdasarkan jenis'
+        }
+      };
+
+      var activeTab = {!! json_encode($defaultChartTab ?? 'kesmas') !!};
+      if (!datasets[activeTab] || (activeTab === 'kesmas' && !{!! json_encode((bool) ($showChartKesmas ?? true)) !!})) {
+        activeTab = 'klinik';
+      }
+
+      var brand = {
+        navy: '#0b3a5c',
+        navyDeep: '#06283f',
+        teal: '#0d8f7f',
+        tealBright: '#16a892',
+        mint: '#7fd4c8',
+        white: '#ffffff'
+      };
+      var palette = ['#16a892', '#0b3a5c', '#2ad3b6', '#f59e0b', '#38bdf8', '#0a7a6c', '#fb7185', '#a78bfa'];
+      var chartTrend = null;
+      var chartSample = null;
+      var chartPaket = null;
+
+      function fmt(n) { return Number(n || 0).toLocaleString('id-ID'); }
+      function summarize(series) {
+        var total = series.reduce(function (a, b) { return a + Number(b || 0); }, 0);
+        var peak = series.length ? Math.max.apply(null, series.map(Number)) : 0;
+        var avg = series.length ? Math.round((total / series.length) * 10) / 10 : 0;
+        return { total: total, peak: peak, avg: avg };
+      }
+      function gradientStroke(ctx, area) {
+        var g = ctx.createLinearGradient(0, area.bottom, 0, area.top);
+        g.addColorStop(0, 'rgba(13, 143, 127, 0.05)');
+        g.addColorStop(0.45, 'rgba(22, 168, 146, 0.35)');
+        g.addColorStop(1, 'rgba(127, 212, 200, 0.55)');
+        return g;
+      }
+      function updateMeta(pack) {
+        var seriesForMeta = pack.series || [];
+        if (pack.multi) {
+          seriesForMeta = (pack.months || []).map(function (_, i) {
+            return Number((pack.seriesHaji || [])[i] || 0) + Number((pack.seriesNonHaji || [])[i] || 0);
+          });
+        }
+        var s = summarize(seriesForMeta);
+        var donutTotal = (pack.values || []).reduce(function (a, b) { return a + Number(b || 0); }, 0);
+        var el;
+        if ((el = document.getElementById('metaTrendTotal'))) el.textContent = fmt(s.total);
+        if ((el = document.getElementById('metaTrendPeak'))) el.textContent = fmt(s.peak);
+        if ((el = document.getElementById('metaTrendAvg'))) el.textContent = s.avg;
+        if ((el = document.getElementById('metaDonutKinds'))) el.textContent = (pack.labels || []).length;
+        if ((el = document.getElementById('metaDonutTotal'))) el.textContent = fmt(donutTotal);
+        if ((el = document.getElementById('chartTrendSub'))) el.textContent = pack.trendSub;
+        if ((el = document.getElementById('chartDonutHeading'))) el.textContent = pack.donutTitle;
+        if ((el = document.getElementById('chartDonutSub'))) el.textContent = pack.donutSub;
+        if ((el = document.getElementById('chartTrendHeading'))) {
+          el.textContent = pack.multi ? 'Tren pemeriksaan' : 'Tren permohonan';
+        }
+      }
+      function buildTrendDatasets(pack) {
+        if (pack.multi) {
+          return [
+            {
+              label: 'Non-Haji',
+              data: pack.seriesNonHaji || [],
+              borderColor: brand.mint,
+              borderWidth: 3,
+              fill: false,
+              tension: 0.42,
+              pointRadius: 4,
+              pointHoverRadius: 7,
+              pointBackgroundColor: brand.white,
+              pointBorderColor: brand.mint,
+              pointBorderWidth: 3
+            },
+            {
+              label: 'Haji',
+              data: pack.seriesHaji || [],
+              borderColor: '#f59e0b',
+              borderWidth: 3,
+              fill: false,
+              tension: 0.42,
+              pointRadius: 4,
+              pointHoverRadius: 7,
+              pointBackgroundColor: brand.white,
+              pointBorderColor: '#f59e0b',
+              pointBorderWidth: 3
+            }
+          ];
+        }
+        return [{
+          label: 'Permohonan',
+          data: pack.series || [],
+          borderColor: brand.mint,
+          borderWidth: 3,
           fill: true,
-          tension: 0.35,
-          pointBackgroundColor: '#2D6BCF',
-          pointRadius: 4,
-          pointHoverRadius: 6
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: { display: false }
-        },
-        scales: {
-          y: { beginAtZero: true, grid: { color: '#f1f5f9' } },
-          x: { grid: { display: false } }
+          tension: 0.42,
+          pointRadius: 5,
+          pointHoverRadius: 8,
+          pointBackgroundColor: brand.white,
+          pointBorderColor: brand.mint,
+          pointBorderWidth: 3,
+          pointHoverBackgroundColor: brand.tealBright,
+          pointHoverBorderColor: brand.white,
+          backgroundColor: function (context) {
+            var chart = context.chart;
+            var area = chart.chartArea;
+            if (!area) return 'rgba(22,168,146,0.2)';
+            return gradientStroke(chart.ctx, area);
+          }
+        }];
+      }
+
+      function applyDataset(tab) {
+        var pack = datasets[tab] || datasets.klinik;
+        activeTab = tab;
+        var tabInput = document.getElementById('chartTabInput');
+        if (tabInput) tabInput.value = tab;
+        var resetLink = document.querySelector('.dash-chart-range__reset');
+        if (resetLink) {
+          var base = resetLink.getAttribute('href').split('?')[0];
+          resetLink.setAttribute('href', base + '?chart_tab=' + encodeURIComponent(tab));
         }
-      }
-    });
-      }
-
-      const ctx2 = document.getElementById('chartSample');
-      if (ctx2) {
-        const chartCtx2 = ctx2.getContext('2d');
-
-    const chartPalette = ['#2D6BCF', '#667eea', '#22c55e', '#f59e0b', '#06b6d4', '#764ba2', '#ef4444', '#8b5cf6'];
-    const backgroundColors = {!! json_encode($sampleTypes) !!}.map((_, i) => chartPalette[i % chartPalette.length]);
-
-        new Chart(chartCtx2, {
-      type: 'bar',
-      data: {
-        labels: {!! json_encode($sampleTypes) !!},
-        datasets: [{
-          label: 'Total Sampel',
-          data: {!! json_encode($countSample) !!},
-          backgroundColor: backgroundColors,
-          borderRadius: 8,
-          borderSkipped: false
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: { display: false }
-        },
-        scales: {
-          y: { beginAtZero: true, grid: { color: '#f1f5f9' } },
-          x: { grid: { display: false } }
+        updateMeta(pack);
+        if (chartTrend) {
+          chartTrend.data.labels = pack.months || [];
+          chartTrend.data.datasets = buildTrendDatasets(pack);
+          chartTrend.options.plugins.legend.display = !!pack.multi;
+          chartTrend.update();
         }
+        if (chartSample) {
+          chartSample.data.labels = pack.labels || [];
+          chartSample.data.datasets[0].data = pack.values || [];
+          chartSample.data.datasets[0].backgroundColor = (pack.labels || []).map(function (_, i) {
+            return palette[i % palette.length];
+          });
+          chartSample.update();
+        }
+        var paketCard = document.getElementById('cardChartPaket');
+        if (paketCard) {
+          if (pack.showPaket) paketCard.classList.remove('is-hidden');
+          else paketCard.classList.add('is-hidden');
+        }
+        if (chartPaket) {
+          var pLabels = (pack.paketLabels || []).slice().reverse();
+          var pValues = (pack.paketValues || []).slice().reverse();
+          chartPaket.data.labels = pLabels;
+          chartPaket.data.datasets[0].data = pValues;
+          chartPaket.data.datasets[0].backgroundColor = pLabels.map(function (_, i) {
+            return palette[i % palette.length];
+          });
+          chartPaket.update();
+          var el;
+          if ((el = document.getElementById('metaPaketKinds'))) el.textContent = (pack.paketLabels || []).length;
+          if ((el = document.getElementById('metaPaketTotal'))) {
+            el.textContent = (pack.paketValues || []).reduce(function (a, b) { return a + Number(b || 0); }, 0).toLocaleString('id-ID');
+          }
+        }
+        document.querySelectorAll('.dash-chart-tab').forEach(function (btn) {
+          var on = btn.getAttribute('data-chart-tab') === tab;
+          btn.classList.toggle('is-active', on);
+          btn.setAttribute('aria-selected', on ? 'true' : 'false');
+        });
       }
-    });
+      function downloadCanvas(sourceCanvas, filename, dark) {
+        var padX = 48, padTop = 92, padBottom = 56;
+        var w = Math.max(sourceCanvas.width, 1100);
+        var scale = w / sourceCanvas.width;
+        var h = Math.round(sourceCanvas.height * scale) + padTop + padBottom;
+        var out = document.createElement('canvas');
+        out.width = w; out.height = h;
+        var c = out.getContext('2d');
+        if (dark) {
+          var bg = c.createLinearGradient(0, 0, w, h);
+          bg.addColorStop(0, '#06283f'); bg.addColorStop(0.55, '#0b3a5c'); bg.addColorStop(1, '#0a5a58');
+          c.fillStyle = bg;
+        } else {
+          c.fillStyle = '#f5f8f7'; c.fillRect(0, 0, w, h); c.fillStyle = '#ffffff';
+        }
+        c.fillRect(0, 0, w, h);
+        c.fillStyle = dark ? '#ffffff' : brand.navyDeep;
+        c.font = '700 28px Manrope, Segoe UI, sans-serif';
+        c.fillText('SIMLAB', padX, 42);
+        c.fillStyle = dark ? brand.mint : brand.teal;
+        c.font = '600 14px Manrope, Segoe UI, sans-serif';
+        c.fillText('Lingkungan pengujian · Analitik ' + (activeTab === 'klinik' ? 'Klinik' : 'Kesmas'), padX, 66);
+        c.drawImage(sourceCanvas, padX, padTop, w - padX * 2, Math.round(sourceCanvas.height * scale));
+        c.fillStyle = dark ? 'rgba(255,255,255,0.55)' : '#5c6d75';
+        c.font = '500 12px Manrope, Segoe UI, sans-serif';
+        c.fillText('Diekspor ' + new Date().toLocaleString('id-ID') + '  ·  SIMLAB Testing', padX, h - 22);
+        var link = document.createElement('a');
+        link.download = filename;
+        link.href = out.toDataURL('image/png', 1);
+        link.click();
       }
+      function composeReport() {
+        var c1 = chartTrend ? chartTrend.canvas : null;
+        var c2 = chartSample ? chartSample.canvas : null;
+        if (!c1 && !c2) return;
+        var padX = 40, padTop = 110, padBottom = 48, gap = 28, panelW = 720;
+        var leftH = c1 ? Math.round(c1.height * (panelW / c1.width)) : 0;
+        var rightW = 520;
+        var rightH = c2 ? Math.round(c2.height * (rightW / c2.width)) : 0;
+        var contentH = Math.max(leftH, rightH);
+        var out = document.createElement('canvas');
+        out.width = padX * 2 + panelW + gap + rightW;
+        out.height = padTop + contentH + padBottom + 40;
+        var c = out.getContext('2d');
+        var bg = c.createLinearGradient(0, 0, out.width, out.height);
+        bg.addColorStop(0, '#f5f8f7'); bg.addColorStop(1, '#e7f4f2');
+        c.fillStyle = bg; c.fillRect(0, 0, out.width, out.height);
+        var header = c.createLinearGradient(0, 0, out.width, 0);
+        header.addColorStop(0, '#06283f'); header.addColorStop(1, '#0d8f7f');
+        c.fillStyle = header; c.fillRect(0, 0, out.width, 84);
+        c.fillStyle = '#ffffff';
+        c.font = '800 30px Manrope, Segoe UI, sans-serif';
+        c.fillText('SIMLAB', padX, 40);
+        c.font = '600 14px Manrope, Segoe UI, sans-serif';
+        c.fillStyle = 'rgba(255,255,255,0.85)';
+        c.fillText('Laporan analitik ' + (activeTab === 'klinik' ? 'Klinik' : 'Kesmas') + ' · Lingkungan pengujian', padX, 64);
+        function roundRect(ctx, x, y, w, h, r, fill) {
+          ctx.beginPath();
+          ctx.moveTo(x + r, y);
+          ctx.arcTo(x + w, y, x + w, y + h, r);
+          ctx.arcTo(x + w, y + h, x, y + h, r);
+          ctx.arcTo(x, y + h, x, y, r);
+          ctx.arcTo(x, y, x + w, y, r);
+          ctx.closePath();
+          ctx.fillStyle = fill; ctx.fill();
+        }
+        if (c1) { roundRect(c, padX, padTop, panelW, leftH + 24, 16, '#0b3a5c'); c.drawImage(c1, padX + 12, padTop + 12, panelW - 24, leftH); }
+        if (c2) { roundRect(c, padX + panelW + gap, padTop, rightW, rightH + 24, 16, '#ffffff'); c.drawImage(c2, padX + panelW + gap + 12, padTop + 12, rightW - 24, rightH); }
+        c.fillStyle = '#5c6d75';
+        c.font = '500 12px Manrope, Segoe UI, sans-serif';
+        c.fillText('Diekspor ' + new Date().toLocaleString('id-ID') + '  ·  SIMLAB Testing', padX, out.height - 24);
+        var link = document.createElement('a');
+        link.download = 'simlab-analitik-' + activeTab + '-' + Date.now() + '.png';
+        link.href = out.toDataURL('image/png', 1);
+        link.click();
+      }
+
+      var initPack = datasets[activeTab] || datasets.klinik;
+      var elTrend = document.getElementById('chartPendapatan');
+      if (elTrend) {
+        chartTrend = new Chart(elTrend.getContext('2d'), {
+          type: 'line',
+          data: {
+            labels: initPack.months || [],
+            datasets: buildTrendDatasets(initPack)
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            animation: { duration: 900, easing: 'easeOutQuart' },
+            interaction: { mode: 'index', intersect: false },
+            plugins: {
+              legend: {
+                display: !!initPack.multi,
+                labels: { color: 'rgba(255,255,255,0.9)', font: { weight: '700', size: 11 }, boxWidth: 12, padding: 14 }
+              },
+              tooltip: {
+                backgroundColor: 'rgba(6, 40, 63, 0.94)',
+                titleFont: { weight: '700', size: 13 },
+                bodyFont: { weight: '600', size: 13 },
+                padding: 12,
+                cornerRadius: 8,
+                displayColors: true,
+                callbacks: {
+                  label: function (ctx) {
+                    return ' ' + (ctx.dataset.label || 'Pemeriksaan') + ': ' + ctx.parsed.y.toLocaleString('id-ID') + ' pemeriksaan';
+                  }
+                }
+              }
+            },
+            scales: {
+              y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.08)', drawBorder: false }, ticks: { color: 'rgba(255,255,255,0.75)', font: { size: 11, weight: '600' } } },
+              x: { grid: { display: false }, ticks: { color: 'rgba(255,255,255,0.8)', font: { size: 11, weight: '600' } } }
+            }
+          }
+        });
+      }
+
+      var elSample = document.getElementById('chartSample');
+      if (elSample) {
+        chartSample = new Chart(elSample.getContext('2d'), {
+          type: 'doughnut',
+          data: {
+            labels: initPack.labels || [],
+            datasets: [{
+              data: initPack.values || [],
+              backgroundColor: (initPack.labels || []).map(function (_, i) { return palette[i % palette.length]; }),
+              borderWidth: 0,
+              hoverOffset: 8
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            cutout: '68%',
+            plugins: {
+              legend: { position: 'bottom', labels: { boxWidth: 12, padding: 14, font: { weight: '600', size: 11 } } },
+              tooltip: { backgroundColor: 'rgba(6, 40, 63, 0.94)', padding: 12, cornerRadius: 8 }
+            }
+          },
+          plugins: [{
+            id: 'centerText',
+            afterDraw: function (chart) {
+              var width = chart.width, height = chart.height, c = chart.ctx;
+              var meta = chart.getDatasetMeta(0);
+              if (!meta || !meta.data || !meta.data.length) return;
+              var total = chart.data.datasets[0].data.reduce(function (a, b) { return a + Number(b || 0); }, 0);
+              c.save();
+              c.textAlign = 'center'; c.textBaseline = 'middle';
+              c.fillStyle = '#0b3a5c';
+              c.font = '800 22px Manrope, Segoe UI, sans-serif';
+              c.fillText(total.toLocaleString('id-ID'), width / 2, height / 2 - 6);
+              c.fillStyle = '#5c6d75';
+              c.font = '600 11px Manrope, Segoe UI, sans-serif';
+              c.fillText('total', width / 2, height / 2 + 14);
+              c.restore();
+            }
+          }]
+        });
+      }
+
+
+      var elPaket = document.getElementById('chartPaketKlinik');
+      if (elPaket) {
+        var initPaketLabels = ((initPack.paketLabels || []).slice()).reverse();
+        var initPaketValues = ((initPack.paketValues || []).slice()).reverse();
+        chartPaket = new Chart(elPaket.getContext('2d'), {
+          type: 'bar',
+          data: {
+            labels: initPaketLabels,
+            datasets: [{
+              label: 'Dipilih',
+              data: initPaketValues,
+              backgroundColor: initPaketLabels.map(function (_, i) { return palette[i % palette.length]; }),
+              borderRadius: 8,
+              borderSkipped: false,
+              maxBarThickness: 28
+            }]
+          },
+          options: {
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
+            animation: { duration: 900, easing: 'easeOutQuart' },
+            plugins: {
+              legend: { display: false },
+              tooltip: {
+                backgroundColor: 'rgba(6, 40, 63, 0.94)',
+                padding: 12,
+                cornerRadius: 8,
+                callbacks: {
+                  label: function (ctx) {
+                    return ' ' + ctx.parsed.x.toLocaleString('id-ID') + ' kali dipilih';
+                  }
+                }
+              }
+            },
+            scales: {
+              x: {
+                beginAtZero: true,
+                grid: { color: 'rgba(11, 58, 92, 0.08)', drawBorder: false },
+                ticks: { color: '#5c6d75', font: { size: 11, weight: '600' } }
+              },
+              y: {
+                grid: { display: false },
+                ticks: { color: '#0b3a5c', font: { size: 11, weight: '700' } }
+              }
+            }
+          }
+        });
+      }
+
+      updateMeta(initPack);
+      document.querySelectorAll('.dash-chart-tab').forEach(function (btn) {
+        btn.addEventListener('click', function () { applyDataset(btn.getAttribute('data-chart-tab')); });
+      });
+      var formRange = document.getElementById('formChartRange');
+      if (formRange) {
+        formRange.addEventListener('submit', function (e) {
+          var fromEl = document.getElementById('chartFrom');
+          var toEl = document.getElementById('chartTo');
+          if (fromEl && toEl && fromEl.value && toEl.value && fromEl.value > toEl.value) {
+            e.preventDefault();
+            alert('Tanggal "Dari" tidak boleh lebih besar dari tanggal "Sampai".');
+          }
+        });
+      }
+      var btnTrend = document.getElementById('btnDlTrend');
+      var btnSample = document.getElementById('btnDlSample');
+      var btnAll = document.getElementById('btnDlAll');
+      if (btnTrend) btnTrend.addEventListener('click', function () {
+        if (chartTrend) downloadCanvas(chartTrend.canvas, 'simlab-tren-' + activeTab + '.png', true);
+      });
+      if (btnSample) btnSample.addEventListener('click', function () {
+        if (chartSample) downloadCanvas(chartSample.canvas, 'simlab-komposisi-' + activeTab + '.png', false);
+      });
+      if (btnAll) btnAll.addEventListener('click', composeReport);
+    })();
   </script>
-  @endif
+
 @endsection

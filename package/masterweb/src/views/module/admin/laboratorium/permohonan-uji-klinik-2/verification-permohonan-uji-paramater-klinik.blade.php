@@ -83,8 +83,8 @@
         
         .flatpickr-day.selected,
         .flatpickr-day.selected:hover {
-            background: #667eea !important;
-            border-color: #667eea !important;
+            background: #0b3a5c !important;
+            border-color: #0b3a5c !important;
         }
         
         #tglpengujian_permohonan_uji_klinik {
@@ -93,17 +93,17 @@
         }
         
         #tglpengujian_permohonan_uji_klinik:focus {
-            border-color: #667eea;
-            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+            border-color: #0b3a5c;
+            box-shadow: 0 0 0 0.2rem rgba(11, 58, 92, 0.25);
         }
         
         .info-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%);
             border-radius: 15px;
             padding: 25px;
             color: white;
             margin-bottom: 25px;
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 10px 30px rgba(11, 58, 92, 0.3);
         }
 
         .info-card h4 {
@@ -154,7 +154,7 @@
         .patient-data-compact {
             display: none;
             padding: 8px 15px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%);
             color: white;
             border-radius: 0;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -280,14 +280,14 @@
             font-weight: 600;
             margin-bottom: 20px;
             padding-bottom: 12px;
-            border-bottom: 2px solid #667eea;
+            border-bottom: 2px solid #0b3a5c;
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
         .data-card h5 i {
-            color: #667eea;
+            color: #0b3a5c;
         }
 
         .info-table th {
@@ -329,7 +329,7 @@
             font-weight: 600;
             margin-bottom: 25px;
             padding-bottom: 15px;
-            border-bottom: 3px solid #667eea;
+            border-bottom: 3px solid #0b3a5c;
             display: flex;
             align-items: center;
             gap: 10px;
@@ -358,7 +358,7 @@
         }
 
         .form-section h5 i {
-            color: #667eea;
+            color: #0b3a5c;
             font-size: 22px;
         }
 
@@ -376,8 +376,8 @@
         }
 
         .form-control:focus {
-            border-color: #667eea;
-            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+            border-color: #0b3a5c;
+            box-shadow: 0 0 0 0.2rem rgba(11, 58, 92, 0.25);
         }
 
         .btn-action {
@@ -389,13 +389,13 @@
         }
 
         .btn-primary.btn-action {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%);
             border: none;
         }
 
         .btn-primary.btn-action:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 6px 20px rgba(11, 58, 92, 0.4);
         }
 
         .btn-light.btn-action {
@@ -507,7 +507,7 @@
         }
 
         .table-scroll-indicator-content {
-            background: rgba(102, 126, 234, 0.9);
+            background: rgba(11, 58, 92, 0.9);
             color: white;
             padding: 6px 15px;
             border-radius: 20px;
@@ -549,7 +549,7 @@
             left: 0;
             right: 0;
             height: 20px;
-            background: linear-gradient(to top, rgba(102, 126, 234, 0.08) 0%, transparent 100%);
+            background: linear-gradient(to top, rgba(11, 58, 92, 0.08) 0%, transparent 100%);
             pointer-events: none;
             z-index: 2;
             opacity: 0;
@@ -568,7 +568,7 @@
             left: 0;
             right: 0;
             height: 20px;
-            background: linear-gradient(to bottom, rgba(102, 126, 234, 0.08) 0%, transparent 100%);
+            background: linear-gradient(to bottom, rgba(11, 58, 92, 0.08) 0%, transparent 100%);
             pointer-events: none;
             z-index: 2;
             opacity: 0;
@@ -585,7 +585,7 @@
             top: 8px;
             right: 8px;
             bottom: auto;
-            background: rgba(102, 126, 234, 0.9);
+            background: rgba(11, 58, 92, 0.9);
             color: white;
             padding: 4px 10px;
             border-radius: 12px;
@@ -608,7 +608,7 @@
         }
 
         #table-parameter thead {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%);
             color: white;
             position: sticky;
             top: 0;
@@ -622,7 +622,7 @@
             border: none;
             color: white;
             white-space: nowrap;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%);
             position: sticky;
             top: 0;
             z-index: 101;
@@ -743,12 +743,12 @@
         .inline-metode-editor:focus,
         .inline-metode-editor.mce-edit-focus {
             outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+            border-color: #0b3a5c;
+            box-shadow: 0 0 0 0.2rem rgba(11, 58, 92, 0.25);
         }
 
         .inline-metode-editor sup {
-            color: #667eea;
+            color: #0b3a5c;
             font-weight: 600;
         }
 
@@ -769,12 +769,12 @@
         #table-parameter tbody input[type="text"]:focus,
         #table-parameter tbody textarea:focus,
         #table-parameter tbody select:focus {
-            border-color: #667eea;
-            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+            border-color: #0b3a5c;
+            box-shadow: 0 0 0 0.2rem rgba(11, 58, 92, 0.25);
         }
 
         .badge-custom {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%);
             color: white;
             padding: 6px 12px;
             border-radius: 6px;
@@ -1070,7 +1070,7 @@
 
         #editModal .form-group-modal label i {
             margin-right: 8px;
-            color: #667eea;
+            color: #0b3a5c;
         }
 
         #editModal .form-control {
@@ -1125,8 +1125,8 @@
         }
 
         #editModal .offset-option input[type="radio"]:checked + label {
-            background-color: #f0f4ff;
-            border-color: #667eea;
+            background-color: #e7f4f2;
+            border-color: #0b3a5c;
         }
 
         .status-verifikasi option[value="pending"] {
@@ -1284,8 +1284,8 @@
         
         .inline-hasil-input:focus {
             outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+            border-color: #0b3a5c;
+            box-shadow: 0 0 0 0.2rem rgba(11, 58, 92, 0.25);
         }
         
         .inline-hasil-editor {
@@ -1306,8 +1306,8 @@
         
         .inline-hasil-editor:focus {
             outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+            border-color: #0b3a5c;
+            box-shadow: 0 0 0 0.2rem rgba(11, 58, 92, 0.25);
         }
         
         .inline-hasil-editor[data-placeholder]:empty:before {
@@ -1316,7 +1316,7 @@
         }
         
         .inline-hasil-editor sup {
-            color: #667eea;
+            color: #0b3a5c;
             font-weight: 600;
         }
         
@@ -1342,8 +1342,8 @@
         
         .inline-keterangan-editor:focus {
             outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+            border-color: #0b3a5c;
+            box-shadow: 0 0 0 0.2rem rgba(11, 58, 92, 0.25);
         }
         
         .inline-keterangan-editor.empty {
@@ -1379,7 +1379,7 @@
         
         /* TinyMCE toolbar customization for inline */
         .tox.tox-tinymce-inline .tox-toolbar__primary {
-            background: #667eea !important;
+            background: #0b3a5c !important;
             border-radius: 6px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
@@ -1480,8 +1480,8 @@
         }
 
         .offset-option input[type="radio"]:checked + label {
-            background-color: #f0f4ff;
-            border-color: #667eea;
+            background-color: #e7f4f2;
+            border-color: #0b3a5c;
         }
 
         /* Modal — body scrollable saat konten tinggi */
@@ -2116,7 +2116,7 @@
                                                 <div class="d-flex flex-wrap gap-2">
                                                     @foreach ($volume_data as $jenis => $nilai)
                                                         <span
-                                                            style="display: inline-block; background: #f0f4ff; border: 1px solid #667eea; color: #667eea; padding: 5px 12px; border-radius: 6px; font-size: 12px; font-weight: 600; margin-right: 8px; margin-bottom: 5px;">
+                                                            style="display: inline-block; background: #e7f4f2; border: 1px solid #0b3a5c; color: #0b3a5c; padding: 5px 12px; border-radius: 6px; font-size: 12px; font-weight: 600; margin-right: 8px; margin-bottom: 5px;">
                                                             <i class="fa fa-vial" style="margin-right: 5px;"></i>{{ $jenis }}:
                                                             <strong>{{ is_array($nilai) ? implode(', ', $nilai) : $nilai }}</strong>
                                                         </span>

@@ -13,11 +13,11 @@
         }
 
         .page-header-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%);
             border-radius: 15px;
             padding: 30px;
             margin-bottom: 30px;
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 10px 30px rgba(11, 58, 92, 0.3);
             color: white;
         }
 
@@ -69,14 +69,14 @@
             color: #2d3748;
             margin-bottom: 20px;
             padding-bottom: 15px;
-            border-bottom: 3px solid #667eea;
+            border-bottom: 3px solid #0b3a5c;
             display: flex;
             align-items: center;
         }
 
         .section-title i {
             margin-right: 12px;
-            color: #667eea;
+            color: #0b3a5c;
             font-size: 24px;
         }
 
@@ -98,8 +98,8 @@
         }
 
         .form-control:focus {
-            border-color: #667eea;
-            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+            border-color: #0b3a5c;
+            box-shadow: 0 0 0 4px rgba(11, 58, 92, 0.1);
         }
 
         .form-control:read-only {
@@ -108,14 +108,14 @@
         }
 
         .input-group-text {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%);
             border: none;
             color: white;
             border-radius: 0 10px 10px 0;
         }
 
         .btn-link-custom {
-            color: #667eea;
+            color: #0b3a5c;
             font-weight: 600;
             text-decoration: none;
             padding: 10px 20px;
@@ -126,8 +126,8 @@
         }
 
         .btn-link-custom:hover {
-            background: rgba(102, 126, 234, 0.1);
-            color: #764ba2;
+            background: rgba(11, 58, 92, 0.1);
+            color: #0d8f7f;
             text-decoration: none;
         }
 
@@ -136,7 +136,7 @@
             border-radius: 12px;
             padding: 25px;
             margin-top: 20px;
-            border-left: 5px solid #667eea;
+            border-left: 5px solid #0b3a5c;
         }
 
         .customer-info-card .info-row {
@@ -191,20 +191,20 @@
         }
 
         .btn-primary-custom {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%);
             border: none;
             padding: 14px 35px;
             font-size: 16px;
             font-weight: 600;
             border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 4px 15px rgba(11, 58, 92, 0.3);
             transition: all 0.3s;
             color: white;
         }
 
         .btn-primary-custom:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 6px 20px rgba(11, 58, 92, 0.4);
         }
 
         .btn-secondary-custom {
@@ -231,7 +231,7 @@
         }
 
         .select2-container--classic .select2-selection--single:focus {
-            border-color: #667eea;
+            border-color: #0b3a5c;
         }
 
         textarea.form-control {
@@ -248,7 +248,7 @@
         }
 
         .breadcrumb-item a {
-            color: #667eea;
+            color: #0b3a5c;
             text-decoration: none;
             font-weight: 500;
         }
@@ -260,7 +260,7 @@
         /* Icon enhancements */
         .form-group label i {
             margin-right: 8px;
-            color: #667eea;
+            color: #0b3a5c;
         }
     </style>
 
@@ -395,7 +395,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="font-weight-bold mb-3" style="color: #667eea; font-size: 15px;">
+                    <label class="font-weight-bold mb-3" style="color: #0b3a5c; font-size: 15px;">
                         <i class="fa fa-map-marker mr-2"></i>WILAYAH PELANGGAN
                     </label>
 
@@ -404,7 +404,7 @@
 
                     <div class="mb-3" style="position: relative; z-index: 110;">
                         <div class="card border-0 shadow-sm"
-                            style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-left: 4px solid #667eea !important; overflow: visible !important;">
+                            style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-left: 4px solid #0b3a5c !important; overflow: visible !important;">
                             <div class="card-body py-3" style="overflow: visible !important;">
                                 <div class="d-flex align-items-center flex-wrap">
                                     <div class="flex-grow-1 position-relative" style="z-index: 1000; min-width: 220px;">
@@ -433,7 +433,7 @@
                                     </div>
                                     <div class="ml-3 text-center mt-2 mt-md-0">
                                         <button type="button" class="btn btn-sm" id="btn_toggle_manual_customer"
-                                            style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 8px; padding: 8px 16px; font-weight: 600;">
+                                            style="background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%); color: white; border-radius: 8px; padding: 8px 16px; font-weight: 600;">
                                             <i class="fa fa-list mr-1"></i> Pilih Manual
                                         </button>
                                         <div class="small text-muted mt-1">atau pilih bertahap</div>
@@ -441,7 +441,7 @@
                                 </div>
                                 <div class="small text-muted mt-2">
                                     <i class="fa fa-info-circle mr-1"></i>
-                                    <strong>Tips:</strong> Ketik minimal 2 karakter. Contoh: "Magelang", "Secang", "Pucungrejo"
+                                    <strong>Tips:</strong> Ketik minimal 2 karakter. Contoh: "Jakarta", "Bandung", "Surabaya"
                                 </div>
                             </div>
                         </div>
@@ -451,7 +451,7 @@
                         style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); display: none; position: relative; z-index: 10;">
                         <div class="card-body" style="overflow: visible !important;">
                             <div class="d-flex justify-content-between align-items-center mb-3">
-                                <h6 class="mb-0 font-weight-bold" style="color: #667eea;">
+                                <h6 class="mb-0 font-weight-bold" style="color: #0b3a5c;">
                                     <i class="fa fa-list-ul mr-2"></i>Pilih Wilayah Secara Bertahap
                                 </h6>
                                 <button type="button" class="btn btn-sm btn-outline-secondary"
@@ -498,7 +498,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="new_address_customer" class="font-weight-bold" style="color: #667eea;">
+                    <label for="new_address_customer" class="font-weight-bold" style="color: #0b3a5c;">
                         <i class="fa fa-map-marker-alt mr-1"></i> Detail Alamat
                     </label>
                     <textarea class="form-control" id="new_address_customer" name="new_address_customer"
@@ -528,7 +528,7 @@
 
             <!-- Existing Customer Info -->
             <div class="customer-info-card old_customer" style="display: none">
-                <h5 style="color: #667eea; font-weight: 700; margin-bottom: 20px;">
+                <h5 style="color: #0b3a5c; font-weight: 700; margin-bottom: 20px;">
                     <i class="fa fa-info-circle"></i> Detail Pelanggan
                 </h5>
 
@@ -562,14 +562,14 @@
             <div id="wilayah_sampling_section" class="is-visible">
                 <hr class="my-4">
                 <div class="form-group">
-                    <label class="font-weight-bold mb-3" style="color: #667eea; font-size: 16px;">
+                    <label class="font-weight-bold mb-3" style="color: #0b3a5c; font-size: 16px;">
                         <i class="fa fa-map-marker mr-2"></i>WILAYAH SAMPLING
                     </label>
 
                     <!-- Search Wilayah Box -->
                     <div class="mb-3" style="position: relative; z-index: 100;">
                         <div class="card border-0 shadow-sm"
-                            style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-left: 4px solid #667eea !important; overflow: visible !important;">
+                            style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-left: 4px solid #0b3a5c !important; overflow: visible !important;">
                             <div class="card-body py-3" style="overflow: visible !important;">
                                 <div class="d-flex align-items-center">
                                     <div class="flex-grow-1 position-relative" style="z-index: 1000;">
@@ -600,7 +600,7 @@
                                     </div>
                                     <div class="ml-3 text-center">
                                         <button type="button" class="btn btn-sm" id="btn_toggle_manual_sampling"
-                                            style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 8px; padding: 8px 16px; font-weight: 600;">
+                                            style="background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%); color: white; border-radius: 8px; padding: 8px 16px; font-weight: 600;">
                                             <i class="fa fa-list mr-1"></i> Pilih Manual
                                         </button>
                                         <div class="small text-muted mt-1">atau pilih bertahap</div>
@@ -609,7 +609,7 @@
                                 <div class="small text-muted mt-2">
                                     <i class="fa fa-info-circle mr-1"></i>
                                     <strong>Tips:</strong> Ketik minimal 2 karakter untuk melihat rekomendasi.
-                                    Contoh: "Magelang", "Secang", "Pucungrejo"
+                                    Contoh: "Jakarta", "Bandung", "Surabaya"
                                 </div>
                             </div>
                         </div>
@@ -620,7 +620,7 @@
                         style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); display: none; position: relative; z-index: 10;">
                         <div class="card-body" style="overflow: visible !important;">
                             <div class="d-flex justify-content-between align-items-center mb-3">
-                                <h6 class="mb-0 font-weight-bold" style="color: #667eea;">
+                                <h6 class="mb-0 font-weight-bold" style="color: #0b3a5c;">
                                     <i class="fa fa-list-ul mr-2"></i>Pilih Wilayah Secara Bertahap
                                 </h6>
                                 <button type="button" class="btn btn-sm btn-outline-secondary"
@@ -680,7 +680,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="detail_alamat_sampling" class="font-weight-bold" style="color: #667eea;">
+                    <label for="detail_alamat_sampling" class="font-weight-bold" style="color: #0b3a5c;">
                         <i class="fa fa-road mr-2"></i>DETAIL ALAMAT SAMPLING
                     </label>
                     <textarea class="form-control" name="detail_alamat_sampling" id="detail_alamat_sampling" rows="3"

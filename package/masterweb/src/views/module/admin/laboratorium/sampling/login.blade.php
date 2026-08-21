@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Login Petugas Sampling - LABKES Magelang</title>
+    <title>Login Petugas Sampling - SIMLAB</title>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{ asset('assets/admin/vendors/mdi/css/materialdesignicons.min.css') }}">
@@ -15,7 +15,7 @@
 
     <style>
         body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -37,7 +37,7 @@
         }
 
         .login-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%);
             padding: 40px 30px;
             text-align: center;
             color: white;
@@ -88,8 +88,8 @@
         }
 
         .form-control:focus {
-            border-color: #667eea;
-            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+            border-color: #0b3a5c;
+            box-shadow: 0 0 0 0.2rem rgba(11, 58, 92, 0.25);
         }
 
         .input-group {
@@ -116,7 +116,7 @@
             font-weight: bold;
             border: none;
             border-radius: 10px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%);
             color: white;
             cursor: pointer;
             transition: all 0.3s;
@@ -124,7 +124,7 @@
 
         .btn-login:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 10px 25px rgba(11, 58, 92, 0.4);
         }
 
         .alert {
@@ -156,7 +156,7 @@
 
         .qr-info i {
             font-size: 30px;
-            color: #667eea;
+            color: #0b3a5c;
             margin-bottom: 10px;
         }
 
@@ -175,7 +175,7 @@
                 <img src="{{ asset('assets/admin/images/logo/logo-magelang.png') }}" alt="Logo"
                     onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ccircle cx=%2250%22 cy=%2250%22 r=%2240%22 fill=%22%23fff%22/%3E%3C/svg%3E'">
                 <h3>PETUGAS SAMPLING</h3>
-                <p>Laboratorium Kesehatan Daerah<br>Kabupaten Magelang</p>
+                <p>Laboratorium SIMLAB<br>Lingkungan pengujian</p>
             </div>
 
             <div class="login-body">

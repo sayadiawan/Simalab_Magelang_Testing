@@ -6,12 +6,12 @@
 @section('content')
     <style>
         .info-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%);
             border-radius: 15px;
             padding: 25px;
             color: white;
             margin-bottom: 25px;
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 10px 30px rgba(11, 58, 92, 0.3);
         }
 
         .info-card h4 {
@@ -41,14 +41,14 @@
             font-weight: 600;
             margin-bottom: 20px;
             padding-bottom: 12px;
-            border-bottom: 2px solid #667eea;
+            border-bottom: 2px solid #0b3a5c;
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
         .data-card h5 i {
-            color: #667eea;
+            color: #0b3a5c;
         }
 
         .info-table th {
@@ -117,7 +117,7 @@
         }
 
         .result-table thead th {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+            background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%) !important;
             color: white;
             padding: 15px;
             text-align: left;
@@ -167,7 +167,7 @@
             font-weight: 700;
             font-size: 16px;
             color: #495057;
-            border-left: 4px solid #667eea;
+            border-left: 4px solid #0b3a5c;
         }
 
         .parameter-group-header th {
@@ -271,13 +271,13 @@
         #btn-simpan-kesimpulan {
             transition: all 0.3s ease;
             border: none;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%);
         }
 
         #btn-simpan-kesimpulan:hover:not(:disabled) {
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4) !important;
-            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+            box-shadow: 0 4px 12px rgba(11, 58, 92, 0.4) !important;
+            background: linear-gradient(135deg, #0d8f7f 0%, #0b3a5c 100%);
         }
 
         #btn-simpan-kesimpulan:active:not(:disabled) {
@@ -336,7 +336,7 @@
             top: 0;
             left: 0;
             width: 100%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%);
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             padding: 10px 20px;
             transition: all 0.3s ease-in-out;
@@ -720,7 +720,7 @@
     <!-- Hasil Pemeriksaan -->
     <div class="result-table">
         <h5
-            style="color: #495057; font-weight: 600; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 3px solid #667eea; display: flex; align-items: center; gap: 10px;">
+            style="color: #495057; font-weight: 600; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 3px solid #0b3a5c; display: flex; align-items: center; gap: 10px;">
             <i class="fa fa-file-alt"></i>
             Hasil Pemeriksaan
         </h5>
@@ -1040,7 +1040,7 @@
     {{--
     <div class="result-table" style="margin-top: 30px;">
         <h5
-            style="color: #495057; font-weight: 600; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 3px solid #667eea; display: flex; align-items: center; gap: 10px;">
+            style="color: #495057; font-weight: 600; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 3px solid #0b3a5c; display: flex; align-items: center; gap: 10px;">
             <i class="fa fa-file-alt"></i>
             Catatan Hasil
         </h5>
@@ -1058,7 +1058,7 @@
     <!-- Data Validasi -->
     <div class="result-table" style="margin-top: 30px;">
         <h5
-            style="color: #495057; font-weight: 600; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 3px solid #667eea; display: flex; align-items: center; gap: 10px;">
+            style="color: #495057; font-weight: 600; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 3px solid #0b3a5c; display: flex; align-items: center; gap: 10px;">
             <i class="fa fa-check-circle"></i>
             Data Validasi
         </h5>
@@ -1168,7 +1168,7 @@
     <!-- Kesimpulan Hasil -->
     <div class="result-table" style="margin-top: 30px;">
         <h5
-            style="color: #495057; font-weight: 600; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 3px solid #667eea; display: flex; align-items: center; gap: 10px;">
+            style="color: #495057; font-weight: 600; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 3px solid #0b3a5c; display: flex; align-items: center; gap: 10px;">
             <i class="fa fa-file-alt"></i>
             Kesimpulan Hasil
         </h5>
@@ -1204,7 +1204,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header"
-                    style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 10px 10px 0 0;">
+                    style="background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%); color: white; border-radius: 10px 10px 0 0;">
                     <h5 style="margin: 0; padding: 15px; display: flex; align-items: center; gap: 10px;">
                         <i class="fa fa-file-pdf"></i>
                         Preview Hasil PDF

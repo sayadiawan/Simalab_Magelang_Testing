@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Nota {{ $lab_name ?? 'KESMAS' }}">
-    <meta name="author" content="Labkes Magelang">
+    <meta name="author" content="SIMLAB">
     <title>Nota MAGELANG-{{ $lab_name ?? 'KESMAS' }}</title>
     <link rel="shortcut icon" href="favicon.ico">
     <style>

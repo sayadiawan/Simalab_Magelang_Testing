@@ -8609,6 +8609,10 @@ class LaboratoriumPermohonanUjiKlinikManagement2 extends Controller
    */
   private function syncAnalisHasilToSatuSehat(Request $request, PermohonanUjiKlinik2 $post, $id_permohonan_uji_klinik): void
   {
+    if (!SatuSehatHelper::isEnabled() || config('services.satu_sehat.version') !== 'prd') {
+      return;
+    }
+
     $idPasienSatuSehat = optional($post->pasien)->id_pasien_satu_sehat;
     if (empty($idPasienSatuSehat)) {
       return;

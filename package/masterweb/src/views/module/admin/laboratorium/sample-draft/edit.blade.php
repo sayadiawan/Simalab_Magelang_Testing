@@ -189,7 +189,7 @@
                         <textarea class="form-control" name="titik_pengambilan" id="titik_pengambilan" rows="3"
                             placeholder="Masukkan titik lokasi pengambilan sampel">{{ old('titik_pengambilan', $draft->titik_pengambilan) }}</textarea>
                         <small class="form-text text-muted">
-                            <i class="fa fa-info-circle"></i> Contoh: Jl. Sudirman No. 123, Kota Magelang
+                            <i class="fa fa-info-circle"></i> Contoh: Jl. Sudirman No. 123, Kota SIMLAB
                         </small>
                     </div>
                 </div>

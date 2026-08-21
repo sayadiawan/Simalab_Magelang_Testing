@@ -84,7 +84,7 @@
                             449.5/.5.22/II/2020
                         </td>
                         <td align="right">
-                            Magelang, {{ \Carbon\Carbon::now()->isoFormat('D MMMM Y') }}
+                            —, {{ \Carbon\Carbon::now()->isoFormat('D MMMM Y') }}
 
                         </td>
                     </tr>

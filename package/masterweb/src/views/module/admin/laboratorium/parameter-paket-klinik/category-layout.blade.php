@@ -47,7 +47,7 @@
   
   .category-card:hover {
     background: #e9ecef;
-    border-color: #667eea;
+    border-color: #0b3a5c;
   }
   
   .category-card.active {
@@ -68,7 +68,7 @@
   }
   
   .category-code {
-    background: #667eea;
+    background: #0b3a5c;
     color: white;
     border-radius: 4px;
     padding: 4px 10px;
@@ -90,7 +90,7 @@
   .category-name-input:focus {
     outline: none;
     background: white;
-    border: 1px solid #667eea;
+    border: 1px solid #0b3a5c;
   }
   
   .category-meta {
@@ -186,7 +186,7 @@
   
   .available-parameter:hover {
     background: #e9ecef;
-    border-color: #667eea;
+    border-color: #0b3a5c;
   }
   
   .available-parameter.sortable-ghost {
@@ -196,7 +196,7 @@
   /* Buttons */
   .btn-add-category {
     width: 100%;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%);
     color: white;
     border: none;
     padding: 10px;
@@ -208,7 +208,7 @@
   
   .btn-add-category:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+    box-shadow: 0 4px 12px rgba(11, 58, 92, 0.4);
   }
   
   .btn-save {
@@ -290,8 +290,8 @@
   }
   
   .grid-cell:hover {
-    border-color: #667eea;
-    background: #f0f4ff;
+    border-color: #0b3a5c;
+    background: #e7f4f2;
   }
   
   .grid-cell.occupied {
@@ -455,7 +455,7 @@
 <div class="row">
   <div class="col-12">
     <div class="card">
-      <div class="card-header" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+      <div class="card-header" style="background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%); color: white;">
         <h4 class="mb-0" style="color: white;">
           <i class="fa fa-th-large mr-2"></i>
           Penataan Layout Kategori Parameter

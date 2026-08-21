@@ -86,7 +86,7 @@
                             {!! $no_LHU !!}
                         </td>
                         <td align="right">
-                            Magelang, {{ \Carbon\Carbon::now()->isoFormat('D MMMM Y') }}
+                            —, {{ \Carbon\Carbon::now()->isoFormat('D MMMM Y') }}
 
                         </td>
                     </tr>

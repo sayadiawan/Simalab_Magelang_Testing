@@ -2,6 +2,9 @@
 <html lang="id">
 
 <head>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('assets/mobile/css/simlab-mobile-theme.css') }}?v={{ @filemtime(public_path('assets/mobile/css/simlab-mobile-theme.css')) ?: time() }}">
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -36,7 +39,7 @@
         }
 
         .top-bar {
-            background: linear-gradient(135deg, #2D6BCF 0%, #1e4a9e 100%);
+            background: linear-gradient(135deg, #06283f 0%, #0b3a5c 48%, #0d8f7f 100%);
             color: white;
             padding: 15px 20px;
             position: sticky;
@@ -70,7 +73,7 @@
         }
 
         .section-title i {
-            color: #2D6BCF;
+            color: #0b3a5c;
         }
 
         .form-group {
@@ -95,7 +98,7 @@
 
         .form-control:focus {
             outline: none;
-            border-color: #2D6BCF;
+            border-color: #0b3a5c;
         }
 
         textarea.form-control {
@@ -127,9 +130,9 @@
         }
 
         .btn-picker.active {
-            background: linear-gradient(135deg, #2D6BCF 0%, #1e4a9e 100%);
+            background: linear-gradient(135deg, #06283f 0%, #0b3a5c 48%, #0d8f7f 100%);
             color: white;
-            border-color: #2D6BCF;
+            border-color: #0b3a5c;
         }
 
         /* Number Input */
@@ -144,7 +147,7 @@
             width: 50px;
             height: 50px;
             border: none;
-            background: #2D6BCF;
+            background: #0b3a5c;
             color: white;
             border-radius: 12px;
             font-size: 24px;
@@ -237,7 +240,7 @@
         .parameter-item input[type="checkbox"] {
             width: 20px;
             height: 20px;
-            accent-color: #2D6BCF;
+            accent-color: #0b3a5c;
         }
 
         .parameter-item label {
@@ -262,7 +265,7 @@
         .btn-submit {
             width: 100%;
             padding: 16px;
-            background: linear-gradient(135deg, #2D6BCF 0%, #1e4a9e 100%);
+            background: linear-gradient(135deg, #06283f 0%, #0b3a5c 48%, #0d8f7f 100%);
             color: white;
             border: none;
             border-radius: 12px;
@@ -345,7 +348,7 @@
 
         .spinner {
             border: 4px solid #f3f3f3;
-            border-top: 4px solid #2D6BCF;
+            border-top: 4px solid #0b3a5c;
             border-radius: 50%;
             width: 50px;
             height: 50px;
@@ -413,8 +416,8 @@
         }
 
         .flatpickr-day.selected {
-            background: linear-gradient(135deg, #2D6BCF 0%, #1e4a9e 100%) !important;
-            border-color: #2D6BCF !important;
+            background: linear-gradient(135deg, #06283f 0%, #0b3a5c 48%, #0d8f7f 100%) !important;
+            border-color: #0b3a5c !important;
         }
 
         .flatpickr-day:hover {
@@ -445,7 +448,7 @@
 
     @if(isset($backUrl))
     <div style="background: rgba(255, 255, 255, 0.95); padding: 12px 20px; border-radius: 10px; margin-bottom: 15px; margin-top: 20px; display: flex; align-items: center; gap: 8px; font-size: 14px; max-width: 600px; margin-left: auto; margin-right: auto;">
-        <a href="{{ $backUrl }}" style="color: #2D6BCF; text-decoration: none; display: flex; align-items: center; gap: 5px; font-weight: 500;">
+        <a href="{{ $backUrl }}" style="color: #0b3a5c; text-decoration: none; display: flex; align-items: center; gap: 5px; font-weight: 500;">
             <span>←</span>
             <span>Kembali</span>
         </a>
@@ -518,7 +521,7 @@
                                     <button type="button" class="btn-edit-sample"
                                         data-sample-id="{{ $sample->id_samples }}"
                                         onclick="editSample('{{ $sample->id_samples }}')"
-                                        style="background: linear-gradient(135deg, #2D6BCF 0%, #1e4a9e 100%);
+                                        style="background: linear-gradient(135deg, #06283f 0%, #0b3a5c 48%, #0d8f7f 100%);
                                                    color: white; border: none; padding: 8px 16px;
                                                    border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer;">
                                         <i class="fas fa-edit"></i> Edit
@@ -581,7 +584,7 @@
 
                     <div class="col-6" id="code_sample_mikro_wrapper" style="padding: 5px; display: none;">
                         <div
-                            style="background: linear-gradient(135deg, #2D6BCF 0%, #1e4a9e 100%); padding: 15px; border-radius: 10px;">
+                            style="background: linear-gradient(135deg, #06283f 0%, #0b3a5c 48%, #0d8f7f 100%); padding: 15px; border-radius: 10px;">
                             <label style="color: white; font-size: 12px; margin-bottom: 8px; font-weight: 600;">Kode
                                 Sampel Mikrobiologi</label>
                             <input type="text" class="form-control" name="code_sample_mikro"
@@ -711,13 +714,13 @@
                             <label
                                 style="display: flex; align-items: center; cursor: pointer; padding: 12px 15px; background: #f8f9fa; border-radius: 8px; border: 2px solid #e0e0e0; transition: all 0.3s;"
                                 class="petugas-checkbox-label"
-                                onmouseover="this.style.background='#f0f0f0'; this.style.borderColor='#2D6BCF';"
+                                onmouseover="this.style.background='#f0f0f0'; this.style.borderColor='#0b3a5c';"
                                 onmouseout="if(!this.querySelector('input:checked')) { this.style.background='#f8f9fa'; this.style.borderColor='#e0e0e0'; }">
                                 <input type="checkbox" name="petugas_selected[]" value="{{ $petugas['name'] }}"
                                     style="margin-right: 12px; width: 18px; height: 18px; cursor: pointer;"
                                     onchange="updatePetugasCheckboxStyle()">
                                 <span style="font-size: 14px; font-weight: 500; flex: 1;">
-                                    <i class="fas fa-user-md" style="color: #2D6BCF; margin-right: 8px;"></i>
+                                    <i class="fas fa-user-md" style="color: #0b3a5c; margin-right: 8px;"></i>
                                     {{ $petugas['name'] }}
                                     <small style="color: #666; font-weight: normal; margin-left: 8px;">
                                         ({{ $petugas['lab'] }})
@@ -730,7 +733,7 @@
                             <label
                             style="display: flex; align-items: center; cursor: pointer; padding: 12px 15px; background: #f8f9fa; border-radius: 8px; border: 2px solid #e0e0e0; transition: all 0.3s;"
                             class="petugas-checkbox-label"
-                            onmouseover="this.style.background='#f0f0f0'; this.style.borderColor='#2D6BCF';"
+                            onmouseover="this.style.background='#f0f0f0'; this.style.borderColor='#0b3a5c';"
                             onmouseout="if(!this.querySelector('input:checked')) { this.style.background='#f8f9fa'; this.style.borderColor='#e0e0e0'; }">
                             <input type="checkbox" name="petugas_selected[]" value="{{ $petugas_name }}"
                                 style="margin-right: 12px; width: 18px; height: 18px; cursor: pointer;"
@@ -757,7 +760,7 @@
                                         if ($checkbox.is(':checked')) {
                                             $label.css({
                                                 'background': '#e8f0fe',
-                                                'border-color': '#2D6BCF',
+                                                'border-color': '#0b3a5c',
                                                 'border-width': '2px'
                                             });
                                         } else {
@@ -1167,7 +1170,7 @@
                             data-tab="${type.id}" 
                             style="white-space: nowrap; min-width: 120px; padding: 10px 15px;">
                         ${type.code} - ${type.name}
-                        <span class="badge" style="margin-left: 5px; background: white; color: #2D6BCF;" id="count-${type.id}">0</span>
+                        <span class="badge" style="margin-left: 5px; background: white; color: #0b3a5c;" id="count-${type.id}">0</span>
                     </button>
                 `;
 
@@ -1483,9 +1486,9 @@
                                         <span style="color: #666; font-size: 13px;">💰 Biaya Sampling:</span>
                                         <span id="priceSampling-${type.id}" style="font-weight: 600; color: #333;">Rp 0</span>
                                     </div>
-                                    <div style="display: flex; justify-content: space-between; margin-top: 8px; padding-top: 8px; border-top: 2px solid #2D6BCF;">
+                                    <div style="display: flex; justify-content: space-between; margin-top: 8px; padding-top: 8px; border-top: 2px solid #0b3a5c;">
                                         <span style="color: #333; font-size: 14px; font-weight: 600;">📊 Total Biaya:</span>
-                                        <span id="totalBiaya-${type.id}" style="font-weight: 700; color: #2D6BCF; font-size: 16px;">Rp 0</span>
+                                        <span id="totalBiaya-${type.id}" style="font-weight: 700; color: #0b3a5c; font-size: 16px;">Rp 0</span>
                                     </div>
                                 </div>
                             </div>
@@ -1538,7 +1541,7 @@
                             <br><small>Silakan refresh halaman dan coba lagi</small>
                             <br><br>
                             <button type="button" onclick="loadTabPaketAndParameters({id: '${type.id}', code: '${type.code}', name: '${type.name}'})" 
-                                    style="padding: 8px 16px; background: #2D6BCF; color: white; border: none; border-radius: 6px; cursor: pointer;">
+                                    style="padding: 8px 16px; background: #0b3a5c; color: white; border: none; border-radius: 6px; cursor: pointer;">
                                 <i class="fas fa-redo"></i> Coba Lagi
                             </button>
                         </div>
@@ -2217,8 +2220,8 @@
                     let savedNote = savedValues[i] ? savedValues[i].note : '';
 
                     let html = `
-                        <div class="duplicate-item" style="margin-bottom: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #2D6BCF;">
-                            <h4 style="color: #2D6BCF; margin-bottom: 12px; font-size: 15px;">
+                        <div class="duplicate-item" style="margin-bottom: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #0b3a5c;">
+                            <h4 style="color: #0b3a5c; margin-bottom: 12px; font-size: 15px;">
                                 <i class="fas fa-flask"></i> Sample #${i}
                             </h4>
 

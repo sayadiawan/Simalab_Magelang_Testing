@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Nota Draft Kesmas">
-    <meta name="author" content="Labkes Magelang">
+    <meta name="author" content="SIMLAB">
     <title>Nota DRAFT - MAGELANG-KESMAS</title>
     <link rel="shortcut icon" href="favicon.ico">
     <style>
@@ -180,7 +180,7 @@
         <table width="100%" cellspacing="0" cellpadding="0" style="margin-bottom: 2px;">
             <tr>
                 <td style="padding: 0;">
-                    <img src="{{ public_path('assets/admin/images/logo/kop_magelang.png') }}" height="80px"
+                    <img src="{{ public_path('assets/admin/images/logo/kop_magelang_nota.png') }}" height="80px"
                         width="100%" style="display: block;">
                 </td>
             </tr>
@@ -329,7 +329,7 @@
                         Keterangan:
                         <ol>
                             <li>Parameter yang telah didaftarkan untuk pemeriksaan tidak bisa dibatalkan oleh pelanggan</li>
-                            <li>Pelanggan menyetujui semua metode uji yang digunakan di Laboratorium Kab. Magelang</li>
+                            <li>Pelanggan menyetujui semua metode uji yang digunakan di Laboratorium SIMLAB</li>
                             <li><strong style="color: red;">Ini adalah dokumen DRAFT, belum final</strong></li>
                         </ol>
                     </td>
@@ -513,7 +513,7 @@
                     Keterangan:
                     <ol>
                         <li>Parameter yang telah didaftarkan untuk pemeriksaan tidak bisa dibatalkan oleh pelanggan</li>
-                        <li>Pelanggan menyetujui semua metode uji yang digunakan di Laboratorium Kab. Magelang</li>
+                        <li>Pelanggan menyetujui semua metode uji yang digunakan di Laboratorium SIMLAB</li>
                         <li><strong style="color: red;">Ini adalah dokumen DRAFT, belum final</strong></li>
                     </ol>
                 </td>
@@ -684,7 +684,7 @@
                     Keterangan:
                     <ol>
                         <li>Parameter yang telah didaftarkan untuk pemeriksaan tidak bisa dibatalkan oleh pelanggan</li>
-                        <li>Pelanggan menyetujui semua metode uji yang digunakan di Laboratorium Kab. Magelang</li>
+                        <li>Pelanggan menyetujui semua metode uji yang digunakan di Laboratorium SIMLAB</li>
                         <li><strong style="color: red;">Ini adalah dokumen DRAFT, belum final</strong></li>
                     </ol>
                 </td>

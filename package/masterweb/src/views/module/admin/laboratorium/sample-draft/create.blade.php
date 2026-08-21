@@ -328,8 +328,8 @@
         }
 
         #search-parameter:focus {
-            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
-            border-color: #667eea;
+            box-shadow: 0 0 0 0.2rem rgba(11, 58, 92, 0.25);
+            border-color: #0b3a5c;
         }
 
         .pagination-controls {
@@ -378,14 +378,14 @@
         }
 
         #sampleTypeTabs .nav-link.active {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%);
             color: white;
-            border-color: #667eea;
+            border-color: #0b3a5c;
         }
 
         #sampleTypeTabs .nav-link.active .badge {
             background: white !important;
-            color: #667eea !important;
+            color: #0b3a5c !important;
         }
 
         .tab-content {
@@ -469,8 +469,8 @@
         }
 
         .tab-search-box input:focus {
-            border-color: #667eea;
-            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.15);
+            border-color: #0b3a5c;
+            box-shadow: 0 0 0 0.2rem rgba(11, 58, 92, 0.15);
         }
 
         /* Tab Pagination */
@@ -527,7 +527,7 @@
         }
 
         .cart-badge {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%);
             color: white;
             padding: 4px 12px;
             border-radius: 20px;
@@ -557,8 +557,8 @@
         }
 
         .cart-item:hover {
-            border-color: #667eea;
-            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.15);
+            border-color: #0b3a5c;
+            box-shadow: 0 2px 8px rgba(11, 58, 92, 0.15);
         }
 
         .cart-item-packet {
@@ -581,7 +581,7 @@
 
         .cart-item-price {
             font-weight: 700;
-            color: #667eea;
+            color: #0b3a5c;
             font-size: 14px;
         }
 
@@ -608,7 +608,7 @@
         }
 
         .cart-total {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%);
             color: white;
             padding: 15px;
             border-radius: 8px;
@@ -878,7 +878,7 @@
         }
         .sdd-list { list-style: none; margin: 0; padding: 0; max-height: 200px; overflow-y: auto; }
         .sdd-list li { padding: 7px 12px; cursor: pointer; font-size: 13px; }
-        .sdd-list li:hover { background: #f0f4ff; }
+        .sdd-list li:hover { background: #e7f4f2; }
         .sdd-list li[data-value=""] { color: #aaa; font-style: italic; }
     </style>
 @endsection
@@ -1112,7 +1112,7 @@
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"
-                                            style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none;">
+                                            style="background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%); color: white; border: none;">
                                             <i class="fa fa-search"></i>
                                         </span>
                                     </div>
@@ -1224,7 +1224,7 @@
                                         style="background: white; padding: 15px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
                                         <strong style="color: #4a5568;" id="cart-total-label">Total Parameter:</strong>
                                         <span class="badge badge-lg"
-                                            style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 8px 15px; font-size: 14px; border-radius: 8px;"
+                                            style="background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%); color: white; padding: 8px 15px; font-size: 14px; border-radius: 8px;"
                                             id="cart-total-items">0</span>
                                     </div>
 
@@ -1750,7 +1750,7 @@
                     selectedSampleTypes.forEach(function(type) {
                         badgesHtml += `
                             <span class="badge badge-lg" 
-                                style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+                                style="background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%); 
                                        color: white; padding: 10px 15px; border-radius: 8px; font-size: 14px;">
                                 <i class="fa fa-vial"></i> ${type.code} - ${type.name}
                             </span>
@@ -3936,7 +3936,7 @@
 
         // Hover style pada baris picker
         $(document).on('mouseenter', '.mpicker-row', function() {
-            $(this).css('background', '#f0f4ff');
+            $(this).css('background', '#e7f4f2');
         }).on('mouseleave', '.mpicker-row', function() {
             $(this).css('background', '');
         });
@@ -4854,13 +4854,13 @@
                         .additional_methods.length : 0);
 
                     reviewHtml += `
-                        <div class="cart-panel mb-4" style="border: 2px solid ${index === 0 ? '#667eea' : '#e2e8f0'};">
-                            <div class="cart-panel-header" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 10px 10px 0 0;">
+                        <div class="cart-panel mb-4" style="border: 2px solid ${index === 0 ? '#0b3a5c' : '#e2e8f0'};">
+                            <div class="cart-panel-header" style="background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%); color: white; border-radius: 10px 10px 0 0;">
                                 <div class="cart-panel-title" style="color: white;">
                                     <i class="fa fa-vial"></i>
                                     ${type.code} - ${type.name}
                                 </div>
-                                <span class="badge" style="background: white; color: #667eea; font-weight: 700;">
+                                <span class="badge" style="background: white; color: #0b3a5c; font-weight: 700;">
                                     ${totalParams} Parameter
                                 </span>
                             </div>
@@ -4981,7 +4981,7 @@
 
                     // Subtotal for this sample type
                     reviewHtml += `
-                                <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px; border-radius: 8px;">
+                                <div style="background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%); color: white; padding: 15px; border-radius: 8px;">
                                     <div class="d-flex justify-content-between align-items-center">
                                         <span style="font-size: 16px; font-weight: 600;">
                                             <i class="fa fa-calculator"></i> Subtotal
@@ -5044,7 +5044,7 @@
                         <div style="background: #ffffff; padding: 20px; border-radius: 8px; margin-bottom: 15px; border: 2px solid #e2e8f0; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
                             <div class="d-flex justify-content-between mb-3" style="font-size: 16px; color: #2d3748;">
                                 <span style="font-weight: 500;">
-                                    <i class="fa fa-flask" style="color: #667eea; margin-right: 8px;"></i> 
+                                    <i class="fa fa-flask" style="color: #0b3a5c; margin-right: 8px;"></i> 
                                     Total Biaya Pengujian
                                 </span>
                                 <span style="font-weight: 700; color: #1a202c;">Rp ${formatRupiah(totalPengujian)}</span>
@@ -5062,7 +5062,7 @@
                         </div>
                         
                         <!-- Grand Total -->
-                        <div class="cart-total-row" style="font-size: 1.3rem; padding: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 10px; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);">
+                        <div class="cart-total-row" style="font-size: 1.3rem; padding: 20px; background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%); color: white; border-radius: 10px; box-shadow: 0 4px 15px rgba(11, 58, 92, 0.4);">
                             <span class="cart-total-label" style="color: white; font-weight: 600;">
                                 <i class="fa fa-money-bill-wave"></i> TOTAL KESELURUHAN
                             </span>

@@ -390,7 +390,7 @@
     <div class="modal fade" id="modal-tambah-param" tabindex="-1" role="dialog" aria-labelledby="modal-tambah-param-label" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
-                <div class="modal-header" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+                <div class="modal-header" style="background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%); color: white;">
                     <h5 class="modal-title" id="modal-tambah-param-title">
                         <i class="fa fa-plus-circle mr-2"></i>Tambah Parameter Baru
                     </h5>
@@ -403,7 +403,7 @@
                     <div class="d-flex" style="border-bottom: 1px solid #e2e8f0; background: #f8f9fa;">
                         <div id="modal-param-step-indicator-1" class="flex-1 text-center py-3 active"
                             style="flex:1; border-right:1px solid #e2e8f0; font-size:13px;">
-                            <span class="step-num" style="display:inline-block; width:24px; height:24px; border-radius:50%; background:#667eea; color:white; line-height:24px; font-weight:700; margin-right:6px;">1</span>
+                            <span class="step-num" style="display:inline-block; width:24px; height:24px; border-radius:50%; background:#0b3a5c; color:white; line-height:24px; font-weight:700; margin-right:6px;">1</span>
                             <strong>Detail Parameter</strong>
                         </div>
                         <div id="modal-param-step-indicator-2" class="flex-1 text-center py-3 text-muted"

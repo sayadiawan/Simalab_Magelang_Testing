@@ -63,7 +63,7 @@
         .dataTables_wrapper #empTable.dataTable thead th.sorting,
         .dataTables_wrapper #empTable.dataTable thead th.sorting_asc,
         .dataTables_wrapper #empTable.dataTable thead th.sorting_desc {
-            background-color: #2D6BCF !important;
+            background-color: #0b3a5c !important;
             color: #fff !important;
             font-weight: 600;
             border: none;
@@ -139,7 +139,7 @@
 
         #empTable .dropdown-item:hover {
             background-color: #f8f9fa;
-            color: #2D6BCF;
+            color: #0b3a5c;
         }
 
         #empTable .dropdown-item i {
@@ -210,13 +210,13 @@
         }
 
         .tab-filter-item:hover {
-            color: #2D6BCF;
+            color: #0b3a5c;
             background-color: #f8f9fa;
         }
 
         .tab-filter-item.active {
-            color: #2D6BCF;
-            border-bottom-color: #2D6BCF;
+            color: #0b3a5c;
+            border-bottom-color: #0b3a5c;
             background-color: #f8f9fa;
         }
 
@@ -236,7 +236,7 @@
         }
 
         .tab-filter-item.active .badge {
-            background-color: #2D6BCF;
+            background-color: #0b3a5c;
         }
 
         /* Responsive adjustments */

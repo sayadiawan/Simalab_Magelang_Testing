@@ -356,7 +356,7 @@
 
     <table width="100%" cellspacing="0" cellpadding="0" style="margin-top: 20px">
         <tr>
-            <td style="text-align: right">Magelang, {{ fdate_sas(date('Y-m-d'), 'DDMMYYYY') }}</td>
+            <td style="text-align: right">—, {{ fdate_sas(date('Y-m-d'), 'DDMMYYYY') }}</td>
         </tr>
     </table>
 

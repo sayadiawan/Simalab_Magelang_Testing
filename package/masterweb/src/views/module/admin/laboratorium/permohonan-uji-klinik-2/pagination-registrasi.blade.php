@@ -49,7 +49,7 @@
         }
 
         #modal-payment .modal-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%);
             color: white;
             border-radius: 15px 15px 0 0;
             padding: 25px 30px;
@@ -118,7 +118,7 @@
 
         .payment-field-label i {
             margin-right: 8px;
-            color: #667eea;
+            color: #0b3a5c;
             font-size: 16px;
         }
 
@@ -153,13 +153,13 @@
         }
 
         .payment-total-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%);
             border-radius: 12px;
             padding: 25px;
             margin-bottom: 20px;
             color: white;
             text-align: center;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 4px 15px rgba(11, 58, 92, 0.3);
         }
 
         .payment-total-label {
@@ -190,7 +190,7 @@
             padding: 20px;
             margin-bottom: 20px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-            border: 2px solid #667eea;
+            border: 2px solid #0b3a5c;
         }
 
         .payment-input-field {
@@ -209,9 +209,9 @@
         }
 
         .payment-input-field input:focus {
-            border-color: #667eea;
+            border-color: #0b3a5c;
             outline: none;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            box-shadow: 0 0 0 3px rgba(11, 58, 92, 0.1);
         }
 
         .payment-input-prefix {
@@ -280,9 +280,9 @@
             min-width: 80px;
             padding: 10px 15px;
             background: white;
-            border: 2px solid #667eea;
+            border: 2px solid #0b3a5c;
             border-radius: 8px;
-            color: #667eea;
+            color: #0b3a5c;
             font-weight: 600;
             font-size: 13px;
             cursor: pointer;
@@ -290,13 +290,13 @@
         }
 
         .quick-amount-btn:hover {
-            background: #667eea;
+            background: #0b3a5c;
             color: white;
             transform: translateY(-2px);
         }
 
         .quick-amount-btn.exact {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%);
             color: white;
             border: none;
         }
@@ -331,13 +331,13 @@
         }
 
         #modal-payment .modal-footer .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%);
             border: none;
         }
 
         #modal-payment .modal-footer .btn-primary:hover {
             transform: translateY(-1px);
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 4px 15px rgba(11, 58, 92, 0.4);
         }
 
         #modal-payment .modal-footer .btn-primary:disabled {
@@ -413,7 +413,7 @@
         .dataTables_wrapper #empTable.dataTable thead th.sorting,
         .dataTables_wrapper #empTable.dataTable thead th.sorting_asc,
         .dataTables_wrapper #empTable.dataTable thead th.sorting_desc {
-            background-color: #2D6BCF !important;
+            background-color: #0b3a5c !important;
             color: #fff !important;
             font-weight: 600;
             border: none;
@@ -730,7 +730,7 @@
         #empTable .dropdown-item:hover,
         .dropdown-menu.emp-table-action-menu .dropdown-item:hover {
             background-color: #f8f9fa;
-            color: #2D6BCF;
+            color: #0b3a5c;
         }
 
         #empTable .dropdown-item i,
@@ -1126,7 +1126,7 @@
 
                     <!-- Payment Summary Card -->
                     <div class="card mb-3"
-                        style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+                        style="background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%); color: white;">
                         <div class="card-body">
                             <div class="row text-center">
                                 <div class="col-md-6 border-right border-light">

@@ -2,6 +2,9 @@
 <html lang="id">
 
 <head>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('assets/mobile/css/simlab-mobile-theme.css') }}?v={{ @filemtime(public_path('assets/mobile/css/simlab-mobile-theme.css')) ?: time() }}">
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -19,7 +22,7 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: linear-gradient(135deg, #2D6BCF 0%, #1e4a9e 100%);
+            background: linear-gradient(135deg, #06283f 0%, #0b3a5c 48%, #0d8f7f 100%);
             min-height: 100vh;
             padding: 20px;
             padding-bottom: 100px;
@@ -43,7 +46,7 @@
         .top-bar h1 {
             font-size: 18px;
             font-weight: 600;
-            color: #2D6BCF;
+            color: #0b3a5c;
         }
 
         .card {
@@ -57,7 +60,7 @@
         .section-title {
             font-size: 16px;
             font-weight: 600;
-            color: #2D6BCF;
+            color: #0b3a5c;
             margin-bottom: 15px;
             display: flex;
             align-items: center;
@@ -86,7 +89,7 @@
 
         .form-control:focus {
             outline: none;
-            border-color: #2D6BCF;
+            border-color: #0b3a5c;
         }
 
         .signature-canvas-container {
@@ -162,9 +165,9 @@
         }
 
         .btn-method.active {
-            background: #2D6BCF !important;
+            background: #0b3a5c !important;
             color: white !important;
-            border-color: #2D6BCF !important;
+            border-color: #0b3a5c !important;
         }
 
         .btn-method:not(.active) {
@@ -179,7 +182,7 @@
     <div class="container">
         @if(isset($backUrl))
         <div style="background: rgba(255, 255, 255, 0.95); padding: 12px 20px; border-radius: 10px; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; font-size: 14px;">
-            <a href="{{ $backUrl }}" style="color: #2D6BCF; text-decoration: none; display: flex; align-items: center; gap: 5px; font-weight: 500;">
+            <a href="{{ $backUrl }}" style="color: #0b3a5c; text-decoration: none; display: flex; align-items: center; gap: 5px; font-weight: 500;">
                 <span>←</span>
                 <span>Kembali</span>
             </a>
@@ -209,7 +212,7 @@
 
             @if ($is_customer_data_from_session)
                 {{-- Jika data sudah diinput di draft-list, tampilkan sebagai readonly dengan info --}}
-                <div class="alert alert-info" style="margin-bottom: 15px; padding: 12px; border-radius: 8px; background-color: #e7f3ff; border-left: 4px solid #2D6BCF;">
+                <div class="alert alert-info" style="margin-bottom: 15px; padding: 12px; border-radius: 8px; background-color: #e7f3ff; border-left: 4px solid #0b3a5c;">
                     <i class="fas fa-info-circle"></i> <strong>Data pelanggan sudah diinput sebelumnya</strong>
                 </div>
             @endif
@@ -245,7 +248,7 @@
                 <div style="display: flex; gap: 10px; margin-bottom: 15px;">
                     <button type="button" id="btnCanvasPelanggan" class="btn-method active"
                         onclick="switchMethodPelanggan('canvas')"
-                        style="flex: 1; padding: 10px; border: 2px solid #2D6BCF; border-radius: 8px; background: #2D6BCF; color: white; font-weight: 600; cursor: pointer;">
+                        style="flex: 1; padding: 10px; border: 2px solid #0b3a5c; border-radius: 8px; background: #0b3a5c; color: white; font-weight: 600; cursor: pointer;">
                         ✍️ Tulis Manual
                     </button>
                     <button type="button" id="btnUploadPelanggan" class="btn-method"
@@ -272,7 +275,7 @@
                     <input type="file" id="fileUploadPelanggan" accept="image/*" style="display: none;"
                         onchange="handleFileUploadPelanggan(event)">
                     <button type="button" onclick="document.getElementById('fileUploadPelanggan').click()"
-                        style="width: 100%; padding: 12px; border: 2px dashed #2D6BCF; border-radius: 8px; background: #f8f9ff; color: #2D6BCF; font-weight: 600; cursor: pointer;">
+                        style="width: 100%; padding: 12px; border: 2px dashed #0b3a5c; border-radius: 8px; background: #f8f9ff; color: #0b3a5c; font-weight: 600; cursor: pointer;">
                         📤 Pilih File Gambar
                     </button>
                 </div>
