@@ -1306,7 +1306,7 @@
     <header class="topbar">
         <div class="topbar-inner">
             <a href="{{ url('') }}" class="brand">
-                <img src="{{ asset('/assets/public/images/logo_magelang.png') }}" alt="Logo SIMLAB">
+                <img src="{{ asset('/assets/public/images/logo_magelang_mini.png') }}" alt="Logo SIMLAB">
                 <span class="brand-text">
                     <strong>SIMLAB</strong>
                     <small>Lingkungan pengujian</small>

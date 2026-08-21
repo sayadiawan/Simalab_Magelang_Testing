@@ -259,7 +259,8 @@
         }
 
         .form-logo img {
-            width: 88px;
+            width: 220px;
+            max-width: 100%;
             height: auto;
             display: block;
         }
@@ -581,7 +582,7 @@
 
             <div class="brand-top reveal">
                 <a class="brand-home" href="{{ url('/') }}">
-                    <img src="{{ asset('/assets/public/images/logo_magelang.png') }}" alt="">
+                    <img src="{{ asset('/assets/public/images/logo_magelang_mini.png') }}" alt="">
                     <span>SIMLAB</span>
                 </a>
             </div>

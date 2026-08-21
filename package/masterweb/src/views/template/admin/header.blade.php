@@ -437,14 +437,14 @@
 <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row navbar-info default-layout-navbar">
     <div class="text-start navbar-brand-wrapper d-flex align-items-center justify-content-center">
         <a class="navbar-brand brand-logo" href="{{ url('') }}" target="_blank">
-            <img src="{{ asset('/assets/public/images/logo_magelang.png') }}" style="width:40px; margin-right: 16px; margin-left: 16px;" alt="Logo SIMLAB" />
+            <img src="{{ asset('/assets/public/images/logo_magelang_mini.png') }}" style="width:42px; height:auto; margin-right: 14px; margin-left: 14px;" alt="Logo SIMLAB" />
         </a>
         <div class="brand-text d-none d-lg-block">
             <p>SIMLAB</p>
             <small>Lingkungan pengujian</small>
         </div>
         <a class="navbar-brand brand-logo-mini" href="{{ url('') }}" target="_blank" style="display: none;">
-            <img src="{{ asset('/assets/public/images/logo_magelang.png') }}" style="width:40px;" alt="Logo SIMLAB" />
+            <img src="{{ asset('/assets/public/images/logo_magelang_mini.png') }}" style="width:40px; height:auto;" alt="Logo SIMLAB" />
         </a>
     </div>
     <div class="navbar-menu-wrapper d-flex align-items-stretch">

@@ -186,7 +186,7 @@
 <body>
     <div class="container">
         <div class="header">
-            <img src="{{ asset('/assets/public/images/logo_magelang.png') }}" alt="Logo Magelang" style="max-width: 100px; height: auto; margin-bottom: 15px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
+            <img src="{{ asset('/assets/public/images/logo_magelang_mini.png') }}" alt="Logo Magelang" style="max-width: 100px; height: auto; margin-bottom: 15px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
             <div class="header-icon">
                 🏥
             </div>

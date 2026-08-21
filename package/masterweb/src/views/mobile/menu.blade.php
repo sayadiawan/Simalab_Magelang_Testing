@@ -41,7 +41,7 @@
         }
 
         .header img {
-            max-width: 108px;
+            max-width: 220px;
             height: auto;
             margin-bottom: 14px;
             filter: drop-shadow(0 8px 16px rgba(0,0,0,0.22));
