@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
+use Smt\Masterweb\Helpers\BakuMutuPermohonanKlinikHelper;
 use Smt\Masterweb\Models\PermohonanUjiParameterKlinik;
 use Smt\Masterweb\Models\Wilayah;
 use Smt\Masterweb\Models\BakuMutu;
@@ -19,8 +20,11 @@ class DokterDashboardController extends Controller
     /** @var array|null In-request baku mutu lookup by id_baku_mutu */
     private $bakuMutuById = null;
 
-    /** @var array param|jenis => list BakuMutu (untuk fallback umur/haji) */
+    /** @var array param|jenis => list BakuMutu (untuk fallback gender/umur/haji) */
     private $bakuMutuByParamJenis = [];
+
+    /** @var bool|null apakah kolom snapshot baku mutu ada di tabel hasil */
+    private $hasBakuMutuSnapshotColumns = null;
 
     /** @var array parameter_satuan_id => 'id'|'en' */
     private $parameterFormatMap = [];
@@ -33,6 +37,15 @@ class DokterDashboardController extends Controller
 
     /** @var array Cache resolve alamat => wilayah */
     private $alamatWilayahCache = [];
+
+    /** @var string|null Filter gender: L | P | null (semua) */
+    private $filterGender = null;
+
+    /** @var int|null Usia minimum (tahun) */
+    private $filterUmurMin = null;
+
+    /** @var int|null Usia maksimum (tahun) */
+    private $filterUmurMax = null;
 
     public function __construct()
     {
@@ -56,6 +69,23 @@ class DokterDashboardController extends Controller
         }
         $tipeParameter = $request->get('tipe_parameter', 'satuan');
         $viewType = $request->get('view_type', 'both');
+
+        $genderInput = strtoupper(trim((string) $request->get('gender', '')));
+        $this->filterGender = in_array($genderInput, ['L', 'P'], true) ? $genderInput : null;
+
+        $umurMinRaw = $request->get('umur_min', '');
+        $umurMaxRaw = $request->get('umur_max', '');
+        $this->filterUmurMin = ($umurMinRaw !== '' && $umurMinRaw !== null && is_numeric($umurMinRaw))
+            ? max(0, (int) $umurMinRaw)
+            : null;
+        $this->filterUmurMax = ($umurMaxRaw !== '' && $umurMaxRaw !== null && is_numeric($umurMaxRaw))
+            ? max(0, (int) $umurMaxRaw)
+            : null;
+        if ($this->filterUmurMin !== null && $this->filterUmurMax !== null && $this->filterUmurMin > $this->filterUmurMax) {
+            $tmp = $this->filterUmurMin;
+            $this->filterUmurMin = $this->filterUmurMax;
+            $this->filterUmurMax = $tmp;
+        }
 
         $wilayahOptions = $this->getWilayahOptions($tipeWilayah);
 
@@ -81,6 +111,10 @@ class DokterDashboardController extends Controller
             $scatterData = $this->getScatterData($latestPermohonanIds, $parameterIds, $tipeParameter);
         }
 
+        $filterGender = $this->filterGender;
+        $filterUmurMin = $this->filterUmurMin;
+        $filterUmurMax = $this->filterUmurMax;
+
         return view('masterweb::module.dokter.dashboard', compact(
             'tipeWilayah',
             'wilayahId',
@@ -94,7 +128,10 @@ class DokterDashboardController extends Controller
             'tipeParameter',
             'parameterSatuans',
             'parameterPakets',
-            'viewType'
+            'viewType',
+            'filterGender',
+            'filterUmurMin',
+            'filterUmurMax'
         ));
     }
 
@@ -454,6 +491,29 @@ class DokterDashboardController extends Controller
     }
 
     /**
+     * Filter hasil berdasarkan jenis kelamin dan/atau rentang usia pasien.
+     */
+    private function applyPasienDemografiFilter($query)
+    {
+        if ($this->filterGender === 'L') {
+            $query->whereRaw("UPPER(TRIM(COALESCE(ms_pasien.gender_pasien, ''))) IN ('L', 'M', 'MALE')");
+        } elseif ($this->filterGender === 'P') {
+            $query->whereRaw("UPPER(TRIM(COALESCE(ms_pasien.gender_pasien, ''))) IN ('P', 'F', 'FEMALE')");
+        }
+
+        $ageExpr = 'TIMESTAMPDIFF(YEAR, ms_pasien.tgllahir_pasien, COALESCE(tb_permohonan_uji_klinik_2.tglpengujian_permohonan_uji_klinik, tb_permohonan_uji_klinik_2.created_at))';
+
+        if ($this->filterUmurMin !== null) {
+            $query->whereRaw($ageExpr . ' >= ?', [$this->filterUmurMin]);
+        }
+        if ($this->filterUmurMax !== null) {
+            $query->whereRaw($ageExpr . ' <= ?', [$this->filterUmurMax]);
+        }
+
+        return $query;
+    }
+
+    /**
      * Preload baku mutu + number_format parameter sekali per request.
      */
     private function warmBakuMutuCache()
@@ -617,8 +677,9 @@ class DokterDashboardController extends Controller
             ->whereNull('tb_permohonan_uji_klinik_2.deleted_at');
 
         $query = $this->applyParameterFilter($query, $parameterIds ?: [], $tipeParameter);
+        $query = $this->applyPasienDemografiFilter($query);
 
-        $results = $query->select(
+        $results = $query->select(array_merge([
             'tb_permohonan_uji_parameter_klinik.hasil_permohonan_uji_parameter_klinik',
             'tb_permohonan_uji_parameter_klinik.parameter_satuan_klinik',
             'tb_permohonan_uji_parameter_klinik.jenis_parameter_klinik_id',
@@ -628,8 +689,8 @@ class DokterDashboardController extends Controller
             'ms_pasien.tgllahir_pasien',
             'ms_parameter_satuan_klinik.name_parameter_satuan_klinik',
             'ms_parameter_satuan_klinik.number_format',
-            DB::raw('TIMESTAMPDIFF(YEAR, ms_pasien.tgllahir_pasien, COALESCE(tb_permohonan_uji_klinik_2.tglpengujian_permohonan_uji_klinik, tb_permohonan_uji_klinik_2.created_at)) as umur_tahun')
-        )->get();
+            DB::raw('TIMESTAMPDIFF(YEAR, ms_pasien.tgllahir_pasien, COALESCE(tb_permohonan_uji_klinik_2.tglpengujian_permohonan_uji_klinik, tb_permohonan_uji_klinik_2.created_at)) as umur_tahun'),
+        ], $this->bakuMutuSelectExtras()))->get();
 
         $totalSamples = $results->unique('pasien_permohonan_uji_klinik')->count();
 
@@ -730,9 +791,32 @@ class DokterDashboardController extends Controller
     }
 
     /**
+     * Kolom tambahan untuk pemutusan baku mutu (gender + snapshot bila ada).
+     */
+    private function bakuMutuSelectExtras()
+    {
+        $cols = [
+            'ms_pasien.gender_pasien',
+        ];
+
+        if ($this->hasBakuMutuSnapshotColumns === null) {
+            $this->hasBakuMutuSnapshotColumns = BakuMutuPermohonanKlinikHelper::hasSnapshotColumns();
+        }
+
+        if ($this->hasBakuMutuSnapshotColumns) {
+            $cols[] = 'tb_permohonan_uji_parameter_klinik.min_baku_mutu_permohonan_uji_parameter_klinik';
+            $cols[] = 'tb_permohonan_uji_parameter_klinik.max_baku_mutu_permohonan_uji_parameter_klinik';
+            $cols[] = 'tb_permohonan_uji_parameter_klinik.equal_baku_mutu_permohonan_uji_parameter_klinik';
+        }
+
+        return $cols;
+    }
+
+    /**
      * Ambil baku mutu yang benar untuk 1 hasil:
-     * 1) ID baku mutu tersimpan di baris hasil (sama seperti layar analis)
-     * 2) Fallback: cocokkan umur / haji / non-khusus
+     * 1) Snapshot min/max/equal di baris hasil (sudah sesuai gender/umur saat input)
+     * 2) ID baku mutu tersimpan di baris hasil
+     * 3) Fallback: cocokkan gender + umur + haji (sama seperti BakuMutuPermohonanKlinikHelper)
      */
     private function resolveBakuMutuForResult($parameterKlinik)
     {
@@ -740,67 +824,132 @@ class DokterDashboardController extends Controller
 
         $parameterSatuanKlinikId = is_object($parameterKlinik) ? $parameterKlinik->parameter_satuan_klinik : ($parameterKlinik['parameter_satuan_klinik'] ?? null);
         $jenisParameterKlinikId = is_object($parameterKlinik) ? $parameterKlinik->jenis_parameter_klinik_id : ($parameterKlinik['jenis_parameter_klinik_id'] ?? null);
+
+        // Snapshot di hasil sudah diputus saat analisa (gender/umur benar)
+        $snapshot = $this->resolveBakuMutuFromSnapshot($parameterKlinik);
+        if ($snapshot !== null) {
+            return $snapshot;
+        }
+
         $storedBmId = is_object($parameterKlinik)
             ? ($parameterKlinik->baku_mutu_permohonan_uji_parameter_klinik ?? null)
             : ($parameterKlinik['baku_mutu_permohonan_uji_parameter_klinik'] ?? null);
 
+        $umur = is_object($parameterKlinik) ? ($parameterKlinik->umur_tahun ?? null) : ($parameterKlinik['umur_tahun'] ?? null);
+        $isHaji = is_object($parameterKlinik) ? (int) ($parameterKlinik->is_haji ?? 0) : (int) ($parameterKlinik['is_haji'] ?? 0);
+        $genderRaw = is_object($parameterKlinik)
+            ? ($parameterKlinik->gender_pasien ?? null)
+            : ($parameterKlinik['gender_pasien'] ?? null);
+        $gender = BakuMutuPermohonanKlinikHelper::normalizePasienGender($genderRaw);
+
         if (is_string($storedBmId) && preg_match('/^[0-9a-f\-]{36}$/i', $storedBmId) && isset($this->bakuMutuById[$storedBmId])) {
-            return $this->bakuMutuById[$storedBmId];
+            $stored = $this->bakuMutuById[$storedBmId];
+            if ($this->bakuMutuMatchesPasien($stored, $gender, $umur)) {
+                return $stored;
+            }
+            // BM tersimpan tidak cocok gender/umur → resolve ulang di bawah
         }
 
-        $key = $parameterSatuanKlinikId . '|' . $jenisParameterKlinikId;
-        $candidates = $this->bakuMutuByParamJenis[$key] ?? [];
-        if (empty($candidates)) {
+        if (!$parameterSatuanKlinikId || !$jenisParameterKlinikId) {
             return null;
         }
 
-        $umur = is_object($parameterKlinik) ? ($parameterKlinik->umur_tahun ?? null) : ($parameterKlinik['umur_tahun'] ?? null);
-        $isHaji = is_object($parameterKlinik) ? (int) ($parameterKlinik->is_haji ?? 0) : (int) ($parameterKlinik['is_haji'] ?? 0);
-
-        $matched = [];
-        foreach ($candidates as $bm) {
-            if ((int) ($bm->is_haji ?? 0) === 1 && $isHaji !== 1) {
-                continue;
-            }
-            if ((int) ($bm->is_haji ?? 0) !== 1 && $isHaji === 1) {
-                // boleh tetap dipakai sebagai fallback non-haji, tapi prioritaskan haji nanti
-            }
-
-            if ((int) ($bm->is_khusus_baku_mutu ?? 0) === 1 && $umur !== null && $umur !== '') {
-                $minAge = $bm->minimal_umur_baku_mutu;
-                $maxAge = $bm->maksimal_umur_baku_mutu;
-                if ($minAge !== null && $maxAge !== null) {
-                    if ((float) $umur < (float) $minAge || (float) $umur > (float) $maxAge) {
-                        continue;
-                    }
-                }
-            }
-            $matched[] = $bm;
+        $key = $parameterSatuanKlinikId . '|' . $jenisParameterKlinikId;
+        $candidates = collect($this->bakuMutuByParamJenis[$key] ?? []);
+        if ($candidates->isEmpty()) {
+            return null;
         }
 
-        if (empty($matched)) {
-            $matched = $candidates;
-        }
-
-        // Prioritas: is_haji cocok, lalu non-khusus (umum), lalu yang punya min/max
-        usort($matched, function ($a, $b) use ($isHaji) {
-            $score = function ($bm) use ($isHaji) {
-                $s = 0;
-                if ((int) ($bm->is_haji ?? 0) === $isHaji) {
-                    $s += 10;
-                }
-                if ((int) ($bm->is_khusus_baku_mutu ?? 0) === 0) {
-                    $s += 5;
-                }
-                if ($bm->min !== null && $bm->max !== null) {
-                    $s += 2;
-                }
-                return $s;
-            };
-            return $score($b) <=> $score($a);
+        // Filter haji dulu, lalu pakai helper gender+umur yang sama dengan layar analis
+        $byHaji = $candidates->filter(function ($bm) use ($isHaji) {
+            return (int) ($bm->is_haji ?? 0) === $isHaji;
         });
+        if ($byHaji->isEmpty()) {
+            $byHaji = $candidates;
+        }
 
-        return $matched[0] ?? null;
+        $matched = BakuMutuPermohonanKlinikHelper::resolveForPasien($byHaji, $gender, $umur);
+        if ($matched) {
+            return $matched;
+        }
+
+        return BakuMutuPermohonanKlinikHelper::matchByGenderFallback($byHaji, $gender);
+    }
+
+    /**
+     * Apakah baris baku mutu cocok dengan gender/umur/haji pasien.
+     */
+    private function bakuMutuMatchesPasien($bm, $gender, $umur)
+    {
+        if ($bm === null) {
+            return false;
+        }
+
+        $bmGender = $bm->gender_baku_mutu ?? null;
+        if ($bmGender !== null && $bmGender !== '' && $gender !== null && $bmGender !== $gender) {
+            return false;
+        }
+
+        if ((int) ($bm->is_khusus_baku_mutu ?? 0) === 1 && $umur !== null && $umur !== '') {
+            $minAge = $bm->minimal_umur_baku_mutu;
+            $maxAge = $bm->maksimal_umur_baku_mutu;
+            if ($minAge !== null && $maxAge !== null) {
+                if ((float) $umur < (float) $minAge || (float) $umur > (float) $maxAge) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Bangun objek baku mutu dari snapshot kolom di hasil (jika ada & terisi).
+     */
+    private function resolveBakuMutuFromSnapshot($parameterKlinik)
+    {
+        if ($this->hasBakuMutuSnapshotColumns === null) {
+            $this->hasBakuMutuSnapshotColumns = BakuMutuPermohonanKlinikHelper::hasSnapshotColumns();
+        }
+        if (!$this->hasBakuMutuSnapshotColumns) {
+            return null;
+        }
+
+        $min = is_object($parameterKlinik)
+            ? ($parameterKlinik->min_baku_mutu_permohonan_uji_parameter_klinik ?? null)
+            : ($parameterKlinik['min_baku_mutu_permohonan_uji_parameter_klinik'] ?? null);
+        $max = is_object($parameterKlinik)
+            ? ($parameterKlinik->max_baku_mutu_permohonan_uji_parameter_klinik ?? null)
+            : ($parameterKlinik['max_baku_mutu_permohonan_uji_parameter_klinik'] ?? null);
+        $equal = is_object($parameterKlinik)
+            ? ($parameterKlinik->equal_baku_mutu_permohonan_uji_parameter_klinik ?? null)
+            : ($parameterKlinik['equal_baku_mutu_permohonan_uji_parameter_klinik'] ?? null);
+
+        $hasMin = $min !== null && $min !== '';
+        $hasMax = $max !== null && $max !== '';
+        $hasEqual = $equal !== null && $equal !== '' && $equal != '0';
+
+        // Snapshot multi-range (koma) tidak dipakai di sini — biarkan resolve master
+        if ($hasMin && strpos((string) $min, ',') !== false) {
+            return null;
+        }
+        if ($hasMax && strpos((string) $max, ',') !== false) {
+            return null;
+        }
+        if ($hasEqual && strpos((string) $equal, ',') !== false) {
+            return null;
+        }
+
+        if (!$hasMin && !$hasMax && !$hasEqual) {
+            return null;
+        }
+
+        return (object) [
+            'min' => $hasMin ? $min : null,
+            'max' => $hasMax ? $max : null,
+            'equal' => $hasEqual ? $equal : null,
+            'from_snapshot' => true,
+        ];
     }
 
     /**
@@ -835,13 +984,28 @@ class DokterDashboardController extends Controller
             }
         }
 
-        if ($bakuMutu->min !== null && $bakuMutu->max !== null) {
-            $min = (float) $bakuMutu->min;
-            $max = (float) $bakuMutu->max;
-            if ($hasilNumeric < $min) {
+        $hasMin = $bakuMutu->min !== null && $bakuMutu->min !== '';
+        $hasMax = $bakuMutu->max !== null && $bakuMutu->max !== '';
+
+        if ($hasMin && $hasMax) {
+            $min = $this->parseNumericValue($bakuMutu->min, $format);
+            $max = $this->parseNumericValue($bakuMutu->max, $format);
+            if ($min !== null && $max !== null) {
+                if ($hasilNumeric < $min) {
+                    return 'below';
+                }
+                if ($hasilNumeric > $max) {
+                    return 'above';
+                }
+            }
+        } elseif ($hasMin) {
+            $min = $this->parseNumericValue($bakuMutu->min, $format);
+            if ($min !== null && $hasilNumeric < $min) {
                 return 'below';
             }
-            if ($hasilNumeric > $max) {
+        } elseif ($hasMax) {
+            $max = $this->parseNumericValue($bakuMutu->max, $format);
+            if ($max !== null && $hasilNumeric > $max) {
                 return 'above';
             }
         }
@@ -880,8 +1044,9 @@ class DokterDashboardController extends Controller
             ->whereNull('tb_permohonan_uji_klinik_2.deleted_at');
 
         $query = $this->applyParameterFilter($query, $parameterIds ?: [], $tipeParameter);
+        $query = $this->applyPasienDemografiFilter($query);
 
-        $rows = $query->select(
+        $rows = $query->select(array_merge([
             'ms_pasien.wilayah_id as pasien_wilayah_id',
             'ms_pasien.alamat_pasien',
             'ms_wilayah.id_wilayah',
@@ -896,8 +1061,8 @@ class DokterDashboardController extends Controller
             'tb_permohonan_uji_parameter_klinik.jenis_parameter_klinik_id',
             'tb_permohonan_uji_parameter_klinik.baku_mutu_permohonan_uji_parameter_klinik',
             'ms_parameter_satuan_klinik.name_parameter_satuan_klinik',
-            DB::raw('TIMESTAMPDIFF(YEAR, ms_pasien.tgllahir_pasien, COALESCE(tb_permohonan_uji_klinik_2.tglpengujian_permohonan_uji_klinik, tb_permohonan_uji_klinik_2.created_at)) as umur_tahun')
-        )->get();
+            DB::raw('TIMESTAMPDIFF(YEAR, ms_pasien.tgllahir_pasien, COALESCE(tb_permohonan_uji_klinik_2.tglpengujian_permohonan_uji_klinik, tb_permohonan_uji_klinik_2.created_at)) as umur_tahun'),
+        ], $this->bakuMutuSelectExtras()))->get();
 
         $byWilayah = [];
         foreach ($rows as $row) {
@@ -1170,16 +1335,17 @@ class DokterDashboardController extends Controller
             ->whereNull('tb_permohonan_uji_klinik_2.deleted_at');
 
         $query = $this->applyParameterFilter($query, $parameterIds ?: [], $tipeParameter);
+        $query = $this->applyPasienDemografiFilter($query);
 
-        $results = $query->select(
+        $results = $query->select(array_merge([
             'tb_permohonan_uji_parameter_klinik.hasil_permohonan_uji_parameter_klinik',
             'ms_parameter_satuan_klinik.name_parameter_satuan_klinik',
             'tb_permohonan_uji_parameter_klinik.parameter_satuan_klinik',
             'tb_permohonan_uji_parameter_klinik.jenis_parameter_klinik_id',
             'tb_permohonan_uji_parameter_klinik.baku_mutu_permohonan_uji_parameter_klinik',
             'tb_permohonan_uji_klinik_2.is_haji',
-            DB::raw('TIMESTAMPDIFF(YEAR, ms_pasien.tgllahir_pasien, COALESCE(tb_permohonan_uji_klinik_2.tglpengujian_permohonan_uji_klinik, tb_permohonan_uji_klinik_2.created_at)) as umur_tahun')
-        )->get();
+            DB::raw('TIMESTAMPDIFF(YEAR, ms_pasien.tgllahir_pasien, COALESCE(tb_permohonan_uji_klinik_2.tglpengujian_permohonan_uji_klinik, tb_permohonan_uji_klinik_2.created_at)) as umur_tahun'),
+        ], $this->bakuMutuSelectExtras()))->get();
 
         $parameterGroups = [];
         foreach ($results as $result) {
@@ -1197,7 +1363,7 @@ class DokterDashboardController extends Controller
                 ];
             }
 
-            // Sama seperti statistik: baku mutu tersimpan di hasil, fallback umur/haji
+            // Sama seperti statistik: snapshot / BM tersimpan, fallback gender+umur+haji
             $status = $this->classifyVsBakuMutu($result);
             if ($status === 'below') {
                 $parameterGroups[$parameterName]['below_count']++;

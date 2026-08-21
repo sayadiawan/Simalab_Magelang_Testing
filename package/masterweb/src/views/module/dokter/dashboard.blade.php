@@ -416,11 +416,30 @@
                                 @endfor
                             </select>
                         </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-3">
+                            <label for="gender">Jenis Kelamin:</label>
+                            <select name="gender" id="gender" class="form-control">
+                                <option value="" {{ empty($filterGender) ? 'selected' : '' }}>Semua</option>
+                                <option value="L" {{ ($filterGender ?? null) === 'L' ? 'selected' : '' }}>Laki-laki</option>
+                                <option value="P" {{ ($filterGender ?? null) === 'P' ? 'selected' : '' }}>Perempuan</option>
+                            </select>
+                        </div>
                         <div class="col-md-2">
-                            <label>&nbsp;</label>
-                            <button type="submit" class="btn btn-primary btn-block">
-                                <i class="mdi mdi-filter"></i> Filter
-                            </button>
+                            <label for="umur_min">Usia dari (th):</label>
+                            <input type="number" name="umur_min" id="umur_min" class="form-control" min="0" max="150"
+                                placeholder="Min" value="{{ $filterUmurMin !== null ? $filterUmurMin : '' }}">
+                        </div>
+                        <div class="col-md-2">
+                            <label for="umur_max">Usia sampai (th):</label>
+                            <input type="number" name="umur_max" id="umur_max" class="form-control" min="0" max="150"
+                                placeholder="Max" value="{{ $filterUmurMax !== null ? $filterUmurMax : '' }}">
+                        </div>
+                        <div class="col-md-5 d-flex align-items-end">
+                            <small class="text-muted mb-2">
+                                Filter diterapkan otomatis. Usia dihitung saat tanggal pengujian; kosongkan untuk semua umur.
+                            </small>
                         </div>
                     </div>
                     <div class="row mt-3">
@@ -1066,13 +1085,35 @@
             document.getElementById('filterForm').submit();
         }
 
-        // Auto-submit form when select2 changes (for wilayah_id)
+        function submitFilterForm() {
+            document.getElementById('filterForm').submit();
+        }
+
+        // Auto-submit filter tanpa klik tombol Filter
         $(document).ready(function() {
-            $('#wilayah_id').on('select2:select', function() {
-                // Small delay to ensure value is set
-                setTimeout(function() {
-                    document.getElementById('filterForm').submit();
-                }, 100);
+            var umurTimer = null;
+
+            function scheduleUmurSubmit() {
+                clearTimeout(umurTimer);
+                umurTimer = setTimeout(submitFilterForm, 700);
+            }
+
+            $('#wilayah_id').on('select2:select select2:clear', function() {
+                setTimeout(submitFilterForm, 100);
+            });
+
+            $('#bulan, #tahun, #gender').on('change', function() {
+                submitFilterForm();
+            });
+
+            $('#umur_min, #umur_max').on('change', function() {
+                scheduleUmurSubmit();
+            }).on('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    clearTimeout(umurTimer);
+                    submitFilterForm();
+                }
             });
 
             var paramSearch = document.getElementById('paramStatsSearch');
