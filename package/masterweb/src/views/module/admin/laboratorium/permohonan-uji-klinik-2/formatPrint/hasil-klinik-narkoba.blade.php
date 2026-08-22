@@ -25,7 +25,7 @@
             $pageMarginBottom = 18; // mm
             $bsreFooterReserve = 0;
             $showKopVal = isset($showKop) ? (int) $showKop : 1;
-            $kopPageMargin = $showKopVal ? '3.9cm' : '5.5cm';
+            $kopPageMargin = '5.5cm';
             $mgLeft = isset($marginLeftHasil) ? (float) $marginLeftHasil : 32;
             $mgRight = isset($marginRightHasil) ? (float) $marginRightHasil : 32;
             if ($mgLeft === 20.0) { $mgLeft = 32; }
@@ -43,6 +43,7 @@
             left: 0;
             right: 0;
             height: {{ $kopPageMargin }};
+            overflow: hidden;
         }
         .kop-repeat table,
         .kop-repeat td {
@@ -52,8 +53,11 @@
         }
         .kop-repeat img {
             width: 100%;
+            max-height: 100%;
             height: auto;
             display: block;
+            object-fit: contain;
+            object-position: top center;
         }
         body {
             font-family: Arial, Helvetica, sans-serif;

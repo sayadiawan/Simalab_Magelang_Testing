@@ -11,13 +11,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Masuk ke SIMLAB — lingkungan pengujian Sistem Informasi Laboratorium.">
+    <meta name="description" content="Masuk ke SimaLab — lingkungan pengujian Sistem Informasi Laboratorium.">
+    <link rel="shortcut icon" href="{{ asset('assets/admin/images/logo/logo_magelang_mini.png') }}">
     <script>document.documentElement.className += ' js';</script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <title>Masuk — SIMLAB Testing</title>
+    <title>Masuk — SimaLab</title>
     <style>
         :root {
             --navy: #0b3a5c;
@@ -583,13 +584,13 @@
             <div class="brand-top reveal">
                 <a class="brand-home" href="{{ url('/') }}">
                     <img src="{{ asset('/assets/public/images/logo_magelang_mini.png') }}" alt="">
-                    <span>SIMLAB</span>
+                    <span>SimaLab</span>
                 </a>
             </div>
 
             <div class="brand-copy reveal" data-delay="1">
                 <p class="brand-eyebrow">Lingkungan pengujian</p>
-                <h1>SIM<span>LAB</span></h1>
+                <h1>Sima<span>Lab</span></h1>
                 <p>Kelola permohonan uji, sampel, verifikasi hasil, dan administrasi dalam satu alur kerja — untuk uji fitur dan demo.</p>
                 <div class="brand-pills">
                     <span>Testing</span>
@@ -607,7 +608,7 @@
         <main class="form-panel">
             <div class="form-card reveal" data-delay="1">
                 <div class="form-logo">
-                    <img src="{{ asset('/assets/public/images/logo_magelang.png') }}" alt="Logo SIMLAB">
+                    <img src="{{ asset('/assets/public/images/logo_magelang.png') }}" alt="Logo SimaLab">
                 </div>
                 <div class="form-head">
                     <h2>Masuk ke sistem</h2>

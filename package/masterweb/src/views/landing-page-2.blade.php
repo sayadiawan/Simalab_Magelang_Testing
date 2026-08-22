@@ -52,13 +52,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="SIMLAB — Sistem Informasi Laboratorium untuk lingkungan pengujian dan demonstrasi.">
+    <meta name="description" content="SimaLab — Sistem Informasi Laboratorium untuk lingkungan pengujian dan demonstrasi.">
+    <link rel="shortcut icon" href="{{ asset('assets/admin/images/logo/logo_magelang_mini.png') }}">
     <script>document.documentElement.className += ' js';</script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <title>SIMLAB — Lingkungan Pengujian</title>
+    <title>SimaLab — Lingkungan Pengujian</title>
     <style>
         :root {
             --navy: #0b3a5c;
@@ -236,10 +237,10 @@
             background:
                 linear-gradient(90deg,
                     rgba(245, 248, 247, 0.97) 0%,
-                    rgba(245, 248, 247, 0.93) 34%,
-                    rgba(245, 248, 247, 0.78) 62%,
-                    rgba(245, 248, 247, 0.68) 100%),
-                linear-gradient(0deg, rgba(245, 248, 247, 0.85) 0%, transparent 42%);
+                    rgba(245, 248, 247, 0.90) 34%,
+                    rgba(245, 248, 247, 0.62) 62%,
+                    rgba(245, 248, 247, 0.48) 100%),
+                linear-gradient(0deg, rgba(245, 248, 247, 0.72) 0%, transparent 42%);
         }
 
         .glow {
@@ -432,11 +433,13 @@
 
         .brand-card {
             position: relative;
-            background: var(--white);
-            border: 1px solid var(--line);
+            background: rgba(255, 255, 255, 0.72);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.55);
             box-shadow: 0 24px 50px rgba(6, 40, 63, 0.1);
             animation: float 8s ease-in-out infinite;
-            transition: box-shadow 0.35s ease, transform 0.35s ease;
+            transition: box-shadow 0.35s ease, transform 0.35s ease, background 0.35s ease;
         }
 
         .brand-card:hover {
@@ -1306,16 +1309,20 @@
     <header class="topbar">
         <div class="topbar-inner">
             <a href="{{ url('') }}" class="brand">
-                <img src="{{ asset('/assets/public/images/logo_magelang_mini.png') }}" alt="Logo SIMLAB">
+                <img src="{{ asset('/assets/public/images/logo_magelang_mini.png') }}" alt="Logo SimaLab">
                 <span class="brand-text">
-                    <strong>SIMLAB</strong>
+                    <strong>SimaLab</strong>
                     <small>Lingkungan pengujian</small>
                 </span>
             </a>
             <nav class="topbar-nav">
                 <a class="nav-link" href="#alur">Alur pengujian</a>
                 <a class="nav-link" href="#tentang">Tentang</a>
-                <a class="top-link" href="{{ route('login-form') }}">Masuk</a>
+                @auth
+                    <a class="top-link" href="{{ route('home') }}">Beranda</a>
+                @else
+                    <a class="top-link" href="{{ route('login-form') }}">Masuk</a>
+                @endauth
             </nav>
         </div>
     </header>
@@ -1339,8 +1346,8 @@
             <div class="hero-inner">
                 <div class="hero-copy">
                     <p class="eyebrow reveal">Sistem informasi laboratorium</p>
-                    <h1 class="hero-brand reveal" data-split="chars" aria-label="SIMLAB">
-                        <span class="line-reveal"><span class="word-reveal" style="transition-delay:0.05s">SIM</span><span class="word-reveal word-lab" style="transition-delay:0.18s">LAB</span></span>
+                    <h1 class="hero-brand reveal" data-split="chars" aria-label="SimaLab">
+                        <span class="line-reveal"><span class="word-reveal" style="transition-delay:0.05s">Sima</span><span class="word-reveal word-lab" style="transition-delay:0.18s">Lab</span></span>
                     </h1>
                     <p class="hero-title reveal" data-delay="1" data-split="words">Kelola layanan laboratorium dalam satu alur kerja</p>
                     <p class="hero-lead reveal" data-delay="2">
@@ -1348,7 +1355,11 @@
                         tercatat rapi dan siap dicetak kapan pun dibutuhkan.
                     </p>
                     <div class="cta-row reveal" data-delay="3">
-                        <a class="btn btn-primary" href="{{ route('login-form') }}">Login Sistem</a>
+                        @auth
+                            <a class="btn btn-primary" href="{{ route('home') }}">Ke Beranda</a>
+                        @else
+                            <a class="btn btn-primary" href="{{ route('login-form') }}">Login Sistem</a>
+                        @endauth
                         <a class="btn btn-secondary" href="{{ route('mobile.menu') }}" id="mobile-menu-btn" style="display: none;">
                             <i class="fas fa-mobile-alt" aria-hidden="true"></i>
                     Versi Mobile
@@ -1370,7 +1381,7 @@
                     <div class="brand-card">
                         <span class="brand-card-corner" aria-hidden="true"></span>
                         <div class="brand-card-body">
-                            <img src="{{ asset('/assets/public/images/logo_magelang.png') }}" alt="Logo SIMLAB">
+                            <img src="{{ asset('/assets/public/images/logo_magelang.png') }}" alt="Logo SimaLab">
                             <span class="brand-card-divider" aria-hidden="true"></span>
                             <p>Akurat · Terpercaya · Profesional</p>
             </div>
@@ -1569,7 +1580,7 @@
             <div class="reveal reveal-left">
                 <h2>Tentang aplikasi</h2>
                 <p>
-                    SIMLAB membantu laboratorium menjalankan layanan secara terkomputerisasi —
+                    SimaLab membantu laboratorium menjalankan layanan secara terkomputerisasi —
                     mulai dari registrasi hingga penerbitan hasil — agar alur kerja lebih tertib dan terdokumentasi.
                 </p>
                     </div>
@@ -1586,13 +1597,17 @@
             </div>
         </section>
 
-        <section class="cta-band" aria-label="Mulai menggunakan SIMLAB">
+        <section class="cta-band" aria-label="Mulai menggunakan SimaLab">
             <div class="cta-band-inner reveal">
                 <div>
                     <h2>Siap mengelola laboratorium lebih tertib?</h2>
                     <p>Masuk ke sistem untuk mendaftarkan permohonan, memproses sampel, dan menerbitkan hasil uji.</p>
                 </div>
-                <a class="btn btn-primary" href="{{ route('login-form') }}">Masuk ke SIMLAB</a>
+                @auth
+                    <a class="btn btn-primary" href="{{ route('home') }}">Ke Beranda</a>
+                @else
+                    <a class="btn btn-primary" href="{{ route('login-form') }}">Masuk ke SimaLab</a>
+                @endauth
             </div>
         </section>
     </main>
@@ -1600,7 +1615,7 @@
     <footer class="site-footer">
         <div class="footer-inner">
                 <div>
-                <h4>SIMLAB</h4>
+                <h4>SimaLab</h4>
                 <p>
                     Sistem Informasi Laboratorium untuk lingkungan pengujian —
                     mengelola alur permohonan, sampel, verifikasi, dan penerbitan hasil secara terintegrasi.
@@ -1611,7 +1626,11 @@
                 <ul>
                     <li><a href="#alur">Alur pengujian</a></li>
                     <li><a href="#tentang">Tentang aplikasi</a></li>
-                    <li><a href="{{ route('login-form') }}">Masuk ke sistem</a></li>
+                    @auth
+                        <li><a href="{{ route('home') }}">Beranda sistem</a></li>
+                    @else
+                        <li><a href="{{ route('login-form') }}">Masuk ke sistem</a></li>
+                    @endauth
                 </ul>
                 </div>
             <div>
@@ -1626,7 +1645,7 @@
             </div>
             </div>
         <div class="footer-bottom">
-            &copy; {{ date('Y') }} SIMLAB — Lingkungan pengujian. Hak cipta dilindungi.
+            &copy; {{ date('Y') }} SimaLab — Lingkungan pengujian. Hak cipta dilindungi.
         </div>
     </footer>
 

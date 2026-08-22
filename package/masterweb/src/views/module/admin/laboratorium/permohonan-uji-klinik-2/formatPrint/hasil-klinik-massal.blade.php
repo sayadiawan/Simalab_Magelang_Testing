@@ -192,7 +192,7 @@
 
     @php
         $showKopVal = isset($showKop) ? (int) $showKop : 1;
-        $kopPageMargin = $showKopVal ? '3.9cm' : '5.5cm';
+        $kopPageMargin = '5.5cm';
     @endphp
     @page {
         size: A4;
@@ -205,6 +205,7 @@
         left: 0;
         right: 0;
         height: {{ $kopPageMargin }};
+        overflow: hidden;
     }
     .kop-repeat table,
     .kop-repeat td {
@@ -214,8 +215,11 @@
     }
     .kop-repeat img {
         width: 100%;
+        max-height: 100%;
         height: auto;
         display: block;
+        object-fit: contain;
+        object-position: top center;
     }
 
     @font-face {

@@ -1761,8 +1761,8 @@
         $pageMarginBottom = 18; // mm — ruang aman footer BSrE halaman terakhir (canvas)
         $bsreFooterReserve = 0;
         $showKopVal = isset($showKop) ? (int) $showKop : 1;
-        // Tinggi area kop: gambar kop ≈ 3.9cm; tanpa kop tetap 5.5cm (kertas berkop)
-        $kopPageMargin = $showKopVal ? '3.9cm' : '5.5cm';
+        // Tinggi area kop mengikuti kop_magelang.png (≈5.5cm lebar penuh A4); tanpa kop tetap 5.5cm (kertas berkop)
+        $kopPageMargin = '5.5cm';
     @endphp
     <style>
     .starter-template {
@@ -2055,6 +2055,7 @@
         left: 0;
         right: 0;
         height: {{ $kopPageMargin }};
+        overflow: hidden;
     }
     .kop-repeat table,
     .kop-repeat td {
@@ -2064,8 +2065,11 @@
     }
     .kop-repeat img {
         width: 100%;
+        max-height: 100%;
         height: auto;
         display: block;
+        object-fit: contain;
+        object-position: top center;
     }
 
     @font-face {

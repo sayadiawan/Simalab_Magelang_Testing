@@ -291,10 +291,30 @@
       grid-column: 1 / -1;
       display: flex;
       flex-wrap: wrap;
-      align-items: center;
+      align-items: flex-start;
       justify-content: space-between;
       gap: 12px;
       margin-bottom: 0.25rem;
+      position: relative;
+      z-index: 5;
+    }
+
+    .dash-charts-head > div:first-child {
+      position: relative;
+      z-index: 2;
+      flex: 1 1 280px;
+      min-width: 0;
+    }
+
+    .dash-chart-actions {
+      position: relative;
+      z-index: 1;
+      flex: 1 1 320px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      justify-content: flex-end;
     }
 
     .dash-charts-head h3 {
@@ -325,6 +345,8 @@
       background: #e7f4f2;
       border: 1px solid #d5e8e4;
       margin-top: 0.75rem;
+      position: relative;
+      z-index: 3;
     }
 
     .dash-chart-tab {
@@ -337,6 +359,9 @@
       border-radius: 999px;
       cursor: pointer;
       transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+      position: relative;
+      z-index: 1;
+      pointer-events: auto;
     }
 
     .dash-chart-tab:hover { background: rgba(13, 143, 127, 0.12); }
@@ -345,13 +370,6 @@
       background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%);
       color: #fff;
       box-shadow: 0 4px 12px rgba(11, 58, 92, 0.22);
-    }
-
-    .dash-chart-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      align-items: center;
     }
 
     .dash-chart-range {
@@ -1533,7 +1551,7 @@
       });
     });
   </script>
-    <script src="{{asset('assets/admin/cdn-local/js/chart.min.js')}}"></script>
+    <script src="{{ asset('assets/admin/cdn-local/js/chart.min.js') }}?v={{ @filemtime(public_path('assets/admin/cdn-local/js/chart.min.js')) ?: 0 }}"></script>
   <script>
     (function () {
       if (!document.getElementById('dashChartsShowcase')) return;
@@ -1588,10 +1606,10 @@
         }
       };
 
-      var activeTab = {!! json_encode($defaultChartTab ?? 'kesmas') !!};
-      if (!datasets[activeTab] || (activeTab === 'kesmas' && !{!! json_encode((bool) ($showChartKesmas ?? true)) !!})) {
-        activeTab = datasets.keuangan ? 'keuangan' : 'klinik';
-        if (activeTab === 'keuangan' && !{!! json_encode((bool) ($showChartKeuangan ?? true)) !!}) {
+      var activeTab = {!! json_encode($activeChart) !!};
+      if (!datasets[activeTab]) {
+        activeTab = {!! json_encode($showChartKesmas ? 'kesmas' : 'klinik') !!};
+        if (!datasets[activeTab]) {
           activeTab = 'klinik';
         }
       }
@@ -1737,9 +1755,21 @@
         }];
       }
 
+      function syncTabUi(tab) {
+        document.querySelectorAll('.dash-chart-tab').forEach(function (btn) {
+          var on = btn.getAttribute('data-chart-tab') === tab;
+          btn.classList.toggle('is-active', on);
+          btn.setAttribute('aria-selected', on ? 'true' : 'false');
+        });
+      }
+
       function applyDataset(tab) {
-        var pack = datasets[tab] || datasets.klinik;
+        if (!datasets[tab]) {
+          return;
+        }
+        var pack = datasets[tab];
         activeTab = tab;
+        syncTabUi(tab);
         var tabInput = document.getElementById('chartTabInput');
         if (tabInput) tabInput.value = tab;
         var resetLink = document.querySelector('.dash-chart-range__reset');
@@ -1748,58 +1778,69 @@
           resetLink.setAttribute('href', base + '?chart_tab=' + encodeURIComponent(tab));
         }
         updateMeta(pack);
-        if (chartTrend) {
-          chartTrend.data.labels = pack.months || [];
-          chartTrend.data.datasets = buildTrendDatasets(pack);
-          chartTrend.options.plugins.legend.display = !!pack.multi;
-          chartTrend.options.plugins.tooltip.callbacks.label = function (ctx) {
-            var unit = pack.money ? '' : ' pemeriksaan';
-            var val = pack.money ? fmtRp(ctx.parsed.y) : (ctx.parsed.y.toLocaleString('id-ID') + unit);
-            return ' ' + (ctx.dataset.label || (pack.money ? 'Pendapatan' : 'Pemeriksaan')) + ': ' + val;
-          };
-          chartTrend.options.scales.y.ticks.callback = function (value) {
-            return pack.money ? fmtRp(value) : value;
-          };
-          chartTrend.update();
-        }
-        if (chartSample) {
-          chartSample.data.labels = pack.labels || [];
-          chartSample.data.datasets[0].data = pack.values || [];
-          chartSample.data.datasets[0].backgroundColor = (pack.labels || []).map(function (_, i) {
-            return palette[i % palette.length];
-          });
-          chartSample.options.plugins.tooltip.callbacks = chartSample.options.plugins.tooltip.callbacks || {};
-          chartSample.options.plugins.tooltip.callbacks.label = function (ctx) {
-            var v = Number(ctx.parsed || ctx.raw || 0);
-            return ' ' + ctx.label + ': ' + (pack.money ? fmtRp(v) : v.toLocaleString('id-ID'));
-          };
-          chartSample._isMoney = !!pack.money;
-          chartSample.update();
-        }
-        var paketCard = document.getElementById('cardChartPaket');
-        if (paketCard) {
-          if (pack.showPaket) paketCard.classList.remove('is-hidden');
-          else paketCard.classList.add('is-hidden');
-        }
-        if (chartPaket) {
-          var pLabels = (pack.paketLabels || []).slice().reverse();
-          var pValues = (pack.paketValues || []).slice().reverse();
-          chartPaket.data.labels = pLabels;
-          chartPaket.data.datasets[0].data = pValues;
-          chartPaket.data.datasets[0].backgroundColor = pLabels.map(function (_, i) {
-            return palette[i % palette.length];
-          });
-          chartPaket.update();
-          var el;
-          if ((el = document.getElementById('metaPaketKinds'))) el.textContent = (pack.paketLabels || []).length;
-          if ((el = document.getElementById('metaPaketTotal'))) {
-            el.textContent = (pack.paketValues || []).reduce(function (a, b) { return a + Number(b || 0); }, 0).toLocaleString('id-ID');
+        try {
+          if (chartTrend) {
+            chartTrend.data.labels = pack.months || [];
+            chartTrend.data.datasets = buildTrendDatasets(pack);
+            chartTrend.options.plugins.legend.display = !!pack.multi;
+            chartTrend.options.plugins.tooltip.callbacks.label = function (ctx) {
+              var unit = pack.money ? '' : ' pemeriksaan';
+              var val = pack.money ? fmtRp(ctx.parsed.y) : (ctx.parsed.y.toLocaleString('id-ID') + unit);
+              return ' ' + (ctx.dataset.label || (pack.money ? 'Pendapatan' : 'Pemeriksaan')) + ': ' + val;
+            };
+            if (chartTrend.options.scales && chartTrend.options.scales.y && chartTrend.options.scales.y.ticks) {
+              chartTrend.options.scales.y.ticks.callback = function (value) {
+                return pack.money ? fmtRp(value) : value;
+              };
+            }
+            chartTrend.update();
           }
+          if (chartSample && chartSample.data.datasets[0]) {
+            chartSample.data.labels = pack.labels || [];
+            chartSample.data.datasets[0].data = pack.values || [];
+            chartSample.data.datasets[0].backgroundColor = (pack.labels || []).map(function (_, i) {
+              return palette[i % palette.length];
+            });
+            chartSample.options.plugins.tooltip.callbacks = chartSample.options.plugins.tooltip.callbacks || {};
+            chartSample.options.plugins.tooltip.callbacks.label = function (ctx) {
+              var v = Number(ctx.parsed || ctx.raw || 0);
+              return ' ' + ctx.label + ': ' + (pack.money ? fmtRp(v) : v.toLocaleString('id-ID'));
+            };
+            chartSample._isMoney = !!pack.money;
+            chartSample.update();
+          }
+          var paketCard = document.getElementById('cardChartPaket');
+          if (paketCard) {
+            if (pack.showPaket) paketCard.classList.remove('is-hidden');
+            else paketCard.classList.add('is-hidden');
+          }
+          if (chartPaket) {
+            var pLabels = (pack.paketLabels || []).slice().reverse();
+            var pValues = (pack.paketValues || []).slice().reverse();
+            chartPaket.data.labels = pLabels;
+            chartPaket.data.datasets[0].data = pValues;
+            chartPaket.data.datasets[0].backgroundColor = pLabels.map(function (_, i) {
+              return palette[i % palette.length];
+            });
+            chartPaket.update();
+            var el;
+            if ((el = document.getElementById('metaPaketKinds'))) el.textContent = (pack.paketLabels || []).length;
+            if ((el = document.getElementById('metaPaketTotal'))) {
+              el.textContent = (pack.paketValues || []).reduce(function (a, b) { return a + Number(b || 0); }, 0).toLocaleString('id-ID');
+            }
+          }
+        } catch (err) {
+          console.error('Gagal memperbarui grafik tab:', tab, err);
         }
-        document.querySelectorAll('.dash-chart-tab').forEach(function (btn) {
-          var on = btn.getAttribute('data-chart-tab') === tab;
-          btn.classList.toggle('is-active', on);
-          btn.setAttribute('aria-selected', on ? 'true' : 'false');
+      }
+
+      var tabList = document.querySelector('.dash-chart-tabs');
+      if (tabList) {
+        tabList.addEventListener('click', function (e) {
+          var btn = e.target.closest('.dash-chart-tab');
+          if (!btn) return;
+          e.preventDefault();
+          applyDataset(btn.getAttribute('data-chart-tab'));
         });
       }
       function downloadCanvas(sourceCanvas, filename, dark) {
@@ -1880,6 +1921,11 @@
       }
 
       var initPack = datasets[activeTab] || datasets.klinik;
+      if (typeof Chart === 'undefined') {
+        console.error('Chart.js tidak termuat — tab grafik tidak dapat diperbarui.');
+        syncTabUi(activeTab);
+        return;
+      }
       var elTrend = document.getElementById('chartPendapatan');
       if (elTrend) {
         chartTrend = new Chart(elTrend.getContext('2d'), {
@@ -2039,9 +2085,7 @@
         if (initPack && initPack.showPaket) paketCardInit.classList.remove('is-hidden');
         else paketCardInit.classList.add('is-hidden');
       }
-      document.querySelectorAll('.dash-chart-tab').forEach(function (btn) {
-        btn.addEventListener('click', function () { applyDataset(btn.getAttribute('data-chart-tab')); });
-      });
+      syncTabUi(activeTab);
       var formRange = document.getElementById('formChartRange');
       if (formRange) {
         formRange.addEventListener('submit', function (e) {

@@ -754,9 +754,11 @@
 
             map = L.map('map').setView([-7.4706, 110.2178], 11);
 
-            // Add tile layer
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '© OpenStreetMap contributors'
+            // CARTO basemap (OSM tile server memblokir localhost / tanpa Referer valid)
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+                attribution: '&copy; OpenStreetMap &copy; CARTO',
+                subdomains: 'abcd',
+                maxZoom: 20
             }).addTo(map);
 
             // Cluster layer: titik berdekatan digabung
