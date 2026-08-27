@@ -4,77 +4,97 @@
   Pembayaran Pemeriksaan Bendahara
 @endsection
 
-@section('styles')
+@section('css')
 <style>
-  #modal-payment .modal-dialog,
-  #modal-payment-detail .modal-dialog,
-  #modalEditNotaKesmas .modal-dialog {
-    max-width: 800px;
+  /* Payment Modal Styles - Exactly matching Registrasi Popup */
+  #modal-payment .modal-dialog {
+    max-width: 600px;
+    max-height: calc(100vh - 2rem);
+    margin: 1rem auto;
+    display: flex;
+    flex-direction: column;
   }
 
-  #modal-payment .modal-content,
-  #modal-payment-detail .modal-content,
-  #modalEditNotaKesmas .modal-content {
-    border-radius: 15px;
+  #modal-payment .modal-dialog.modal-dialog-centered {
+    align-items: stretch;
+    min-height: 0;
+  }
+
+  #modal-payment .modal-content {
     border: none;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    border-radius: 15px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    max-height: calc(100vh - 2rem);
+    display: flex;
+    flex-direction: column;
     overflow: hidden;
+  }
+
+  #modal-payment .modal-content > form {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    min-height: 0;
+    max-height: 100%;
+    overflow: hidden;
+    margin-bottom: 0;
   }
 
   #modal-payment .modal-header {
     background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%);
     color: white;
-    padding: 20px 30px;
-    border-bottom: none;
+    border-radius: 15px 15px 0 0;
+    padding: 25px 30px;
+    border: none;
+    flex-shrink: 0;
   }
 
-  #modal-payment .modal-header .modal-title,
-  #modal-payment-detail .modal-header .modal-title,
-  #modalEditNotaKesmas .modal-header .modal-title {
-    font-size: 20px;
+  #modal-payment .modal-header .modal-title {
+    font-size: 22px;
     font-weight: 600;
-    color: white;
     display: flex;
     align-items: center;
-  }
-
-  #modal-payment .modal-header .close,
-  #modal-payment-detail .modal-header .close,
-  #modalEditNotaKesmas .modal-header .close {
     color: white;
-    opacity: 0.85;
-    text-shadow: none;
+    margin: 0;
+  }
+
+  #modal-payment .modal-header .modal-title i {
+    margin-right: 12px;
     font-size: 26px;
-    transition: opacity 0.2s;
   }
 
-  #modal-payment .modal-header .close:hover,
-  #modal-payment-detail .modal-header .close:hover,
-  #modalEditNotaKesmas .modal-header .close:hover {
+  #modal-payment .modal-header .close {
+    color: white;
     opacity: 1;
+    text-shadow: none;
+    font-size: 32px;
+    font-weight: 300;
+    padding: 0;
+    margin: -10px -10px 0 0;
   }
 
-  #modal-payment .modal-body,
-  #modal-payment-detail .modal-body,
-  #modalEditNotaKesmas .modal-body {
+  #modal-payment .modal-body {
     padding: 25px 30px;
     background-color: #f8f9fa;
-    max-height: calc(100vh - 200px);
     overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    flex: 1 1 auto;
+    min-height: 0;
   }
 
   .payment-info-card {
     background: white;
     border-radius: 12px;
     padding: 16px 20px;
-    margin-bottom: 15px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     transition: transform 0.2s, box-shadow 0.2s;
   }
 
   .payment-info-card:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
   }
 
   .payment-field-group {
@@ -87,7 +107,7 @@
     color: #6c757d;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
     display: flex;
     align-items: center;
   }
@@ -95,18 +115,18 @@
   .payment-field-label i {
     margin-right: 8px;
     color: #0b3a5c;
-    font-size: 14px;
+    font-size: 16px;
   }
 
   .payment-field-value {
-    font-size: 15px;
+    font-size: 16px;
     color: #2c3e50;
     font-weight: 500;
-    padding: 10px 14px;
+    padding: 12px 15px;
     background-color: #f8f9fa;
     border-radius: 8px;
-    border: 1px solid #e9ecef;
-    min-height: 42px;
+    border: 2px solid #e9ecef;
+    min-height: 48px;
     display: flex;
     align-items: center;
   }
@@ -114,25 +134,26 @@
   .payment-field-value.readonly {
     background-color: #f8f9fa;
     border-color: #e9ecef;
+    cursor: default;
   }
 
   .payment-total-card {
     background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%);
     border-radius: 12px;
     padding: 22px;
-    margin-bottom: 20px;
+    margin-bottom: 18px;
     color: white;
     text-align: center;
-    box-shadow: 0 4px 15px rgba(11, 58, 92, 0.25);
+    box-shadow: 0 4px 15px rgba(11, 58, 92, 0.3);
   }
 
   .payment-total-label {
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 1px;
     opacity: 0.9;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
   }
 
   .payment-total-amount {
@@ -141,11 +162,18 @@
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
 
+  .payment-divider {
+    height: 1px;
+    background: linear-gradient(to right, transparent, #dee2e6, transparent);
+    margin: 18px 0;
+  }
+
+  /* Payment Input Field */
   .payment-input-card {
     background: white;
     border-radius: 12px;
     padding: 20px;
-    margin-bottom: 15px;
+    margin-bottom: 18px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     border: 2px solid #0b3a5c;
   }
@@ -156,8 +184,8 @@
 
   .payment-input-field input {
     width: 100%;
-    padding: 12px 20px 12px 50px;
-    font-size: 22px;
+    padding: 12px 20px 12px 55px;
+    font-size: 24px;
     font-weight: 600;
     border: 2px solid #e9ecef;
     border-radius: 8px;
@@ -173,10 +201,10 @@
 
   .payment-input-prefix {
     position: absolute;
-    left: 18px;
+    left: 20px;
     top: 50%;
     transform: translateY(-50%);
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 600;
     color: #6c757d;
   }
@@ -184,8 +212,8 @@
   .payment-change-card {
     background: linear-gradient(135deg, #48c774 0%, #3abb7c 100%);
     border-radius: 12px;
-    padding: 16px;
-    margin-bottom: 15px;
+    padding: 18px;
+    margin-bottom: 18px;
     color: white;
     text-align: center;
   }
@@ -196,11 +224,11 @@
     text-transform: uppercase;
     letter-spacing: 1px;
     opacity: 0.9;
-    margin-bottom: 4px;
+    margin-bottom: 6px;
   }
 
   .payment-change-amount {
-    font-size: 26px;
+    font-size: 28px;
     font-weight: 700;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
@@ -220,17 +248,22 @@
     display: block;
   }
 
+  .payment-error-message i {
+    margin-right: 8px;
+  }
+
+  /* Quick Amount Buttons */
   .quick-amount-buttons {
     display: flex;
     gap: 10px;
-    margin-top: 12px;
+    margin-top: 14px;
     flex-wrap: wrap;
   }
 
   .quick-amount-btn {
     flex: 1;
     min-width: 80px;
-    padding: 8px 14px;
+    padding: 10px 14px;
     background: white;
     border: 2px solid #0b3a5c;
     border-radius: 8px;
@@ -244,6 +277,7 @@
   .quick-amount-btn:hover {
     background: #0b3a5c;
     color: white;
+    transform: translateY(-2px);
   }
 
   .quick-amount-btn.exact {
@@ -252,7 +286,102 @@
     border: none;
   }
 
-  #modal-payment .modal-footer,
+  #modal-payment .modal-footer {
+    flex-shrink: 0;
+    background-color: #f8f9fa;
+    border-top: 1px solid #e9ecef;
+    padding: 18px 30px;
+    border-radius: 0 0 15px 15px;
+  }
+
+  #modal-payment .modal-footer .btn {
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all 0.2s;
+  }
+
+  #modal-payment .modal-footer .btn-secondary {
+    background-color: #6c757d;
+    border: none;
+    color: white;
+  }
+
+  #modal-payment .modal-footer .btn-secondary:hover {
+    background-color: #5a6268;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+
+  #modal-payment .modal-footer .btn-primary {
+    background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%);
+    border: none;
+    color: white;
+  }
+
+  #modal-payment .modal-footer .btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(11, 58, 92, 0.4);
+  }
+
+  #modal-payment .modal-footer .btn-primary:disabled {
+    background: #cccccc;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+
+  /* Modal Detail Styles */
+  #modal-payment-detail .modal-dialog,
+  #modalEditNotaKesmas .modal-dialog {
+    max-width: 800px;
+  }
+
+  #modal-payment-detail .modal-content,
+  #modalEditNotaKesmas .modal-content {
+    border-radius: 15px;
+    border: none;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+  }
+
+  #modal-payment-detail .modal-header,
+  #modalEditNotaKesmas .modal-header {
+    padding: 20px 30px;
+    border-bottom: none;
+  }
+
+  #modal-payment-detail .modal-header .modal-title,
+  #modalEditNotaKesmas .modal-header .modal-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: white;
+    display: flex;
+    align-items: center;
+    margin: 0;
+  }
+
+  #modal-payment-detail .modal-header .close,
+  #modalEditNotaKesmas .modal-header .close {
+    color: white;
+    opacity: 0.9;
+    text-shadow: none;
+    font-size: 28px;
+    padding: 0;
+    margin: -10px -10px 0 0;
+  }
+
+  #modal-payment-detail .modal-body,
+  #modalEditNotaKesmas .modal-body {
+    padding: 25px 30px;
+    background-color: #f8f9fa;
+    max-height: calc(100vh - 200px);
+    overflow-y: auto;
+  }
+
   #modal-payment-detail .modal-footer,
   #modalEditNotaKesmas .modal-footer {
     background-color: #f8f9fa;
@@ -261,29 +390,350 @@
     border-radius: 0 0 15px 15px;
   }
 
-  #modal-payment .modal-footer .btn,
-  #modal-payment-detail .modal-footer .btn,
-  #modalEditNotaKesmas .modal-footer .btn {
-    padding: 10px 24px;
-    border-radius: 8px;
-    font-weight: 600;
-    font-size: 14px;
-    transition: all 0.2s;
-  }
+  @media (max-width: 576px) {
+    #modal-payment .modal-dialog {
+      margin: 10px;
+    }
 
-  #modal-payment .modal-footer .btn-primary {
-    background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%);
-    border: none;
-  }
-
-  #modal-payment .modal-footer .btn-primary:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 15px rgba(11, 58, 92, 0.4);
+    .payment-total-amount {
+      font-size: 28px;
+    }
   }
 </style>
 @endsection
 
 @section('content')
+  {{-- Inline style backup to guarantee render regardless of @yield placement --}}
+  <style>
+    /* Payment Modal Styles - Exactly matching Registrasi Popup */
+    #modal-payment .modal-dialog {
+      max-width: 600px;
+      max-height: calc(100vh - 2rem);
+      margin: 1rem auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    #modal-payment .modal-dialog.modal-dialog-centered {
+      align-items: stretch;
+      min-height: 0;
+    }
+
+    #modal-payment .modal-content {
+      border: none;
+      border-radius: 15px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+      max-height: calc(100vh - 2rem);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    #modal-payment .modal-content > form {
+      display: flex;
+      flex-direction: column;
+      flex: 1 1 auto;
+      min-height: 0;
+      max-height: 100%;
+      overflow: hidden;
+      margin-bottom: 0;
+    }
+
+    #modal-payment .modal-header {
+      background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%);
+      color: white;
+      border-radius: 15px 15px 0 0;
+      padding: 25px 30px;
+      border: none;
+      flex-shrink: 0;
+    }
+
+    #modal-payment .modal-header .modal-title {
+      font-size: 22px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      color: white;
+      margin: 0;
+    }
+
+    #modal-payment .modal-header .modal-title i {
+      margin-right: 12px;
+      font-size: 26px;
+    }
+
+    #modal-payment .modal-header .close {
+      color: white;
+      opacity: 1;
+      text-shadow: none;
+      font-size: 32px;
+      font-weight: 300;
+      padding: 0;
+      margin: -10px -10px 0 0;
+    }
+
+    #modal-payment .modal-body {
+      padding: 25px 30px;
+      background-color: #f8f9fa;
+      overflow-y: auto;
+      overflow-x: hidden;
+      -webkit-overflow-scrolling: touch;
+      flex: 1 1 auto;
+      min-height: 0;
+    }
+
+    .payment-info-card {
+      background: white;
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .payment-info-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    }
+
+    .payment-field-group {
+      margin-bottom: 0;
+    }
+
+    .payment-field-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: #6c757d;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+    }
+
+    .payment-field-label i {
+      margin-right: 8px;
+      color: #0b3a5c;
+      font-size: 16px;
+    }
+
+    .payment-field-value {
+      font-size: 16px;
+      color: #2c3e50;
+      font-weight: 500;
+      padding: 12px 15px;
+      background-color: #f8f9fa;
+      border-radius: 8px;
+      border: 2px solid #e9ecef;
+      min-height: 48px;
+      display: flex;
+      align-items: center;
+    }
+
+    .payment-field-value.readonly {
+      background-color: #f8f9fa;
+      border-color: #e9ecef;
+      cursor: default;
+    }
+
+    .payment-total-card {
+      background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%);
+      border-radius: 12px;
+      padding: 22px;
+      margin-bottom: 18px;
+      color: white;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(11, 58, 92, 0.3);
+    }
+
+    .payment-total-label {
+      font-size: 14px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      opacity: 0.9;
+      margin-bottom: 8px;
+    }
+
+    .payment-total-amount {
+      font-size: 34px;
+      font-weight: 700;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .payment-divider {
+      height: 1px;
+      background: linear-gradient(to right, transparent, #dee2e6, transparent);
+      margin: 18px 0;
+    }
+
+    /* Payment Input Field */
+    .payment-input-card {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 18px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      border: 2px solid #0b3a5c;
+    }
+
+    .payment-input-field {
+      position: relative;
+    }
+
+    .payment-input-field input {
+      width: 100%;
+      padding: 12px 20px 12px 55px;
+      font-size: 24px;
+      font-weight: 600;
+      border: 2px solid #e9ecef;
+      border-radius: 8px;
+      transition: all 0.3s;
+      text-align: right;
+    }
+
+    .payment-input-field input:focus {
+      border-color: #0b3a5c;
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(11, 58, 92, 0.1);
+    }
+
+    .payment-input-prefix {
+      position: absolute;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 20px;
+      font-weight: 600;
+      color: #6c757d;
+    }
+
+    .payment-change-card {
+      background: linear-gradient(135deg, #48c774 0%, #3abb7c 100%);
+      border-radius: 12px;
+      padding: 18px;
+      margin-bottom: 18px;
+      color: white;
+      text-align: center;
+    }
+
+    .payment-change-label {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      opacity: 0.9;
+      margin-bottom: 6px;
+    }
+
+    .payment-change-amount {
+      font-size: 28px;
+      font-weight: 700;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .payment-error-message {
+      background: #fff3cd;
+      border: 1px solid #ffc107;
+      border-radius: 8px;
+      padding: 10px 14px;
+      margin-top: 10px;
+      color: #856404;
+      font-size: 13px;
+      display: none;
+    }
+
+    .payment-error-message.show {
+      display: block;
+    }
+
+    .payment-error-message i {
+      margin-right: 8px;
+    }
+
+    /* Quick Amount Buttons */
+    .quick-amount-buttons {
+      display: flex;
+      gap: 10px;
+      margin-top: 14px;
+      flex-wrap: wrap;
+    }
+
+    .quick-amount-btn {
+      flex: 1;
+      min-width: 80px;
+      padding: 10px 14px;
+      background: white;
+      border: 2px solid #0b3a5c;
+      border-radius: 8px;
+      color: #0b3a5c;
+      font-weight: 600;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .quick-amount-btn:hover {
+      background: #0b3a5c;
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    .quick-amount-btn.exact {
+      background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%);
+      color: white;
+      border: none;
+    }
+
+    #modal-payment .modal-footer {
+      flex-shrink: 0;
+      background-color: #f8f9fa;
+      border-top: 1px solid #e9ecef;
+      padding: 18px 30px;
+      border-radius: 0 0 15px 15px;
+    }
+
+    #modal-payment .modal-footer .btn {
+      padding: 10px 24px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      transition: all 0.2s;
+    }
+
+    #modal-payment .modal-footer .btn-secondary {
+      background-color: #6c757d;
+      border: none;
+      color: white;
+    }
+
+    #modal-payment .modal-footer .btn-secondary:hover {
+      background-color: #5a6268;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    #modal-payment .modal-footer .btn-primary {
+      background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%);
+      border: none;
+      color: white;
+    }
+
+    #modal-payment .modal-footer .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 15px rgba(11, 58, 92, 0.4);
+    }
+
+    #modal-payment .modal-footer .btn-primary:disabled {
+      background: #cccccc;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+  </style>
+
   <div class="row">
     <div class="col-12 grid-margin stretch-card">
       <div class="card">
@@ -405,30 +855,14 @@
               </div>
             </div>
 
-            <!-- Patient Info Card -->
-            <div class="row">
-              <div class="col-md-6">
-                <div class="payment-info-card">
-                  <div class="payment-field-group">
-                    <div class="payment-field-label">
-                      <i class="fa fa-user"></i> Nama Pasien
-                    </div>
-                    <div class="payment-field-value readonly font-weight-bold" id="display_nama_pasien">
-                      -
-                    </div>
-                  </div>
+            <!-- Patient Information Card -->
+            <div class="payment-info-card">
+              <div class="payment-field-group">
+                <div class="payment-field-label">
+                  <i class="fa fa-user"></i> Nama Pasien
                 </div>
-              </div>
-              <div class="col-md-6">
-                <div class="payment-info-card">
-                  <div class="payment-field-group">
-                    <div class="payment-field-label">
-                      <i class="fa fa-user-shield"></i> Petugas
-                    </div>
-                    <div class="payment-field-value readonly" id="display_petugas">
-                      -
-                    </div>
-                  </div>
+                <div class="payment-field-value readonly font-weight-bold" id="display_nama_pasien">
+                  -
                 </div>
               </div>
             </div>
@@ -439,7 +873,19 @@
                 <div class="payment-field-label">
                   <i class="fa fa-map-marker-alt"></i> Alamat Pasien
                 </div>
-                <div class="payment-field-value readonly" id="display_alamat_pasien" style="min-height: 48px; align-items: flex-start;">
+                <div class="payment-field-value readonly" id="display_alamat_pasien" style="min-height: 60px; align-items: flex-start;">
+                  -
+                </div>
+              </div>
+            </div>
+
+            <!-- Officer Card -->
+            <div class="payment-info-card">
+              <div class="payment-field-group">
+                <div class="payment-field-label">
+                  <i class="fa fa-user-shield"></i> Petugas
+                </div>
+                <div class="payment-field-value readonly" id="display_petugas">
                   -
                 </div>
               </div>
