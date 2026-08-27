@@ -1225,10 +1225,27 @@
         refreshPaymentButtonState();
       });
 
+      var urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.has('source_type')) {
+        $('#filter-source').val(urlParams.get('source_type'));
+      }
+      if (urlParams.has('payment_status')) {
+        $('#filter-payment-status').val(urlParams.get('payment_status'));
+      }
+      if (urlParams.has('date_start')) {
+        $('#filter-date-start').val(urlParams.get('date_start'));
+      }
+      if (urlParams.has('date_end')) {
+        $('#filter-date-end').val(urlParams.get('date_end'));
+      }
+
       var table = $('#bendahara-pemeriksaan-table').DataTable({
         processing: true,
         serverSide: true,
         responsive: true,
+        search: {
+          search: urlParams.get('search') || urlParams.get('q') || ''
+        },
         ajax: {
           url: '{{ url()->current() }}',
           type: 'GET',

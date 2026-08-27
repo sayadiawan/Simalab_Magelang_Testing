@@ -25,7 +25,7 @@ class NotificationInboxService
      * Batas awal fitur — sampel lama tetap di worklist, tidak di-backfill ke notifikasi.
      * Sesuaikan saat deploy produksi jika perlu.
      */
-    public const FEATURE_ACTIVATED_AT = '2026-08-25 00:00:00';
+    public const FEATURE_ACTIVATED_AT = '2026-08-20 00:00:00';
 
     private const DROPDOWN_LIMIT = 20;
     private const SYNC_CANDIDATE_LIMIT = 40;
@@ -444,7 +444,9 @@ class NotificationInboxService
             ->where('created_at', '>=', $since)
             ->where(function ($q) {
                 $q->whereNull('status_pembayaran')
-                    ->orWhere('status_pembayaran', '!=', 1);
+                    ->orWhere('status_pembayaran', '!=', 1)
+                    ->orWhere('status_pembayaran', '=', 0)
+                    ->orWhere('status_pembayaran', '=', '0');
             })
             ->orderByDesc('created_at')
             ->limit(self::SYNC_CANDIDATE_LIMIT)
@@ -454,15 +456,19 @@ class NotificationInboxService
             $pasien = optional($row->pasien)->nama_pasien ?: '-';
             $noreg = $row->noregister_permohonan_uji_klinik ?: '-';
             $url = in_array($level, ['BNDR', 'ADMN'], true)
-                ? url('bendahara/pembayaran-pemeriksaan')
+                ? url('bendahara/pembayaran-pemeriksaan') . '?source_type=klinik'
                 : url('elits-permohonan-uji-klinik/registrasi');
+
+            $title = in_array($level, ['BNDR', 'ADMN'], true)
+                ? 'Konfirmasi Pembayaran Klinik'
+                : 'Pendaftaran baru belum lunas';
 
             $this->ensureNotification($user, [
                 'role_level' => $level,
                 'type' => 'klinik_unpaid',
                 'reference_type' => 'permohonan_uji_klinik',
                 'reference_id' => (string) $row->id_permohonan_uji_klinik,
-                'title' => 'Pendaftaran baru belum lunas',
+                'title' => $title,
                 'message' => 'No. ' . $noreg . ' · ' . $pasien,
                 'url' => $url,
                 'icon' => 'fa-money-bill-wave',
@@ -484,7 +490,9 @@ class NotificationInboxService
             ->where('tb_permohonan_uji.created_at', '>=', $since)
             ->where(function ($q) {
                 $q->whereNull('tb_permohonan_uji.status_pembayaran')
-                    ->orWhere('tb_permohonan_uji.status_pembayaran', '!=', 1);
+                    ->orWhere('tb_permohonan_uji.status_pembayaran', '!=', 1)
+                    ->orWhere('tb_permohonan_uji.status_pembayaran', '=', 0)
+                    ->orWhere('tb_permohonan_uji.status_pembayaran', '=', '0');
             })
             ->orderByDesc('tb_permohonan_uji.created_at')
             ->limit(self::SYNC_CANDIDATE_LIMIT)
@@ -499,11 +507,11 @@ class NotificationInboxService
             $kode = $row->code_permohonan_uji ?: '-';
             $nama = $row->name_customer ?: '-';
             $url = in_array($level, ['BNDR', 'ADMN'], true)
-                ? url('bendahara/pembayaran-pemeriksaan')
+                ? url('bendahara/pembayaran-pemeriksaan') . '?source_type=kesmas'
                 : url('elits-permohonan-uji');
 
             $title = in_array($level, ['BNDR', 'ADMN'], true)
-                ? 'Pendaftaran Kesmas: Terbitkan Nota'
+                ? 'Konfirmasi Pembayaran Kesmas'
                 : 'Pendaftaran Kesmas belum lunas';
 
             $this->ensureNotification($user, [
@@ -512,7 +520,7 @@ class NotificationInboxService
                 'reference_type' => 'permohonan_uji',
                 'reference_id' => (string) $row->id_permohonan_uji,
                 'title' => $title,
-                'message' => $kode . ' · ' . $nama,
+                'message' => 'No. ' . $kode . ' · ' . $nama,
                 'url' => $url,
                 'icon' => 'fa-file-invoice-dollar',
                 'color' => 'danger',
@@ -575,8 +583,16 @@ class NotificationInboxService
             ->first();
 
         if ($existing) {
+            $dirty = false;
             if (isset($data['url']) && $existing->url !== $data['url']) {
                 $existing->url = $data['url'];
+                $dirty = true;
+            }
+            if (isset($data['title']) && $existing->title !== $data['title']) {
+                $existing->title = $data['title'];
+                $dirty = true;
+            }
+            if ($dirty) {
                 $existing->save();
             }
             return;
