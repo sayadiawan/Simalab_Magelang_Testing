@@ -853,28 +853,49 @@ class LaboratoriumAnalysManagement extends Controller
       }
     }
 
-    // Hitung jumlah permohonan uji Kesmas yang menunggu pengambilan sampel oleh lab (is_sampling = 1)
-    $stats['pengambilan_sample'] = PermohonanUji::query()
-      ->where('is_sampling', 1)
-      ->whereNull('deleted_at')
-      ->whereNotExists(function ($q) {
-        $q->select(DB::raw(1))
-          ->from('tb_samples')
-          ->join('tb_verification_activity_samples', 'tb_verification_activity_samples.id_sample', '=', 'tb_samples.id_samples')
-          ->whereColumn('tb_samples.permohonan_uji_id', 'tb_permohonan_uji.id_permohonan_uji')
-          ->where(function ($sub) {
-            $sub->where(function ($s6) {
-              $s6->where('tb_verification_activity_samples.id_verification_activity', 6)
-                 ->where('tb_verification_activity_samples.is_done', 1);
-            })->orWhere(function ($sSub) {
-              $sSub->whereIn('tb_verification_activity_samples.id_verification_activity', [7, 2, 3, 4, 5])
-                   ->where('tb_verification_activity_samples.is_done', 1);
-            });
-          });
-      })
-      ->count();
+    // Hitung jumlah permohonan uji Kesmas yang masih menunggu pengambilan sampel
+    $stats['pengambilan_sample'] = $this->kesmasPermohonanUjiSamplingQuery()->count();
 
     return response()->json($stats);
+  }
+
+  /**
+   * Query Permohonan Uji Kesmas yang masih perlu pengambilan sampel.
+   * Tetap tampil jika masih ada draft pending, meski sebagian lokasi sudah di-sampling.
+   */
+  private function kesmasPermohonanUjiSamplingQuery()
+  {
+    return PermohonanUji::query()
+      ->where('tb_permohonan_uji.is_sampling', 1)
+      ->whereNull('tb_permohonan_uji.deleted_at')
+      ->where(function ($q) {
+        // Masih ada draft belum dikonfirmasi
+        $q->whereExists(function ($d) {
+          $d->select(DB::raw(1))
+            ->from('tb_sample_draft')
+            ->whereColumn('tb_sample_draft.permohonan_uji_id', 'tb_permohonan_uji.id_permohonan_uji')
+            ->where('tb_sample_draft.status', 'draft')
+            ->whereNull('tb_sample_draft.deleted_at');
+        })->orWhere(function ($q2) {
+          // Belum ada sample yang selesai pengambilan / tahap lanjut
+          $q2->whereNotExists(function ($s) {
+            $s->select(DB::raw(1))
+              ->from('tb_samples')
+              ->join('tb_verification_activity_samples', 'tb_verification_activity_samples.id_sample', '=', 'tb_samples.id_samples')
+              ->whereColumn('tb_samples.permohonan_uji_id', 'tb_permohonan_uji.id_permohonan_uji')
+              ->whereNull('tb_samples.deleted_at')
+              ->where(function ($sub) {
+                $sub->where(function ($s6) {
+                  $s6->where('tb_verification_activity_samples.id_verification_activity', 6)
+                     ->where('tb_verification_activity_samples.is_done', 1);
+                })->orWhere(function ($sSub) {
+                  $sSub->whereIn('tb_verification_activity_samples.id_verification_activity', [7, 2, 3, 4, 5])
+                       ->where('tb_verification_activity_samples.is_done', 1);
+                });
+              });
+          });
+        });
+      });
   }
 
   /**
@@ -1267,25 +1288,8 @@ class LaboratoriumAnalysManagement extends Controller
       $search = $search['value'] ?? '';
     }
 
-    $query = PermohonanUji::query()
+    $query = $this->kesmasPermohonanUjiSamplingQuery()
       ->leftJoin('ms_customer', 'ms_customer.id_customer', '=', 'tb_permohonan_uji.customer_id')
-      ->where('tb_permohonan_uji.is_sampling', 1)
-      ->whereNull('tb_permohonan_uji.deleted_at')
-      ->whereNotExists(function ($q) {
-        $q->select(DB::raw(1))
-          ->from('tb_samples')
-          ->join('tb_verification_activity_samples', 'tb_verification_activity_samples.id_sample', '=', 'tb_samples.id_samples')
-          ->whereColumn('tb_samples.permohonan_uji_id', 'tb_permohonan_uji.id_permohonan_uji')
-          ->where(function ($sub) {
-            $sub->where(function ($s6) {
-              $s6->where('tb_verification_activity_samples.id_verification_activity', 6)
-                 ->where('tb_verification_activity_samples.is_done', 1);
-            })->orWhere(function ($sSub) {
-              $sSub->whereIn('tb_verification_activity_samples.id_verification_activity', [7, 2, 3, 4, 5])
-                   ->where('tb_verification_activity_samples.is_done', 1);
-            });
-          });
-      })
       ->select('tb_permohonan_uji.*', 'ms_customer.name_customer')
       ->orderBy('tb_permohonan_uji.created_at', 'desc');
 
@@ -1308,13 +1312,35 @@ class LaboratoriumAnalysManagement extends Controller
       ->get();
 
     $puIds = $datas->pluck('id_permohonan_uji')->toArray();
-    $draftCounts = [];
+
+    $draftRows = collect();
+    $sampledStep6Map = [];
+    $sampleCountMap = [];
     if (!empty($puIds)) {
-      $draftCounts = DB::table('tb_sample_draft')
+      $draftRows = DB::table('tb_sample_draft')
+        ->whereIn('permohonan_uji_id', $puIds)
+        ->whereNull('deleted_at')
+        ->whereIn('status', ['draft', 'confirmed'])
+        ->select('permohonan_uji_id', 'status', 'titik_pengambilan', 'id_sample_draft')
+        ->get()
+        ->groupBy('permohonan_uji_id');
+
+      $sampleCountMap = DB::table('tb_samples')
         ->whereIn('permohonan_uji_id', $puIds)
         ->whereNull('deleted_at')
         ->groupBy('permohonan_uji_id')
         ->select('permohonan_uji_id', DB::raw('count(*) as total'))
+        ->pluck('total', 'permohonan_uji_id')
+        ->toArray();
+
+      $sampledStep6Map = DB::table('tb_samples')
+        ->join('tb_verification_activity_samples', 'tb_verification_activity_samples.id_sample', '=', 'tb_samples.id_samples')
+        ->whereIn('tb_samples.permohonan_uji_id', $puIds)
+        ->whereNull('tb_samples.deleted_at')
+        ->where('tb_verification_activity_samples.id_verification_activity', 6)
+        ->where('tb_verification_activity_samples.is_done', 1)
+        ->groupBy('tb_samples.permohonan_uji_id')
+        ->select('tb_samples.permohonan_uji_id', DB::raw('count(distinct tb_samples.id_samples) as total'))
         ->pluck('total', 'permohonan_uji_id')
         ->toArray();
     }
@@ -1343,14 +1369,94 @@ class LaboratoriumAnalysManagement extends Controller
         }
         return $html;
       })
-      ->addColumn('name_sample_type', function ($data) use ($draftCounts) {
-        $draftCount = $draftCounts[$data->id_permohonan_uji] ?? 0;
-        if ($draftCount > 0) {
-          return '<span class="badge badge-primary"><i class="fas fa-file-alt"></i> ' . $draftCount . ' Draft Sampel</span>';
+      ->addColumn('name_sample_type', function ($data) use ($draftRows, $sampledStep6Map, $sampleCountMap) {
+        $rows = $draftRows->get($data->id_permohonan_uji, collect());
+        $step6Count = (int) ($sampledStep6Map[$data->id_permohonan_uji] ?? 0);
+        $finalSampleCount = (int) ($sampleCountMap[$data->id_permohonan_uji] ?? 0);
+
+        $draftPendingCount = $rows->where('status', 'draft')->count();
+        $draftConfirmedCount = $rows->where('status', 'confirmed')->count();
+        // Yang sudah jadi sampel = sample final di tb_samples, fallback ke draft confirmed
+        $jadiSampelCount = max($finalSampleCount, $draftConfirmedCount);
+
+        $pendingLokasi = 0;
+        $lokasiTerisi = 0;
+        $locationLines = [];
+
+        foreach ($rows as $draft) {
+          $titik = trim((string) ($draft->titik_pengambilan ?? ''));
+          $isConfirmed = ($draft->status === 'confirmed');
+          $hasTitik = $titik !== '';
+
+          if ($draft->status === 'draft' && !$hasTitik) {
+            $pendingLokasi++;
+            $locationLines[] = '<div style="font-size:0.8rem;color:#6c757d;"><i class="fa fa-clock text-secondary"></i> Belum sampling</div>';
+          } elseif ($isConfirmed || $hasTitik) {
+            $lokasiTerisi++;
+            $label = $hasTitik ? e(\Illuminate\Support\Str::limit($titik, 32)) : 'Lokasi terkonfirmasi';
+            $badge = $isConfirmed
+              ? ' <span class="badge badge-success" style="font-size:0.65rem;">Jadi Sampel</span>'
+              : ' <span class="badge badge-info" style="font-size:0.65rem;">Lokasi terisi</span>';
+            $locationLines[] = '<div style="font-size:0.8rem;color:#1e7e34;"><i class="fa fa-check-circle text-success"></i> '
+              . $label . $badge . '</div>';
+          }
         }
-        return '<span class="badge badge-secondary"><i class="fa fa-clock"></i> Belum input sampel</span>';
+
+        if ($jadiSampelCount === 0 && $draftPendingCount === 0 && $step6Count === 0) {
+          return '<span class="badge badge-secondary"><i class="fa fa-clock"></i> Belum input draft / sampel</span>';
+        }
+
+        $html = '<div style="line-height:1.5;">';
+        $html .= '<div style="margin-bottom:4px;">'
+          . '<span class="badge badge-primary" style="margin-right:4px;" title="Draft sample yang belum dikonfirmasi">'
+          . '<i class="fas fa-file-alt"></i> ' . $draftPendingCount . ' Draft Sample</span>'
+          . '<span class="badge badge-success" title="Sudah dikonfirmasi menjadi sampel final">'
+          . '<i class="fa fa-vial"></i> ' . $jadiSampelCount . ' sudah jadi Sampel</span>'
+          . '</div>';
+
+        if ($lokasiTerisi > 0 || $pendingLokasi > 0) {
+          $html .= '<div style="margin-bottom:4px;font-size:0.8rem;color:#495057;">';
+          if ($lokasiTerisi > 0) {
+            $html .= '<span style="margin-right:8px;"><i class="fa fa-map-marker-alt text-success"></i> ' . $lokasiTerisi . ' lokasi sudah sampling</span>';
+          }
+          if ($pendingLokasi > 0) {
+            $html .= '<span><i class="fa fa-hourglass-half text-warning"></i> ' . $pendingLokasi . ' lokasi belum</span>';
+          }
+          $html .= '</div>';
+        }
+
+        if (!empty($locationLines)) {
+          $html .= '<div>' . implode('', array_slice($locationLines, 0, 4)) . '</div>';
+          if (count($locationLines) > 4) {
+            $html .= '<div style="font-size:0.75rem;color:#6c757d;">+' . (count($locationLines) - 4) . ' lokasi lainnya</div>';
+          }
+        }
+        $html .= '</div>';
+
+        return $html;
       })
-      ->addColumn('last_status', function ($data) {
+      ->addColumn('last_status', function ($data) use ($draftRows, $sampledStep6Map) {
+        $rows = $draftRows->get($data->id_permohonan_uji, collect());
+        $sampledFromDraft = $rows->filter(function ($d) {
+          return $d->status === 'confirmed' || trim((string) ($d->titik_pengambilan ?? '')) !== '';
+        })->count();
+        $step6Count = (int) ($sampledStep6Map[$data->id_permohonan_uji] ?? 0);
+        $sampled = max($sampledFromDraft, $step6Count);
+        $pending = $rows->filter(function ($d) {
+          return $d->status === 'draft' && trim((string) ($d->titik_pengambilan ?? '')) === '';
+        })->count();
+        $draftPending = $rows->where('status', 'draft')->count();
+        $confirmedCount = $rows->where('status', 'confirmed')->count();
+
+        if ($sampled > 0 && $draftPending === 0) {
+          return '<label class="badge badge-success badge-pill w-75"><i class="fa fa-check"></i> Sudah Sampling</label>';
+        }
+        if ($sampled > 0 && $pending === 0 && $confirmedCount === 0) {
+          return '<label class="badge badge-info badge-pill w-75"><i class="fa fa-map-marker-alt"></i> Lokasi Terisi</label>';
+        }
+        if ($sampled > 0) {
+          return '<label class="badge badge-info badge-pill w-75"><i class="fa fa-tasks"></i> Sebagian Sampling</label>';
+        }
         return '<label class="badge badge-warning badge-pill w-75">Pengambilan Sampel</label>';
       })
       ->addColumn('date_sending', function ($data) {
@@ -1358,17 +1464,14 @@ class LaboratoriumAnalysManagement extends Controller
         return $date ? Carbon::parse($date)->isoFormat('D MMMM Y') : '-';
       })
       ->addColumn('action', function ($data) {
-        // Kelola Draft Sampel (Tombol Biru)
         $draftButton = '<a href="' . route('elits-sample-draft.index', [$data->id_permohonan_uji]) . '" title="Kelola Draft Sampel" class="btn btn-outline-info btn-rounded btn-icon" style="margin-right: 4px;">'
           . '<i class="fas fa-file-alt"></i>'
           . '</a>';
 
-        // Surat Perintah Sampling (Tombol Kuning)
         $suratPerintahButton = '<a href="' . route('elits-permohonan-uji.print-surat-perintah-sampling', [$data->id_permohonan_uji]) . '" target="_blank" title="Surat Perintah Sampling" class="btn btn-outline-warning btn-rounded btn-icon" style="margin-right: 4px;">'
           . '<i class="fas fa-clipboard-list"></i>'
           . '</a>';
 
-        // Formulir Pengambilan Sampel (Tombol Abu-abu)
         $formulirButton = '<a href="' . route('elits-release.formulir-pengambilan-sampel', [$data->id_permohonan_uji]) . '" target="_blank" title="Formulir Pengambilan Sampel" class="btn btn-outline-secondary btn-rounded btn-icon">'
           . '<i class="fas fa-file-signature"></i>'
           . '</a>';

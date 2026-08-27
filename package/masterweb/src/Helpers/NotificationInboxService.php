@@ -328,20 +328,31 @@ class NotificationInboxService
             ->whereNull('deleted_at')
             ->where('is_sampling', 1)
             ->where('created_at', '>=', $since)
-            ->whereNotExists(function ($q) {
-                $q->select(\DB::raw(1))
-                    ->from('tb_samples')
-                    ->join('tb_verification_activity_samples', 'tb_verification_activity_samples.id_sample', '=', 'tb_samples.id_samples')
-                    ->whereColumn('tb_samples.permohonan_uji_id', 'tb_permohonan_uji.id_permohonan_uji')
-                    ->where(function ($sub) {
-                        $sub->where(function ($s6) {
-                            $s6->where('tb_verification_activity_samples.id_verification_activity', 6)
-                               ->where('tb_verification_activity_samples.is_done', 1);
-                        })->orWhere(function ($sSub) {
-                            $sSub->whereIn('tb_verification_activity_samples.id_verification_activity', [7, 2, 3, 4, 5])
-                                 ->where('tb_verification_activity_samples.is_done', 1);
-                        });
+            ->where(function ($q) {
+                $q->whereExists(function ($d) {
+                    $d->select(\DB::raw(1))
+                        ->from('tb_sample_draft')
+                        ->whereColumn('tb_sample_draft.permohonan_uji_id', 'tb_permohonan_uji.id_permohonan_uji')
+                        ->where('tb_sample_draft.status', 'draft')
+                        ->whereNull('tb_sample_draft.deleted_at');
+                })->orWhere(function ($q2) {
+                    $q2->whereNotExists(function ($s) {
+                        $s->select(\DB::raw(1))
+                            ->from('tb_samples')
+                            ->join('tb_verification_activity_samples', 'tb_verification_activity_samples.id_sample', '=', 'tb_samples.id_samples')
+                            ->whereColumn('tb_samples.permohonan_uji_id', 'tb_permohonan_uji.id_permohonan_uji')
+                            ->whereNull('tb_samples.deleted_at')
+                            ->where(function ($sub) {
+                                $sub->where(function ($s6) {
+                                    $s6->where('tb_verification_activity_samples.id_verification_activity', 6)
+                                       ->where('tb_verification_activity_samples.is_done', 1);
+                                })->orWhere(function ($sSub) {
+                                    $sSub->whereIn('tb_verification_activity_samples.id_verification_activity', [7, 2, 3, 4, 5])
+                                         ->where('tb_verification_activity_samples.is_done', 1);
+                                });
+                            });
                     });
+                });
             })
             ->orderByDesc('created_at')
             ->limit(self::SYNC_CANDIDATE_LIMIT);
@@ -678,10 +689,21 @@ class NotificationInboxService
                 return false;
             }
 
-            // Jika sudah ada sample yang step 6 / step lanjutan selesai, pickup sudah selesai
+            $hasPendingDraft = \DB::table('tb_sample_draft')
+                ->where('permohonan_uji_id', $pu->id_permohonan_uji)
+                ->where('status', 'draft')
+                ->whereNull('deleted_at')
+                ->exists();
+
+            if ($hasPendingDraft) {
+                return true;
+            }
+
+            // Jika sudah ada sample yang step 6 / step lanjutan selesai, dan tidak ada draft pending
             $done = \DB::table('tb_samples')
                 ->join('tb_verification_activity_samples', 'tb_verification_activity_samples.id_sample', '=', 'tb_samples.id_samples')
                 ->where('tb_samples.permohonan_uji_id', $pu->id_permohonan_uji)
+                ->whereNull('tb_samples.deleted_at')
                 ->where(function ($sub) {
                     $sub->where(function ($s6) {
                         $s6->where('tb_verification_activity_samples.id_verification_activity', 6)

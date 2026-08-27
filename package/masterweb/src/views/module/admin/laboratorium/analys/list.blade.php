@@ -308,10 +308,10 @@
                                 <tr>
                                     <th>No.</th>
                                     <th>Pelanggan</th>
-                                    <th>Nomor Permohonan / Sampel</th>
-                                    <th>Jenis / Rincian Sampel</th>
+                                    <th>Nomor Permohonan</th>
+                                    <th>Draft / Sampel</th>
                                     <th>Status Pengajuan</th>
-                                    <th>Tanggal Registrasi / Diterima</th>
+                                    <th>Tanggal Registrasi</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
