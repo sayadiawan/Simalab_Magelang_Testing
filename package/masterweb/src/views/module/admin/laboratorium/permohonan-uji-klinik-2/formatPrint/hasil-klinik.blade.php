@@ -2568,7 +2568,7 @@
                         @elseif (isset($item_permohonan_uji_klinik->nama_dokter_pengirim_permohonan_uji_klinik))
                             {{ $item_permohonan_uji_klinik->nama_dokter_pengirim_permohonan_uji_klinik ?? '-' }}
                         @else
-                            dr. Sunantyo, M.P.H.
+                            dr. Dummy Pengirim
                         @endif
                     </td>
                     <td class="patient-info-label-right">
@@ -2960,7 +2960,7 @@
 
         {{-- TTD selalu di bawah tabel, tidak perlu page break karena sudah dipotong jika perlu --}}
         <div class="signature-section" style="page-break-inside: auto;">
-            <p style="font-size: {{ $fs }}pt !important; line-height: {{ $lh }} !important;">Dokter Penanggungjawab: dr. Sunantyo, M.P.H. <span
+            <p style="font-size: {{ $fs }}pt !important; line-height: {{ $lh }} !important;">Dokter Penanggungjawab: dr. Dummy Pengirim <span
                     style="font-size: {{ $fs }}pt !important; line-height: {{ $lh }} !important; padding-left: 20px; display: none;" hidden="true">(dokter yang melakukan validasi)</span></p>
             <style>
                 /* Samakan font Catatan dengan font dinamis */
@@ -3090,7 +3090,7 @@
         </div>
 
         <div style="margin-top: 16px;">
-            <p>Dokter Penanggung Jawab Klinik : dr. Sunantyo, M.P.H
+            <p>Dokter Penanggung Jawab Klinik : dr. Dummy Pengirim
                 <span style="font-size: 9pt; font-style: italic;">(dokter yang melakukan validasi)</span></p>
         </div>
 

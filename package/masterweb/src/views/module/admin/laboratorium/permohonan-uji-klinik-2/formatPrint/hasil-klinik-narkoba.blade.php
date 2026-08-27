@@ -100,7 +100,7 @@
     </div>
 
     <div style="margin-top: 20px;">
-        <p>Dokter Penanggung Jawab Klinik : dr. Sunantyo, M.P.H</p>
+        <p>Dokter Penanggung Jawab Klinik : dr. Dummy Pengirim</p>
     </div>
 
     <table width="100%" cellspacing="0" cellpadding="5" border="0" style="border-collapse: collapse; margin-top: 10px;">

@@ -39,7 +39,7 @@
                     @elseif (isset($item_permohonan_uji_klinik->nama_dokter_pengirim_permohonan_uji_klinik))
                         {{ $item_permohonan_uji_klinik->nama_dokter_pengirim_permohonan_uji_klinik ?? '-' }}
                     @else
-                        dr. Sunantyo, M.P.H.
+                        dr. Dummy Pengirim
                     @endif
                 </td>
                 <td width="20%"
@@ -403,7 +403,7 @@
 
     {{-- TTD selalu di bawah tabel, tidak perlu page break karena sudah dipotong jika perlu --}}
     <div class="signature-section" style="margin-top: 3px; page-break-inside: avoid; padding-bottom: {{ $bsreFooterReserve }}pt; margin-bottom: 4pt;">
-        <p style="font-size: 8px; margin: 2px 0; line-height: 1.2;">Dokter Penanggungjawab: dr. Sunantyo, M.P.H. <span
+        <p style="font-size: 8px; margin: 2px 0; line-height: 1.2;">Dokter Penanggungjawab: dr. Dummy Pengirim <span
                 style="font-size: 7px; padding-left: 10px;">(dokter yang melakukan validasi)</span></p>
         <div style="width: 600px !important;">
             <table cellspacing="0" cellpadding="0" border="0"
@@ -498,7 +498,7 @@
                                     </td>
                                     <td width="50%"
                                         style="text-align: center; padding-right: 10px; vertical-align: middle; font-size: 9pt;">
-                                        <u>dr. Sunantyo, M.P.H.</u>
+                                        <u>dr. Dummy Pengirim</u>
                                     </td>
                                 </tr>
                                 <tr>
@@ -528,7 +528,7 @@
                                 </td>
                                 <td width="50%"
                                     style="text-align: center; padding-right: 10px; vertical-align: middle; font-size: 9pt;">
-                                    <u>dr. Sunantyo, M.P.H.</u>
+                                    <u>dr. Dummy Pengirim</u>
                                 </td>
                             </tr>
                             <tr>

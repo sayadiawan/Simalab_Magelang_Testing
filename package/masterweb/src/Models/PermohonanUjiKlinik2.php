@@ -272,7 +272,7 @@ class PermohonanUjiKlinik2 extends Model
   /**
    * Nama pengirim untuk tampilan (rujukan/haji = dokter pengirim, lab = dokter penanggung jawab lab).
    */
-  public function getNamaPengirim($defaultLabDokter = 'dr. Sunantyo, M.P.H.')
+  public function getNamaPengirim($defaultLabDokter = 'dr. Dummy Pengirim')
   {
     if ($this->doctor_type === 'rujukan' || $this->is_haji == 1) {
       return $this->nama_dokter_pengirim_permohonan_uji_klinik ?: '-';

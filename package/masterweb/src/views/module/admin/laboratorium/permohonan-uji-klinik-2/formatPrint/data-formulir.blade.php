@@ -492,7 +492,7 @@
                 </td>
                 <td colspan="3" style="background-color: #f0f0f0; font-weight: bold;">Dokter Pengirim :
                     @if ($item_permohonan_uji_klinik->doctor_type == 'lab')
-                        dr. Sunantyo, M.P.H.
+                        dr. Dummy Pengirim
                     @else
                         {{ $item_permohonan_uji_klinik->nama_dokter_pengirim_permohonan_uji_klinik ?? '-' }}
                     @endif

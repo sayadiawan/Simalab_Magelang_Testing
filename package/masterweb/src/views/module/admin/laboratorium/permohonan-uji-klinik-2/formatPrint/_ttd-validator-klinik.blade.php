@@ -21,7 +21,7 @@
             @if ($showManualTtd)
             <div style="white-space: nowrap; text-align: left;">Validator</div>
             <div style="white-space: nowrap; text-align: left;"><br><br><br></div>
-            <div style="white-space: nowrap; text-align: left;">dr. Sunantyo, M.P.H.</div>
+            <div style="white-space: nowrap; text-align: left;">dr. Dummy Pengirim</div>
             <div style="white-space: nowrap; text-align: left;">Pembina</div>
             <div style="white-space: nowrap; text-align: left;">NIP. 197001282000031001</div>
             @endif

@@ -8792,8 +8792,16 @@ class LaboratoriumPermohonanUjiKlinikManagement2 extends Controller
 
     DB::beginTransaction();
 
-    // try {
+    try {
       $post = PermohonanUjiKlinik2::find($id_permohonan_uji_klinik);
+
+      if (!$post) {
+        DB::rollBack();
+        return response()->json([
+          'status' => false,
+          'pesan' => 'Data permohonan uji klinik tidak ditemukan.'
+        ], 404);
+      }
 
       // Simpan nama verifikator (bisa disimpan di field terpisah atau di verification activity)
       // Untuk sementara, kita simpan di verification activity step 4
@@ -8803,15 +8811,13 @@ class LaboratoriumPermohonanUjiKlinikManagement2 extends Controller
         ['id_verification_activity', '=', 4],
       ])->first();
 
-
-
-      if (isset(  $verifikasi)) {
+      if (isset($verifikasi)) {
         $verifikasi->nama_petugas = $nama_verifikator
           ? self::resolvePetugasCanonicalName($nama_verifikator)
           : $nama_verifikator;
         // is_done akan di-set setelah pengecekan status verifikasi
         $verifikasi->save();
-      }else{
+      } else {
         $verificationActivitySamplePX = new VerificationActivitySample();
         $verificationActivitySamplePX->id = Uuid::uuid4()->toString();
         $verificationActivitySamplePX->id_verification_activity = 4;
@@ -8840,8 +8846,9 @@ class LaboratoriumPermohonanUjiKlinikManagement2 extends Controller
       // Update status verifikasi dan komentar untuk setiap parameter
       $hasNonApprovedStatus = false; // Flag untuk menandai ada status yang bukan approved
 
-      if (count($request->permohonan_uji_parameter_klinik) > 0) {
-        foreach ($request->permohonan_uji_parameter_klinik as $key_permohonan_uji_parameter_klinik => $value_permohonan_uji_parameter_klinik) {
+      $permohonanParams = $request->permohonan_uji_parameter_klinik;
+      if (is_array($permohonanParams) && count($permohonanParams) > 0) {
+        foreach ($permohonanParams as $key_permohonan_uji_parameter_klinik => $value_permohonan_uji_parameter_klinik) {
           // Cek apakah ada sub parameter
           if (isset($request->parameter_sub_satuan_klinik_id[$value_permohonan_uji_parameter_klinik])) {
             // Update sub parameter
@@ -8959,7 +8966,7 @@ class LaboratoriumPermohonanUjiKlinikManagement2 extends Controller
         }
       } else {
         // Jika semua status approved dan user klik Selesai, selesaikan step 4 (Verifikasi)
-        if ($verifikasi && $request->post('is_selesai') == 1) {
+        if ($verifikasi && ($request->post('is_selesai') == 1 || $request->post('is_selesai') === '1')) {
           $verifikasi->is_done = 1;
           $verifikasi->save();
 
@@ -9008,14 +9015,19 @@ class LaboratoriumPermohonanUjiKlinikManagement2 extends Controller
         ]);
       }
 
-      // } catch (\Exception $e) {
-      //   DB::rollBack();
-      //   return response()->json([
-      //     'status' => false,
-      //     'pesan' => 'Terjadi kesalahan saat menyimpan verifikasi: ' . $e->getMessage()
-      //   ]);
-      // }
+    } catch (\Throwable $e) {
+      DB::rollBack();
+      Log::error('Error storing verification klinik: ' . $e->getMessage(), [
+        'exception' => $e,
+        'permohonan_id' => $id_permohonan_uji_klinik,
+        'trace' => $e->getTraceAsString(),
+      ]);
+      return response()->json([
+        'status' => false,
+        'pesan' => 'Terjadi kesalahan saat menyimpan verifikasi: ' . $e->getMessage()
+      ], 500);
     }
+  }
 
   private function isSatuSehatDuplicateObservation($errorMsg): bool
   {
@@ -19807,7 +19819,15 @@ class LaboratoriumPermohonanUjiKlinikManagement2 extends Controller
   {
     try {
       if (!empty($tglpengujian)) {
-        $start_date = Carbon::createFromFormat('d/m/Y H:i', $tglpengujian)->format('Y-m-d H:i:s');
+        try {
+          $start_date = Carbon::createFromFormat('d/m/Y H:i', $tglpengujian)->format('Y-m-d H:i:s');
+        } catch (\Throwable $ex) {
+          try {
+            $start_date = Carbon::parse($tglpengujian)->format('Y-m-d H:i:s');
+          } catch (\Throwable $ex2) {
+            $start_date = !empty($verifikasi->start_date) ? Carbon::parse($verifikasi->start_date)->format('Y-m-d H:i:s') : Carbon::now()->format('Y-m-d H:i:s');
+          }
+        }
       } elseif (!empty($verifikasi->start_date)) {
         $start_date = Carbon::parse($verifikasi->start_date)->format('Y-m-d H:i:s');
       } else {

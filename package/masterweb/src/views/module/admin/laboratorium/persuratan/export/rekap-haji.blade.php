@@ -208,7 +208,7 @@
     </tr>
     <tr>
         <th colspan="27"></th>
-        <th style="text-align:center;"><u>dr. Sunantyo, M.P.H</u></th>
+        <th style="text-align:center;"><u>dr. Dummy Pengirim</u></th>
         <th></th>
     </tr>
     <tr>

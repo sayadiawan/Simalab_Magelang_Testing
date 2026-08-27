@@ -5605,7 +5605,16 @@
                                 window.location.reload();
                             });
                         } else {
-                        swal("Error!", "System gagal menyimpan!", "error");
+                            var errMsg = "System gagal menyimpan!";
+                            if (xhr.responseJSON && xhr.responseJSON.pesan) {
+                                errMsg = xhr.responseJSON.pesan;
+                            } else if (xhr.responseText) {
+                                try {
+                                    var res = JSON.parse(xhr.responseText);
+                                    if (res.pesan) errMsg = res.pesan;
+                                } catch(e) {}
+                            }
+                            swal("Error!", errMsg, "error");
                         }
                     }
                 });
@@ -5672,7 +5681,16 @@
                         if (xhr.status === 419) {
                             swal({ title: "Session Expired", text: "Session Anda telah berakhir.", icon: "warning", timer: 2000, buttons: false }).then(function() { window.location.reload(); });
                         } else {
-                            swal("Error!", "System gagal menyimpan!", "error");
+                            var errMsg = "System gagal menyimpan!";
+                            if (xhr.responseJSON && xhr.responseJSON.pesan) {
+                                errMsg = xhr.responseJSON.pesan;
+                            } else if (xhr.responseText) {
+                                try {
+                                    var res = JSON.parse(xhr.responseText);
+                                    if (res.pesan) errMsg = res.pesan;
+                                } catch(e) {}
+                            }
+                            swal("Error!", errMsg, "error");
                         }
                     }
                 });
