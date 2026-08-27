@@ -237,6 +237,8 @@ class NotificationInboxService
             $pasien = optional($row->pasien)->nama_pasien ?: '-';
             $noreg = $row->noregister_permohonan_uji_klinik ?: '-';
 
+            $targetUrl = url('elits-permohonan-uji-klinik-2/create-permohonan-uji-sample/' . $row->id_permohonan_uji_klinik . '/1');
+
             $this->ensureNotification($user, [
                 'role_level' => $level,
                 'type' => 'klinik_sample_pickup',
@@ -244,7 +246,7 @@ class NotificationInboxService
                 'reference_id' => (string) $row->id_permohonan_uji_klinik,
                 'title' => 'Sampel baru menunggu diambil',
                 'message' => 'No. ' . $noreg . ' · ' . $pasien,
-                'url' => url('elits-permohonan-uji-klinik/verifikasi/lists') . '?status_filter=pengambilan_sample',
+                'url' => $targetUrl,
                 'icon' => 'fa-vial',
                 'color' => 'info',
                 'meta' => ['noregister' => $noreg, 'pasien' => $pasien],
@@ -375,13 +377,17 @@ class NotificationInboxService
      */
     private function ensureNotification(User $user, array $data): void
     {
-        $exists = LabNotification::query()
+        $existing = LabNotification::query()
             ->where('user_id', $user->id)
             ->where('type', $data['type'])
             ->where('reference_id', $data['reference_id'])
-            ->exists();
+            ->first();
 
-        if ($exists) {
+        if ($existing) {
+            if (isset($data['url']) && $existing->url !== $data['url']) {
+                $existing->url = $data['url'];
+                $existing->save();
+            }
             return;
         }
 
@@ -554,12 +560,17 @@ class NotificationInboxService
      */
     private function serialize(LabNotification $n): array
     {
+        $url = $n->url;
+        if ($n->type === 'klinik_sample_pickup' && $n->reference_id) {
+            $url = url('elits-permohonan-uji-klinik-2/create-permohonan-uji-sample/' . $n->reference_id . '/1');
+        }
+
         return [
             'id' => $n->id,
             'type' => $n->type,
             'title' => $n->title,
             'message' => $n->message,
-            'url' => $n->url,
+            'url' => $url,
             'icon' => $n->icon ?: 'fa-bell',
             'color' => $n->color ?: 'secondary',
             'unread' => $n->isUnread(),
