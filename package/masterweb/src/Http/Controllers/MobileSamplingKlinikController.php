@@ -22,6 +22,7 @@ use Smt\Masterweb\Models\SatuSehatPractitioner;
 use Smt\Masterweb\Models\SatuSehatLocation;
 use Smt\Masterweb\Models\ParameterPaketKlinik;
 use Smt\Masterweb\Models\VerificationActivitySample;
+use Smt\Masterweb\Helpers\SampleCollectorAccess;
 use Carbon\Carbon;
 use Exception;
 
@@ -133,7 +134,7 @@ class MobileSamplingKlinikController extends Controller
             if ($id) {
                 return redirect()->route('mobile.sampling.klinik.form', ['id' => $id]);
             }
-            return redirect()->route('mobile.sampling.klinik.scan');
+            return redirect()->route('mobile.sampling.klinik.home');
         }
 
         // Get permohonan from session if available
@@ -188,16 +189,26 @@ class MobileSamplingKlinikController extends Controller
             'password' => 'required|string',
         ]);
 
-        // Try to find user (without role filter since role column doesn't exist)
+        // Try to find user with privilege
         $user = User::where('username', $request->username)
+            ->with(['getlevel', 'laboratorium'])
             ->first();
 
         if ($user && Hash::check($request->password, $user->password)) {
+            $accessError = $this->denyUnlessKlinikSamplingAccess($user);
+            if ($accessError) {
+                return redirect()->back()
+                    ->withInput($request->only('username'))
+                    ->with('error', $accessError);
+            }
+
             try {
                 SatuSehatHelper::ensureAccessToken();
             } catch (\Throwable $e) {
                 Log::warning('Satu Sehat token refresh skipped for mobile sampling klinik: ' . $e->getMessage());
             }
+
+            $userLevel = optional($user->getlevel)->level;
 
             // Set mobile sampling klinik session
             $request->session()->put([
@@ -205,6 +216,7 @@ class MobileSamplingKlinikController extends Controller
                 'mobile_sampling_klinik_user_id' => $user->id,
                 'mobile_sampling_klinik_user_name' => $user->name,
                 'mobile_sampling_klinik_user_username' => $user->username,
+                'mobile_sampling_klinik_user_level' => $userLevel,
             ]);
             
             // Force save session
@@ -217,8 +229,8 @@ class MobileSamplingKlinikController extends Controller
                     ->with('success', 'Login berhasil! Selamat datang, ' . $user->name);
             }
 
-            return redirect()->route('mobile.sampling.klinik.scan')
-                ->with('success', 'Login berhasil! Silakan scan QR code');
+            return redirect()->route('mobile.sampling.klinik.home')
+                ->with('success', 'Login berhasil! Silakan scan QR code atau masukkan ID permohonan');
         }
 
         return redirect()->back()
@@ -2092,6 +2104,28 @@ class MobileSamplingKlinikController extends Controller
             'specimen_ids' => $idSpecimenSatuSehat,
             'service_request_ids' => $idServiceRequestSatuSehat
         ];
+    }
+
+    /**
+     * @param User|null $user
+     * @param string|null $deniedMessage
+     * @return string|null
+     */
+    private function denyUnlessKlinikSamplingAccess($user, $deniedMessage = null)
+    {
+        if (!$user) {
+            return $deniedMessage ?? 'Akses ditolak! Hanya petugas pengambil sample klinik atau admin yang dapat mengakses form ini.';
+        }
+
+        $userLevel = optional($user->getlevel)->level;
+        $isAdmin = in_array($userLevel, ['elits-dev', 'ALAB', 'LAB', 'ANLS', 'admin', 'KSKL'], true);
+        $isKlinikCollector = SampleCollectorAccess::isKlinik($userLevel);
+
+        if (!$isAdmin && !$isKlinikCollector) {
+            return $deniedMessage ?? 'Akses ditolak! Hanya petugas pengambil sample klinik atau admin yang dapat mengakses form ini.';
+        }
+
+        return null;
     }
 
 }

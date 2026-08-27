@@ -547,20 +547,50 @@
             border: 1px solid #ced4da !important;
         }
 
-        /* Ensure Select2 dropdown is properly positioned and not clipped */
+        /*
+         * Modal Tambah Baku Mutu — scroll body yang benar.
+         * Form membungkus body+footer, jadi form harus jadi flex column agar body bisa di-scroll.
+         * Jangan pakai overflow:visible di .modal-content (itu memutus scroll).
+         */
+        #modalTambahBakuMutu .modal-dialog {
+            max-height: calc(100vh - 2rem);
+            margin: 1rem auto;
+            display: flex;
+            overflow: hidden;
+        }
+
         #modalTambahBakuMutu .modal-content {
-            overflow: visible !important;
+            max-height: calc(100vh - 2rem);
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden !important;
+        }
+
+        #modalTambahBakuMutu form#formTambahBakuMutu {
+            display: flex;
+            flex-direction: column;
+            flex: 1 1 auto;
+            min-height: 0;
+            overflow: hidden;
+        }
+
+        #modalTambahBakuMutu .modal-header,
+        #modalTambahBakuMutu .modal-footer {
+            flex-shrink: 0;
         }
 
         #modalTambahBakuMutu .modal-body {
+            flex: 1 1 auto;
+            min-height: 0;
             overflow-y: auto !important;
             overflow-x: hidden;
-            max-height: calc(100vh - 250px);
+            max-height: none;
             position: relative;
-            -webkit-overflow-scrolling: touch; /* Smooth scrolling on mobile */
+            -webkit-overflow-scrolling: touch;
+            overscroll-behavior: contain;
         }
 
-        /* Ensure scroll works smoothly */
         #modalTambahBakuMutu .modal-body::-webkit-scrollbar {
             width: 8px;
         }
@@ -578,25 +608,18 @@
             background: #555;
         }
 
-        /* Ensure Select2 dropdown is not clipped by modal */
         #modalTambahBakuMutu .select2-container,
         #modalEditBakuMutu .select2-container {
             width: 100% !important;
         }
 
-        /* Fix Select2 dropdown positioning - ensure it's not clipped */
-        #modalTambahBakuMutu .select2-dropdown,
-        #modalEditBakuMutu .select2-dropdown {
-            position: absolute !important;
+        /* Select2 dropdown di body (bukan di dalam modal) agar tidak terpotong overflow:hidden */
+        body > .select2-container--open {
+            z-index: 10070 !important;
         }
 
-        /* Prevent Select2 from being cut off */
-        #modalTambahBakuMutu {
-            overflow: visible !important;
-        }
-
-        #modalTambahBakuMutu .modal-dialog {
-            overflow: visible !important;
+        body > .select2-container--open .select2-dropdown {
+            z-index: 10071 !important;
         }
 
         #modalEditBakuMutu .modal-dialog.modal-body-scrollable .modal-content {
@@ -5880,18 +5903,11 @@ Alat Dan Reagen tidak tersedia
                 $select.select2({
                     placeholder: '— Buat baru tanpa referensi —',
                     allowClear: true,
-                    dropdownParent: $modal.find('.modal-content'),
+                    // Parent body agar dropdown tidak terpotong overflow modal
+                    dropdownParent: $(document.body),
                     width: '100%',
                     theme: 'bootstrap4',
                     dropdownAutoWidth: false
-                });
-
-                var $modalBody = $modal.find('.modal-body');
-                $select.on('select2:open', function() {
-                    $modalBody.css('overflow-y', 'auto');
-                });
-                $select.on('select2:close', function() {
-                    $modalBody.css('overflow-y', 'auto');
                 });
             }
 
@@ -5921,6 +5937,16 @@ Alat Dan Reagen tidak tersedia
                 $('#modal-max').val(ref.max != null ? ref.max : '');
                 setModalTinyContent('modal-equal', ref.equal || '');
                 setModalTinyContent('modal-nilai-baku-mutu', ref.nilai_baku_mutu || '');
+
+                // Setelah isi dari referensi, scroll ke bagian konfigurasi di dalam modal-body
+                var $modalBody = $('#modalTambahBakuMutu .modal-body');
+                var $target = $('#modal-konfigurasi-card');
+                if ($target.length && $modalBody.length) {
+                    setTimeout(function() {
+                        var top = $target.position().top + $modalBody.scrollTop() - 8;
+                        $modalBody.stop(true).animate({ scrollTop: Math.max(0, top) }, 250);
+                    }, 120);
+                }
             }
 
             function loadBakuMutuReferensiOptions(methodId, sampleTypeId, labId, excludeJenisMakananId, isMml) {
@@ -6006,8 +6032,13 @@ Alat Dan Reagen tidak tersedia
                     $('#modal-referensi-loading').hide();
                     initReferensiSelect2();
                     if (_preferReferensiOnOpen) {
-                        $('#modal-referensi-card')[0].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                        $select.select2('open');
+                        var $modalBody = $('#modalTambahBakuMutu .modal-body');
+                        $modalBody.scrollTop(0);
+                        setTimeout(function() {
+                            try {
+                                $select.select2('open');
+                            } catch (e) { /* ignore */ }
+                        }, 250);
                         _preferReferensiOnOpen = false;
                     }
                 });
@@ -6145,7 +6176,7 @@ Alat Dan Reagen tidak tersedia
                     $librarySelect.select2({
                         placeholder: 'Pilih Acuan Baku Mutu',
                         allowClear: true,
-                        dropdownParent: $modal.find('.modal-content'),
+                        dropdownParent: $(document.body),
                         width: '100%',
                         theme: 'bootstrap4',
                         dropdownAutoWidth: false,
@@ -6159,7 +6190,7 @@ Alat Dan Reagen tidak tersedia
                     $unitSelect.select2({
                         placeholder: 'Pilih Satuan',
                         allowClear: true,
-                        dropdownParent: $modal.find('.modal-content'),
+                        dropdownParent: $(document.body),
                         width: '100%',
                         theme: 'bootstrap4',
                         dropdownAutoWidth: false,
@@ -6171,6 +6202,12 @@ Alat Dan Reagen tidak tersedia
                     // Select2 searchable untuk referensi baku mutu
                     initReferensiSelect2();
 
+                    // Pastikan body modal bisa di-scroll setelah init
+                    $modalBody.css({
+                        'overflow-y': 'auto',
+                        'overflow-x': 'hidden'
+                    });
+
                     // Prevent modal from closing when clicking on Select2 dropdown
                     $(document).on('click.select2-modal', '.select2-dropdown', function(e) {
                         e.stopPropagation();
@@ -6180,27 +6217,19 @@ Alat Dan Reagen tidak tersedia
                     var originalScrollTop = 0;
 
                     $librarySelect.on('select2:open', function() {
-                        // Store current scroll position
                         originalScrollTop = $modalBody.scrollTop();
-                        // Allow scroll but prevent jump
-                        $modalBody.css('overflow-y', 'auto');
                     });
 
                     $librarySelect.on('select2:close', function() {
-                        // Restore scroll position if needed
-                        $modalBody.css('overflow-y', 'auto');
+                        $modalBody.scrollTop(originalScrollTop);
                     });
 
                     $unitSelect.on('select2:open', function() {
-                        // Store current scroll position
                         originalScrollTop = $modalBody.scrollTop();
-                        // Allow scroll but prevent jump
-                        $modalBody.css('overflow-y', 'auto');
                     });
 
                     $unitSelect.on('select2:close', function() {
-                        // Restore scroll position if needed
-                        $modalBody.css('overflow-y', 'auto');
+                        $modalBody.scrollTop(originalScrollTop);
                     });
                 }, 200);
 
@@ -7142,7 +7171,7 @@ Alat Dan Reagen tidak tersedia
                         </div>
 
                         <!-- Konfigurasi Baku Mutu -->
-                        <div class="card mb-4">
+                        <div class="card mb-4" id="modal-konfigurasi-card">
                             <div class="card-header bg-light">
                                 <h5 class="mb-0"><i class="fa fa-sliders mr-2"></i>Konfigurasi Baku Mutu</h5>
                             </div>

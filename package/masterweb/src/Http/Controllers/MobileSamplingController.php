@@ -189,6 +189,8 @@ class MobileSamplingController extends Controller
                     ->with('error', $accessError);
             }
 
+            $userLevel = optional($user->getlevel)->level;
+
             // Set mobile sampling session
             $request->session()->put([
                 'mobile_sampling_auth' => true,
@@ -3047,8 +3049,8 @@ class MobileSamplingController extends Controller
             return $deniedMessage ?? 'Akses ditolak! Hanya petugas pengambil sample kesmas atau admin yang dapat mengakses form ini.';
         }
 
-        $userLevel = $user->getlevel->level ?? null;
-        $isAdmin = in_array($userLevel, ['elits-dev', 'ALAB', 'LAB', 'ANLS', 'admin'], true);
+        $userLevel = optional($user->getlevel)->level;
+        $isAdmin = in_array($userLevel, ['elits-dev', 'ALAB', 'LAB', 'ANLS', 'admin', 'KSKM'], true);
         $isKesmasCollector = SampleCollectorAccess::isKesmas($userLevel);
 
         if (!$isAdmin && !$isKesmasCollector) {
@@ -3056,7 +3058,7 @@ class MobileSamplingController extends Controller
         }
 
         if ($isKesmasCollector) {
-            $labName = $user->laboratorium->nama_laboratorium ?? '';
+            $labName = optional($user->laboratorium)->nama_laboratorium ?? '';
             if (!SampleCollectorAccess::kesmasLabAllowed($labName)) {
                 return 'Akses ditolak! Anda harus terdaftar di laboratorium Kimia atau Mikrobiologi.';
             }

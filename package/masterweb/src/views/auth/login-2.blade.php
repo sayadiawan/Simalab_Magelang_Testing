@@ -496,6 +496,36 @@
             display: block;
         }
 
+        .mobile-login-link {
+            display: none;
+            margin-top: 14px;
+            width: 100%;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 20px;
+            border: 1px solid var(--line);
+            background: var(--white);
+            color: var(--navy);
+            font-size: 14px;
+            font-weight: 700;
+            font-family: inherit;
+            text-decoration: none;
+            transition: border-color 0.2s, color 0.2s, background 0.2s;
+        }
+
+        .mobile-login-link:hover {
+            border-color: var(--teal);
+            color: var(--teal);
+            background: var(--teal-soft);
+        }
+
+        @media (max-width: 1024px), (hover: none) and (pointer: coarse) {
+            .mobile-login-link {
+                display: inline-flex;
+            }
+        }
+
         .form-meta {
             margin-top: 28px;
             padding-top: 20px;
@@ -753,6 +783,11 @@
                         Masuk
                         <i class="fas fa-arrow-right" aria-hidden="true"></i>
                     </button>
+
+                    <a class="mobile-login-link" href="{{ route('mobile.menu') }}">
+                        <i class="fas fa-mobile-alt" aria-hidden="true"></i>
+                        Versi Mobile
+                    </a>
                 </form>
 
                 <div class="form-meta">

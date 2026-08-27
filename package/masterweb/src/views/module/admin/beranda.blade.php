@@ -1757,7 +1757,8 @@
 @endsection
 
 @section('scripts')
-  <script src="{{asset('assets/admin/cdn-local/js/jquery-3.6.0.min.js')}}"></script>
+  {{-- Jangan load ulang jQuery di sini: vendor.bundle sudah memuat jQuery+Bootstrap.
+       Load ulang akan menghapus $.fn.collapse / Select2 dan merusak sidebar. --}}
   <script>
     (function () {
       var heroVideo = document.getElementById('dashHeroVideo');

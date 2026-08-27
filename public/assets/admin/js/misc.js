@@ -36,7 +36,11 @@
     //Close other submenu in sidebar on opening any
 
     sidebar.on('show.bs.collapse', '.collapse', function() {
-      sidebar.find('.collapse.show').collapse('hide');
+      if (typeof $.fn.collapse === 'function') {
+        sidebar.find('.collapse.show').not(this).collapse('hide');
+      } else {
+        sidebar.find('.collapse.show').not(this).removeClass('show');
+      }
     });
 
 

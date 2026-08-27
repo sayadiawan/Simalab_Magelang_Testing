@@ -78,6 +78,16 @@
                 return true;
             }
 
+            function hideSidebarCollapses() {
+                var $open = $('#sidebar .collapse.show');
+                if (!$open.length) return;
+                if ($.fn.collapse) {
+                    $open.collapse('hide');
+                } else {
+                    $open.removeClass('show').css('display', 'none');
+                }
+            }
+
             function restoreIconOnlyIfNeeded() {
                 var $body = $('body');
                 if (!$body.hasClass(SIDEBAR_WAS_ICON_ONLY)) {
@@ -87,7 +97,7 @@
                 $body.removeClass(SIDEBAR_EXPANDED_CLICK)
                     .removeClass(SIDEBAR_WAS_ICON_ONLY)
                     .addClass('sidebar-icon-only');
-                $('#sidebar .collapse.show').collapse('hide');
+                hideSidebarCollapses();
                 $('.sidebar .nav-item').removeClass('hover-open');
             }
 
@@ -120,10 +130,17 @@
             $(document).off('click.smtMinimize', '[data-toggle="minimize"]').on('click.smtMinimize', '[data-toggle="minimize"]', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
+
+                // Di mobile/tablet: tombol bars memakai offcanvas, bukan icon-only
+                if (!isDesktopSidebar()) {
+                    toggleSidebar();
+                    return;
+                }
+
                 var $body = $('body');
                 $body.removeClass(SIDEBAR_EXPANDED_CLICK).removeClass(SIDEBAR_WAS_ICON_ONLY);
                 $('.sidebar .nav-item').removeClass('hover-open');
-                $('#sidebar .collapse.show').collapse('hide');
+                hideSidebarCollapses();
                 if ($body.hasClass('sidebar-toggle-display') || $body.hasClass('sidebar-absolute')) {
                     $body.toggleClass('sidebar-hidden');
                 } else {

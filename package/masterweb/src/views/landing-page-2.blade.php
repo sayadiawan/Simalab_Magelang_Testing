@@ -359,6 +359,17 @@
             margin-bottom: 32px;
         }
 
+        /* Versi Mobile: sembunyikan di desktop lebar; tampilkan di layar kecil / touch */
+        #mobile-menu-btn {
+            display: none;
+        }
+
+        @media (max-width: 1024px), (hover: none) and (pointer: coarse) {
+            #mobile-menu-btn {
+                display: inline-flex;
+            }
+        }
+
         .btn {
             display: inline-flex;
             align-items: center;
@@ -1360,11 +1371,11 @@
                         @else
                             <a class="btn btn-primary" href="{{ route('login-form') }}">Login Sistem</a>
                         @endauth
-                        <a class="btn btn-secondary" href="{{ route('mobile.menu') }}" id="mobile-menu-btn" style="display: none;">
+                        <a class="btn btn-secondary" href="{{ route('mobile.menu') }}" id="mobile-menu-btn">
                             <i class="fas fa-mobile-alt" aria-hidden="true"></i>
-                    Versi Mobile
-                </a>
-            </div>
+                            Versi Mobile
+                        </a>
+                    </div>
                     <div class="hero-meta reveal" data-delay="4">
                         <div>
                             <strong>Terakreditasi</strong>
@@ -1650,22 +1661,7 @@
     </footer>
 
     <script>
-        function isMobileOrTablet() {
-            const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-            const isMobile = /android|webos|iphone|ipod|blackberry|iemobile|opera mini/i.test(userAgent.toLowerCase());
-            const isTablet = /ipad|android(?!.*mobile)|tablet|playbook|silk/i.test(userAgent.toLowerCase());
-            const isSmallScreen = window.innerWidth <= 1024;
-            return isMobile || isTablet || isSmallScreen;
-        }
-
         document.addEventListener('DOMContentLoaded', function () {
-            if (isMobileOrTablet()) {
-                const mobileBtn = document.getElementById('mobile-menu-btn');
-                if (mobileBtn) {
-                    mobileBtn.style.display = 'inline-flex';
-                }
-            }
-
             const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
             const supportsObserver = 'IntersectionObserver' in window;
             const wideScreen = window.innerWidth > 960;

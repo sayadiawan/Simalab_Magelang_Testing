@@ -178,8 +178,34 @@
         }
     }
 
-    /* Desktop: sidebar icon-only dibuka lewat klik menu expand */
+    /* Desktop: pastikan sidebar selalu terlihat (kecuali sengaja di-hide) */
     @media (min-width: 992px) {
+        body:not(.sidebar-hidden) .sidebar.sidebar-offcanvas {
+            display: block !important;
+            visibility: visible !important;
+            position: relative !important;
+            left: auto !important;
+            right: auto !important;
+            top: auto !important;
+            height: auto !important;
+            max-height: none !important;
+            transform: none !important;
+            opacity: 1 !important;
+            overflow-y: auto !important;
+            background-color: #0b3a5c !important;
+            width: 255px !important;
+            min-width: 255px !important;
+            max-width: 255px !important;
+            z-index: 11 !important;
+        }
+
+        body.sidebar-icon-only:not(.sidebar-hidden) .sidebar.sidebar-offcanvas {
+            width: 70px !important;
+            min-width: 70px !important;
+            max-width: 70px !important;
+            overflow: visible !important;
+        }
+
         body.sidebar-expanded-click .sidebar {
             display: block !important;
             visibility: visible !important;
@@ -192,6 +218,27 @@
 
         body.sidebar-expanded-click .sidebar .nav .nav-item .collapse.show,
         body.sidebar-expanded-click .sidebar .nav .nav-item .collapsing {
+            display: block !important;
+        }
+    }
+
+    /* Mobile offcanvas: navy + teks putih, posisi kiri konsisten */
+    @media (max-width: 991px) {
+        .sidebar.sidebar-offcanvas {
+            background-color: #0b3a5c !important;
+            left: -280px !important;
+            right: auto !important;
+            width: 280px !important;
+            min-width: 280px !important;
+            transform: none !important;
+        }
+
+        .sidebar.sidebar-offcanvas.active {
+            left: 0 !important;
+            width: 280px !important;
+            min-width: 280px !important;
+            transform: none !important;
+            visibility: visible !important;
             display: block !important;
         }
     }
