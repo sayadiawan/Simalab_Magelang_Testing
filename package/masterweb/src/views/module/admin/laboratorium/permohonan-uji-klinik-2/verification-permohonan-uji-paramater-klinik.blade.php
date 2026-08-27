@@ -5452,7 +5452,7 @@
                 });
             });
 
-            $('.btn-simpan').on('click', function() {
+            function submitVerifikasiForm(isSelesai) {
                 // Sync TinyMCE content to textarea before submit
                 if (typeof tinymce !== 'undefined' && tinymce.get('catatan_hasil')) {
                     var editor = tinymce.get('catatan_hasil');
@@ -5481,23 +5481,6 @@
                         syncUrinalisaDualInput($(this).data('param-no'));
                     }
                 });
-
-            function submitVerifikasiForm(isSelesai) {
-                // Save TinyMCE contents if available
-                if (typeof tinymce !== 'undefined' && tinymce.get('catatan_hasil')) {
-                    var catatanEditor = tinymce.get('catatan_hasil');
-                    if (catatanEditor) {
-                        catatanEditor.save();
-                        $('#catatan_hasil').val(catatanEditor.getContent());
-                    }
-                }
-                if (typeof tinymce !== 'undefined' && tinymce.get('kesimpulan_hasil')) {
-                    var editor = tinymce.get('kesimpulan_hasil');
-                    if (editor) {
-                        editor.save();
-                        $('#kesimpulan_hasil').val(editor.getContent());
-                    }
-                }
 
                 // Cek urinalisa jika ada
                 if (typeof collectIncompleteUrinalisaParams === 'function') {

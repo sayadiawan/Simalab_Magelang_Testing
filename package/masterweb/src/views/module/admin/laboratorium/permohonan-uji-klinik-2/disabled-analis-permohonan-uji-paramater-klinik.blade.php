@@ -1153,17 +1153,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-group" style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px;">
-                    <button type="button" class="btn btn-info btn-review-hasil-validasi" style="min-width: 150px; padding: 10px 20px; font-weight: 600;">
-                        <i class="fa fa-eye mr-2"></i>Review Hasil
-                    </button>
-                    <button type="submit" id="btn-simpan-validasi" class="btn btn-primary" style="min-width: 150px; padding: 10px 20px; font-weight: 600;">
-                        <i class="fa fa-save mr-2"></i>Simpan Validasi
-                    </button>
-                    <button type="button" id="btn-selesai-validasi" class="btn btn-success" style="min-width: 150px; padding: 10px 20px; font-weight: 600;">
-                        <i class="fa fa-check-circle mr-2"></i>Selesai
-                    </button>
-                </div>
             </form>
         @endif
     </div>
