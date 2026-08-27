@@ -1693,56 +1693,80 @@ class LaboratoriumPermohonanUjiManagement extends Controller
     $max_nota = (int)PermohonanUji::where(DB::raw('YEAR(date_permohonan_uji)'), '=', date('Y'))->max('nomor_nota');
 
     $permohonan_uji = PermohonanUji::where('id_permohonan_uji', '=', $id)->first();
-    $permohonan_uji->nomor_nota = $max_nota + 1;
-    $permohonan_uji->nota_diterima_dari = $data['recipient-name'];
+    if (!$permohonan_uji) {
+      return redirect()->back()->withErrors(['Data permohonan uji tidak ditemukan!']);
+    }
+
+    if (empty($permohonan_uji->nomor_nota)) {
+      $permohonan_uji->nomor_nota = $max_nota + 1;
+    }
+    $permohonan_uji->nota_diterima_dari = $data['recipient-name'] ?? ($data['nota_diterima_dari'] ?? $permohonan_uji->nota_diterima_dari);
     $permohonan_uji->nota_petugas_penerima = $user->id;
-    $permohonan_uji->nota_address_from = $data['address'];
+    $permohonan_uji->nota_address_from = $data['address'] ?? ($data['nota_address_from'] ?? $permohonan_uji->nota_address_from);
     if ($request->filled('tanggal_bayar')) {
       $permohonan_uji->tanggal_bayar = Carbon::parse($request->tanggal_bayar)->format('Y-m-d');
     } else if (empty($permohonan_uji->tanggal_bayar)) {
       $permohonan_uji->tanggal_bayar = Carbon::now()->format('Y-m-d');
     }
 
-    if ($request->biaya_tindakan_rectal_swab != 0) {
+    if ($request->filled('biaya_tindakan_rectal_swab') && $request->biaya_tindakan_rectal_swab != 0) {
       $permohonan_uji->biaya_tindakan_rectal_swab = $request->biaya_tindakan_rectal_swab;
-    } else {
-      $permohonan_uji->biaya_tindakan_rectal_swab = null;
     }
 
-    $rectalFee = (float) ($request->input('biaya_tindakan_rectal_swab', 0) ?: 0);
+    $rectalFee = (float) ($permohonan_uji->biaya_tindakan_rectal_swab ?: 0);
     $totalWajib = (float) $permohonan_uji->total_harga + $rectalFee;
 
-    $status = '';
     $submit = $request->input('payment_submit');
+    $amountInput = $request->input('amount');
+    if (is_string($amountInput)) {
+      $amountInput = preg_replace('/[^0-9]/', '', $amountInput);
+    }
+    $amount = is_numeric($amountInput) ? (float) $amountInput : 0;
+    $sudahTerbayar = (float) ($permohonan_uji->terbayar ?? 0);
+    $sisaTagihan = max(0, $totalWajib - $sudahTerbayar);
 
     if ($submit === 'partial') {
-      if ($request->filled('amount') && is_numeric($request->input('amount')) && (float) $request->input('amount') > 0) {
-        $permohonan_uji->terbayar += (float) $request->input('amount');
+      if ($amount > 0) {
+        $tambahan = min($sisaTagihan > 0 ? $sisaTagihan : $totalWajib, $amount);
+        $permohonan_uji->terbayar = $sudahTerbayar + $tambahan;
       }
-      $permohonan_uji->status_pembayaran = '0';
-      $status = 'Pembayaran berhasil disimpan';
+      if ($permohonan_uji->terbayar >= $totalWajib && $totalWajib > 0) {
+        $permohonan_uji->status_pembayaran = '1';
+        $status = 'Pembayaran Selesai (Lunas)';
+      } else {
+        $permohonan_uji->status_pembayaran = '0';
+        $status = 'Pembayaran sebagian sebesar ' . rupiah($amount) . ' berhasil disimpan. Sisa tagihan: ' . rupiah(max(0, $totalWajib - $permohonan_uji->terbayar));
+      }
     } elseif ($submit === 'lunas') {
       $permohonan_uji->terbayar = $totalWajib;
       $permohonan_uji->status_pembayaran = '1';
-      $status = 'Pembayaran Selesai';
+      $status = 'Pembayaran Selesai (Lunas)';
     } else {
-      // Form lama (satu tombol "Konfirmasi Pembayaran" tanpa payment_submit / tanpa field amount)
-      if ($request->filled('amount') && is_numeric($request->input('amount')) && (float) $request->input('amount') > 0) {
-        $permohonan_uji->terbayar += (float) $request->input('amount');
-        $permohonan_uji->status_pembayaran = '0';
-        $status = 'Pembayaran berhasil disimpan';
+      // Form tanpa payment_submit eksplisit
+      if ($amount > 0 && $amount < $totalWajib) {
+        $tambahan = min($sisaTagihan > 0 ? $sisaTagihan : $totalWajib, $amount);
+        $permohonan_uji->terbayar = $sudahTerbayar + $tambahan;
+        if ($permohonan_uji->terbayar >= $totalWajib && $totalWajib > 0) {
+          $permohonan_uji->status_pembayaran = '1';
+          $status = 'Pembayaran Selesai (Lunas)';
+        } else {
+          $permohonan_uji->status_pembayaran = '0';
+          $status = 'Pembayaran sebagian sebesar ' . rupiah($amount) . ' berhasil disimpan. Sisa tagihan: ' . rupiah(max(0, $totalWajib - $permohonan_uji->terbayar));
+        }
       } else {
         $permohonan_uji->terbayar = $totalWajib > 0 ? $totalWajib : $permohonan_uji->terbayar;
         $permohonan_uji->status_pembayaran = '1';
-        $status = 'Pembayaran Selesai';
+        $status = 'Pembayaran Selesai (Lunas)';
       }
     }
     $permohonan_uji->save();
 
-    return redirect()->route('elits-permohonan-uji.index')->with(['status' => $status]);
-    //get auth user
+    $level = auth()->user()->getlevel->level ?? null;
+    if ($level === 'BNDR') {
+      return redirect()->route('bendahara.pembayaran-pemeriksaan', ['source_type' => 'kesmas'])->with(['status' => $status]);
+    }
 
-    //get all menu public
+    return redirect()->route('elits-permohonan-uji.index')->with(['status' => $status]);
   }
 
   public function analys($id, $id_method = null)
@@ -3460,6 +3484,7 @@ END as price_total_packet'),
                                         <div class="payment-summary-box text-center">
                                             <div class="label">Total yang harus dibayar</div>
                                             <div class="amount">' . rupiah($permohonan_uji->total_harga) . '</div>
+                                            ' . ($permohonan_uji->terbayar > 0 ? '<div class="mt-2 pt-2 border-top border-light"><small>Sudah Dibayar: ' . rupiah($permohonan_uji->terbayar) . ' · Sisa: ' . rupiah(max(0, $permohonan_uji->total_harga - $permohonan_uji->terbayar)) . '</small></div>' : '') . '
                                         </div>
 
                                         <input type="hidden" name="_token" value="' . csrf_token() . '">
@@ -3479,17 +3504,28 @@ END as price_total_packet'),
                                             <input type="date" class="form-control" name="tanggal_bayar" id="tanggal-bayar" value="' . (($permohonan_uji->tanggal_bayar ?? null) ? \Carbon\Carbon::parse($permohonan_uji->tanggal_bayar)->format('Y-m-d') : date('Y-m-d')) . '" required>
                                         </div>
 
+                                        <div class="payment-info-card">
+                                            <label for="amount"><i class="fa fa-wallet"></i> Nominal Pembayaran Sekarang (Rp)</label>
+                                            <input type="number" class="form-control" name="amount" id="amount" value="' . max(0, $permohonan_uji->total_harga - ($permohonan_uji->terbayar ?? 0)) . '" placeholder="Masukkan nominal">
+                                            <small class="text-muted mt-1 d-block">* Kosongi atau klik Lunaskan untuk melunasi seluruh sisa tagihan.</small>
+                                        </div>
+
                                         <div class="alert alert-info" style="border-radius: 8px; border-left: 4px solid #17a2b8;">
                                             <i class="fa fa-info-circle"></i> <small>Pastikan data sudah benar sebelum konfirmasi pembayaran</small>
                                         </div>
                                     </div>
-                                    <div class="modal-footer">
+                                    <div class="modal-footer d-flex justify-content-between">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">
                                             <i class="fa fa-times"></i> Batal
                                         </button>
-                                        <button type="submit" class="btn btn-success btn-payment-confirm">
-                                            <i class="fa fa-check-circle"></i> Konfirmasi Pembayaran
-                                        </button>
+                                        <div>
+                                            <button type="submit" name="payment_submit" value="partial" class="btn btn-warning mr-1">
+                                                <i class="fa fa-hourglass-half"></i> Bayar Sebagian
+                                            </button>
+                                            <button type="submit" name="payment_submit" value="lunas" class="btn btn-success btn-payment-confirm">
+                                                <i class="fa fa-check-circle"></i> Lunaskan
+                                            </button>
+                                        </div>
                                     </div>
                                 </form>
                             </div>

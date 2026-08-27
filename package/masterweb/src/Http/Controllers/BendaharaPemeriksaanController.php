@@ -155,52 +155,111 @@ class BendaharaPemeriksaanController extends Controller
                 'tb_permohonan_uji.code_permohonan_uji',
                 'tb_permohonan_uji.created_at',
                 'tb_permohonan_uji.total_harga',
+                'tb_permohonan_uji.terbayar',
                 'tb_permohonan_uji.status_pembayaran',
                 'tb_permohonan_uji.nota_diterima_dari',
                 'tb_permohonan_uji.nota_address_from',
+                'tb_permohonan_uji.biaya_tindakan_rectal_swab',
+                'tb_permohonan_uji.tanggal_bayar',
                 'ms_customer.name_customer',
                 'ms_customer.address_customer'
             )
             ->get()
             ->map(function ($row) {
                 $isPaid = (int) $row->status_pembayaran === 1;
+                $total = (int) ($row->total_harga ?? 0) + (int) ($row->biaya_tindakan_rectal_swab ?? 0);
+                $paid = (int) ($row->terbayar ?? 0);
+                $sisa = max(0, $total - $paid);
+                $isPartial = !$isPaid && $paid > 0;
                 $modalId = 'modal-kesmas-payment-' . $row->id_permohonan_uji;
+
                 $statusButton = $isPaid
                     ? '<span class="badge badge-success">Lunas</span>'
-                    : '<button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#' . $modalId . '">Belum Bayar</button>';
+                    : '<button type="button" class="btn btn-sm ' . ($isPartial ? 'btn-warning' : 'btn-danger') . '" data-toggle="modal" data-target="#' . $modalId . '">' . ($isPartial ? 'Belum Lunas' : 'Belum Bayar') . '</button>';
 
                 $modal = '';
                 if (!$isPaid) {
+                    $recipientVal = e($row->nota_diterima_dari ?: ($row->name_customer ?: '-'));
+                    $addressVal = e($row->nota_address_from ?: ($row->address_customer ?: '-'));
+                    $tglBayarVal = $row->tanggal_bayar ? Carbon::parse($row->tanggal_bayar)->format('Y-m-d') : now()->format('Y-m-d');
+
+                    $partialSection = '';
+                    if ($isPartial) {
+                        $partialSection = '
+                            <div class="row mt-2 pt-2 border-top">
+                                <div class="col-6 text-left">
+                                    <small class="text-muted d-block"><i class="fa fa-check mr-1 text-success"></i>Sudah Dibayar:</small>
+                                    <span class="font-weight-bold text-success">' . rupiah($paid) . '</span>
+                                </div>
+                                <div class="col-6 text-right">
+                                    <small class="text-muted d-block"><i class="fa fa-exclamation-circle mr-1 text-danger"></i>Sisa Tagihan:</small>
+                                    <span class="font-weight-bold text-danger">' . rupiah($sisa) . '</span>
+                                </div>
+                            </div>';
+                    }
+
                     $modal = '
                         <div class="modal fade" id="' . $modalId . '" tabindex="-1" role="dialog" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title">Konfirmasi Pembayaran Kesmas</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content text-left" style="border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.15);">
+                                    <div class="modal-header" style="background: linear-gradient(135deg, #0b3a5c 0%, #0d8f7f 100%); color: white; padding: 15px 20px;">
+                                        <h5 class="modal-title font-weight-bold text-white mb-0" style="font-size: 1.1rem;">
+                                            <i class="fa fa-cash-register mr-2"></i> Konfirmasi Pembayaran Kesmas
+                                        </h5>
+                                        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close" style="opacity: 0.9;">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <form action="' . route('elits-permohonan-uji.payment', $row->id_permohonan_uji) . '" method="POST">
-                                        <div class="modal-body">
+                                        <div class="modal-body" style="padding: 20px; background-color: #f8f9fa;">
                                             <input type="hidden" name="_token" value="' . csrf_token() . '">
-                                            <div class="form-group">
-                                                <label>Pelanggan</label>
-                                                <input type="text" class="form-control" value="' . e($row->name_customer ?: '-') . '" name="recipient-name" required>
+                                            
+                                            <div class="form-group mb-2">
+                                                <label class="font-weight-bold text-muted small mb-1"><i class="fa fa-user mr-1 text-primary"></i> Pelanggan</label>
+                                                <input type="text" class="form-control form-control-sm" value="' . $recipientVal . '" name="recipient-name" required>
                                             </div>
-                                            <div class="form-group">
-                                                <label>Alamat</label>
-                                                <textarea class="form-control" name="address" rows="3" required>' . e($row->address_customer ?: '-') . '</textarea>
+                                            <div class="form-group mb-2">
+                                                <label class="font-weight-bold text-muted small mb-1"><i class="fa fa-map-marker-alt mr-1 text-primary"></i> Alamat</label>
+                                                <textarea class="form-control form-control-sm" name="address" rows="2" required>' . $addressVal . '</textarea>
                                             </div>
-                                            <div class="form-group">
-                                                <label>Tanggal Bayar</label>
-                                                <input type="date" class="form-control" name="tanggal_bayar" value="' . now()->format('Y-m-d') . '" required>
+                                            <div class="form-group mb-3">
+                                                <label class="font-weight-bold text-muted small mb-1"><i class="fa fa-calendar-alt mr-1 text-primary"></i> Tanggal Bayar</label>
+                                                <input type="date" class="form-control form-control-sm" name="tanggal_bayar" value="' . $tglBayarVal . '" required>
                                             </div>
-                                            <div class="alert alert-info mb-0">Nominal tagihan: <strong>' . rupiah($row->total_harga ?? 0) . '</strong></div>
+
+                                            <div class="card p-3 mb-3 border bg-white" style="border-radius: 8px;">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <span class="text-muted small font-weight-bold">Total Tagihan:</span>
+                                                    <span class="font-weight-bold text-dark" style="font-size: 1.05rem;">' . rupiah($total) . '</span>
+                                                </div>
+                                                ' . $partialSection . '
+                                            </div>
+
+                                            <div class="form-group mb-1">
+                                                <label class="font-weight-bold text-muted small mb-1"><i class="fa fa-wallet mr-1 text-primary"></i> Nominal Pembayaran yang Disetorkan (Rp)</label>
+                                                <div class="input-group input-group-sm">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text font-weight-bold bg-light">Rp</span>
+                                                    </div>
+                                                    <input type="number" class="form-control" name="amount" min="1" max="' . $sisa . '" value="' . $sisa . '" placeholder="' . $sisa . '">
+                                                </div>
+                                                <small class="text-muted mt-1 d-block" style="font-size: 0.8rem;">
+                                                    * Klik <strong>Bayar Sebagian</strong> untuk mencatat cicilan/uang muka, atau <strong>Lunaskan</strong> untuk langsung melunasi seluruh tagihan.
+                                                </small>
+                                            </div>
                                         </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                            <button type="submit" class="btn btn-success">Lunaskan</button>
+                                        <div class="modal-footer d-flex justify-content-between bg-white" style="padding: 12px 20px;">
+                                            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">
+                                                <i class="fa fa-times mr-1"></i> Batal
+                                            </button>
+                                            <div>
+                                                <button type="submit" name="payment_submit" value="partial" class="btn btn-warning btn-sm mr-1">
+                                                    <i class="fa fa-hourglass-half mr-1"></i> Bayar Sebagian
+                                                </button>
+                                                <button type="submit" name="payment_submit" value="lunas" class="btn btn-success btn-sm">
+                                                    <i class="fa fa-check-circle mr-1"></i> Lunaskan
+                                                </button>
+                                            </div>
                                         </div>
                                     </form>
                                 </div>
@@ -215,7 +274,7 @@ class BendaharaPemeriksaanController extends Controller
                     'nomor' => $row->code_permohonan_uji ?: '-',
                     'nama' => $row->name_customer ?: '-',
                     'tanggal' => $row->created_at,
-                    'nominal' => (int) ($row->total_harga ?? 0),
+                    'nominal' => $total,
                     'status_key' => $isPaid ? 'lunas' : 'belum_lunas',
                     'status_html' => $statusButton . $modal,
                     'dokumen_html' => $this->printButtons(
