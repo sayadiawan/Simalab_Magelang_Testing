@@ -10,6 +10,60 @@
 
 @section('content')
     <style>
+        /* DataTable styling */
+        #empTable {
+            width: 100% !important;
+            font-size: 0.9rem;
+        }
+
+        table.dataTable#empTable.table-striped > tbody > tr > *,
+        table.dataTable#empTable.table-striped > tbody > tr.odd > *,
+        table.dataTable#empTable.table-striped > tbody > tr.even > * {
+            box-shadow: none !important;
+        }
+
+        table.dataTable#empTable.table-striped > tbody > tr.odd {
+            background-color: #fafafa;
+        }
+
+        #empTable thead th,
+        .dataTables_wrapper #empTable.dataTable thead th,
+        .dataTables_wrapper #empTable.dataTable thead th.sorting,
+        .dataTables_wrapper #empTable.dataTable thead th.sorting_asc,
+        .dataTables_wrapper #empTable.dataTable thead th.sorting_desc {
+            background-color: #0b3a5c !important;
+            color: #ffffff !important;
+            font-weight: 600;
+            border: none;
+            padding: 12px 10px;
+            text-align: left;
+            white-space: nowrap;
+        }
+
+        .dataTables_wrapper #empTable.dataTable thead th.sorting:before,
+        .dataTables_wrapper #empTable.dataTable thead th.sorting:after,
+        .dataTables_wrapper #empTable.dataTable thead th.sorting_asc:before,
+        .dataTables_wrapper #empTable.dataTable thead th.sorting_asc:after,
+        .dataTables_wrapper #empTable.dataTable thead th.sorting_desc:before,
+        .dataTables_wrapper #empTable.dataTable thead th.sorting_desc:after {
+            color: rgba(255, 255, 255, 0.85) !important;
+            opacity: 1 !important;
+        }
+
+        #empTable thead th.text-center {
+            text-align: center;
+        }
+
+        #empTable tbody td {
+            vertical-align: middle;
+            padding: 10px 8px;
+            word-wrap: break-word;
+        }
+
+        #empTable tbody tr:hover {
+            background-color: #f5f5f5;
+        }
+
         /* Tab Filter Styling */
         .tab-filter {
             display: flex;
