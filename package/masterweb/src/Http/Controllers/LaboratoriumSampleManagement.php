@@ -3734,6 +3734,10 @@ class LaboratoriumSampleManagement extends Controller
         $sample->note_samples = $request->post('note');
         $sample->titik_pengambilan = $request->post('titik_pengambilan');
         $sample->group_id = $group_id; // Add group_id for single sample
+        $permohonan_uji_parent = PermohonanUji::find($id);
+        $sample->is_sampling = $request->has('is_sampling') && $request->is_sampling !== null
+          ? (int) $request->is_sampling
+          : (int) ($permohonan_uji_parent->is_sampling ?? 1);
         $simpan_sample = $sample->save();
 
 
@@ -4281,9 +4285,11 @@ class LaboratoriumSampleManagement extends Controller
           $sample->titik_pengambilan = $sampleConfig['titik_pengambilan'] ?? $request->titik_pengambilan ?? null;
           $sample->datesampling_samples = $datesampling_samples;
           $sample->date_sending = $date_sending;
-          $sample->name_pelanggan = $request->name_pelanggan ?? $permohonan_uji->customer->name_customer ?? null;
-          $sample->is_sampling = $request->is_sampling ?? 1;
-          $sample->cost_sampling_samples = $request->cost_sampling ?? 0;
+        $sample->name_pelanggan = $request->name_pelanggan ?? $permohonan_uji->customer->name_customer ?? null;
+        $sample->is_sampling = $request->has('is_sampling') && $request->is_sampling !== null
+          ? (int) $request->is_sampling
+          : (int) ($permohonan_uji->is_sampling ?? 1);
+        $sample->cost_sampling_samples = $request->cost_sampling ?? 0;
           $sample->program_samples = $request->program_samples ?? $default_program;
           $sample->pengambil_sampel = $user->name ?? 'Petugas';
           $sample->created_at = Carbon::now();
@@ -5482,14 +5488,23 @@ class LaboratoriumSampleManagement extends Controller
 
 
 
-      $sample = Sample::where('tb_samples.id_samples', '=', $id)
-        ->first();
+      $sample = Sample::where('tb_samples.id_samples', '=', $id)->first();
+      if (!$sample) {
+        $sample = Sample::where('tb_samples.permohonan_uji_id', '=', $id)->first();
+      }
+      if (!$sample) {
+        abort(404, 'Sampel tidak ditemukan.');
+      }
+      $id = $sample->id_samples;
       $sample2 = null;
       if (isset($sample->codeKimiaMikro)){
         $sample2 = Sample::query()->where('id_samples', '!=', $sample->id_samples)->where('codeKimiaMikro', '=', $sample->codeKimiaMikro)->first();
       }
 
-        $permohonan_uji = PermohonanUji::find($sample->permohonanuji->id_permohonan_uji);
+      $permohonan_uji = $sample->permohonanuji ?: PermohonanUji::find($sample->permohonan_uji_id);
+      if (!$permohonan_uji) {
+        abort(404, 'Permohonan Uji tidak ditemukan.');
+      }
 
         // dd(  $permohonan_uji);
 

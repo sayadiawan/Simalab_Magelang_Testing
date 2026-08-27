@@ -40,17 +40,12 @@ class LaboratoriumAnalysManagement extends Controller
 
 
     $user = Auth()->user();
+    $userLevel = $user->getlevel->level ?? null;
     $lab = Auth()->user()->laboratorium()->first();
 
     $methods = Method::all();
 
-
-
-
-
-
-
-    return view('masterweb::module.admin.laboratorium.analys.list', compact('methods', 'user'));
+    return view('masterweb::module.admin.laboratorium.analys.list', compact('methods', 'user', 'userLevel'));
 
     // return view('masterweb::module.admin.laboratorium.analys.pagination');
 
@@ -263,28 +258,30 @@ class LaboratoriumAnalysManagement extends Controller
 
       ->addColumn('action', function ($data) {
         $editButton = '';
+        $draftButton = '';
         $verificationButton = '';
 
+        if (!empty($data->permohonan_uji_id)) {
+          $draftButton = '<a href="' . route('elits-sample-draft.index', [$data->permohonan_uji_id]) . '" title="Kelola Draft Sampel"> <button type="button" class="btn btn-outline-info btn-rounded btn-icon" style="margin-right: 4px;">
+          <i class="fas fa-file-alt"></i>
+      </button></a> ';
+        }
 
         if (getAction('update')) {
-          $editButton = '<a href="' . route('elits-samples.edit', [$data->permohonan_uji_id]) . '" class="dropdown-item" title="Edit"> <button type="button" class="btn btn-outline-warning btn-rounded btn-icon">
+          $editButton = '<a href="' . route('elits-samples.edit', [$data->id_samples]) . '" title="Edit Sampel"> <button type="button" class="btn btn-outline-warning btn-rounded btn-icon" style="margin-right: 4px;">
           <i class="fas fa-pencil-alt"></i>
       </button></a> ';
         }
 
         if (getSpesialAction('elits-samples', 'verification-sampel', '')) {
-          $verificationButton = '<a href="' . route('elits-samples.verification-2', [$data->id_samples, $data->id_laboratorium]) . '" class="dropdown-item" title="Edit"> <button type="button" class="btn btn-outline-success btn-rounded btn-icon">
+          $verificationButton = '<a href="' . route('elits-samples.verification-2', [$data->id_samples, $data->id_laboratorium]) . '" title="Verifikasi"> <button type="button" class="btn btn-outline-success btn-rounded btn-icon">
           <i class="fa fa-check"></i>
       </button></a> ';
         }
 
+        $button = $draftButton . $editButton . $verificationButton;
 
-
-
-
-        $button = $editButton . ' ' . $verificationButton;
-
-        return $button;
+        return trim($button);
       })
 
       ->rawColumns(['codesample_samples', 'nama_laboratorium', 'name_sample_type', 'last_status', 'action', 'date_sending'])
@@ -783,7 +780,17 @@ class LaboratoriumAnalysManagement extends Controller
     foreach ($sampleIds as $id) {
       $activities = $verificationActivities->get($id, []);
       $sInfo = $sampleInfo->get($id);
-      $isSampling = $sInfo ? ($sInfo->sample_is_sampling !== null ? (int) $sInfo->sample_is_sampling : (int) ($sInfo->permohonan_is_sampling ?? 1)) : 1;
+      if ($sInfo) {
+        if ($sInfo->permohonan_is_sampling !== null && (int) $sInfo->permohonan_is_sampling === 0) {
+          $isSampling = 0;
+        } elseif ($sInfo->sample_is_sampling !== null && (int) $sInfo->sample_is_sampling === 0) {
+          $isSampling = 0;
+        } else {
+          $isSampling = $sInfo->sample_is_sampling !== null ? (int) $sInfo->sample_is_sampling : (int) ($sInfo->permohonan_is_sampling ?? 1);
+        }
+      } else {
+        $isSampling = 1;
+      }
  
       // Cek status setiap step (1 = sudah done, 0 = belum done, null = belum ada)
       $step1Done = isset($activities[1]) && $activities[1] == 1;
@@ -914,13 +921,17 @@ class LaboratoriumAnalysManagement extends Controller
       } elseif ($statusFilter == 'pengambilan_sample') {
         // Step 1 selesai, sampel diambil lab (is_sampling = 1), Step 6 (id_verification_activity = 6) belum selesai, dan belum ada step 7, 2, 3, 4, 5
         $query->where(function ($q) {
-          $q->where('tb_samples.is_sampling', 1)
-            ->orWhere(function ($sub) {
-              $sub->whereNull('tb_samples.is_sampling')
-                ->whereHas('permohonanuji', function ($pq) {
-                  $pq->where('is_sampling', 1)->orWhereNull('is_sampling');
-                });
-            });
+          $q->where(function ($sub) {
+            $sub->where('tb_samples.is_sampling', 1)
+              ->whereHas('permohonanuji', function ($pq) {
+                $pq->where('is_sampling', '!=', 0)->orWhereNull('is_sampling');
+              });
+          })->orWhere(function ($sub) {
+            $sub->whereNull('tb_samples.is_sampling')
+              ->whereHas('permohonanuji', function ($pq) {
+                $pq->where('is_sampling', 1);
+              });
+          });
         })->whereExists(function ($subquery) {
           $subquery->select(DB::raw(1))
             ->from('tb_verification_activity_samples')
@@ -953,13 +964,17 @@ class LaboratoriumAnalysManagement extends Controller
           // Kasus 1: diambil oleh lab (is_sampling = 1) -> harus sudah step 6
           $q->where(function ($q1) {
             $q1->where(function ($qSampling) {
-              $qSampling->where('tb_samples.is_sampling', 1)
-                ->orWhere(function ($sub) {
-                  $sub->whereNull('tb_samples.is_sampling')
-                    ->whereHas('permohonanuji', function ($pq) {
-                      $pq->where('is_sampling', 1)->orWhereNull('is_sampling');
-                    });
-                });
+              $qSampling->where(function ($sub) {
+                $sub->where('tb_samples.is_sampling', 1)
+                  ->whereHas('permohonanuji', function ($pq) {
+                    $pq->where('is_sampling', '!=', 0)->orWhereNull('is_sampling');
+                  });
+              })->orWhere(function ($sub) {
+                $sub->whereNull('tb_samples.is_sampling')
+                  ->whereHas('permohonanuji', function ($pq) {
+                    $pq->where('is_sampling', 1);
+                  });
+              });
             })->whereExists(function ($subquery) {
               $subquery->select(DB::raw(1))
                 ->from('tb_verification_activity_samples')
@@ -971,11 +986,8 @@ class LaboratoriumAnalysManagement extends Controller
           // Kasus 2: tidak diambil oleh lab (is_sampling = 0) -> langsung ke penerimaan tanpa syarat step 6
           ->orWhere(function ($q2) {
             $q2->where('tb_samples.is_sampling', 0)
-              ->orWhere(function ($sub) {
-                $sub->whereNull('tb_samples.is_sampling')
-                  ->whereHas('permohonanuji', function ($pq) {
-                    $pq->where('is_sampling', 0);
-                  });
+              ->orWhereHas('permohonanuji', function ($pq) {
+                $pq->where('is_sampling', 0);
               });
           });
         })->where(function ($q) {

@@ -151,6 +151,7 @@
                 <div class="card-body">
                     <!-- Tab Filter -->
                     @php
+                        $userLevel = $userLevel ?? (Auth::user()->getlevel->level ?? null);
                         // Tentukan tab yang boleh ditampilkan berdasarkan level
                         $allowedTabs = [];
                         if (in_array($userLevel ?? null, ['ANLS', 'ALAB'])) {

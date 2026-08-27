@@ -199,11 +199,21 @@
         </td>
     </tr>
     <tr>
-        <td>
-            <br>
-                Biaya Rp. <b style="margin-left: 100px; font-size: 14px;">{{ rupiahTanpaRp($total_harga ?? 0) }}</b>
-            <br>
-            <br>
+        <td style="padding: 6px 8px; vertical-align: middle;">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" style="border: none;">
+                <tr>
+                    <td style="border: none; vertical-align: middle; padding: 0;">
+                        Biaya Rp. <b style="margin-left: 20px; font-size: 14px;">{{ rupiahTanpaRp($total_harga ?? 0) }}</b>
+                    </td>
+                    @if (($document_type ?? 'nota') === 'nota' && ((isset($permohonan_uji->status_pembayaran) && (string)$permohonan_uji->status_pembayaran === "1") || ($sisa ?? 0) <= 0))
+                        <td style="border: none; text-align: right; vertical-align: middle; padding: 0 10px 0 0;">
+                            <div class="stamp-lunas">
+                                LUNAS
+                            </div>
+                        </td>
+                    @endif
+                </tr>
+            </table>
         </td>
     </tr>
     <tr>

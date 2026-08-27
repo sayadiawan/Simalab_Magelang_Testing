@@ -32,7 +32,6 @@ class SplitPengambilSampelKlinikKesmas extends Migration
     private $solMMenus = [
         1 => 1,    // Dashboard
         2 => 2,    // Profil
-        96 => 12,  // Permohonan Uji Kesmas
         self::MENU_PENGAMBILAN_KESMAS => 14, // Pengambilan Sampel Kesmas
         105 => 98, // Edit Password
         227 => 99, // Log Aktivitas

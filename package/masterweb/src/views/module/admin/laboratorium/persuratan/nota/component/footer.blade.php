@@ -6,8 +6,13 @@
     <tr>
         <td></td>
         <td style="text-align: center; vertical-align: top; padding: 3px;">
-            @if (($document_type ?? 'nota') === 'nota' && isset($permohonan_uji->status_pembayaran) && $permohonan_uji->status_pembayaran == "1" && !empty($permohonan_uji->tanggal_bayar))
-                Dibayar pada: {{ \Carbon\Carbon::parse($permohonan_uji->tanggal_bayar)->format('d/m/Y') }}
+            @if (($document_type ?? 'nota') === 'nota' && ((isset($permohonan_uji->status_pembayaran) && (string)$permohonan_uji->status_pembayaran === "1") || ($sisa ?? 0) <= 0))
+                <div style="margin-bottom: 2px;">
+                    <span class="stamp-lunas-badge">LUNAS</span>
+                </div>
+                @if(!empty($permohonan_uji->tanggal_bayar))
+                    Dibayar pada: {{ \Carbon\Carbon::parse($permohonan_uji->tanggal_bayar)->format('d/m/Y') }}
+                @endif
             @elseif (($document_type ?? 'nota') === 'invoice')
                 Dokumen tagihan — belum merupakan bukti pembayaran
             @endif

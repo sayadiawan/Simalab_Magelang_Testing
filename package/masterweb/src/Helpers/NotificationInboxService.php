@@ -328,13 +328,17 @@ class NotificationInboxService
             ->whereNull('deleted_at')
             ->where('created_at', '>=', $since)
             ->where(function ($q) {
-                $q->where('tb_samples.is_sampling', 1)
-                    ->orWhere(function ($sub) {
-                        $sub->whereNull('tb_samples.is_sampling')
-                            ->whereHas('permohonanuji', function ($pq) {
-                                $pq->where('is_sampling', 1)->orWhereNull('is_sampling');
-                            });
-                    });
+                $q->where(function ($sub) {
+                    $sub->where('tb_samples.is_sampling', 1)
+                        ->whereHas('permohonanuji', function ($pq) {
+                            $pq->where('is_sampling', '!=', 0)->orWhereNull('is_sampling');
+                        });
+                })->orWhere(function ($sub) {
+                    $sub->whereNull('tb_samples.is_sampling')
+                        ->whereHas('permohonanuji', function ($pq) {
+                            $pq->where('is_sampling', 1);
+                        });
+                });
             })
             ->orderByDesc('created_at')
             ->limit(self::SYNC_CANDIDATE_LIMIT);
@@ -555,10 +559,20 @@ class NotificationInboxService
             } elseif ($n->type === 'klinik_sample_new' && $n->reference_id) {
                 $resolved = $this->klinikAlreadyValidated($n->reference_id)
                     || !$this->klinikNeedsAnalystAttention($n->reference_id);
-            } elseif ($n->type === 'klinik_sample_pickup' && $n->reference_id) {
-                $resolved = !$this->klinikNeedsSamplePickup($n->reference_id);
             } elseif ($n->type === 'kesmas_sample_pickup' && $n->reference_id) {
-                $resolved = !$this->kesmasNeedsSamplePickup($n->reference_id);
+                $needsPickup = $this->kesmasNeedsSamplePickup($n->reference_id);
+                if (!$needsPickup) {
+                    $n->delete();
+                    continue;
+                }
+                $resolved = false;
+            } elseif ($n->type === 'klinik_sample_pickup' && $n->reference_id) {
+                $needsPickup = $this->klinikNeedsSamplePickup($n->reference_id);
+                if (!$needsPickup) {
+                    $n->delete();
+                    continue;
+                }
+                $resolved = false;
             } elseif ($n->type === 'klinik_sample_receipt' && $n->reference_id) {
                 $resolved = !$this->klinikNeedsSampleReceipt($n->reference_id);
             } elseif ($n->type === 'kesmas_sample_receipt' && $n->reference_id) {
@@ -674,6 +688,14 @@ class NotificationInboxService
             return false;
         }
 
+        if ($sample->permohonan_is_sampling !== null && (int) $sample->permohonan_is_sampling === 0) {
+            return false;
+        }
+
+        if ($sample->sample_is_sampling !== null && (int) $sample->sample_is_sampling === 0) {
+            return false;
+        }
+
         $isSampling = $sample->sample_is_sampling !== null ? (int) $sample->sample_is_sampling : (int) ($sample->permohonan_is_sampling ?? 1);
         if ($isSampling !== 1) {
             return false;
@@ -733,7 +755,13 @@ class NotificationInboxService
             return false;
         }
 
-        $isSampling = $sample->sample_is_sampling !== null ? (int) $sample->sample_is_sampling : (int) ($sample->permohonan_is_sampling ?? 1);
+        if ($sample->permohonan_is_sampling !== null && (int) $sample->permohonan_is_sampling === 0) {
+            $isSampling = 0;
+        } elseif ($sample->sample_is_sampling !== null && (int) $sample->sample_is_sampling === 0) {
+            $isSampling = 0;
+        } else {
+            $isSampling = $sample->sample_is_sampling !== null ? (int) $sample->sample_is_sampling : (int) ($sample->permohonan_is_sampling ?? 1);
+        }
 
         $step6Done = \DB::table('tb_verification_activity_samples')
             ->where('id_sample', $idSample)

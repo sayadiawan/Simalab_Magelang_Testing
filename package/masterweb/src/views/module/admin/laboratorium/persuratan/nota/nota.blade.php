@@ -69,6 +69,34 @@
             margin: 1px 0;
         }
 
+        .stamp-lunas {
+            display: inline-block;
+            padding: 3px 14px;
+            color: #c0392b;
+            border: 2.5px solid #c0392b;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 13pt;
+            letter-spacing: 2.5px;
+            text-align: center;
+            line-height: 1.1;
+            transform: rotate(-5deg);
+            -webkit-transform: rotate(-5deg);
+        }
+
+        .stamp-lunas-badge {
+            display: inline-block;
+            padding: 2px 10px;
+            color: #c0392b;
+            border: 1.5px solid #c0392b;
+            border-radius: 3px;
+            font-weight: bold;
+            font-size: 10pt;
+            letter-spacing: 2px;
+            text-align: center;
+            line-height: 1;
+        }
+
         @font-face {
             font-family: 'Calibri', sans-serif !important;
             src: local("Calibri"), local("Calibri Regular");
