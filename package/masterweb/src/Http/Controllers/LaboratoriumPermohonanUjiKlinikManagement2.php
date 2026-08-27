@@ -3111,7 +3111,7 @@ class LaboratoriumPermohonanUjiKlinikManagement2 extends Controller
       } else {
         switch ($currentStep) {
           case 6:
-            $targetUrl = route('elits-permohonan-uji-klinik-2.verification', $pid);
+            $targetUrl = route('elits-permohonan-uji-klinik-2.create-permohonan-uji-sample', [$pid, 1]);
             $title = 'Pengambilan Sampel';
             break;
           case 7:
