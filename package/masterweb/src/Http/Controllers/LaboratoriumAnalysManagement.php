@@ -1378,6 +1378,7 @@ class LaboratoriumAnalysManagement extends Controller
       ->rawColumns(['codesample_samples', 'nama_laboratorium', 'pelanggan', 'name_sample_type', 'last_status', 'action', 'date_sending'])
       ->setFilteredRecords($totalFilteredRecord)
       ->setTotalRecords($totalDataRecord)
+      ->skipPaging()
       ->make(true);
 
     return $dataTable;
@@ -1538,6 +1539,7 @@ class LaboratoriumAnalysManagement extends Controller
       ->rawColumns(['codesample_samples', 'nama_laboratorium', 'name_sample_type', 'last_status', 'action', 'date_sending'])
       ->setFilteredRecords($totalFilteredRecord)
       ->setTotalRecords($totalDataRecord)
+      ->skipPaging()
       ->make(true);
 
     return $data_table;
