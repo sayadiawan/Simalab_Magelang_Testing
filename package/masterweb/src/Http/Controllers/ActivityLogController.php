@@ -79,13 +79,10 @@ class ActivityLogController extends Controller
         $baseQuery = $this->buildQuery($dateFrom, $dateTo, $bidang, $action, $pptKategori, $userId, $q);
         ActivityLogAccess::applyScope($baseQuery, $scope);
 
-        $actions = (clone $baseQuery)
-            ->select('action')
-            ->distinct()
-            ->orderBy('action')
-            ->pluck('action');
-
-        $bidangs = (clone $baseQuery)
+        // Options dropdown bidang (dari data yang sesuai scope & tanggal tanpa terfilter pilihan bidang saat ini)
+        $bidangQuery = $this->buildQuery($dateFrom, $dateTo, '', $action, $pptKategori, $userId, $q);
+        ActivityLogAccess::applyScope($bidangQuery, $scope);
+        $bidangs = $bidangQuery
             ->select('bidang')
             ->distinct()
             ->orderBy('bidang')
@@ -98,7 +95,6 @@ class ActivityLogController extends Controller
         return view('masterweb::module.admin.activity-log.list', [
             'logs' => $logs,
             'users' => $users,
-            'actions' => $actions,
             'bidangs' => $bidangs,
             'scope' => $scope,
             'actionLabels' => $this->resolveActionLabels($scope),
