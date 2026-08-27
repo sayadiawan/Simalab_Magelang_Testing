@@ -9,6 +9,7 @@ use Smt\Masterweb\Http\Controllers\LaboratoriumPermohonanUjiKlinikManagement2;
 use Smt\Masterweb\Models\LabNotification;
 use Smt\Masterweb\Models\PermohonanUji;
 use Smt\Masterweb\Models\PermohonanUjiKlinik2;
+use Smt\Masterweb\Models\Sample;
 use Smt\Masterweb\Models\User;
 use Smt\Masterweb\Helpers\PetugasStepAccess;
 
@@ -141,15 +142,36 @@ class NotificationInboxService
 
         $level = $user->getlevel->level ?? null;
         $since = Carbon::parse(self::FEATURE_ACTIVATED_AT);
+        $userLab = $user->laboratorium()->first();
+        $userKodeLab = $userLab ? $userLab->kode_laboratorium : null;
 
-        if (in_array($level, ['ANLS', 'ALAB', 'PLAB', 'ADMN', 'admin', 'elits-dev', 'LAB'], true)) {
-            $this->syncKlinikSampleReady($user, $level, $since);
-        }
-
+        // 1. Pengambilan Sampel Klinik (SOLK, KSKL, ADMN, ALAB klinik)
         if (in_array($level, ['SOLK', 'KSKL', 'ADMN', 'ALAB'], true)) {
             $this->syncKlinikSamplePickup($user, $level, $since);
         }
 
+        // 2. Penerimaan Sampel Klinik (ANLS, ALAB klinik/umum, PLAB, KSKL, ADMN, LAB, admin, elits-dev)
+        if (in_array($level, ['ANLS', 'ALAB', 'PLAB', 'KSKL', 'ADMN', 'admin', 'elits-dev', 'LAB'], true)) {
+            if (!$userKodeLab || $userKodeLab === 'KLI' || in_array($level, ['KSKL', 'ADMN', 'admin', 'elits-dev', 'PLAB', 'LAB'], true)) {
+                $this->syncKlinikSampleReceipt($user, $level, $since);
+            }
+        }
+
+        // 3. Penerimaan Sampel Kesmas (ALAB kimia/mikro/umum, ANLS, PLAB, KSKM, ADMN, LAB, admin, elits-dev)
+        if (in_array($level, ['ALAB', 'ANLS', 'PLAB', 'KSKM', 'ADMN', 'admin', 'elits-dev', 'LAB'], true)) {
+            if (!$userKodeLab || in_array($userKodeLab, ['KIM', 'KMA', 'FKA', 'MBI'], true) || in_array($level, ['KSKM', 'ADMN', 'admin', 'elits-dev', 'PLAB', 'LAB'], true)) {
+                $this->syncKesmasSampleReceipt($user, $level, $since, $userKodeLab);
+            }
+        }
+
+        // 4. Pemeriksaan / Analis Klinik (ANLS, ALAB klinik/umum, PLAB, KSKL, ADMN, LAB, admin, elits-dev)
+        if (in_array($level, ['ANLS', 'ALAB', 'PLAB', 'ADMN', 'admin', 'elits-dev', 'LAB'], true)) {
+            if (!$userKodeLab || $userKodeLab === 'KLI' || in_array($level, ['ADMN', 'admin', 'elits-dev', 'PLAB', 'LAB'], true)) {
+                $this->syncKlinikSampleReady($user, $level, $since);
+            }
+        }
+
+        // 5. Belum Lunas Klinik & Kesmas (BNDR, RGSTR, ADMN, admin, elits-dev)
         if (in_array($level, ['BNDR', 'RGSTR', 'ADMN', 'ALAB', 'admin', 'elits-dev'], true)) {
             $this->syncUnpaidKlinik($user, $level, $since);
         }
@@ -251,6 +273,97 @@ class NotificationInboxService
                 'color' => 'info',
                 'meta' => ['noregister' => $noreg, 'pasien' => $pasien],
                 'created_at' => $row->created_at ?: now(),
+            ]);
+        }
+    }
+
+    private function syncKlinikSampleReceipt(User $user, string $level, Carbon $since): void
+    {
+        $rows = PermohonanUjiKlinik2::query()
+            ->with(['pasien:id_pasien,nama_pasien'])
+            ->whereNull('deleted_at')
+            ->where('created_at', '>=', $since)
+            ->whereHas('permohonanujiparameterklinik', function ($q) {
+                $q->whereNull('deleted_at');
+            })
+            ->orderByDesc('created_at')
+            ->limit(self::SYNC_CANDIDATE_LIMIT)
+            ->get();
+
+        foreach ($rows as $row) {
+            if (!$this->klinikNeedsSampleReceipt($row->id_permohonan_uji_klinik)) {
+                continue;
+            }
+
+            $pasien = optional($row->pasien)->nama_pasien ?: '-';
+            $noreg = $row->noregister_permohonan_uji_klinik ?: '-';
+            $targetUrl = url('elits-permohonan-uji-klinik-2/create-penerima-sampel/' . $row->id_permohonan_uji_klinik);
+
+            $this->ensureNotification($user, [
+                'role_level' => $level,
+                'type' => 'klinik_sample_receipt',
+                'reference_type' => 'permohonan_uji_klinik',
+                'reference_id' => (string) $row->id_permohonan_uji_klinik,
+                'title' => 'Sampel klinik siap diterima',
+                'message' => 'No. ' . $noreg . ' · ' . $pasien,
+                'url' => $targetUrl,
+                'icon' => 'fa-inbox',
+                'color' => 'warning',
+                'meta' => ['noregister' => $noreg, 'pasien' => $pasien],
+                'created_at' => $row->created_at ?: now(),
+            ]);
+        }
+    }
+
+    private function syncKesmasSampleReceipt(User $user, string $level, Carbon $since, ?string $userKodeLab): void
+    {
+        $query = Sample::query()
+            ->with(['permohonanuji.customer', 'samplemethod.laboratorium'])
+            ->whereNull('deleted_at')
+            ->where('created_at', '>=', $since)
+            ->orderByDesc('created_at')
+            ->limit(self::SYNC_CANDIDATE_LIMIT);
+
+        if ($userKodeLab && in_array($userKodeLab, ['KIM', 'KMA', 'FKA', 'MBI'], true)) {
+            $query->whereHas('samplemethod.laboratorium', function ($q) use ($userKodeLab) {
+                $q->where('kode_laboratorium', $userKodeLab);
+            });
+        }
+
+        $samples = $query->get();
+
+        foreach ($samples as $sample) {
+            if (!$this->kesmasNeedsSampleReceipt($sample->id_samples)) {
+                continue;
+            }
+
+            $customer = optional(optional($sample->permohonanuji)->customer)->name_customer ?: '-';
+            $code = $sample->codesample_samples ?: '-';
+
+            $firstLab = optional($sample->samplemethod->first())->laboratorium;
+            $labName = $firstLab ? $firstLab->nama_laboratorium : 'Kesmas';
+            $labId = $firstLab ? $firstLab->id_laboratorium : '';
+
+            $targetUrl = $labId
+                ? url('elits-samples/verification-2/' . $sample->id_samples . '/' . $labId)
+                : url('elits-analys?status_filter=penerimaan_sample');
+
+            $this->ensureNotification($user, [
+                'role_level' => $level,
+                'type' => 'kesmas_sample_receipt',
+                'reference_type' => 'sample',
+                'reference_id' => (string) $sample->id_samples,
+                'title' => 'Sampel Kesmas siap diterima (' . $labName . ')',
+                'message' => 'Kode ' . $code . ' · ' . $customer,
+                'url' => $targetUrl,
+                'icon' => 'fa-vial',
+                'color' => 'warning',
+                'meta' => [
+                    'codesample' => $code,
+                    'customer' => $customer,
+                    'laboratorium' => $labName,
+                ],
+                'created_at' => $sample->created_at ?: now(),
             ]);
         }
     }
@@ -364,6 +477,10 @@ class NotificationInboxService
                     || !$this->klinikNeedsAnalystAttention($n->reference_id);
             } elseif ($n->type === 'klinik_sample_pickup' && $n->reference_id) {
                 $resolved = !$this->klinikNeedsSamplePickup($n->reference_id);
+            } elseif ($n->type === 'klinik_sample_receipt' && $n->reference_id) {
+                $resolved = !$this->klinikNeedsSampleReceipt($n->reference_id);
+            } elseif ($n->type === 'kesmas_sample_receipt' && $n->reference_id) {
+                $resolved = !$this->kesmasNeedsSampleReceipt($n->reference_id);
             }
 
             if ($resolved) {
@@ -454,6 +571,53 @@ class NotificationInboxService
         return $step1Done && !$step6Done && !$subsequentDone && !$isSelesai;
     }
 
+    private function klinikNeedsSampleReceipt(string $id): bool
+    {
+        $step6Done = \DB::table('tb_verification_activity_samples')
+            ->where('is_klinik', $id)
+            ->where('id_verification_activity', 6)
+            ->where('is_done', 1)
+            ->exists();
+        $step7Done = \DB::table('tb_verification_activity_samples')
+            ->where('is_klinik', $id)
+            ->where('id_verification_activity', 7)
+            ->where('is_done', 1)
+            ->exists();
+        $subsequentDone = \DB::table('tb_verification_activity_samples')
+            ->where('is_klinik', $id)
+            ->whereIn('id_verification_activity', [2, 3, 4, 5])
+            ->where('is_done', 1)
+            ->exists();
+
+        $isSelesai = \DB::table('tb_permohonan_uji_klinik_2')
+            ->where('id_permohonan_uji_klinik', $id)
+            ->where('status_permohonan_uji_klinik', 'SELESAI')
+            ->exists();
+
+        return $step6Done && !$step7Done && !$subsequentDone && !$isSelesai;
+    }
+
+    private function kesmasNeedsSampleReceipt(string $idSample): bool
+    {
+        $step6Done = \DB::table('tb_verification_activity_samples')
+            ->where('id_sample', $idSample)
+            ->where('id_verification_activity', 6)
+            ->where('is_done', 1)
+            ->exists();
+        $step7Done = \DB::table('tb_verification_activity_samples')
+            ->where('id_sample', $idSample)
+            ->where('id_verification_activity', 7)
+            ->where('is_done', 1)
+            ->exists();
+        $subsequentDone = \DB::table('tb_verification_activity_samples')
+            ->where('id_sample', $idSample)
+            ->whereIn('id_verification_activity', [2, 3, 4, 5])
+            ->where('is_done', 1)
+            ->exists();
+
+        return $step6Done && !$step7Done && !$subsequentDone;
+    }
+
     /**
      * Ringkasan worklist (sumber kebenaran antrian) — terpisah dari notifikasi event.
      *
@@ -467,9 +631,17 @@ class NotificationInboxService
             return [];
         }
 
+        $userLab = $user->laboratorium()->first();
+        $isKesmasUser = ($userLab && in_array($userLab->kode_laboratorium, ['KIM', 'KMA', 'FKA', 'MBI'], true)) || ($level === 'KSKM');
+
         try {
-            $controller = app(LaboratoriumPermohonanUjiKlinikManagement2::class);
-            $response = $controller->getStatisticsVerifikasi(new Request(['is_filter' => 'all']));
+            if ($isKesmasUser) {
+                $controller = app(\Smt\Masterweb\Http\Controllers\LaboratoriumAnalysManagement::class);
+                $response = $controller->getStatisticsAnalys(new Request());
+            } else {
+                $controller = app(LaboratoriumPermohonanUjiKlinikManagement2::class);
+                $response = $controller->getStatisticsVerifikasi(new Request(['is_filter' => 'all']));
+            }
             $stats = json_decode($response->getContent(), true);
             if (!is_array($stats)) {
                 return [];
@@ -479,14 +651,18 @@ class NotificationInboxService
         }
 
         $labels = [
+            'penerimaan_sample' => 'Penerimaan sample',
             'pemeriksaan' => 'Menunggu pemeriksaan',
             'input_hasil' => 'Input hasil',
             'verifikasi' => 'Menunggu verifikasi',
             'validasi' => 'Menunggu validasi',
             'pengambilan_sample' => 'Pengambilan sample',
-            'penerimaan_sample' => 'Penerimaan sample',
             'belum_pemeriksaan' => 'Belum lengkap',
         ];
+
+        $baseUrl = $isKesmasUser
+            ? url('elits-analys')
+            : url('elits-permohonan-uji-klinik/verifikasi/lists');
 
         $items = [];
         foreach ($steps as $step) {
@@ -498,7 +674,7 @@ class NotificationInboxService
                 'key' => $step,
                 'label' => $labels[$step] ?? $step,
                 'count' => $count,
-                'url' => url('elits-permohonan-uji-klinik/verifikasi/lists') . '?status_filter=' . $step,
+                'url' => $baseUrl . '?status_filter=' . $step,
             ];
         }
 
@@ -513,7 +689,7 @@ class NotificationInboxService
         if (in_array($level, ['ANLS', 'ALAB'], true)) {
             $user = auth()->user();
             $filters = PetugasStepAccess::getAllowedFilters($user, false, false);
-            return $filters !== [] ? $filters : ['pemeriksaan', 'input_hasil', 'verifikasi'];
+            return $filters !== [] ? $filters : ['penerimaan_sample', 'pemeriksaan', 'input_hasil', 'verifikasi'];
         }
         if ($level === 'SOLK') {
             return ['pengambilan_sample'];
@@ -525,7 +701,7 @@ class NotificationInboxService
             return ['belum_pemeriksaan', 'validasi'];
         }
         if (in_array($level, ['PLAB', 'KSKL', 'KSKM', 'ADMN', 'admin', 'elits-dev', 'LAB'], true)) {
-            return ['pemeriksaan', 'input_hasil', 'verifikasi', 'validasi'];
+            return ['penerimaan_sample', 'pemeriksaan', 'input_hasil', 'verifikasi', 'validasi'];
         }
         if ($level === 'RGSTR') {
             return ['belum_pemeriksaan'];
@@ -573,6 +749,8 @@ class NotificationInboxService
         $url = $n->url;
         if ($n->type === 'klinik_sample_pickup' && $n->reference_id) {
             $url = url('elits-permohonan-uji-klinik-2/create-permohonan-uji-sample/' . $n->reference_id . '/1');
+        } elseif ($n->type === 'klinik_sample_receipt' && $n->reference_id) {
+            $url = url('elits-permohonan-uji-klinik-2/create-penerima-sampel/' . $n->reference_id);
         }
 
         return [

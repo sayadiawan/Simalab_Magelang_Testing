@@ -128,9 +128,9 @@ class PetugasStepAccess
             }
         }
 
-        // Fallback bila petugas belum punya role: tetap bisa buka antrian analisa
+        // Fallback bila petugas belum punya role: tetap bisa buka antrian penerimaan dan analisa
         if ($filters === []) {
-            $filters = ['pemeriksaan', 'input_hasil', 'verifikasi'];
+            $filters = ['penerimaan_sample', 'pemeriksaan', 'input_hasil', 'verifikasi'];
         }
 
         $order = array_keys(self::FILTER_META);
@@ -164,7 +164,14 @@ class PetugasStepAccess
             return [];
         }
 
-        $base = url('elits-permohonan-uji-klinik/verifikasi/lists');
+        $isKesmas = false;
+        if ($user) {
+            $lab = $user->laboratorium()->first();
+            if ($lab && in_array($lab->kode_laboratorium, ['KIM', 'KMA', 'FKA', 'MBI'], true)) {
+                $isKesmas = true;
+            }
+        }
+        $base = $isKesmas ? url('elits-analys') : url('elits-permohonan-uji-klinik/verifikasi/lists');
         $menus = [];
 
         foreach ($filters as $filter) {
