@@ -1935,7 +1935,14 @@ class LaboratoriumPermohonanUjiKlinikManagement2 extends Controller
           return '';
         }
 
-        return '<a href="' . route('elits-samples.verification-2', [$data->id_samples, $data->id_laboratorium]) . '" class="btn btn-primary btn-sm" title="Verifikasi"><i class="fas fa-pencil-alt"></i></a>';
+        $html = '<a href="' . route('elits-samples.verification-2', [$data->id_samples, $data->id_laboratorium]) . '" class="btn btn-primary btn-sm" title="Verifikasi" style="margin-right:4px;"><i class="fas fa-pencil-alt"></i></a>';
+
+        // Kasie: tombol cek progress ke halaman verification-2 (overview progress Kesmas)
+        if ($this->isKasieLevel()) {
+          $html .= '<a href="' . route('elits-samples.verification-2', [$data->id_samples, $data->id_laboratorium]) . '" class="btn btn-outline-info btn-sm" title="Cek Progress"><i class="fas fa-tasks"></i></a>';
+        }
+
+        return $html;
       })
       ->addColumn('noregister_permohonan_uji_klinik', function ($data) {
         return $data->codesample_samples ?? '-';
@@ -3072,13 +3079,20 @@ class LaboratoriumPermohonanUjiKlinikManagement2 extends Controller
   }
 
   /**
-   * Verifikasi klinik hanya untuk analis (dan admin).
+   * Verifikasi klinik: analis, kasie klinik, dan admin.
    */
   private function canAccessKlinikVerifikasi(): bool
   {
     $level = auth()->user()->getlevel->level ?? null;
 
-    return in_array($level, ['ANLS', 'ALAB', 'PLAB', 'ADMN'], true);
+    return in_array($level, ['ANLS', 'ALAB', 'PLAB', 'ADMN', 'KSKL', 'admin', 'elits-dev'], true);
+  }
+
+  private function isKasieLevel(?string $level = null): bool
+  {
+    $level = $level ?? (auth()->user()->getlevel->level ?? null);
+
+    return in_array($level, ['KSKL', 'KSKM'], true);
   }
 
   /**
@@ -3150,7 +3164,15 @@ class LaboratoriumPermohonanUjiKlinikManagement2 extends Controller
     $safeTitle = htmlspecialchars($title, ENT_QUOTES, 'UTF-8');
     $btnClass = $isFinished ? 'btn-success' : 'btn-primary';
 
-    return '<a href="' . $targetUrl . '" class="btn ' . $btnClass . ' btn-sm" title="' . $safeTitle . '"><i class="fas fa-pencil-alt"></i></a>';
+    $html = '<a href="' . $targetUrl . '" class="btn ' . $btnClass . ' btn-sm" title="' . $safeTitle . '" style="margin-right:4px;"><i class="fas fa-pencil-alt"></i></a>';
+
+    // Kasie: tombol cek progress ke halaman overview verifikasi klinik
+    if ($this->isKasieLevel()) {
+      $progressUrl = route('elits-permohonan-uji-klinik-2.verification', $pid);
+      $html .= '<a href="' . $progressUrl . '" class="btn btn-outline-info btn-sm" title="Cek Progress"><i class="fas fa-tasks"></i></a>';
+    }
+
+    return $html;
   }
 
   /**

@@ -853,8 +853,10 @@ class LaboratoriumAnalysManagement extends Controller
       }
     }
 
-    // Hitung jumlah permohonan uji Kesmas yang masih menunggu pengambilan sampel
-    $stats['pengambilan_sample'] = $this->kesmasPermohonanUjiSamplingQuery()->count();
+    // Hitung jumlah permohonan uji Kesmas (filter khusus pengambil sampel)
+    $stats['pengambilan_sample'] = $this->kesmasSamplingFilterQuery('pengambilan_sample')->count();
+    $stats['lokasi_terisi'] = $this->kesmasSamplingFilterQuery('lokasi_terisi')->count();
+    $stats['sudah_selesai'] = $this->kesmasSamplingFilterQuery('sudah_selesai')->count();
 
     return response()->json($stats);
   }
@@ -899,6 +901,107 @@ class LaboratoriumAnalysManagement extends Controller
   }
 
   /**
+   * Filter khusus pengambil sampel Kesmas:
+   * - pengambilan_sample: belum / sebagian lokasi belum terisi
+   * - lokasi_terisi: semua lokasi draft sudah terisi, belum semua jadi sampel
+   * - sudah_selesai: tidak ada draft pending (semua sudah jadi sampel)
+   */
+  private function kesmasSamplingFilterQuery(string $filter)
+  {
+    $base = PermohonanUji::query()
+      ->where('tb_permohonan_uji.is_sampling', 1)
+      ->whereNull('tb_permohonan_uji.deleted_at');
+
+    if ($filter === 'sudah_selesai') {
+      return $base
+        ->whereNotExists(function ($d) {
+          $d->select(DB::raw(1))
+            ->from('tb_sample_draft')
+            ->whereColumn('tb_sample_draft.permohonan_uji_id', 'tb_permohonan_uji.id_permohonan_uji')
+            ->where('tb_sample_draft.status', 'draft')
+            ->whereNull('tb_sample_draft.deleted_at');
+        })
+        ->where(function ($q) {
+          $q->whereExists(function ($s) {
+            $s->select(DB::raw(1))
+              ->from('tb_samples')
+              ->whereColumn('tb_samples.permohonan_uji_id', 'tb_permohonan_uji.id_permohonan_uji')
+              ->whereNull('tb_samples.deleted_at');
+          })->orWhereExists(function ($d) {
+            $d->select(DB::raw(1))
+              ->from('tb_sample_draft')
+              ->whereColumn('tb_sample_draft.permohonan_uji_id', 'tb_permohonan_uji.id_permohonan_uji')
+              ->where('tb_sample_draft.status', 'confirmed')
+              ->whereNull('tb_sample_draft.deleted_at');
+          });
+        });
+    }
+
+    if ($filter === 'lokasi_terisi') {
+      return $base
+        // Masih ada draft pending
+        ->whereExists(function ($d) {
+          $d->select(DB::raw(1))
+            ->from('tb_sample_draft')
+            ->whereColumn('tb_sample_draft.permohonan_uji_id', 'tb_permohonan_uji.id_permohonan_uji')
+            ->where('tb_sample_draft.status', 'draft')
+            ->whereNull('tb_sample_draft.deleted_at');
+        })
+        // Tidak ada draft pending tanpa titik lokasi
+        ->whereNotExists(function ($d) {
+          $d->select(DB::raw(1))
+            ->from('tb_sample_draft')
+            ->whereColumn('tb_sample_draft.permohonan_uji_id', 'tb_permohonan_uji.id_permohonan_uji')
+            ->where('tb_sample_draft.status', 'draft')
+            ->whereNull('tb_sample_draft.deleted_at')
+            ->where(function ($t) {
+              $t->whereNull('tb_sample_draft.titik_pengambilan')
+                ->orWhere('tb_sample_draft.titik_pengambilan', '');
+            });
+        })
+        // Minimal ada lokasi yang sudah terisi
+        ->whereExists(function ($d) {
+          $d->select(DB::raw(1))
+            ->from('tb_sample_draft')
+            ->whereColumn('tb_sample_draft.permohonan_uji_id', 'tb_permohonan_uji.id_permohonan_uji')
+            ->whereNull('tb_sample_draft.deleted_at')
+            ->where(function ($t) {
+              $t->where(function ($filled) {
+                $filled->where('tb_sample_draft.status', 'draft')
+                  ->whereNotNull('tb_sample_draft.titik_pengambilan')
+                  ->where('tb_sample_draft.titik_pengambilan', '!=', '');
+              })->orWhere('tb_sample_draft.status', 'confirmed');
+            });
+        });
+    }
+
+    // pengambilan_sample (default): belum selesai, dan bukan "lokasi terisi"
+    return $this->kesmasPermohonanUjiSamplingQuery()
+      ->where(function ($q) {
+        // Belum ada draft sama sekali
+        $q->whereNotExists(function ($d) {
+          $d->select(DB::raw(1))
+            ->from('tb_sample_draft')
+            ->whereColumn('tb_sample_draft.permohonan_uji_id', 'tb_permohonan_uji.id_permohonan_uji')
+            ->whereIn('tb_sample_draft.status', ['draft', 'confirmed'])
+            ->whereNull('tb_sample_draft.deleted_at');
+        })
+        // Atau masih ada draft pending tanpa titik
+        ->orWhereExists(function ($d) {
+          $d->select(DB::raw(1))
+            ->from('tb_sample_draft')
+            ->whereColumn('tb_sample_draft.permohonan_uji_id', 'tb_permohonan_uji.id_permohonan_uji')
+            ->where('tb_sample_draft.status', 'draft')
+            ->whereNull('tb_sample_draft.deleted_at')
+            ->where(function ($t) {
+              $t->whereNull('tb_sample_draft.titik_pengambilan')
+                ->orWhere('tb_sample_draft.titik_pengambilan', '');
+            });
+        });
+      });
+  }
+
+  /**
    * Get data for analys lists page with status filter
    *
    * @return \Illuminate\Http\Response
@@ -929,13 +1032,21 @@ class LaboratoriumAnalysManagement extends Controller
     } elseif ($userLevel == 'DKTR') {
       $allowedFilters = ['all', 'belum_pemeriksaan', 'validasi', 'selesai'];
     } elseif (\Smt\Masterweb\Helpers\SampleCollectorAccess::isKesmas($userLevel)) {
-      $allowedFilters = ['pengambilan_sample'];
+      $allowedFilters = ['pengambilan_sample', 'lokasi_terisi', 'sudah_selesai'];
     } else {
       $allowedFilters = ['all', 'belum_pemeriksaan', 'pengambilan_sample', 'penerimaan_sample', 'pemeriksaan', 'input_hasil', 'verifikasi', 'validasi', 'selesai'];
     }
 
-    // Jika akun pengambilan sampel kesmas atau filter pengambilan_sample, tampilkan permohonan uji yang perlu disampling
-    if ((\Smt\Masterweb\Helpers\SampleCollectorAccess::isKesmas($userLevel) && (empty($request->status_filter) || $request->status_filter == 'pengambilan_sample')) || $request->status_filter == 'pengambilan_sample') {
+    $kesmasSamplingFilters = ['pengambilan_sample', 'lokasi_terisi', 'sudah_selesai'];
+    // Akun pengambil sampel kesmas / filter sampling kesmas → daftar permohonan uji
+    if (\Smt\Masterweb\Helpers\SampleCollectorAccess::isKesmas($userLevel)
+      || in_array($request->status_filter, $kesmasSamplingFilters, true)
+    ) {
+      if (\Smt\Masterweb\Helpers\SampleCollectorAccess::isKesmas($userLevel)
+        && (empty($request->status_filter) || !in_array($request->status_filter, $kesmasSamplingFilters, true))
+      ) {
+        $request->merge(['status_filter' => 'pengambilan_sample']);
+      }
       return $this->getPermohonanUjiSamplingPagination($request);
     }
     
@@ -1288,7 +1399,12 @@ class LaboratoriumAnalysManagement extends Controller
       $search = $search['value'] ?? '';
     }
 
-    $query = $this->kesmasPermohonanUjiSamplingQuery()
+    $statusFilter = $request->input('status_filter', 'pengambilan_sample');
+    if (!in_array($statusFilter, ['pengambilan_sample', 'lokasi_terisi', 'sudah_selesai'], true)) {
+      $statusFilter = 'pengambilan_sample';
+    }
+
+    $query = $this->kesmasSamplingFilterQuery($statusFilter)
       ->leftJoin('ms_customer', 'ms_customer.id_customer', '=', 'tb_permohonan_uji.customer_id')
       ->select('tb_permohonan_uji.*', 'ms_customer.name_customer')
       ->orderBy('tb_permohonan_uji.created_at', 'desc');

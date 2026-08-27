@@ -218,8 +218,8 @@
                             // DKTR: belum_pemeriksaan, validasi, selesai
                             $allowedTabs = ['all', 'belum_pemeriksaan', 'validasi', 'selesai'];
                         } elseif (\Smt\Masterweb\Helpers\SampleCollectorAccess::isKesmas($userLevel ?? null)) {
-                            // Pengambil sampel kesmas (SOLM): pengambilan_sample
-                            $allowedTabs = ['pengambilan_sample'];
+                            // Pengambil sampel kesmas (SOLM): filter khusus sampling
+                            $allowedTabs = ['pengambilan_sample', 'lokasi_terisi', 'sudah_selesai'];
                         } else {
                             // Selain itu: semua tab
                             $allowedTabs = ['all', 'belum_pemeriksaan', 'pengambilan_sample', 'penerimaan_sample', 'pemeriksaan', 'input_hasil', 'verifikasi', 'validasi', 'selesai'];
@@ -236,7 +236,7 @@
                             $firstVisibleTab = $urlStatusFilter;
                         } elseif (!in_array('all', $allowedTabs)) {
                             // Urutan tab yang mungkin muncul pertama
-                            $tabOrder = ['belum_pemeriksaan', 'pengambilan_sample', 'penerimaan_sample', 'pemeriksaan', 'input_hasil', 'verifikasi', 'validasi', 'selesai'];
+                            $tabOrder = ['pengambilan_sample', 'lokasi_terisi', 'sudah_selesai', 'belum_pemeriksaan', 'penerimaan_sample', 'pemeriksaan', 'input_hasil', 'verifikasi', 'validasi', 'selesai'];
                             foreach ($tabOrder as $tab) {
                                 if (in_array($tab, $allowedTabs)) {
                                     $firstVisibleTab = $tab;
@@ -260,8 +260,20 @@
                         @endif
                         @if (in_array('pengambilan_sample', $allowedTabs))
                         <button class="tab-filter-item {{ $firstVisibleTab == 'pengambilan_sample' ? 'active' : '' }}" data-filter="pengambilan_sample" data-status="pengambilan_sample">
-                            <i class="fa fa-vial"></i> Pengambilan Sample
+                            <i class="fa fa-vial"></i> Pengambilan Sampel
                             <span class="badge" id="badge-pengambilan-sample">0</span>
+                        </button>
+                        @endif
+                        @if (in_array('lokasi_terisi', $allowedTabs))
+                        <button class="tab-filter-item {{ $firstVisibleTab == 'lokasi_terisi' ? 'active' : '' }}" data-filter="lokasi_terisi" data-status="lokasi_terisi">
+                            <i class="fa fa-map-marker-alt"></i> Lokasi Terisi
+                            <span class="badge" id="badge-lokasi-terisi">0</span>
+                        </button>
+                        @endif
+                        @if (in_array('sudah_selesai', $allowedTabs))
+                        <button class="tab-filter-item {{ $firstVisibleTab == 'sudah_selesai' ? 'active' : '' }}" data-filter="sudah_selesai" data-status="sudah_selesai">
+                            <i class="fa fa-check-double"></i> Sudah Selesai
+                            <span class="badge" id="badge-sudah-selesai">0</span>
                         </button>
                         @endif
                         @if (in_array('penerimaan_sample', $allowedTabs))
@@ -352,6 +364,12 @@
                     if ($('#badge-pengambilan-sample').length) {
                         $('#badge-pengambilan-sample').text(response.pengambilan_sample || 0);
                     }
+                    if ($('#badge-lokasi-terisi').length) {
+                        $('#badge-lokasi-terisi').text(response.lokasi_terisi || 0);
+                    }
+                    if ($('#badge-sudah-selesai').length) {
+                        $('#badge-sudah-selesai').text(response.sudah_selesai || 0);
+                    }
                     if ($('#badge-penerimaan-sample').length) {
                         $('#badge-penerimaan-sample').text(response.penerimaan_sample || 0);
                     }
@@ -378,11 +396,10 @@
         }
 
         $(document).ready(function() {
-            // Set tab pertama sebagai active jika tidak ada tab "Semua"
-            if ($('.tab-filter-item[data-filter="all"]').length === 0) {
+            // Set tab pertama sebagai active jika tab "Semua" tidak ada dan belum ada tab aktif
+            if ($('.tab-filter-item[data-filter="all"]').length === 0 && $('.tab-filter-item.active').length === 0) {
                 var firstTab = $('.tab-filter-item').first();
                 if (firstTab.length > 0) {
-                    $('.tab-filter-item').removeClass('active');
                     firstTab.addClass('active');
                 }
             }
@@ -396,6 +413,13 @@
             $('.tab-filter-item').on('click', function() {
                 $('.tab-filter-item').removeClass('active');
                 $(this).addClass('active');
+
+                var status = $(this).data('status') || '';
+                if (status) {
+                    var url = new URL(window.location.href);
+                    url.searchParams.set('status_filter', status);
+                    window.history.replaceState({}, '', url.toString());
+                }
                 
                 // Reload DataTable dengan filter baru
                 if (table) {
