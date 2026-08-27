@@ -369,7 +369,7 @@
     <div class="row">
         <div class="col-12">
             <div class="filter-panel">
-                <form method="GET" action="{{ route('dokter.dashboard') }}" id="filterForm">
+                <form method="GET" action="{{ route('klinik.analisis-hasil-wilayah') }}" id="filterForm">
                     <div class="row">
                         <div class="col-md-3">
                             <label for="tipe_wilayah">Tipe Wilayah:</label>

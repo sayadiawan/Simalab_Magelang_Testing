@@ -48,12 +48,23 @@ class LaboratoriumPermohonanUjiKlinikParameterManagement2 extends Controller
   }
 
   /**
+   * Kelola parameter klinik: register (registrasi) + analis + admin.
+   */
+  private function canManageKlinikParameter(): bool
+  {
+    $level = auth()->user()->getlevel->level ?? null;
+
+    return in_array($level, ['RGSTR', 'ANLS', 'ALAB', 'PLAB', 'ADMN'], true);
+  }
+
+  /**
    * Display a listing of the resource.
    *
    * @return \Illuminate\Http\Response
    */
   public function index(Request $request, $id_permohonan_uji_klinik)
   {
+    abort_unless($this->canManageKlinikParameter(), 403, 'Anda tidak memiliki akses kelola parameter.');
 
     if (request()->ajax()) {
 
@@ -232,6 +243,8 @@ class LaboratoriumPermohonanUjiKlinikParameterManagement2 extends Controller
    */
   public function create(Request $request, $id_permohonan_uji_klinik)
   {
+    abort_unless($this->canManageKlinikParameter(), 403, 'Anda tidak memiliki akses kelola parameter.');
+
     // dd($request->all());
     $item = PermohonanUjiKlinik2::where('id_permohonan_uji_klinik', $id_permohonan_uji_klinik)->first();
     // dd($item->jenis_spesimen);
@@ -407,6 +420,7 @@ class LaboratoriumPermohonanUjiKlinikParameterManagement2 extends Controller
 
   public function store(Request $request, $id_permohonan_uji_klinik)
   {
+    abort_unless($this->canManageKlinikParameter(), 403, 'Anda tidak memiliki akses kelola parameter.');
 
 
      // Inisialisasi total harga
@@ -1470,7 +1484,7 @@ class LaboratoriumPermohonanUjiKlinikParameterManagement2 extends Controller
       return response()->json([
         'status' => true,
         'pesan' => $pesan,
-        'show_payment' => true,
+        'show_payment' => false,
         'payment_data' => $payment_data,
         'dibuka_lagi_untuk_analis' => $dibuka_lagi_untuk_analis,
         'paket_dipertahankan' => count($paket_bertahan_karena_ada_hasil)
@@ -1698,6 +1712,8 @@ class LaboratoriumPermohonanUjiKlinikParameterManagement2 extends Controller
    */
   public function edit($id_permohonan_uji_klinik, $id_permohonan_uji_paket_klinik)
   {
+    abort_unless($this->canManageKlinikParameter(), 403, 'Anda tidak memiliki akses kelola parameter.');
+
     $item_paket = PermohonanUjiPaketKlinik::find($id_permohonan_uji_paket_klinik);
     $data_parameter_paket = PermohonanUjiParameterKlinik::where('permohonan_uji_klinik', $id_permohonan_uji_klinik)
       ->where('permohonan_uji_paket_klinik', $id_permohonan_uji_paket_klinik)
@@ -1722,6 +1738,8 @@ class LaboratoriumPermohonanUjiKlinikParameterManagement2 extends Controller
    */
   public function update(Request $request, $id_permohonan_uji_klinik, $id_permohonan_uji_paket_klinik)
   {
+    abort_unless($this->canManageKlinikParameter(), 403, 'Anda tidak memiliki akses kelola parameter.');
+
     $validator = $this->rules($request->all());
 
     if ($validator->fails()) {
@@ -1993,6 +2011,8 @@ class LaboratoriumPermohonanUjiKlinikParameterManagement2 extends Controller
    */
   public function destroy($id)
   {
+    abort_unless($this->canManageKlinikParameter(), 403, 'Anda tidak memiliki akses kelola parameter.');
+
     $detail_paket_klinik = PermohonanUjiPaketKlinik::where('id_permohonan_uji_paket_klinik', $id)->first();
 
     $data_parameter_klinik = PermohonanUjiParameterKlinik::where('permohonan_uji_paket_klinik', $id);

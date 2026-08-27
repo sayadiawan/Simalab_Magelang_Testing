@@ -30,6 +30,7 @@ use Illuminate\Support\Str;
 use Smt\Masterweb\Models\VerificationActivitySample;
 use Smt\Masterweb\Models\VerificationActivity;
 use Smt\Masterweb\Models\Wilayah;
+use Smt\Masterweb\Models\SampleDraft;
 use Yajra\Datatables\Datatables;
 use Smt\Masterweb\Traits\SampleCodeOrdering;
 
@@ -646,6 +647,46 @@ class LaboratoriumPermohonanUjiManagement extends Controller
       $validateCountMap[$vr->permohonan_uji_id] = (int) $vr->total;
     }
 
+    $draftCountMap = [];
+    $draftTypeHtmlMap = [];
+    $draftPemeriksaanHtmlMap = [];
+    if (!empty($permohonanIds)) {
+      $draftRows = SampleDraft::query()
+        ->whereIn('permohonan_uji_id', $permohonanIds)
+        ->where('status', 'draft')
+        ->whereNull('deleted_at')
+        ->with(['sampletype', 'packet', 'samplemethoddraft.method'])
+        ->get();
+
+      foreach ($draftRows->groupBy('permohonan_uji_id') as $pid => $rows) {
+        $draftCountMap[$pid] = $rows->count();
+        $draftTypeHtmlMap[$pid] = $this->formatPermohonanListCellHtml(
+          $rows->map(function ($d) {
+            return optional($d->sampletype)->name_sample_type;
+          })->filter()->unique()->values()->all(),
+          2
+        );
+
+        $pemeriksaanLines = [];
+        foreach ($rows as $draft) {
+          if ($draft->packet && !empty($draft->packet->name_packet)) {
+            $pemeriksaanLines[] = $draft->packet->name_packet;
+            continue;
+          }
+          foreach ($draft->samplemethoddraft as $methodDraft) {
+            $param = optional($methodDraft->method)->params_method;
+            if (!empty($param)) {
+              $pemeriksaanLines[] = $param;
+            }
+          }
+        }
+        $draftPemeriksaanHtmlMap[$pid] = $this->formatPermohonanListCellHtml(
+          array_values(array_unique($pemeriksaanLines)),
+          2
+        );
+      }
+    }
+
     // Status nomor lab: expected (jenis sampel × lab) vs yang sudah di tb_nomer_lab_kesmas
     $nomerLabStatusMap = [];
     if (!empty($permohonanIds)) {
@@ -699,8 +740,13 @@ class LaboratoriumPermohonanUjiManagement extends Controller
 
     try {
       $data_table = Datatables::of($datas)
-      ->addColumn('pemeriksaan', function ($data) use ($pemeriksaanHtmlMap) {
-        return $pemeriksaanHtmlMap[$data->id_permohonan_uji] ?? '';
+      ->addColumn('pemeriksaan', function ($data) use ($pemeriksaanHtmlMap, $draftPemeriksaanHtmlMap) {
+        $html = $pemeriksaanHtmlMap[$data->id_permohonan_uji] ?? '';
+        if ($html !== '' && $html !== '-') {
+          return $html;
+        }
+
+        return $draftPemeriksaanHtmlMap[$data->id_permohonan_uji] ?? '-';
       })
       ->addColumn('code_permohonan_uji', function ($data) {
         return $data->code_permohonan_uji;
@@ -710,36 +756,67 @@ class LaboratoriumPermohonanUjiManagement extends Controller
 
         return '<span class="cell-truncate" title="' . e($name) . '">' . e($name) . '</span>';
       })
-      ->addColumn('num_samples', function ($data) use ($numSamplesHtmlMap) {
-        return $numSamplesHtmlMap[$data->id_permohonan_uji] ?? '-';
-        // return Carbon::createFromFormat('Y-m-d H:i:s', $data->date_permohonan_uji)->isoFormat('D MMMM Y');;
+      ->addColumn('num_samples', function ($data) use ($numSamplesHtmlMap, $draftCountMap) {
+        $html = $numSamplesHtmlMap[$data->id_permohonan_uji] ?? '';
+        if ($html !== '' && $html !== '-') {
+          return $html;
+        }
+
+        $draftCount = (int) ($draftCountMap[$data->id_permohonan_uji] ?? 0);
+        if ($draftCount > 0) {
+          return '<span class="badge badge-info" title="Sample masih draft, belum dikonfirmasi">'
+            . '<i class="fa fa-file-alt"></i> ' . $draftCount . ' draft</span>';
+        }
+
+        return '-';
       })
-      ->addColumn('nomer_lab_status', function ($data) use ($nomerLabStatusMap) {
+      ->addColumn('nomer_lab_status', function ($data) use ($nomerLabStatusMap, $draftCountMap) {
         $st = $nomerLabStatusMap[$data->id_permohonan_uji] ?? ['expected' => 0, 'assigned' => 0, 'missing' => 0];
         $url = route('elits-permohonan-uji.nomer-lab', [$data->id_permohonan_uji]);
         $expected = (int) $st['expected'];
         $assigned = (int) $st['assigned'];
         $missing = (int) $st['missing'];
+        $draftCount = (int) ($draftCountMap[$data->id_permohonan_uji] ?? 0);
+        $canInputNomerLab = $this->canManageKesmasNomerLab();
 
         if ($expected === 0) {
+          if ($draftCount > 0) {
+            $draftUrl = route('elits-sample-draft.index', [$data->id_permohonan_uji]);
+            return '<a href="' . e($draftUrl) . '" class="badge badge-info d-inline-block" title="Konfirmasi draft sample dulu">'
+              . '<i class="fa fa-clock"></i> Menunggu konfirmasi draft</a>';
+          }
+
           return '<span class="text-muted" title="Belum ada sampel / lab">—</span>';
         }
 
         if ($missing === 0) {
-          return '<a href="' . e($url) . '" class="badge badge-success d-inline-block" title="Semua kombinasi jenis sampel × lab sudah punya nomor lab">'
-            . '<i class="fa fa-check"></i> Lengkap (' . $assigned . '/' . $expected . ')</a>';
+          $label = '<i class="fa fa-check"></i> Lengkap (' . $assigned . '/' . $expected . ')';
+          $title = 'Semua kombinasi jenis sampel × lab sudah punya nomor lab';
+          if ($canInputNomerLab) {
+            return '<a href="' . e($url) . '" class="badge badge-success d-inline-block" title="' . e($title) . '">' . $label . '</a>';
+          }
+          return '<span class="badge badge-success d-inline-block" title="' . e($title) . '">' . $label . '</span>';
         }
 
         if ($assigned === 0) {
-          return '<a href="' . e($url) . '" class="badge badge-danger d-inline-block" title="Belum ada nomor lab yang diisi">'
-            . '<i class="fa fa-exclamation-circle"></i> Belum diisi</a>';
+          $label = '<i class="fa fa-exclamation-circle"></i> Belum diisi';
+          $title = 'Belum ada nomor lab yang diisi (input di menu Pengarsipan)';
+          if ($canInputNomerLab) {
+            return '<a href="' . e($url) . '" class="badge badge-danger d-inline-block" title="' . e($title) . '">' . $label . '</a>';
+          }
+          return '<span class="badge badge-danger d-inline-block" title="' . e($title) . '">' . $label . '</span>';
         }
 
-        return '<a href="' . e($url) . '" class="badge badge-warning d-inline-block text-dark" title="' . $missing . ' kombinasi belum punya nomor lab">'
-          . '<i class="fa fa-exclamation-triangle"></i> Kurang ' . $missing . '/' . $expected . '</a>';
+        $label = '<i class="fa fa-exclamation-triangle"></i> Kurang ' . $missing . '/' . $expected;
+        $title = $missing . ' kombinasi belum punya nomor lab (input di menu Pengarsipan)';
+        if ($canInputNomerLab) {
+          return '<a href="' . e($url) . '" class="badge badge-warning d-inline-block text-dark" title="' . e($title) . '">' . $label . '</a>';
+        }
+        return '<span class="badge badge-warning d-inline-block text-dark" title="' . e($title) . '">' . $label . '</span>';
       })
       ->addColumn('status_pembayaran', function ($data) use ($hasRectalMap, $validateCountMap, $allSampleCountMap) {
         $parts = [];
+        $isBendahara = (auth()->user()->getlevel->level ?? null) === 'BNDR';
 
         if ((int) $data->is_sampling === 1) {
           $tooltip = '';
@@ -763,19 +840,22 @@ class LaboratoriumPermohonanUjiManagement extends Controller
           : date('Y-m-d');
 
         if ((int) $data->status_pembayaran === 0) {
-          $parts[] = '<button type="button" class="btn btn-outline-danger btn-sm btn-block btn-open-payment"'
-            . ' data-id="' . e($data->id_permohonan_uji) . '"'
-            . ' data-biaya-rectal="' . $biayaRectal . '"'
-            . ' data-total-label="' . e(rupiah($totalHarusDibayar)) . '"'
-            . ' data-customer-name="' . e($data->name_customer ?? '') . '"'
-            . ' data-customer-address="' . e($data->address_customer ?? '') . '"'
-            . ' data-tanggal-bayar="' . e($tanggalBayar) . '"'
-            . ' data-metode="' . e($paymentMethod) . '">'
-            . '<i class="fa fa-exclamation-circle"></i> ' . e($paymentMethod)
-            . '</button>';
+          if ($isBendahara) {
+            $parts[] = '<button type="button" class="btn btn-outline-danger btn-sm btn-block btn-open-payment"'
+              . ' data-id="' . e($data->id_permohonan_uji) . '"'
+              . ' data-biaya-rectal="' . $biayaRectal . '"'
+              . ' data-total-label="' . e(rupiah($totalHarusDibayar)) . '"'
+              . ' data-customer-name="' . e($data->name_customer ?? '') . '"'
+              . ' data-customer-address="' . e($data->address_customer ?? '') . '"'
+              . ' data-tanggal-bayar="' . e($tanggalBayar) . '"'
+              . ' data-metode="' . e($paymentMethod) . '">'
+              . '<i class="fa fa-exclamation-circle"></i> ' . e($paymentMethod)
+              . '</button>';
+          } else {
+            $parts[] = '<span class="badge badge-danger d-block"><i class="fa fa-exclamation-circle"></i> Belum Bayar</span>';
+          }
         } else {
-          $parts[] = '<button type="button" class="btn btn-outline-success btn-sm btn-block" disabled>'
-            . '<i class="fa fa-check-circle"></i> Terbayar</button>';
+          $parts[] = '<span class="badge badge-success d-block"><i class="fa fa-check-circle"></i> Lunas</span>';
         }
 
         $validate_sample = (int) ($validateCountMap[$data->id_permohonan_uji] ?? 0);
@@ -786,17 +866,26 @@ class LaboratoriumPermohonanUjiManagement extends Controller
 
         return implode('', $parts);
       })
-      ->addColumn('action', function ($data) use ($allSampleCountMap) {
+      ->addColumn('action', function ($data) use ($allSampleCountMap, $draftCountMap) {
         $readButton = '';
         $editButton = '';
         $deleteButton = '';
+        $draftCount = (int) ($draftCountMap[$data->id_permohonan_uji] ?? 0);
 
         if (getAction('read')) {
-          $readButton = '<a href="' . route('elits-samples.index', [$data->id_permohonan_uji]) . '" class="dropdown-item" title="Lihat Daftar Sample">Lihat Daftar Sample</a> ';
+          if ($draftCount > 0 && (int) ($allSampleCountMap[$data->id_permohonan_uji] ?? 0) === 0) {
+            $readButton = '<a href="' . route('elits-sample-draft.index', [$data->id_permohonan_uji]) . '" class="dropdown-item" title="Kelola Draft Sample"><i class="fa fa-file-alt text-info"></i> Kelola Draft Sample</a> ';
+          } else {
+            $readButton = '<a href="' . route('elits-samples.index', [$data->id_permohonan_uji]) . '" class="dropdown-item" title="Lihat Daftar Sample">Lihat Daftar Sample</a> ';
+            if ($draftCount > 0) {
+              $readButton .= '<a href="' . route('elits-sample-draft.index', [$data->id_permohonan_uji]) . '" class="dropdown-item" title="Kelola Draft Sample"><i class="fa fa-file-alt text-info"></i> Kelola Draft Sample</a> ';
+            }
+          }
         }
 
+        // Input Nomor Lab = tugas pengarsipan (ARSP), bukan registrasi.
         $nomerLabButton = '';
-        if (getAction('update') || getAction('read')) {
+        if ($this->canManageKesmasNomerLab() && (getAction('update') || getAction('read'))) {
           $nomerLabButton = '<a href="' . route('elits-permohonan-uji.nomer-lab', [$data->id_permohonan_uji]) . '" class="dropdown-item" title="Input Nomor Lab"><i class="fa fa-hashtag text-info"></i> Input Nomor Lab</a> ';
         }
 
@@ -823,18 +912,24 @@ class LaboratoriumPermohonanUjiManagement extends Controller
           $suratPerintahLink = '<a class="dropdown-item" href="' . route('elits-permohonan-uji.print-surat-perintah-sampling', [$data->id_permohonan_uji]) . '" target="__blank"><i class="fa fa-file-alt text-warning"></i> Surat Perintah Sampling</a>';
         }
 
-        // Tombol Edit Nota (untuk mengubah "Diterima Dari" dan "Alamat" pada nota)
-        $editNotaButton = '<a class="dropdown-item btn-edit-nota" href="#edit-nota"'
-          . ' data-id="' . e($data->id_permohonan_uji) . '"'
-          . ' data-diterima-dari="' . e($data->nota_diterima_dari ?? ($data->name_customer ?? '')) . '"'
-          . ' data-alamat="' . e($data->nota_address_from ?? ($data->address_customer ?? '')) . '"'
-          . '><i class="fa fa-edit"></i> Edit Nota</a>';
+        // Edit Nota hanya untuk bendahara (BNDR)
+        $editNotaButton = '';
+        if ($this->canEditKesmasNota()) {
+          $editNotaButton = '<a class="dropdown-item btn-edit-nota" href="#edit-nota"'
+            . ' data-id="' . e($data->id_permohonan_uji) . '"'
+            . ' data-diterima-dari="' . e($data->nota_diterima_dari ?? ($data->name_customer ?? '')) . '"'
+            . ' data-alamat="' . e($data->nota_address_from ?? ($data->address_customer ?? '')) . '"'
+            . '><i class="fa fa-edit"></i> Edit Nota</a>';
+        }
 
         if ($sampleCountForAction > 0 || $data->is_sampling == 1) {
           $cetakMenu = '<div class="dropdown-divider"></div>'
             . $suratPerintahLink
             . $editNotaButton
-            . '<a class="dropdown-item" href="' . route('elits-persuratan.nota.kesmas', $data->id_permohonan_uji) . '" target="__blank"><i class="fa fa-file-invoice"></i> Cetak Nota</a>'
+            . '<a class="dropdown-item" href="' . route('elits-persuratan.invoice.kesmas', $data->id_permohonan_uji) . '" target="__blank"><i class="fa fa-file-invoice"></i> Cetak Invoice</a>'
+            . ((int) $data->status_pembayaran === 1
+                ? '<a class="dropdown-item" href="' . route('elits-persuratan.nota.kesmas', $data->id_permohonan_uji) . '" target="__blank"><i class="fa fa-file-alt"></i> Cetak Nota</a>'
+                : '')
             . '<a class="dropdown-item" href="' . route('elits-release.formulir-pengambilan-sampel', [$data->id_permohonan_uji]) . '" target="__blank"><i class="fa fa-file-alt"></i> Formulir Pengambilan Sampel</a>'
             . '<a class="dropdown-item" href="' . route('elits-release.print-inform-concern-gabungan', [$data->id_permohonan_uji]) . '" target="__blank"><i class="fa fa-file-signature"></i> Informed Consent</a>'
             . '<a class="dropdown-item" href="' . route('elits-label-permohonan-uji.select-samples', [$data->id_permohonan_uji]) . '" target="__blank"><i class="fa fa-tags"></i> Cetak Label</a>';
@@ -852,8 +947,13 @@ class LaboratoriumPermohonanUjiManagement extends Controller
           . $cetakMenu
           . '</div></div>';
       })
-      ->addColumn('count_sample_type', function ($data) use ($sampleTypeHtmlMap) {
-        return $sampleTypeHtmlMap[$data->id_permohonan_uji] ?? '';
+      ->addColumn('count_sample_type', function ($data) use ($sampleTypeHtmlMap, $draftTypeHtmlMap) {
+        $html = $sampleTypeHtmlMap[$data->id_permohonan_uji] ?? '';
+        if ($html !== '' && $html !== '-') {
+          return $html;
+        }
+
+        return $draftTypeHtmlMap[$data->id_permohonan_uji] ?? '';
       })
       ->rawColumns(['code_permohonan_uji', 'customer_permohonan_uji','pemeriksaan', 'num_samples', 'nomer_lab_status', 'status_pembayaran', 'action', 'cetak', 'count_sample_type'])
       ->setFilteredRecords($result["totalFilteredRecord"])
@@ -1533,6 +1633,7 @@ class LaboratoriumPermohonanUjiManagement extends Controller
 
   public function edit_payment($id, Request $request)
   {
+    abort_unless((auth()->user()->getlevel->level ?? null) === 'BNDR', 403);
     $data = $request->all();
     $user = Auth()->user();
 
@@ -1559,6 +1660,8 @@ class LaboratoriumPermohonanUjiManagement extends Controller
 
   public function editNota($id, Request $request)
   {
+    abort_unless($this->canEditKesmasNota(), 403, 'Edit Nota hanya untuk akun bendahara.');
+
     $request->validate([
       'nota_diterima_dari' => 'nullable|string|max:255',
       'nota_address_from' => 'nullable|string',
@@ -1567,18 +1670,24 @@ class LaboratoriumPermohonanUjiManagement extends Controller
     $permohonan_uji = PermohonanUji::where('id_permohonan_uji', '=', $id)->first();
 
     if (!$permohonan_uji) {
-      return redirect()->route('elits-permohonan-uji.index')->with(['status' => 'Data permohonan uji tidak ditemukan']);
+      return redirect()->back()->with(['status' => 'Data permohonan uji tidak ditemukan']);
     }
 
     $permohonan_uji->nota_diterima_dari = $request->input('nota_diterima_dari');
     $permohonan_uji->nota_address_from = $request->input('nota_address_from');
     $permohonan_uji->save();
 
-    return redirect()->route('elits-permohonan-uji.index')->with(['status' => 'Nota berhasil diperbarui']);
+    $level = auth()->user()->getlevel->level ?? null;
+    if ($level === 'BNDR') {
+      return redirect()->route('bendahara.pembayaran-pemeriksaan')->with(['status' => 'Nota berhasil diperbarui']);
+    }
+
+    return redirect()->back()->with(['status' => 'Nota berhasil diperbarui']);
   }
 
   public function payment($id, Request $request)
   {
+    abort_unless((auth()->user()->getlevel->level ?? null) === 'BNDR', 403);
     $data = $request->all();
     $user = Auth()->user();
     $max_nota = (int)PermohonanUji::where(DB::raw('YEAR(date_permohonan_uji)'), '=', date('Y'))->max('nomor_nota');
@@ -3482,7 +3591,10 @@ END as price_total_packet'),
                 <div class="dropdown-menu" aria-labelledby="dropdownPrintLink">
 
                     <a class="dropdown-item" href="' . route('elits-release.permintaan-pemeriksaan', [$permohonan_uji->id_permohonan_uji]) . '">Cetak Permintaan Pemeriksaan</a>
-                    <a class="dropdown-item" href="' . route('elits-persuratan.nota.kesmas', $permohonan_uji->id_permohonan_uji) . '">Cetak Nota</a>
+                    <a class="dropdown-item" href="' . route('elits-persuratan.invoice.kesmas', $permohonan_uji->id_permohonan_uji) . '">Cetak Invoice</a>
+                    ' . ((int) $permohonan_uji->status_pembayaran === 1
+                        ? '<a class="dropdown-item" href="' . route('elits-persuratan.nota.kesmas', $permohonan_uji->id_permohonan_uji) . '">Cetak Nota</a>'
+                        : '') . '
 
                 </div>
             </div>
@@ -3965,10 +4077,32 @@ END as price_total_packet'),
   }
 
   /**
+   * Apakah user boleh input/kelola nomor lab Kesmas (tugas pengarsipan).
+   */
+  private function canManageKesmasNomerLab(): bool
+  {
+    $level = auth()->user()->getlevel->level ?? null;
+
+    return in_array($level, ['ARSP', 'ADMN'], true);
+  }
+
+  /**
+   * Apakah user boleh edit/cetak nota & invoice Kesmas (tugas bendahara).
+   */
+  private function canEditKesmasNota(): bool
+  {
+    $level = auth()->user()->getlevel->level ?? null;
+
+    return in_array($level, ['BNDR', 'ADMN'], true);
+  }
+
+  /**
    * Form input nomor lab Kesmas: satu nomor per (jenis sampel × laboratorium).
    */
   public function nomerLabForm($id)
   {
+    abort_unless($this->canManageKesmasNomerLab(), 403, 'Input Nomor Lab hanya untuk akun pengarsipan.');
+
     $permohonan_uji = PermohonanUji::where('id_permohonan_uji', $id)
       ->whereNull('deleted_at')
       ->with(['customer'])
@@ -4005,6 +4139,8 @@ END as price_total_packet'),
    */
   public function nomerLabStore(Request $request, $id)
   {
+    abort_unless($this->canManageKesmasNomerLab(), 403, 'Input Nomor Lab hanya untuk akun pengarsipan.');
+
     $permohonan_uji = PermohonanUji::where('id_permohonan_uji', $id)
       ->whereNull('deleted_at')
       ->firstOrFail();

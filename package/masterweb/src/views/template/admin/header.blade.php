@@ -351,6 +351,322 @@
         border-radius: 50%;
         object-fit: cover;
     }
+
+    /* Notifikasi navbar */
+    .nav-notifications {
+        position: relative !important;
+        z-index: 1032 !important;
+    }
+
+    .nav-notifications .nav-link {
+        position: relative;
+        padding: 0.5rem 0.75rem !important;
+        color: #fff !important;
+    }
+
+    #notificationDropdown.dropdown-toggle::after {
+        display: none !important;
+    }
+
+    .notification-bell-wrap {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 1.35rem;
+        height: 1.35rem;
+        vertical-align: middle;
+    }
+
+    .nav-notifications .nav-link i {
+        font-size: 1.15rem;
+        line-height: 1;
+    }
+
+    .nav-notifications .notification-badge {
+        position: absolute;
+        top: -7px;
+        right: -9px;
+        min-width: 16px;
+        height: 16px;
+        padding: 0 4px;
+        border-radius: 999px;
+        background: #ff4757;
+        color: #fff;
+        font-size: 0.6rem;
+        font-weight: 700;
+        line-height: 16px;
+        text-align: center;
+        display: none;
+        border: 2px solid #1a7a6d;
+        box-sizing: content-box;
+    }
+
+    .nav-notifications .notification-badge.is-visible {
+        display: inline-block;
+    }
+
+    /* Selector tanpa parent: menu di-append ke body saat dibuka */
+    #notificationDropdownMenu,
+    .notification-dropdown-menu {
+        display: none !important;
+        position: fixed !important;
+        top: 0 !important;
+        right: 0 !important;
+        left: auto !important;
+        float: none !important;
+        z-index: 99999 !important;
+        width: 320px !important;
+        min-width: 0 !important;
+        max-width: calc(100vw - 24px) !important;
+        max-height: none !important;
+        overflow: hidden !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        transform: none !important;
+        border-radius: 0 0 0.25rem 0.25rem !important;
+        border-top: none !important;
+        background: #ffffff !important;
+        background-color: #ffffff !important;
+        opacity: 1 !important;
+        border: 1px solid rgba(0, 0, 0, .12) !important;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12) !important;
+        list-style: none !important;
+    }
+
+    #notificationDropdownMenu.show,
+    .notification-dropdown-menu.show {
+        display: block !important;
+    }
+
+    .notification-panel__header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.5rem;
+        padding: 0.55rem 0.85rem;
+        border-bottom: 1px solid #eee;
+        background: #fafafa !important;
+        margin: 0;
+    }
+
+    .notification-panel__header h6 {
+        margin: 0;
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: #333;
+        line-height: 1.2;
+    }
+
+    .notification-panel__header-actions {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .notification-panel__header-actions button,
+    .notification-panel__header-actions a {
+        border: 0;
+        background: transparent;
+        color: #0d8f7f;
+        font-size: 0.72rem;
+        font-weight: 600;
+        padding: 0;
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+    .notification-panel__body,
+    #notificationList {
+        margin: 0;
+        padding: 0;
+        max-height: 360px;
+        overflow-y: auto;
+        background: #ffffff !important;
+        background-color: #ffffff !important;
+    }
+
+    .notification-group-label {
+        padding: 0.35rem 0.85rem;
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: #8899a0;
+        background: #f7f8fa;
+        border-bottom: 1px solid #f0f0f0;
+        margin: 0;
+    }
+
+    .notification-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.55rem;
+        padding: 0.55rem 0.75rem;
+        border-bottom: 1px solid #f1f1f1;
+        text-decoration: none !important;
+        color: inherit !important;
+        transition: background 0.15s ease;
+        margin: 0;
+        background: #ffffff !important;
+        background-color: #ffffff !important;
+        opacity: 1 !important;
+        min-height: 0;
+        line-height: 1.25;
+        cursor: pointer;
+    }
+
+    .notification-item.is-unread {
+        background: #f3fbf9 !important;
+        background-color: #f3fbf9 !important;
+    }
+
+    .notification-item.is-read {
+        opacity: 0.72 !important;
+    }
+
+    .notification-item:hover {
+        background: #eef8f6 !important;
+        background-color: #eef8f6 !important;
+    }
+
+    .notification-item:last-child {
+        border-bottom: none;
+    }
+
+    .notification-item__icon {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        color: #fff;
+        font-size: 0.82rem;
+        margin-top: 1px;
+    }
+
+    .notification-item__icon.bg-warning { background: #ffb822; }
+    .notification-item__icon.bg-info { background: #36a3f7; }
+    .notification-item__icon.bg-primary { background: #5867dd; }
+    .notification-item__icon.bg-success { background: #1dc9b7; }
+    .notification-item__icon.bg-danger { background: #fd397a; }
+    .notification-item__icon.bg-secondary { background: #6c757d; }
+
+    .notification-item__content {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .notification-item__title {
+        font-size: 0.82rem;
+        font-weight: 700;
+        color: #222;
+        margin-bottom: 0.1rem;
+    }
+
+    .notification-item__message {
+        font-size: 0.74rem;
+        color: #666;
+        margin: 0;
+        line-height: 1.35;
+        white-space: pre-line;
+    }
+
+    .notification-item__time {
+        display: block;
+        margin-top: 0.2rem;
+        font-size: 0.68rem;
+        color: #99a3a8;
+    }
+
+    .notification-item__dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #0d8f7f;
+        flex-shrink: 0;
+        margin-top: 8px;
+    }
+
+    .notification-item.is-read .notification-item__dot {
+        visibility: hidden;
+    }
+
+    .notification-worklist {
+        border-top: 1px solid #eee;
+        background: #fafafa;
+        padding: 0.45rem 0.75rem 0.55rem;
+    }
+
+    .notification-worklist__title {
+        font-size: 0.68rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        color: #8899a0;
+        margin: 0 0 0.35rem;
+    }
+
+    .notification-worklist__row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.35rem;
+    }
+
+    .notification-worklist__chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
+        padding: 0.2rem 0.45rem;
+        border-radius: 999px;
+        background: #fff;
+        border: 1px solid #e5e9ec;
+        font-size: 0.7rem;
+        color: #334;
+        text-decoration: none !important;
+    }
+
+    .notification-worklist__chip strong {
+        color: #0d8f7f;
+    }
+
+    .notification-panel__footer {
+        border-top: 1px solid #eee;
+        padding: 0.45rem 0.75rem;
+        text-align: center;
+        background: #fff;
+    }
+
+    .notification-panel__footer a {
+        font-size: 0.78rem;
+        font-weight: 600;
+        color: #0d8f7f;
+        text-decoration: none;
+    }
+
+    .notification-empty {
+        padding: 1rem 0.85rem;
+        text-align: center;
+        color: #999;
+        font-size: 0.82rem;
+        margin: 0;
+    }
+
+    .notification-empty i {
+        display: block;
+        font-size: 1.25rem;
+        margin-bottom: 0.35rem;
+        opacity: 0.5;
+    }
+
+    @media (max-width: 768px) {
+        #notificationDropdownMenu,
+        .notification-dropdown-menu {
+            width: calc(100vw - 24px) !important;
+        }
+    }
     
     /* Responsive untuk select2 di header */
     @media (max-width: 1200px) {
@@ -517,6 +833,35 @@
                 </div>
             </li>
 
+            <li class="nav-item nav-notifications dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="notificationDropdown"
+                    aria-haspopup="true" aria-expanded="false" title="Notifikasi">
+                    <span class="notification-bell-wrap">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge" id="notificationBadge">0</span>
+                    </span>
+                </a>
+                <div class="notification-dropdown-menu" id="notificationDropdownMenu"
+                    aria-labelledby="notificationDropdown">
+                    <div class="notification-panel__header">
+                        <h6>Notifikasi</h6>
+                        <div class="notification-panel__header-actions">
+                            <button type="button" id="notificationMarkAllRead">Tandai terbaca</button>
+                        </div>
+                    </div>
+                    <div class="notification-panel__body" id="notificationList">
+                        <div class="notification-empty">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            Memuat notifikasi...
+                        </div>
+                    </div>
+                    <div class="notification-worklist" id="notificationWorklist" style="display:none;"></div>
+                    <div class="notification-panel__footer">
+                        <a href="{{ route('notifications.index') }}">Lihat semua notifikasi</a>
+                    </div>
+                </div>
+            </li>
+
             <li class="nav-item nav-profile dropdown">
                 <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
                     <span class="d-none d-md-inline">{{ $user->name }}</span>
@@ -595,3 +940,228 @@
         </button>
     </div>
 </nav>
+<script>
+(function ($) {
+    var notificationUrl = @json(route('notifications.feed'));
+    var markAllUrl = @json(route('notifications.read-all'));
+    var markReadUrlTemplate = @json(url('notifications/__ID__/read'));
+    var csrfToken = @json(csrf_token());
+    var pollIntervalMs = 60000;
+
+    function escapeHtml(str) {
+        return String(str == null ? '' : str)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;');
+    }
+
+    function renderItem(item) {
+        var color = item.color || 'secondary';
+        var unreadClass = item.unread ? 'is-unread' : 'is-read';
+        return '<a class="notification-item ' + unreadClass + '" href="' + escapeHtml(item.url || '#') + '" data-id="' + escapeHtml(item.id || '') + '">' +
+            '<div class="notification-item__icon bg-' + color + '">' +
+            '<i class="fas ' + escapeHtml(item.icon || 'fa-bell') + '"></i>' +
+            '</div>' +
+            '<div class="notification-item__content">' +
+            '<div class="notification-item__title">' + escapeHtml(item.title || 'Notifikasi') + '</div>' +
+            '<p class="notification-item__message">' + escapeHtml(item.message || '') + '</p>' +
+            '<span class="notification-item__time">' + escapeHtml(item.created_human || '') + '</span>' +
+            '</div>' +
+            '<span class="notification-item__dot"></span>' +
+            '</a>';
+    }
+
+    function renderNotifications(data) {
+        var $badge = $('#notificationBadge');
+        var $list = $('#notificationList');
+        var $worklist = $('#notificationWorklist');
+        var unread = parseInt(data && (data.unread != null ? data.unread : data.total), 10) || 0;
+        var groups = (data && data.groups) ? data.groups : {};
+        var items = (data && data.items) ? data.items : [];
+        var worklist = (data && data.worklist) ? data.worklist : [];
+
+        if (unread > 0) {
+            $badge.text(unread > 99 ? '99+' : unread).addClass('is-visible');
+        } else {
+            $badge.removeClass('is-visible');
+        }
+
+        var html = '';
+        var groupKeys = Object.keys(groups);
+        if (groupKeys.length) {
+            groupKeys.forEach(function (label) {
+                html += '<div class="notification-group-label">' + escapeHtml(label) + '</div>';
+                (groups[label] || []).forEach(function (item) {
+                    html += renderItem(item);
+                });
+            });
+        } else if (items.length) {
+            items.forEach(function (item) {
+                html += renderItem(item);
+            });
+        } else {
+            html = '<div class="notification-empty"><i class="far fa-bell-slash"></i>Tidak ada notifikasi belum dibaca</div>';
+        }
+        $list.html(html);
+
+        if (worklist.length) {
+            var chips = worklist.map(function (w) {
+                return '<a class="notification-worklist__chip" href="' + escapeHtml(w.url || '#') + '">' +
+                    escapeHtml(w.label || '') + ' <strong>' + (w.count || 0) + '</strong></a>';
+            }).join('');
+            $worklist.html('<div class="notification-worklist__title">Worklist</div><div class="notification-worklist__row">' + chips + '</div>').show();
+        } else {
+            $worklist.hide().empty();
+        }
+    }
+
+    function loadNotifications() {
+        $.ajax({
+            url: notificationUrl,
+            type: 'GET',
+            cache: false,
+            success: function (response) {
+                renderNotifications(response);
+            },
+            error: function () {
+                $('#notificationList').html(
+                    '<div class="notification-empty">' +
+                    '<i class="fas fa-exclamation-circle"></i>' +
+                    'Gagal memuat notifikasi' +
+                    '</div>'
+                );
+            }
+        });
+    }
+
+    function markRead(id, done) {
+        if (!id) {
+            if (done) done();
+            return;
+        }
+        $.ajax({
+            url: markReadUrlTemplate.replace('__ID__', id),
+            type: 'POST',
+            data: { _token: csrfToken },
+            complete: function () {
+                if (done) done();
+            }
+        });
+    }
+
+    function positionNotificationDropdown() {
+        var $toggle = $('#notificationDropdown');
+        var $menu = $('#notificationDropdownMenu');
+        var $navbar = $('.navbar.fixed-top, .default-layout-navbar');
+        if (!$toggle.length || !$menu.length) {
+            return;
+        }
+
+        if (!$menu.parent().is('body')) {
+            $menu.appendTo('body');
+        }
+
+        var toggleRect = $toggle[0].getBoundingClientRect();
+        var navbarRect = $navbar.length
+            ? $navbar[0].getBoundingClientRect()
+            : toggleRect;
+        var menuWidth = $menu.outerWidth() || 320;
+        var rightPos = window.innerWidth - toggleRect.right;
+
+        if (rightPos + menuWidth > window.innerWidth - 12) {
+            rightPos = Math.max(12, window.innerWidth - menuWidth - 12);
+        }
+
+        $menu.css({
+            position: 'fixed',
+            top: Math.round(navbarRect.bottom) + 'px',
+            right: Math.round(rightPos) + 'px',
+            left: 'auto',
+            margin: 0,
+            padding: 0,
+            transform: 'none'
+        });
+    }
+
+    function toggleNotificationDropdown(e) {
+        if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        var $toggle = $('#notificationDropdown');
+        var $menu = $('#notificationDropdownMenu');
+        var isVisible = $menu.hasClass('show');
+
+        $('#notificationDropdownMenu').removeClass('show').css('display', 'none');
+        $('#notificationDropdown').removeClass('show').attr('aria-expanded', 'false');
+
+        if (!isVisible) {
+            loadNotifications();
+            positionNotificationDropdown();
+            $menu.addClass('show').css('display', 'block');
+            $toggle.addClass('show').attr('aria-expanded', 'true');
+        }
+    }
+
+    $(function () {
+        loadNotifications();
+        setInterval(loadNotifications, pollIntervalMs);
+
+        $(document).on('click', '#notificationDropdown', toggleNotificationDropdown);
+
+        $(document).on('click', function (e) {
+            if (!$(e.target).closest('#notificationDropdown, #notificationDropdownMenu').length) {
+                $('#notificationDropdownMenu').removeClass('show').css('display', 'none');
+                $('#notificationDropdown').removeClass('show').attr('aria-expanded', 'false');
+            }
+        });
+
+        $(document).on('click', '#notificationDropdownMenu', function (e) {
+            e.stopPropagation();
+        });
+
+        $(document).on('click', '#notificationMarkAllRead', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            $.ajax({
+                url: markAllUrl,
+                type: 'POST',
+                data: { _token: csrfToken },
+                success: function () {
+                    loadNotifications();
+                }
+            });
+        });
+
+        $(document).on('click', '#notificationList .notification-item', function (e) {
+            var id = $(this).data('id');
+            var href = $(this).attr('href');
+            e.preventDefault();
+            markRead(id, function () {
+                if (href && href !== '#') {
+                    window.location.href = href;
+                } else {
+                    loadNotifications();
+                }
+            });
+        });
+
+        var notificationTicking = false;
+        $(window).on('resize scroll', function () {
+            if (!$('#notificationDropdownMenu').hasClass('show')) {
+                return;
+            }
+            if (notificationTicking) {
+                return;
+            }
+            notificationTicking = true;
+            requestAnimationFrame(function () {
+                positionNotificationDropdown();
+                notificationTicking = false;
+            });
+        });
+    });
+})(jQuery);
+</script>

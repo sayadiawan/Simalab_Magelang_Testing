@@ -15,6 +15,7 @@ use App\Http\Controllers\Controller;
 use Smt\Masterweb\Models\Laboratorium;
 use \Smt\Masterweb\Models\PermohonanUji;
 use Smt\Masterweb\Models\PermohonanUjiKlinik2;
+use Smt\Masterweb\Helpers\SampleCollectorAccess;
 
 
 
@@ -40,13 +41,50 @@ class AdmHomeController extends Controller
   {
     $auth = Auth()->user();
     $userLevel = $auth->getlevel->level ?? null;
+
+    if ($userLevel === 'ARSP') {
+      return redirect()->route('pengarsipan.index');
+    }
+
     $isDKTR = ($userLevel == 'DKTR');
+    $isBendahara = ($userLevel == 'BNDR');
+    
+    $isSolK = SampleCollectorAccess::isKlinik($userLevel);
+    $isSolM = SampleCollectorAccess::isKesmas($userLevel);
     
     // Cek laboratorium user (jika ada)
     $kodeLaboratorium = $auth->laboratorium->kode_laboratorium ?? null;
-    $isKLI = ($kodeLaboratorium == 'KLI');
+    $namaLaboratorium = $auth->laboratorium->nama_laboratorium ?? null;
+    $isKLI = ($kodeLaboratorium == 'KLI') || ($userLevel == 'KSKL') || $isSolK;
     $isKIM = ($kodeLaboratorium == 'KIM');
     $isMBI = ($kodeLaboratorium == 'MBI'); // Mikrobiologi
+    // Lab Kesmas (kimia + mikro) — grafik/statistik di-scope ke lab user
+    $isKesmasLabUser = in_array($kodeLaboratorium, ['KIM', 'KMA', 'FKA', 'MBI'], true);
+    $kesmasLabCodes = $isKesmasLabUser ? [$kodeLaboratorium] : [];
+    // Fallback: lab dari relasi petugas jika user belum punya laboratory_users
+    if ($kesmasLabCodes === [] && !$isKLI && !empty($auth->id_petugas)) {
+      $petugasLab = \Smt\Masterweb\Models\Petugas::find($auth->id_petugas);
+      $petugasLabIds = $petugasLab
+        ? (is_array($petugasLab->lab_id) ? $petugasLab->lab_id : (json_decode($petugasLab->lab_id ?? '[]', true) ?: []))
+        : [];
+      if (!empty($petugasLabIds)) {
+        $kesmasLabCodes = Laboratorium::query()
+          ->whereIn('id_laboratorium', $petugasLabIds)
+          ->whereIn('kode_laboratorium', ['KIM', 'KMA', 'FKA', 'MBI'])
+          ->whereNull('deleted_at')
+          ->pluck('kode_laboratorium')
+          ->unique()
+          ->values()
+          ->all();
+        $isKesmasLabUser = $kesmasLabCodes !== [];
+        if ($isKesmasLabUser && !$kodeLaboratorium) {
+          $kodeLaboratorium = $kesmasLabCodes[0];
+          $namaLaboratorium = Laboratorium::where('kode_laboratorium', $kodeLaboratorium)->value('nama_laboratorium');
+        }
+      }
+    }
+    $chartLabScopeLabel = $namaLaboratorium
+      ?: ($kodeLaboratorium ? (string) $kodeLaboratorium : null);
 
     // Rentang tanggal grafik (default: 12 bulan terakhir)
     $chartFromInput = $request->query('chart_from');
@@ -163,8 +201,8 @@ class AdmHomeController extends Controller
       $sampleTypes = [];
     } else {
       // Logic untuk user selain DKTR/KLI (Kesmas)
-      if ($isKIM || $isMBI) {
-        // Dashboard khusus lab KIMIA / Mikrobiologi: hanya data berdasarkan lab terkait (tb_sample_method + ms_laboratorium)
+      if ($isKesmasLabUser && $kesmasLabCodes !== []) {
+        // Dashboard khusus lab Kesmas: hanya data berdasarkan lab terkait (tb_sample_method + ms_laboratorium)
         // Gunakan COUNT DISTINCT untuk memastikan total_berjalan / total_selesai tidak melebihi total_sample
         $dataTotal = Sample::query()
           ->join('tb_sample_method', function ($join) {
@@ -175,7 +213,7 @@ class AdmHomeController extends Controller
             $join->on('ms_laboratorium.id_laboratorium', '=', 'tb_sample_method.laboratorium_id')
               ->whereNull('ms_laboratorium.deleted_at');
           })
-          ->where('ms_laboratorium.kode_laboratorium', $kodeLaboratorium)
+          ->whereIn('ms_laboratorium.kode_laboratorium', $kesmasLabCodes)
           ->whereNull('tb_samples.deleted_at')
           ->selectRaw('
               COUNT(DISTINCT tb_samples.permohonan_uji_id) AS total_permohonan_uji,
@@ -230,17 +268,39 @@ class AdmHomeController extends Controller
       $analisa_berjalan_klinik = $dataAnalisaKlinik->analisa_berjalan ?? 0;
       $analisa_selesai_klinik = $dataAnalisaKlinik->analisa_selesai ?? 0;
 
-      // Statistik Kesmas per bulan (terpisah dari klinik)
-      $pendapatan = PermohonanUji::query()
-        ->select(
-          DB::raw('COUNT(*) as total_permohonan'),
-          DB::raw('DATE_FORMAT(created_at, "%Y-%m") as bulan')
-        )
-        ->whereBetween('created_at', [$chartStart, $chartEnd])
-        ->where('status_pembayaran', 1)
-        ->groupBy(DB::raw('DATE_FORMAT(created_at, "%Y-%m")'))
-        ->orderBy('bulan')
-        ->get();
+      // Statistik Kesmas per bulan — scope ke lab user jika ada
+      if ($isKesmasLabUser && $kesmasLabCodes !== []) {
+        $pendapatan = Sample::query()
+          ->join('tb_sample_method', function ($join) {
+            $join->on('tb_sample_method.sample_id', '=', 'tb_samples.id_samples')
+              ->whereNull('tb_sample_method.deleted_at');
+          })
+          ->join('ms_laboratorium', function ($join) {
+            $join->on('ms_laboratorium.id_laboratorium', '=', 'tb_sample_method.laboratorium_id')
+              ->whereNull('ms_laboratorium.deleted_at');
+          })
+          ->whereIn('ms_laboratorium.kode_laboratorium', $kesmasLabCodes)
+          ->whereNull('tb_samples.deleted_at')
+          ->whereBetween('tb_samples.created_at', [$chartStart, $chartEnd])
+          ->select(
+            DB::raw('COUNT(DISTINCT tb_samples.permohonan_uji_id) as total_permohonan'),
+            DB::raw('DATE_FORMAT(tb_samples.created_at, "%Y-%m") as bulan')
+          )
+          ->groupBy(DB::raw('DATE_FORMAT(tb_samples.created_at, "%Y-%m")'))
+          ->orderBy('bulan')
+          ->get();
+      } else {
+        $pendapatan = PermohonanUji::query()
+          ->select(
+            DB::raw('COUNT(*) as total_permohonan'),
+            DB::raw('DATE_FORMAT(created_at, "%Y-%m") as bulan')
+          )
+          ->whereBetween('created_at', [$chartStart, $chartEnd])
+          ->where('status_pembayaran', 1)
+          ->groupBy(DB::raw('DATE_FORMAT(created_at, "%Y-%m")'))
+          ->orderBy('bulan')
+          ->get();
+      }
 
       $bulans = [];
       $pendapatans = [];
@@ -251,8 +311,8 @@ class AdmHomeController extends Controller
       }
 
       // Data chart jenis sampel
-      if ($isKIM || $isMBI) {
-        // Hanya sampel yang dianalisa di lab KIM / MBI (sesuai kode laboratorium user)
+      if ($isKesmasLabUser && $kesmasLabCodes !== []) {
+        // Hanya sampel yang dianalisa di lab user
         $samples = Sample::query()
           ->join('tb_sample_method', function ($join) {
             $join->on('tb_sample_method.sample_id', '=', 'tb_samples.id_samples')
@@ -263,7 +323,7 @@ class AdmHomeController extends Controller
               ->whereNull('ms_laboratorium.deleted_at');
           })
           ->join('ms_sample_type', 'ms_sample_type.id_sample_type', '=', 'typesample_samples')
-          ->where('ms_laboratorium.kode_laboratorium', $kodeLaboratorium)
+          ->whereIn('ms_laboratorium.kode_laboratorium', $kesmasLabCodes)
           ->whereNull('tb_samples.deleted_at')
           ->whereBetween('tb_samples.created_at', [$chartStart, $chartEnd])
           ->select(DB::raw('COALESCE(COUNT(DISTINCT tb_samples.id_samples), 0) as total_sample'), DB::raw('ms_sample_type.name_sample_type as type'))
@@ -404,8 +464,27 @@ class AdmHomeController extends Controller
     }
 
     $showChartKesmas = !($isDKTR || $isKLI);
-    $showChartKlinik = true;
+    $showChartKlinik = !$isKesmasLabUser; // lab kimia/mikro: fokus grafik Kesmas lab-nya
     $showChartKeuangan = true;
+
+    // Analis / Tim Teknis: hanya grafik bidang lab, tanpa tab Keuangan
+    if (in_array($userLevel, ['ANLS', 'ALAB', 'SOLK', 'SOLM', 'KSKM'], true)) {
+      $showChartKeuangan = false;
+      if ($isKLI || $userLevel === 'KSKL' || $isSolK) {
+        $showChartKesmas = false;
+        $showChartKlinik = true;
+      } elseif ($isKesmasLabUser || $isSolM) {
+        $showChartKesmas = true;
+        $showChartKlinik = false;
+      }
+    }
+
+    if ($isBendahara) {
+      // Dashboard bendahara fokus penuh ke keuangan / status nota.
+      $showChartKesmas = false;
+      $showChartKlinik = false;
+      $showChartKeuangan = true;
+    }
 
     // —— Tab Keuangan: pendapatan sesuai total nota ——
     $keuanganMonths = [];
@@ -418,17 +497,38 @@ class AdmHomeController extends Controller
 
     $kesmasMap = [];
     if ($showChartKesmas) {
-      $kesmasRows = PermohonanUji::query()
+      $kesmasQuery = PermohonanUji::query()
         ->select(
           DB::raw('DATE_FORMAT(created_at, "%Y-%m") as bulan'),
           DB::raw('COALESCE(SUM(total_harga), 0) as total_nota'),
           DB::raw('COUNT(*) as jumlah_nota')
         )
         ->whereNull('deleted_at')
-        ->whereBetween('created_at', [$chartStart, $chartEnd])
+        ->whereBetween('created_at', [$chartStart, $chartEnd]);
+
+      if ($isKesmasLabUser && $kesmasLabCodes !== []) {
+        $kesmasQuery->whereExists(function ($q) use ($kesmasLabCodes) {
+          $q->select(DB::raw(1))
+            ->from('tb_samples')
+            ->join('tb_sample_method', function ($join) {
+              $join->on('tb_sample_method.sample_id', '=', 'tb_samples.id_samples')
+                ->whereNull('tb_sample_method.deleted_at');
+            })
+            ->join('ms_laboratorium', function ($join) {
+              $join->on('ms_laboratorium.id_laboratorium', '=', 'tb_sample_method.laboratorium_id')
+                ->whereNull('ms_laboratorium.deleted_at');
+            })
+            ->whereColumn('tb_samples.permohonan_uji_id', 'tb_permohonan_uji.id_permohonan_uji')
+            ->whereNull('tb_samples.deleted_at')
+            ->whereIn('ms_laboratorium.kode_laboratorium', $kesmasLabCodes);
+        });
+      }
+
+      $kesmasRows = $kesmasQuery
         ->groupBy(DB::raw('DATE_FORMAT(created_at, "%Y-%m")'))
         ->orderBy('bulan')
         ->get();
+
       foreach ($kesmasRows as $row) {
         $kesmasMap[$row->bulan] = [
           'total' => (float) $row->total_nota,
@@ -467,6 +567,14 @@ class AdmHomeController extends Controller
     $chartKeuanganSeriesKesmas = [];
     $chartKeuanganSeriesKlinik = [];
     $chartKeuanganSeriesTotal = [];
+    $chartKeuanganSeriesPrimaryLabel = 'Kesmas';
+    $chartKeuanganSeriesSecondaryLabel = 'Klinik';
+    $chartKeuanganShowPrimary = $showChartKesmas;
+    $chartKeuanganTrendHeading = 'Tren pendapatan (total nota)';
+    $chartKeuanganTrendSub = 'Pendapatan sesuai total nota per bulan (' . $chartFrom . ' – ' . $chartTo . ')';
+    $chartKeuanganDonutTitle = 'Komposisi pendapatan';
+    $chartKeuanganDonutSub = 'Total nota Kesmas vs Klinik';
+    $chartKeuanganIsMoney = true;
     $totalPendapatanKesmas = 0.0;
     $totalPendapatanKlinik = 0.0;
     $jumlahNotaKesmas = 0;
@@ -492,8 +600,77 @@ class AdmHomeController extends Controller
     $chartKeuanganLabels[] = 'Klinik';
     $chartKeuanganValues[] = $totalPendapatanKlinik;
 
+    if ($isBendahara) {
+      $paidMap = [];
+      $unpaidMap = [];
+
+      $kesmasPaymentRows = PermohonanUji::query()
+        ->select(
+          DB::raw('DATE_FORMAT(created_at, "%Y-%m") as bulan'),
+          DB::raw('SUM(CASE WHEN COALESCE(status_pembayaran, 0) = 1 THEN 1 ELSE 0 END) as lunas'),
+          DB::raw('SUM(CASE WHEN COALESCE(status_pembayaran, 0) != 1 THEN 1 ELSE 0 END) as belum_lunas')
+        )
+        ->whereNull('deleted_at')
+        ->whereBetween('created_at', [$chartStart, $chartEnd])
+        ->groupBy(DB::raw('DATE_FORMAT(created_at, "%Y-%m")'))
+        ->get();
+
+      foreach ($kesmasPaymentRows as $row) {
+        $paidMap[$row->bulan] = (int) ($paidMap[$row->bulan] ?? 0) + (int) $row->lunas;
+        $unpaidMap[$row->bulan] = (int) ($unpaidMap[$row->bulan] ?? 0) + (int) $row->belum_lunas;
+      }
+
+      $klinikPaymentRows = PermohonanUjiKlinik2::query()
+        ->select(
+          DB::raw('DATE_FORMAT(COALESCE(tglregister_permohonan_uji_klinik, created_at), "%Y-%m") as bulan'),
+          DB::raw('SUM(CASE WHEN COALESCE(status_pembayaran, 0) = 1 THEN 1 ELSE 0 END) as lunas'),
+          DB::raw('SUM(CASE WHEN COALESCE(status_pembayaran, 0) != 1 THEN 1 ELSE 0 END) as belum_lunas')
+        )
+        ->whereNull('deleted_at')
+        ->whereRaw('COALESCE(tglregister_permohonan_uji_klinik, created_at) BETWEEN ? AND ?', [
+          $chartStart,
+          $chartEnd,
+        ])
+        ->groupBy(DB::raw('DATE_FORMAT(COALESCE(tglregister_permohonan_uji_klinik, created_at), "%Y-%m")'))
+        ->get();
+
+      foreach ($klinikPaymentRows as $row) {
+        $paidMap[$row->bulan] = (int) ($paidMap[$row->bulan] ?? 0) + (int) $row->lunas;
+        $unpaidMap[$row->bulan] = (int) ($unpaidMap[$row->bulan] ?? 0) + (int) $row->belum_lunas;
+      }
+
+      $chartKeuanganSeriesKesmas = [];
+      $chartKeuanganSeriesKlinik = [];
+      $chartKeuanganSeriesTotal = [];
+      $totalNotaLunas = 0;
+      $totalNotaBelumLunas = 0;
+
+      foreach ($keuanganMonths as $bulan) {
+        $paidCount = (int) ($paidMap[$bulan] ?? 0);
+        $unpaidCount = (int) ($unpaidMap[$bulan] ?? 0);
+        $chartKeuanganSeriesKesmas[] = $paidCount;
+        $chartKeuanganSeriesKlinik[] = $unpaidCount;
+        $chartKeuanganSeriesTotal[] = $paidCount + $unpaidCount;
+        $totalNotaLunas += $paidCount;
+        $totalNotaBelumLunas += $unpaidCount;
+      }
+
+      $chartKeuanganLabels = ['Lunas', 'Belum Lunas'];
+      $chartKeuanganValues = [$totalNotaLunas, $totalNotaBelumLunas];
+      $chartKeuanganSeriesPrimaryLabel = 'Lunas';
+      $chartKeuanganSeriesSecondaryLabel = 'Belum Lunas';
+      $chartKeuanganShowPrimary = true;
+      $chartKeuanganTrendHeading = 'Tren nota pembayaran';
+      $chartKeuanganTrendSub = 'Jumlah nota lunas vs belum lunas per bulan (' . $chartFrom . ' – ' . $chartTo . ')';
+      $chartKeuanganDonutTitle = 'Komposisi status nota';
+      $chartKeuanganDonutSub = 'Total nota lunas ' . number_format($totalNotaLunas) . ' · belum lunas ' . number_format($totalNotaBelumLunas);
+      $chartKeuanganIsMoney = false;
+    }
+
     $requestedTab = $request->query('chart_tab');
-    if ($requestedTab === 'keuangan' && $showChartKeuangan) {
+    if ($isBendahara) {
+      $defaultChartTab = 'keuangan';
+    } elseif ($requestedTab === 'keuangan' && $showChartKeuangan) {
       $defaultChartTab = 'keuangan';
     } elseif ($requestedTab === 'klinik' && $showChartKlinik) {
       $defaultChartTab = 'klinik';
@@ -539,8 +716,16 @@ class AdmHomeController extends Controller
         'chartKeuanganSeriesKesmas',
         'chartKeuanganSeriesKlinik',
         'chartKeuanganSeriesTotal',
+        'chartKeuanganSeriesPrimaryLabel',
+        'chartKeuanganSeriesSecondaryLabel',
+        'chartKeuanganShowPrimary',
         'chartKeuanganLabels',
         'chartKeuanganValues',
+        'chartKeuanganTrendHeading',
+        'chartKeuanganTrendSub',
+        'chartKeuanganDonutTitle',
+        'chartKeuanganDonutSub',
+        'chartKeuanganIsMoney',
         'totalPendapatanKesmas',
         'totalPendapatanKlinik',
         'jumlahNotaKesmas',
@@ -550,7 +735,9 @@ class AdmHomeController extends Controller
         'showChartKeuangan',
         'defaultChartTab',
         'chartFrom',
-        'chartTo'
+        'chartTo',
+        'chartLabScopeLabel',
+        'kodeLaboratorium'
       )
     );
   }

@@ -56,7 +56,7 @@ class DokterDashboardController extends Controller
     }
 
     /**
-     * Display dashboard dokter dengan peta persebaran hasil klinik
+     * Display dashboard analisis hasil klinik per wilayah.
      */
     public function index(Request $request)
     {

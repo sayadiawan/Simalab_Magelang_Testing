@@ -74,6 +74,30 @@
         transition: none !important;
     }
 
+    /* Hanya item aktif yang berwarna teal (bukan semua link dengan path sama) */
+    .sidebar .nav > .nav-item.menu.active > .nav-link {
+        background-color: rgba(22, 168, 146, 0.45) !important;
+    }
+    .sidebar .nav > .nav-item.menu:not(.active) > .nav-link {
+        background-color: transparent !important;
+    }
+    .sidebar .menu-step-count {
+        display: inline-block;
+        min-width: 18px;
+        padding: 1px 6px;
+        margin-left: 6px;
+        border-radius: 999px;
+        font-size: 10px;
+        font-weight: 700;
+        line-height: 1.4;
+        background: rgba(255, 255, 255, 0.22);
+        color: #fff;
+        vertical-align: middle;
+    }
+    .sidebar .nav-item.active .menu-step-count {
+        background: rgba(255, 255, 255, 0.35);
+    }
+
     /* Arrow styling */
     .sidebar .menu-arrow,
     .sidebar .menu-arrow::after,
@@ -189,9 +213,11 @@
                     <p class="name" style="color: white;">
                         Hai, {{ explode(' ', $user->name)[0] }}
                     </p>
-                    <p class="designation">
-                        {{-- {{$privilege->name}} --}}
+                    @if (!empty($privilege->name) || !empty($level))
+                    <p class="designation" style="color: rgba(255, 255, 255, 0.78);">
+                        {{ $privilege->name ?? $level }}
                     </p>
+                    @endif
                 </div>
             </div>
         </li>
@@ -199,9 +225,12 @@
         {{-- LIST MENU --}}
         @php
             $parent = \Smt\Masterweb\Models\AdminMenu::all()->sortBy('order')->where('upmenu', '0');
-
-            // dd($parent);
-
+            $petugasStepMenus = [];
+            $usePetugasStepMenus = \Smt\Masterweb\Helpers\PetugasStepAccess::usesPetugasSteps($level);
+            $petugasStepsInjected = false;
+            if ($usePetugasStepMenus) {
+                $petugasStepMenus = \Smt\Masterweb\Helpers\PetugasStepAccess::getSidebarMenus($user);
+            }
         @endphp
         @foreach ($parent as $menu)
             @php
@@ -209,13 +238,32 @@
                     ->where('privilege_id', $privilege->id)
                     ->first();
 
-                if ($role != null) {
-                    if ($role->read == 0) {
+                if ($role == null || $role->read != '1') {
+                    continue;
+                }
+
+                // Analis/ALAB: step verifikasi diganti menu dinamis dari relasi petugas.role
+                if ($usePetugasStepMenus && is_string($menu->link) && strpos($menu->link, 'elits-permohonan-uji-klinik/verifikasi/lists') !== false) {
+                    continue;
+                }
+
+                // Analis/ALAB: sembunyikan Data Semua Sampel & Persebaran Data
+                if ($usePetugasStepMenus) {
+                    $menuLink = (string) ($menu->link ?? '');
+                    $menuName = (string) ($menu->name ?? '');
+                    if (
+                        strpos($menuLink, 'elits-samples/all') !== false ||
+                        stripos($menuName, 'Data Semua Sampel') !== false ||
+                        strpos($menuLink, 'dokter/dashboard') !== false ||
+                        stripos($menuName, 'Persebaran') !== false
+                    ) {
                         continue;
                     }
                 }
 
                 $child = \Smt\Masterweb\Models\AdminMenu::all()->sortBy('order')->where('upmenu', $menu->id);
+                $isDashboardMenu = stripos((string) ($menu->name ?? ''), 'Dashboard') !== false
+                    || in_array(trim((string) ($menu->link ?? ''), '/'), ['sm-master', 'home'], true);
             @endphp
             @if (SmtHelp::create_link($menu->name) == 'klinik')
                 @if (!isset($user->laboratorium))
@@ -237,10 +285,8 @@
                                                 ->where('privilege_id', $privilege->id)
                                                 ->first();
 
-                                            if ($role != null) {
-                                                if ($role->read == 0) {
-                                                    continue;
-                                                }
+                                            if ($role == null || $role->read != '1') {
+                                                continue;
                                             }
 
                                             // Filter untuk menu Baku Mutu: jika user adalah analis dengan laboratorium, hanya tampilkan submenu sesuai lab-nya
@@ -317,10 +363,8 @@
                                                 ->where('privilege_id', $privilege->id)
                                                 ->first();
 
-                                            if ($role != null) {
-                                                if ($role->read == 0) {
-                                                    continue;
-                                                }
+                                            if ($role == null || $role->read != '1') {
+                                                continue;
                                             }
 
                                             // Filter untuk menu Baku Mutu: jika user adalah analis dengan laboratorium, hanya tampilkan submenu sesuai lab-nya
@@ -387,10 +431,8 @@
                                             ->where('privilege_id', $privilege->id)
                                             ->first();
 
-                                        if ($role != null) {
-                                            if ($role->read == 0) {
-                                                continue;
-                                            }
+                                        if ($role == null || $role->read != '1') {
+                                            continue;
                                         }
 
                                         // Filter untuk menu Baku Mutu: jika user adalah analis dengan laboratorium, hanya tampilkan submenu sesuai lab-nya
@@ -448,7 +490,33 @@
                     @endif
                 </li>
             @endif
+
+            {{-- Step petugas langsung di bawah Dashboard (seperti kasie) --}}
+            @if ($usePetugasStepMenus && !$petugasStepsInjected && !empty($isDashboardMenu) && count($petugasStepMenus) > 0)
+                @foreach ($petugasStepMenus as $stepMenu)
+                    <li class="nav-item menu">
+                        <a class="nav-link" href="{{ $stepMenu['url'] }}">
+                            <i class="{{ $stepMenu['icon'] }} menu-icon"></i>
+                            <span class="menu-title">{{ $stepMenu['label'] }}</span>
+                        </a>
+                    </li>
+                @endforeach
+                @php $petugasStepsInjected = true; @endphp
+            @endif
         @endforeach
+
+        {{-- Fallback jika Dashboard tidak ada di privilege --}}
+        @if ($usePetugasStepMenus && !$petugasStepsInjected && count($petugasStepMenus) > 0)
+            @foreach ($petugasStepMenus as $stepMenu)
+                <li class="nav-item menu">
+                    <a class="nav-link" href="{{ $stepMenu['url'] }}">
+                        <i class="{{ $stepMenu['icon'] }} menu-icon"></i>
+                        <span class="menu-title">{{ $stepMenu['label'] }}</span>
+                    </a>
+                </li>
+            @endforeach
+        @endif
+
         <li class="nav-item menu">
             <a class="nav-link" href="{{ asset('documentation/index.html') }}" target="_blank">
                 <i class="fas fa-book-open menu-icon"></i><span class="menu-title">Panduan Sistem</span>
@@ -466,3 +534,125 @@
         </li>
     </ul>
 </nav>
+<script>
+(function ($) {
+    function parseLink(href) {
+        try {
+            var a = document.createElement('a');
+            a.href = href;
+            return {
+                path: (a.pathname || '').replace(/\/$/, ''),
+                search: a.search || '',
+                filter: (function () {
+                    var m = (a.search || '').match(/[?&]status_filter=([a-z_]+)/);
+                    return m ? m[1] : null;
+                })()
+            };
+        } catch (e) {
+            return { path: '', search: '', filter: null };
+        }
+    }
+
+    function markActiveMenus() {
+        var sidebar = $('.sidebar');
+        if (!sidebar.length) return;
+
+        // Hapus highlight dari misc.js agar tidak semua menu step ikut aktif
+        sidebar.find('.nav-item.menu').removeClass('active');
+        sidebar.find('.nav-link.active').removeClass('active');
+        sidebar.find('.collapse.show').removeClass('show');
+
+        var currentPath = (window.location.pathname || '').replace(/\/$/, '');
+        var currentSearch = window.location.search || '';
+        var currentFilter = (currentSearch.match(/[?&]status_filter=([a-z_]+)/) || [])[1] || null;
+        var matchedExact = false;
+
+        sidebar.find('.nav li a.nav-link').each(function () {
+            var href = $(this).attr('href');
+            // Skip toggle collapse (#menu-...), javascript, kosong
+            if (!href || href === '#' || href.charAt(0) === '#' || href.indexOf('javascript:') === 0) return;
+
+            var link = parseLink(href);
+            if (!link.path || link.path !== currentPath) return;
+
+            // Link step (punya status_filter): aktif hanya jika filter sama
+            if (link.filter) {
+                if (currentFilter && link.filter === currentFilter) {
+                    $(this).parents('.nav-item').last().addClass('active');
+                    matchedExact = true;
+                }
+                return;
+            }
+
+            // Link tanpa status_filter: jangan aktifkan jika halaman sedang di step filter
+            if (currentFilter && currentPath.indexOf('verifikasi/lists') !== -1) {
+                return;
+            }
+
+            if (!matchedExact) {
+                $(this).parents('.nav-item').last().addClass('active');
+                if ($(this).parents('.sub-menu').length) {
+                    $(this).closest('.collapse').addClass('show');
+                    $(this).addClass('active');
+                }
+            }
+        });
+    }
+
+    function injectStepBadges() {
+        $('.sidebar .nav a.nav-link').each(function () {
+            var href = $(this).attr('href') || '';
+            var m = href.match(/[?&]status_filter=([a-z_]+)/);
+            var $title = $(this).find('.menu-title');
+            if (!$title.length) return;
+
+            if (m) {
+                if ($title.find('.menu-step-count').length) return;
+                $title.append(' <span class="menu-step-count" data-step="' + m[1] + '">0</span>');
+                return;
+            }
+
+            // Menu Semua Pemeriksaan (tanpa status_filter)
+            if (href.indexOf('verifikasi/lists') !== -1 && $title.text().indexOf('Semua Pemeriksaan') !== -1) {
+                if ($title.find('.menu-step-count-all').length) return;
+                $title.append(' <span class="menu-step-count-all">0</span>');
+            }
+        });
+    }
+
+    function loadStepCounts() {
+        if (!$('.sidebar .menu-step-count').length && !$('.sidebar .menu-step-count-all').length) return;
+
+        $.ajax({
+            url: "{{ url('/statistics-permohonan-uji-klinik-verifikasi') }}",
+            type: 'GET',
+            data: { is_filter: 'all' },
+            cache: false,
+            success: function (response) {
+                if (!response || typeof response !== 'object') return;
+                var total = 0;
+                $('.sidebar .menu-step-count').each(function () {
+                    var step = $(this).data('step');
+                    if (step && typeof response[step] !== 'undefined') {
+                        var n = parseInt(response[step], 10) || 0;
+                        $(this).text(n);
+                        total += n;
+                    }
+                });
+                if ($('.sidebar .menu-step-count-all').length) {
+                    $('.sidebar .menu-step-count-all').text(total);
+                }
+            }
+        });
+    }
+
+    $(function () {
+        // Jalankan setelah misc.js selesai menandai active
+        setTimeout(function () {
+            markActiveMenus();
+            injectStepBadges();
+            loadStepCounts();
+        }, 0);
+    });
+})(jQuery);
+</script>

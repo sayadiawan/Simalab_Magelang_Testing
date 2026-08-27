@@ -475,15 +475,25 @@
                         
                         // Tentukan tab yang boleh ditampilkan berdasarkan level dan kode lab
                         $allowedTabs = [];
-                        if ($isKesmas) {
+                        $petugasTabs = \Smt\Masterweb\Helpers\PetugasStepAccess::usesPetugasSteps($userLevel)
+                            ? \Smt\Masterweb\Helpers\PetugasStepAccess::getAllowedFilters($user, true, true)
+                            : [];
+
+                        if (!empty($petugasTabs)) {
+                            // Analis / Tim Teknis: step dari relasi petugas.role
+                            $allowedTabs = $petugasTabs;
+                        } elseif ($userLevel == 'KSKM') {
+                            $allowedTabs = ['all', 'penerimaan_sample', 'pemeriksaan', 'input_hasil', 'verifikasi', 'validasi', 'selesai'];
+                        } elseif ($isKesmas) {
                             // Kesmas (KIM, KMA, FKA, MBI): semua tab termasuk Semua dan Selesai
                             $allowedTabs = ['all', 'penerimaan_sample', 'pemeriksaan', 'input_hasil', 'verifikasi', 'validasi', 'selesai'];
-                        } elseif ($userLevel == 'SOLAB') {
-                            // SOLAB: hanya pengambilan_sample (tanpa Semua dan Selesai)
+                        } elseif (\Smt\Masterweb\Helpers\SampleCollectorAccess::isKlinik($userLevel)) {
+                            // Pengambil sampel klinik (SOLK): hanya pengambilan_sample
                             $allowedTabs = ['pengambilan_sample'];
+                        } elseif ($userLevel == 'KSKL') {
+                            $allowedTabs = ['all', 'pengambilan_sample', 'penerimaan_sample', 'pemeriksaan', 'input_hasil', 'verifikasi', 'validasi', 'selesai'];
                         } elseif ($isKlinik || $userLevel == 'ANLS') {
-                            // Klinik (KLI) atau ANLS: penerimaan_sample, pemeriksaan, input_hasil, verifikasi, validasi (tanpa Semua dan Selesai)
-                            $allowedTabs = ['penerimaan_sample', 'pemeriksaan', 'input_hasil', 'verifikasi', 'validasi'];
+                            $allowedTabs = ['all', 'pengambilan_sample', 'pemeriksaan', 'input_hasil', 'verifikasi', 'validasi', 'selesai'];
                         } elseif ($userLevel == 'RGSTR') {
                             // RGSTR: belum_pemeriksaan, selesai
                             $allowedTabs = ['all', 'belum_pemeriksaan', 'selesai'];
@@ -494,11 +504,19 @@
                             // Selain itu: semua tab
                             $allowedTabs = ['all', 'belum_pemeriksaan', 'pengambilan_sample', 'penerimaan_sample', 'pemeriksaan', 'input_hasil', 'verifikasi', 'validasi', 'selesai'];
                         }
+
+                        // Tab dari URL (?status_filter=...) — prioritas saat membuka dari menu sidebar
+                        $urlStatusFilter = request()->get('status_filter', '');
+                        if ($urlStatusFilter && !in_array($urlStatusFilter, $allowedTabs, true)) {
+                            $urlStatusFilter = '';
+                        }
                     @endphp
                     @php
                         // Tentukan tab pertama yang akan menjadi active jika tab "Semua" tidak ada
                         $firstVisibleTab = null;
-                        if (!in_array('all', $allowedTabs)) {
+                        if ($urlStatusFilter) {
+                            $firstVisibleTab = $urlStatusFilter;
+                        } elseif (!in_array('all', $allowedTabs)) {
                             // Urutan tab yang mungkin muncul pertama
                             $tabOrder = ['belum_pemeriksaan', 'pengambilan_sample', 'penerimaan_sample', 'pemeriksaan', 'input_hasil', 'verifikasi', 'validasi', 'selesai'];
                             foreach ($tabOrder as $tab) {
@@ -511,7 +529,7 @@
                     @endphp
                     <div class="tab-filter" id="tabFilter">
                         @if (in_array('all', $allowedTabs))
-                        <button class="tab-filter-item active" data-filter="all" data-status="">
+                        <button class="tab-filter-item {{ !$firstVisibleTab ? 'active' : '' }}" data-filter="all" data-status="">
                             <i class="fa fa-list"></i> Semua
                             <span class="badge" id="badge-all">0</span>
                         </button>
@@ -770,8 +788,15 @@
         }
 
         $(document).ready(function() {
-            // Set tab pertama sebagai active jika tidak ada tab "Semua"
-            if ($('.tab-filter-item[data-filter="all"]').length === 0) {
+            // Jika URL membawa status_filter, pakai tab itu; jika tidak, tab pertama
+            var urlFilter = new URLSearchParams(window.location.search).get('status_filter');
+            if (urlFilter) {
+                var urlTab = $('.tab-filter-item[data-status="' + urlFilter + '"]');
+                if (urlTab.length) {
+                    $('.tab-filter-item').removeClass('active');
+                    urlTab.addClass('active');
+                }
+            } else if ($('.tab-filter-item[data-filter="all"]').length === 0) {
                 var firstTab = $('.tab-filter-item').first();
                 if (firstTab.length > 0) {
                     $('.tab-filter-item').removeClass('active');
@@ -1146,6 +1171,29 @@
                 // Update active tab
                 $('.tab-filter-item').removeClass('active');
                 $(this).addClass('active');
+
+                // Sinkronkan URL agar sidebar menandai menu yang benar
+                var status = $(this).data('status') || '';
+                try {
+                    var url = new URL(window.location.href);
+                    if (status) {
+                        url.searchParams.set('status_filter', status);
+                    } else {
+                        url.searchParams.delete('status_filter');
+                    }
+                    window.history.replaceState({}, '', url.toString());
+                    if (window.jQuery && $('.sidebar').length) {
+                        // Re-mark active sidebar if helper exists
+                        $('.sidebar .nav-item.menu').removeClass('active');
+                        $('.sidebar a.nav-link').each(function () {
+                            var href = $(this).attr('href') || '';
+                            var m = href.match(/[?&]status_filter=([a-z_]+)/);
+                            if (status && m && m[1] === status) {
+                                $(this).parents('.nav-item').last().addClass('active');
+                            }
+                        });
+                    }
+                } catch (e) {}
                 
                 // Reload table dengan filter status
                 table.ajax.reload();

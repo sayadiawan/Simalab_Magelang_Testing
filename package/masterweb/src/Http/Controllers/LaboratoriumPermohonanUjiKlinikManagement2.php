@@ -348,26 +348,28 @@ class LaboratoriumPermohonanUjiKlinikManagement2 extends Controller
           $verifikasiButton = '';
           $editButton = '';
           $deleteButton = '';
+          $pid = $data->id_permohonan_uji_klinik;
+          $hasParameter = isset($registrasiMeta['has_parameter'][$pid]);
+          $userLevel = auth()->user()->getlevel->level ?? null;
 
-          if (getSpesialAction($request->segment(1), 'parameter-klinik', '')) {
-            $parameterButton = '<a class="dropdown-item" href="' . route('elits-permohonan-uji-klinik-2.permohonan-uji-klinik-parameter', $data->id_permohonan_uji_klinik) . '" title="Masukkan Parameter">Parameter</a> ';
+          if (getSpesialAction($request->segment(1), 'parameter-klinik', '') || $userLevel === 'RGSTR') {
+            $parameterLabel = $hasParameter ? 'Edit Parameter' : 'Masukkan Parameter';
+            $parameterButton = '<a class="dropdown-item" href="' . route('elits-permohonan-uji-klinik-2.permohonan-uji-klinik-parameter', $pid) . '" title="' . e($parameterLabel) . '">' . e($parameterLabel) . '</a> ';
+          }
+
+          if (getAction('read') && $this->canAccessKlinikVerifikasi()) {
+            $verifikasiButton = '<a class="dropdown-item" href="' . route('elits-permohonan-uji-klinik-2.verification', $pid) . '" title="Verifikasi">Verifikasi</a> ';
           }
 
           if (getAction('read')) {
-            $verifikasiButton = '<a class="dropdown-item" href="' . route('elits-permohonan-uji-klinik-2.verification', $data->id_permohonan_uji_klinik) . '" title="Verifikasi">Verifikasi</a> ';
-          }
-
-          if (getAction('read')) {
-            $editButton = '<a href="' . route('elits-permohonan-uji-klinik-2.edit', $data->id_permohonan_uji_klinik) . '" class="dropdown-item" title="Edit">Edit</a> ';
+            $editButton = '<a href="' . route('elits-permohonan-uji-klinik-2.edit', $pid) . '" class="dropdown-item" title="Edit">Edit</a> ';
           }
 
           if (getAction('delete')) {
-            $deleteButton = '<a class="dropdown-item btn-hapus" href="#hapus" data-id="' . $data->id_permohonan_uji_klinik . '" data-nama="' . $data->noregister_permohonan_uji_klinik . '" title="Hapus">Hapus</a> ';
+            $deleteButton = '<a class="dropdown-item btn-hapus" href="#hapus" data-id="' . $pid . '" data-nama="' . $data->noregister_permohonan_uji_klinik . '" title="Hapus">Hapus</a> ';
           }
 
-          $pid = $data->id_permohonan_uji_klinik;
           $jenisFlags = isset($registrasiMeta['jenis'][$pid]) ? $registrasiMeta['jenis'][$pid] : [];
-          $hasParameter = isset($registrasiMeta['has_parameter'][$pid]);
 
           $printFormulirKlinik = '<a class="dropdown-item" href="' . route('elits-permohonan-uji-klinik-2.print-permohonan-uji-klinik-formulir', $pid) . '" target="__blank">
             <i class="fa fa-file-signature mr-2"></i>Print Informed Consent
@@ -380,9 +382,14 @@ class LaboratoriumPermohonanUjiKlinikManagement2 extends Controller
           $printkartuMedis = '';
 
           if ($hasParameter) {
-            $printNota = '<a class="dropdown-item" href="' . route('elits-persuratan.nota.klinik', $pid) . '" target="__blank">
-              <i class="fa fa-file-invoice mr-2"></i>Print Nota
+            $printNota = '<a class="dropdown-item" href="' . route('elits-persuratan.invoice.klinik', $pid) . '" target="__blank">
+              <i class="fa fa-file-invoice mr-2"></i>Print Invoice
             </a>';
+            if ((int) $data->status_pembayaran === 1) {
+              $printNota .= '<a class="dropdown-item" href="' . route('elits-persuratan.nota.klinik', $pid) . '" target="__blank">
+                <i class="fa fa-file-alt mr-2"></i>Print Nota
+              </a>';
+            }
           } else {
             $printNota = '';
           }
@@ -569,9 +576,14 @@ class LaboratoriumPermohonanUjiKlinikManagement2 extends Controller
 
     // Only add status_pembayaran column if user is not DKTR (Dokter)
     if (Auth::user()->getlevel->level != 'DKTR') {
-      $datatable->addColumn("status_pembayaran", function ($data) {
+      $isBendahara = (Auth::user()->getlevel->level == 'BNDR');
+      $datatable->addColumn("status_pembayaran", function ($data) use ($isBendahara) {
         if ($data->status_pembayaran == 0 || $data->status_pembayaran == null) {
-          $status_pembayaran = '<span class="badge badge-danger pointer btn-payment" data-id="' . $data->id_permohonan_uji_klinik . '">Belum Bayar</span>';
+          if ($isBendahara) {
+            $status_pembayaran = '<span class="badge badge-danger pointer btn-payment" data-id="' . $data->id_permohonan_uji_klinik . '">Belum Bayar</span>';
+          } else {
+            $status_pembayaran = '<span class="badge badge-danger">Belum Bayar</span>';
+          }
         } elseif ($data->status_pembayaran == 1) {
           $status_pembayaran = '<span class="badge badge-success pointer btn-payment-detail" data-id="' . $data->id_permohonan_uji_klinik . '">Lunas</span>';
         } else {
@@ -1305,15 +1317,28 @@ class LaboratoriumPermohonanUjiKlinikManagement2 extends Controller
     
     // Tentukan filter yang diizinkan berdasarkan level dan kode lab
     $allowedFilters = [];
-    if ($isKesmas) {
+    $petugasFilters = \Smt\Masterweb\Helpers\PetugasStepAccess::usesPetugasSteps($userLevel)
+      ? \Smt\Masterweb\Helpers\PetugasStepAccess::getAllowedFilters($user, true, true)
+      : [];
+
+    if (!empty($petugasFilters)) {
+      // Analis / Tim Teknis: step dari relasi petugas.role (ms_verification_activities)
+      $allowedFilters = $petugasFilters;
+    } elseif ($userLevel == 'KSKM') {
+      // Kasie kesmas: semua pemeriksaan + langkah verifikasi sesuai lab
+      $allowedFilters = ['all', 'penerimaan_sample', 'pemeriksaan', 'input_hasil', 'verifikasi', 'validasi', 'selesai'];
+    } elseif ($isKesmas) {
       // Kesmas (KIM, KMA, FKA, MBI): semua filter termasuk all dan selesai
       $allowedFilters = ['all', 'penerimaan_sample', 'pemeriksaan', 'input_hasil', 'verifikasi', 'validasi', 'selesai'];
-    } elseif ($userLevel == 'SOLAB') {
-      // Pengambil sampel (SOLAB): hanya pengambilan_sample
+    } elseif (\Smt\Masterweb\Helpers\SampleCollectorAccess::isKlinik($userLevel)) {
+      // Pengambil sampel klinik (SOLK): hanya pengambilan_sample
       $allowedFilters = ['pengambilan_sample'];
+    } elseif ($userLevel == 'KSKL') {
+      // Kasie klinik: pengambilan → penerimaan → pemeriksaan → ...
+      $allowedFilters = ['all', 'pengambilan_sample', 'penerimaan_sample', 'pemeriksaan', 'input_hasil', 'verifikasi', 'validasi', 'selesai'];
     } elseif ($isKlinik || $userLevel == 'ANLS') {
-      // Klinik (KLI) atau ANLS: tanpa all dan selesai
-      $allowedFilters = ['penerimaan_sample', 'pemeriksaan', 'input_hasil', 'verifikasi', 'validasi'];
+      // Klinik (KLI) / ANLS
+      $allowedFilters = ['all', 'pengambilan_sample', 'pemeriksaan', 'input_hasil', 'verifikasi', 'validasi', 'selesai'];
     } elseif ($userLevel == 'RGSTR') {
       $allowedFilters = ['all', 'belum_pemeriksaan', 'selesai'];
     } elseif ($userLevel == 'DKTR') {
@@ -1831,11 +1856,16 @@ class LaboratoriumPermohonanUjiKlinikManagement2 extends Controller
       })
       ->addIndexColumn();
 
-    $datatable->addColumn("status_pembayaran", function ($data) {
+    $isBendaharaReg = (Auth::user()->getlevel->level == 'BNDR');
+    $datatable->addColumn("status_pembayaran", function ($data) use ($isBendaharaReg) {
       if ($data->status_pembayaran == 0 || $data->status_pembayaran == null) {
-        $status_pembayaran = '<span class="badge badge-danger">Belum Bayar</span>';
+        if ($isBendaharaReg) {
+          $status_pembayaran = '<span class="badge badge-danger pointer btn-payment" data-id="' . $data->id_permohonan_uji_klinik . '">Belum Bayar</span>';
+        } else {
+          $status_pembayaran = '<span class="badge badge-danger">Belum Bayar</span>';
+        }
       } elseif ($data->status_pembayaran == 1) {
-        $status_pembayaran = '<span class="badge badge-success">Lunas</span>';
+        $status_pembayaran = '<span class="badge badge-success pointer btn-payment-detail" data-id="' . $data->id_permohonan_uji_klinik . '">Lunas</span>';
       } else {
         $status_pembayaran = '<span class="badge badge-secondary">Unknown</span>';
       }
@@ -2776,8 +2806,18 @@ class LaboratoriumPermohonanUjiKlinikManagement2 extends Controller
         return $status;
       })
       ->addColumn("status_pembayaran", function ($data) {
+        $isBendaharaOld = (Auth::user()->getlevel->level == 'BNDR');
         $pasien = Pasien::find($data->pasien_permohonan_uji_klinik);
         $data_payment = PermohonanUjiPaymentKlinik::where('permohonan_uji_klinik_id', $data->id_permohonan_uji_klinik)->first();
+        if (!$isBendaharaOld) {
+          // Role selain BNDR: hanya tampilkan badge status, tidak bisa konfirmasi
+          if ($data->status_pembayaran == 0 || $data->status_pembayaran == null) {
+            return '<span class="badge badge-danger">Belum Bayar</span>';
+          } elseif ($data->status_pembayaran == 1) {
+            return '<span class="badge badge-success">Lunas</span>';
+          }
+          return '<span class="badge badge-secondary">Unknown</span>';
+        }
         if ($data->status_pembayaran == 0) {
           $amountText = '';
           $inputDisabled = '';
@@ -3054,6 +3094,16 @@ class LaboratoriumPermohonanUjiKlinikManagement2 extends Controller
     }
 
     return $steps;
+  }
+
+  /**
+   * Verifikasi klinik hanya untuk analis (dan admin).
+   */
+  private function canAccessKlinikVerifikasi(): bool
+  {
+    $level = auth()->user()->getlevel->level ?? null;
+
+    return in_array($level, ['ANLS', 'ALAB', 'PLAB', 'ADMN'], true);
   }
 
   /**
@@ -5977,8 +6027,11 @@ class LaboratoriumPermohonanUjiKlinikManagement2 extends Controller
 
   public function addParameter(Request $request)
   {
-
     $item = PermohonanUjiKlinik2::where('noregister_permohonan_uji_klinik', $request->no_reg)->first();
+
+    if (!$item) {
+      abort(404, 'Data permohonan uji klinik tidak ditemukan.');
+    }
 
     $id = $item->id_permohonan_uji_klinik;
     $tgl_register = Carbon::createFromFormat('Y-m-d H:i:s', $item->tglregister_permohonan_uji_klinik)->isoFormat('D MMMM Y');
@@ -10368,6 +10421,14 @@ class LaboratoriumPermohonanUjiKlinikManagement2 extends Controller
 
   public function storeDataPermohonanUjiKlinikPayment(Request $request)
   {
+    // Hanya Bendahara (BNDR) yang boleh mengkonfirmasi pembayaran
+    $userLevel = Auth::user()->getlevel->level ?? null;
+    if ($userLevel !== 'BNDR') {
+      return response()->json([
+        'status' => false,
+        'pesan' => 'Konfirmasi pembayaran hanya dapat dilakukan oleh Bendahara Penerimaan.',
+      ], 403);
+    }
 
     // Get total_harga from either parameter name
     $total_harga = $request->total_harga ?? $request->total_harga_permohonan_uji_payment_klinik ?? 0;
@@ -10658,7 +10719,7 @@ class LaboratoriumPermohonanUjiKlinikManagement2 extends Controller
 
   public function updateDataPermohonanUjiKlinikPayment(Request $request)
   {
-    // dd($request->all());
+    abort_unless((auth()->user()->getlevel->level ?? null) === 'BNDR', 403);
 
     if ($request->terbayar_permohonan_uji_payment_klinik == 0) {
       return redirect()->route('elits-permohonan-uji-klinik-2.index')->with(['error' => 'Pembayaran gagal, nominal harus diisi!']);
@@ -15660,7 +15721,7 @@ class LaboratoriumPermohonanUjiKlinikManagement2 extends Controller
       $paymentResponse = [
         'status' => true,
         'pesan' => "Parameter permohonan uji klinik berhasil disimpan!",
-        'show_payment' => true,
+        'show_payment' => false,
         'payment_data' => null,
       ];
 
@@ -15717,7 +15778,7 @@ class LaboratoriumPermohonanUjiKlinikManagement2 extends Controller
       ];
 
       $paymentResponse['payment_data'] = $payment_data;
-      $paymentResponse['show_payment'] = $sisa_tagihan > 0;
+      $paymentResponse['show_payment'] = false;
 
       $permohonanId = $request->post('permohonan_uji_klinik');
       $permohonanModel = $item_permohonan_uji_klinik;
@@ -16890,6 +16951,7 @@ class LaboratoriumPermohonanUjiKlinikManagement2 extends Controller
 
   public function verification($id)
   {
+    abort_unless($this->canAccessKlinikVerifikasi(), 403, 'Verifikasi hanya untuk analis.');
 
     $item = PermohonanUjiKlinik2::find($id);
 
@@ -17010,7 +17072,7 @@ class LaboratoriumPermohonanUjiKlinikManagement2 extends Controller
     $petugasValidator = $this->getPetugasValidator();
 
     $petugasPengambilSampel = [];
-    if (Auth::user()->getlevel->level == 'SOLAB' && empty(Auth::user()->id_petugas)) {
+    if (\Smt\Masterweb\Helpers\SampleCollectorAccess::isKlinik(Auth::user()->getlevel->level ?? null) && empty(Auth::user()->id_petugas)) {
       $petugasPengambilSampel = $this->getPetugasPengambilKlinik();
     } else {
       $vaSource = (isset($verificationActivity[6]) && !empty($verificationActivity[6]->klinik))

@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Nota {{ $lab_name ?? 'KESMAS' }}">
+    <meta name="description" content="{{ ($document_type ?? 'nota') === 'invoice' ? 'Invoice' : 'Nota' }} {{ $lab_name ?? 'KESMAS' }}">
     <meta name="author" content="SIMLAB">
-    <title>Nota MAGELANG-{{ $lab_name ?? 'KESMAS' }}</title>
+    <title>{{ ($document_type ?? 'nota') === 'invoice' ? 'Invoice' : 'Nota' }} MAGELANG-{{ $lab_name ?? 'KESMAS' }}</title>
     <link rel="shortcut icon" href="favicon.ico">
     <style>
         html, body {

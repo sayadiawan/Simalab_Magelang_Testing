@@ -36,6 +36,7 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            \Smt\Masterweb\Http\Middleware\LogUserActivity::class,
             \App\Http\Middleware\AllowIframeForMobile::class, // Di akhir untuk override header
         ],
 

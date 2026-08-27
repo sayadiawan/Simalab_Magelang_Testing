@@ -970,7 +970,7 @@
                                 text: response.pesan,
                                 icon: "success"
                             }).then(function() {
-                                showPaymentModal(response.payment_data);
+                                document.location = "{{ url('/elits-permohonan-uji-klinik/registrasi') }}";
                             });
                         } else {
                             $button.prop('disabled', false);

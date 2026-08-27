@@ -146,7 +146,7 @@ class MobileTestingKlinikController extends Controller
 
         // Check user level - must be ANLS, SOLAB, or ADMIN
         $userLevel = $user->getlevel->level ?? null;
-        $allowedLevels = ['ANLS','ALAB', 'SOLAB', 'ADMIN','LAB'];
+        $allowedLevels = ['ANLS','ALAB', 'SOLK', 'ADMIN','LAB'];
         
         if (!in_array($userLevel, $allowedLevels)) {
             return redirect()->route('mobile.testing.klinik.login', ['id' => $id])

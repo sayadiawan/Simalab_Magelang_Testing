@@ -5,6 +5,12 @@
 @endsection
 
 @section('content')
+    @php
+        $userLevel = auth()->user()->getlevel->level ?? null;
+        $isPengarsip = $userLevel === 'ARSP';
+        $backUrl = $isPengarsip ? route('pengarsipan.index') : route('elits-permohonan-uji.index');
+        $backLabel = $isPengarsip ? 'Pengarsipan' : 'Permohonan Uji';
+    @endphp
     <div class="row">
         <div class="col-12">
             <nav aria-label="breadcrumb" class="mb-3">
@@ -13,11 +19,13 @@
                         <a href="{{ url('/home') }}"><i class="fa fa-home menu-icon mr-1"></i> Beranda</a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a href="{{ route('elits-permohonan-uji.index') }}">Permohonan Uji</a>
+                        <a href="{{ $backUrl }}">{{ $backLabel }}</a>
                     </li>
+                    @unless($isPengarsip)
                     <li class="breadcrumb-item">
                         <a href="{{ route('elits-samples.index', [$id]) }}">Daftar Sampel</a>
                     </li>
+                    @endunless
                     <li class="breadcrumb-item active" aria-current="page">Input Nomor Lab</li>
                 </ol>
             </nav>
@@ -51,10 +59,12 @@
                     </div>
                 </div>
                 <div class="col-md-6 text-md-right">
+                    @unless($isPengarsip)
                     <a href="{{ route('elits-samples.index', [$id]) }}" class="btn btn-outline-secondary btn-sm mb-1">
                         <i class="fa fa-list"></i> Daftar Sampel
                     </a>
-                    <a href="{{ route('elits-permohonan-uji.index') }}" class="btn btn-outline-secondary btn-sm mb-1">
+                    @endunless
+                    <a href="{{ $backUrl }}" class="btn btn-outline-secondary btn-sm mb-1">
                         <i class="fa fa-arrow-left"></i> Kembali
                     </a>
                 </div>

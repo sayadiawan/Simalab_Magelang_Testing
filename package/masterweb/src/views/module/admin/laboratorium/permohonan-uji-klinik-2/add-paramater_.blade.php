@@ -699,30 +699,14 @@
                             $button.prop('disabled', false);
                             $button.html('Simpan');
 
-                            // Check if payment modal should be shown
-                            if (response.show_payment && response.payment_data) {
-                                // Show success message first
-                                swal({
-                                    title: "Success!",
-                                    text: response.pesan,
-                                    icon: "success",
-                                    timer: 1500,
-                                    buttons: false
-                                }).then(function() {
-                                    // Show payment modal
-                                    showPaymentModal(response.payment_data);
-                                });
-                            } else {
-                                // Original behavior: redirect to registrasi
-                                swal({
-                                    title: "Success!",
-                                    text: response.pesan,
-                                    icon: "success"
-                                }).then(function() {
-                                    document.location =
-                                        "{{ url('/elits-permohonan-uji-klinik/registrasi') }}";
-                                });
-                            }
+                            swal({
+                                title: "Success!",
+                                text: response.pesan,
+                                icon: "success"
+                            }).then(function() {
+                                document.location =
+                                    "{{ url('/elits-permohonan-uji-klinik/registrasi') }}";
+                            });
                         } else {
                             $button.prop('disabled',
                                 false); // Aktifkan kembali tombol simpan jika ada error

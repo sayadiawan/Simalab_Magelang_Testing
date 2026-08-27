@@ -3,63 +3,65 @@
 namespace Smt\Masterweb\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Smt\Masterweb\Models\User;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\AuthController\getRole;
-use Ramsey\Uuid\Uuid;
-
+use Smt\Masterweb\Helpers\SampleCollectorAccess;
 
 class SamplingOfficerController extends Controller
 {
     /**
-     * Create a new AuthController instance.
-     *
-     * @return void
-     */
-  
-    /**
-     * Get a JWT via given credentials.
+     * Daftar petugas pengambil sampel Kesmas (SOLM).
      *
      * @return \Illuminate\Http\JsonResponse
      */
     public function index(Request $request)
     {
-        
         $page = $request->input('page');
         $resultCount = 10;
-
         $offset = ($page - 1) * $resultCount;
 
-        $users =  User::where('level', '=', "d3090b8d-8951-4f5b-97e5-4dedf6935da7")->when($request->term, function ($query) use ($request) {
-            $query->where('name', 'like', "%{$request->term}%")
-            ->orWhere('email', 'like', "%{$request->term}%")
-            ->orWhere('username', 'like', "%{$request->term}%");
-        })
-        ->skip($offset)
-        ->take($resultCount)
-        // ->get(['id',Method::raw('params_method as text')]);
-        ->select(array('id AS id','name AS text'))->get();
+        $privilegeIds = DB::table('ms_privilege')
+            ->whereIn('level', SampleCollectorAccess::kesmasLevels())
+            ->whereNull('deleted_at')
+            ->pluck('id');
 
-        $count = User::where('level', '=', "d3090b8d-8951-4f5b-97e5-4dedf6935da7")->count();
+        $baseQuery = User::query()
+            ->whereIn('level', $privilegeIds)
+            ->whereNull('deleted_at');
+
+        $users = (clone $baseQuery)
+            ->when($request->term, function ($query) use ($request) {
+                $query->where(function ($inner) use ($request) {
+                    $inner->where('name', 'like', "%{$request->term}%")
+                        ->orWhere('email', 'like', "%{$request->term}%")
+                        ->orWhere('username', 'like', "%{$request->term}%");
+                });
+            })
+            ->skip($offset)
+            ->take($resultCount)
+            ->select(['id AS id', 'name AS text'])
+            ->get();
+
+        $count = (clone $baseQuery)
+            ->when($request->term, function ($query) use ($request) {
+                $query->where(function ($inner) use ($request) {
+                    $inner->where('name', 'like', "%{$request->term}%")
+                        ->orWhere('email', 'like', "%{$request->term}%")
+                        ->orWhere('username', 'like', "%{$request->term}%");
+                });
+            })
+            ->count();
+
         $endCount = $offset + $resultCount;
-
         $morePages = $endCount < $count;
 
-        $results = array(
-            "results" => $users,
-            "pagination" => array(
-              "more" => $morePages
-            )
-          );
-
-        
-        // $units= Method::when($request->term, function ($query) use ($request) {
-        //     $query->where('params_method', 'like', "%{$request->term}%")
-        //         ->orWhere('name_method', 'like', "%{$request->term}%");
-        // })->select(array('id_method AS _id','params_method AS name'))->get();
-        
-
-        return response()->json($results,200);
+        return response()->json([
+            'results' => $users,
+            'pagination' => [
+                'more' => $morePages,
+            ],
+        ], 200);
     }
 
     /**
@@ -95,10 +97,7 @@ class SamplingOfficerController extends Controller
     }
 
     /**
-     * Get the token array structure.
-     *
-     * @param  string $token
-     *
+     * @param string $token
      * @return \Illuminate\Http\JsonResponse
      */
     protected function respondWithToken($token)
@@ -106,7 +105,7 @@ class SamplingOfficerController extends Controller
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60
+            'expires_in' => auth()->factory()->getTTL() * 60,
         ]);
     }
 }

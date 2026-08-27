@@ -1,7 +1,7 @@
 <table width="100%" cellspacing="0" cellpadding="0" border="1">
     <tr style="text-align: center;">
         <td style="width: 44%" colspan="2">
-            <b>KONTRAK/ PERMOHONAN PEMERIKSAAN</b>
+            <b>{{ $document_title ?? 'NOTA PEMBAYARAN' }}</b>
         </td>
     </tr>
     <tr>

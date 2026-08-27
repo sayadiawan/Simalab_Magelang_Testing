@@ -123,6 +123,7 @@ trait SampleCodeOrdering
 
   /**
    * Urutan untuk daftar permohonan uji (agregat per permohonan_uji_id).
+   * Prioritas: data terbaru di atas supaya input + sample draft baru langsung terlihat.
    */
   protected function applyPermohonanUjiListOrdering($query)
   {
@@ -143,7 +144,7 @@ trait SampleCodeOrdering
       ->leftJoinSub($sampleSortSub, 'pu_sample_sort', function ($join) {
         $join->on('pu_sample_sort.permohonan_uji_id', '=', 'tb_permohonan_uji.id_permohonan_uji');
       })
-      ->orderByRaw('CASE WHEN pu_sample_sort.sort_year IS NULL THEN 1 ELSE 0 END ASC')
+      ->orderBy('tb_permohonan_uji.created_at', 'DESC')
       ->orderByRaw('COALESCE(pu_sample_sort.sort_year, 0) DESC')
       ->orderByRaw('COALESCE(pu_sample_sort.sort_num, 0) DESC');
   }

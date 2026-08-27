@@ -39,7 +39,7 @@ class LaboratoriumNotaController extends Controller
      * @param int $id_permohonan_uji
      * @return \Illuminate\Http\Response
      */
-    public function cetakNotaKesmas($id_permohonan_uji)
+    public function cetakNotaKesmas($id_permohonan_uji, $documentType = 'nota')
     {
         $user = Auth()->user();
 
@@ -54,6 +54,10 @@ class LaboratoriumNotaController extends Controller
 
         if (!$permohonan_uji) {
             return abort(404, 'Permohonan Uji tidak ditemukan');
+        }
+
+        if ($documentType === 'nota' && (int) $permohonan_uji->status_pembayaran !== 1) {
+            return abort(403, 'Nota hanya dapat dicetak setelah pembayaran lunas');
         }
 
         // Prepare data untuk nota
@@ -291,10 +295,12 @@ class LaboratoriumNotaController extends Controller
             'is_klinik' => false,
         ];
 
-        $pdf = PDF::loadView('masterweb::module.admin.laboratorium.persuratan.nota.nota', $data)
-            ->setPaper('a4', 'portrait');
+        return $this->streamDocumentPdf($data, $documentType, 'KESMAS', $id_permohonan_uji);
+    }
 
-        return $pdf->stream('Nota_KESMAS_' . $id_permohonan_uji . '.pdf');
+    public function cetakInvoiceKesmas($id_permohonan_uji)
+    {
+        return $this->cetakNotaKesmas($id_permohonan_uji, 'invoice');
     }
 
     /**
@@ -311,10 +317,22 @@ class LaboratoriumNotaController extends Controller
             return abort(404, 'Tidak ada data yang dapat dicetak');
         }
 
-        $pdf = PDF::loadView('masterweb::module.admin.laboratorium.persuratan.nota.nota', $data)
-            ->setPaper('a4', 'portrait');
+        if ((int) ($data['permohonan_uji']->status_pembayaran ?? 0) !== 1) {
+            return abort(403, 'Nota hanya dapat dicetak setelah pembayaran lunas');
+        }
 
-        return $pdf->stream('Nota_KLINIK_' . $id_permohonan_uji_klinik . '.pdf');
+        return $this->streamDocumentPdf($data, 'nota', 'KLINIK', $id_permohonan_uji_klinik);
+    }
+
+    public function cetakInvoiceKlinik($id_permohonan_uji_klinik)
+    {
+        $data = $this->buildNotaKlinikData($id_permohonan_uji_klinik);
+
+        if (empty($data)) {
+            return abort(404, 'Tidak ada data yang dapat dicetak');
+        }
+
+        return $this->streamDocumentPdf($data, 'invoice', 'KLINIK', $id_permohonan_uji_klinik);
     }
 
     /**
@@ -632,6 +650,28 @@ class LaboratoriumNotaController extends Controller
         }
 
         return $value_items;
+    }
+
+    private function applyDocumentType(array $data, $documentType = 'nota'): array
+    {
+        $type = $documentType === 'invoice' ? 'invoice' : 'nota';
+        $data['document_type'] = $type;
+        $data['document_title'] = $type === 'invoice'
+            ? 'INVOICE / TAGIHAN PEMERIKSAAN'
+            : 'NOTA PEMBAYARAN';
+
+        return $data;
+    }
+
+    private function streamDocumentPdf(array $data, $documentType, $labName, $id)
+    {
+        $data = $this->applyDocumentType($data, $documentType);
+        $prefix = ($data['document_type'] ?? 'nota') === 'invoice' ? 'Invoice' : 'Nota';
+
+        $pdf = PDF::loadView('masterweb::module.admin.laboratorium.persuratan.nota.nota', $data)
+            ->setPaper('a4', 'portrait');
+
+        return $pdf->stream($prefix . '_' . $labName . '_' . $id . '.pdf');
     }
 }
 

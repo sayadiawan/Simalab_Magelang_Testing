@@ -35,6 +35,7 @@
       <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
         <h4 class="card-title mb-0">Daftar Pasien - {{ $haji->nama_haji }}</h4>
         <div class="d-flex flex-wrap" style="gap: 8px;">
+          @if ($canKlinikVerifikasi)
           <button type="button" id="btn-pengambilan-sample" class="btn btn-secondary" title="Pintasan untuk status Pengambilan Sample">
             <i class="fa fa-hand-paper"></i> Pengambilan Sample (<span id="count-pengambilan-sample">0</span>)
           </button>
@@ -44,6 +45,7 @@
           <button type="button" id="btn-pengolah-massal" class="btn btn-warning" title="Massal untuk status Pemeriksaan">
             <i class="fa fa-microscope"></i> Pengolah Massal (<span id="count-pengolah-massal">0</span>)
           </button>
+          @endif
           <a href="{{ route('elits-permohonan-uji-klinik-2.haji.edit-customer-dokter', $haji->id_permohonan_uji_klinik_haji) }}" class="btn btn-secondary" title="Ubah nama customer & dokter pengirim untuk semua pasien">
             <i class="fa fa-edit"></i> Edit Customer & Dokter
           </a>
@@ -59,6 +61,7 @@
         </div>
       </div>
 
+      @if ($canKlinikVerifikasi)
       <div class="alert alert-info py-2 mb-3">
         <i class="fa fa-info-circle mr-1"></i>
         Centang pasien lalu klik aksi:
@@ -69,6 +72,7 @@
         <label class="badge badge-warning badge-pill mb-0">Pemeriksaan</label> → <strong>Pengolah Massal</strong>
         (kuning muda). Atau klik tombol langsung untuk pilih semua yang siap.
       </div>
+      @endif
 
       <form id="form-penerimaan-massal"
         action="{{ route('elits-permohonan-uji-klinik-2.haji.create-penerima-sampel-massal', $haji->id_permohonan_uji_klinik_haji) }}"
@@ -122,9 +126,11 @@
         <table id="order-listing" class="table">
           <thead>
             <tr>
+              @if ($canKlinikVerifikasi)
               <th style="width:40px;">
                 <input type="checkbox" id="check-all-massal" title="Pilih semua yang siap massal">
               </th>
+              @endif
               <th>No</th>
               <th>No. Spesimen / No. Lab</th>
               <th>Nama Pasien</th>
@@ -163,6 +169,7 @@
                 $verificationUrl = route('elits-permohonan-uji-klinik-2.verification', $item->id_permohonan_uji_klinik);
               @endphp
               <tr class="{{ $rowClass }}">
+                @if ($canKlinikVerifikasi)
                 <td>
                   @if ($isEligibleMassal)
                     <input type="checkbox" class="check-massal"
@@ -176,6 +183,7 @@
                     <input type="checkbox" disabled title="Belum siap aksi massal">
                   @endif
                 </td>
+                @endif
                 <td>{{ $no++ }}</td>
                 <td>
                   @php
@@ -237,27 +245,33 @@
                       Aksi
                     </a>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink-{{ $item->id_permohonan_uji_klinik }}">
-                      @if ($skipPengambilan)
-                        <a class="dropdown-item" href="{{ $penerimaUrl }}" title="Penerimaan Sample">
-                          <i class="fa fa-inbox mr-1"></i> Penerimaan Sample
-                        </a>
-                      @else
-                        <a class="dropdown-item js-pengambilan-sample-link" href="{{ $sampleUrl }}"
-                          data-check-signature-url="{{ $checkSignatureUrl }}"
-                          data-verification-url="{{ $verificationUrl }}"
-                          title="Pengambilan Sample">
-                          <i class="fa fa-hand-paper mr-1"></i> Pengambilan Sample
-                        </a>
+                      @if ($canKlinikVerifikasi)
+                        @if ($skipPengambilan)
+                          <a class="dropdown-item" href="{{ $penerimaUrl }}" title="Penerimaan Sample">
+                            <i class="fa fa-inbox mr-1"></i> Penerimaan Sample
+                          </a>
+                        @else
+                          <a class="dropdown-item js-pengambilan-sample-link" href="{{ $sampleUrl }}"
+                            data-check-signature-url="{{ $checkSignatureUrl }}"
+                            data-verification-url="{{ $verificationUrl }}"
+                            title="Pengambilan Sample">
+                            <i class="fa fa-hand-paper mr-1"></i> Pengambilan Sample
+                          </a>
+                        @endif
                       @endif
-                      <a class="dropdown-item" href="{{ route('elits-permohonan-uji-klinik-2.permohonan-uji-klinik-parameter', $item->id_permohonan_uji_klinik) }}" title="Masukkan Parameter">Parameter</a>
-                      <a class="dropdown-item" href="{{ route('elits-permohonan-uji-klinik-2.verification', $item->id_permohonan_uji_klinik) }}" title="Verifikasi">Verifikasi</a>
+                      @if ($canKlinikVerifikasi || $isRegister)
+                        <a class="dropdown-item" href="{{ route('elits-permohonan-uji-klinik-2.permohonan-uji-klinik-parameter', $item->id_permohonan_uji_klinik) }}" title="{{ $has_parameter ? 'Edit Parameter' : 'Masukkan Parameter' }}">{{ $has_parameter ? 'Edit Parameter' : 'Masukkan Parameter' }}</a>
+                      @endif
+                      @if ($canKlinikVerifikasi)
+                        <a class="dropdown-item" href="{{ route('elits-permohonan-uji-klinik-2.verification', $item->id_permohonan_uji_klinik) }}" title="Verifikasi">Verifikasi</a>
+                      @endif
                       <a href="{{ route('elits-permohonan-uji-klinik-2.haji.edit-pasien', [$haji->id_permohonan_uji_klinik_haji, $item->id_permohonan_uji_klinik]) }}" class="dropdown-item" title="Edit Pasien">Edit Pasien</a>
                       <a href="{{ route('elits-permohonan-uji-klinik-2.edit', $item->id_permohonan_uji_klinik) }}" class="dropdown-item" title="Edit Permohonan">Edit Permohonan</a>
                       <a class="dropdown-item btn-hapus" href="#hapus" data-id="{{ $item->id_permohonan_uji_klinik }}" data-nama="{{ $item->noregister_permohonan_uji_klinik }}" title="Hapus">Hapus</a>
                     </div>
                   </div>
 
-                  @if ($isEligiblePengambilan && !$skipPengambilan)
+                  @if ($canKlinikVerifikasi && $isEligiblePengambilan && !$skipPengambilan)
                     <a href="{{ $sampleUrl }}" class="btn btn-fw btn-secondary m-1 js-pengambilan-sample-link"
                       data-check-signature-url="{{ $checkSignatureUrl }}"
                       data-verification-url="{{ $verificationUrl }}"
@@ -265,7 +279,7 @@
                       <i class="fa fa-vial"></i> Ambil Sample
                     </a>
                   @endif
-                  @if ($isEligiblePenerimaan)
+                  @if ($canKlinikVerifikasi && $isEligiblePenerimaan)
                     <a href="{{ $penerimaUrl }}" class="btn btn-fw btn-info m-1" title="Penerimaan Sample">
                       <i class="fa fa-inbox"></i> Terima Sample
                     </a>
@@ -279,7 +293,10 @@
                       <a class="dropdown-item" href="{{ route('elits-permohonan-uji-klinik-2.print-permohonan-uji-klinik-formulir', $item->id_permohonan_uji_klinik) }}" target="__blank" title="Print Formulir Uji Klinik">Print Informed Consent</a>
                       <a class="dropdown-item" href="{{ route('elits-permohonan-uji-klinik-2.print-lembar-persetujuan', $item->id_permohonan_uji_klinik) }}" target="__blank" title="Print Lembar Persetujuan">Print Lembar Persetujuan</a>
                       @if($has_parameter)
-                        <a class="dropdown-item" href="{{ route('elits-persuratan.nota.klinik', $item->id_permohonan_uji_klinik) }}" title="Print Nota" target="__blank">Print Nota</a>
+                        <a class="dropdown-item" href="{{ route('elits-persuratan.invoice.klinik', $item->id_permohonan_uji_klinik) }}" title="Print Invoice" target="__blank">Print Invoice</a>
+                        @if ((int) ($item->status_pembayaran ?? 0) === 1)
+                          <a class="dropdown-item" href="{{ route('elits-persuratan.nota.klinik', $item->id_permohonan_uji_klinik) }}" title="Print Nota" target="__blank">Print Nota</a>
+                        @endif
                       @endif
                       <a class="dropdown-item pointer" data-href="{{ route('elits-permohonan-uji-klinik-2.print-permohonan-uji-klinik-hasil', $item->id_permohonan_uji_klinik) }}" target="__blank" title="Print Hasil Klinik" data-toggle="modal" data-target="#signOptionModal-{{ $item->id_permohonan_uji_klinik }}">Print Hasil Klinik</a>
                       <a class="dropdown-item" href="{{ route('elits-permohonan-uji-klinik-2.print-amplop', $item->id_permohonan_uji_klinik) }}" target="__blank" title="Print Amplop Haji">Print Amplop Haji</a>

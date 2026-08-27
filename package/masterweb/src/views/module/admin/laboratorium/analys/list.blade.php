@@ -162,17 +162,24 @@
                         } elseif (($userLevel ?? null) == 'DKTR') {
                             // DKTR: belum_pemeriksaan, validasi, selesai
                             $allowedTabs = ['all', 'belum_pemeriksaan', 'validasi', 'selesai'];
-                        } elseif (($userLevel ?? null) == 'SOLAB') {
-                            // SOLAB: pengambilan_sample (tanpa Semua dan Selesai)
+                        } elseif (\Smt\Masterweb\Helpers\SampleCollectorAccess::isKesmas($userLevel ?? null)) {
+                            // Pengambil sampel kesmas (SOLM): pengambilan_sample
                             $allowedTabs = ['pengambilan_sample'];
                         } else {
                             // Selain itu: semua tab
                             $allowedTabs = ['all', 'belum_pemeriksaan', 'pengambilan_sample', 'penerimaan_sample', 'pemeriksaan', 'input_hasil', 'verifikasi', 'validasi', 'selesai'];
                         }
                         
+                        $urlStatusFilter = request()->get('status_filter', '');
+                        if ($urlStatusFilter && !in_array($urlStatusFilter, $allowedTabs, true)) {
+                            $urlStatusFilter = '';
+                        }
+
                         // Tentukan tab pertama yang akan menjadi active jika tab "Semua" tidak ada
                         $firstVisibleTab = null;
-                        if (!in_array('all', $allowedTabs)) {
+                        if ($urlStatusFilter) {
+                            $firstVisibleTab = $urlStatusFilter;
+                        } elseif (!in_array('all', $allowedTabs)) {
                             // Urutan tab yang mungkin muncul pertama
                             $tabOrder = ['belum_pemeriksaan', 'pengambilan_sample', 'penerimaan_sample', 'pemeriksaan', 'input_hasil', 'verifikasi', 'validasi', 'selesai'];
                             foreach ($tabOrder as $tab) {

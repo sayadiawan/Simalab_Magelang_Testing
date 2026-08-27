@@ -2092,11 +2092,15 @@ class LaboratoriumPermohonanUjiKlinikHajiManagement extends Controller
 
     $statusPengujianMap = $this->buildHajiStatusPengujianMap($data->pluck('id_permohonan_uji_klinik')->all());
 
+    $userLevel = auth()->user()->getlevel->level ?? null;
+
     return view('masterweb::module.admin.laboratorium.permohonan-uji-klinik-2.haji.daftar-pasien', [
       'haji' => $haji,
       'data' => $data,
       'klinikNumberSettings' => $klinikNumberSettings,
       'statusPengujianMap' => $statusPengujianMap,
+      'canKlinikVerifikasi' => in_array($userLevel, ['ANLS', 'ALAB', 'PLAB', 'ADMN'], true),
+      'isRegister' => $userLevel === 'RGSTR',
     ]);
   }
 

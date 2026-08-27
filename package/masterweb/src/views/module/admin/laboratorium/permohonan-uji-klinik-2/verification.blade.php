@@ -1203,7 +1203,7 @@
                     <tbody>
 
                         {{-- IF: ROLE = SOLAB or ADMIN (blok verifikasi lengkap) --}}
-                        @if (Auth::user()->getlevel->level == 'SOLAB')
+                        @if (\Smt\Masterweb\Helpers\SampleCollectorAccess::isKlinik(Auth::user()->getlevel->level ?? null))
 
 
                             <tr id="sample">
@@ -1545,7 +1545,7 @@
                                 @endif
                             @endif
                         @elseif(Auth::user()->getlevel->level != 'DKTR' &&
-                                Auth::user()->getlevel->level != 'SOLAB' &&
+                                !\Smt\Masterweb\Helpers\SampleCollectorAccess::isKlinik(Auth::user()->getlevel->level ?? null) &&
                                 Auth::user()->getlevel->level != 'ANLS'
                                 &&
                                 Auth::user()->getlevel->level != 'ALAB')

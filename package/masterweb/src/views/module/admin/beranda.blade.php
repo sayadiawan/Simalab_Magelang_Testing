@@ -19,6 +19,33 @@
   } else {
       $greeting = 'Selamat Malam';
   }
+
+  $videoDir = 'assets/admin/video';
+  $heroVideoPath = null;
+  $heroPosterPath = null;
+  $heroVideoCandidates = [
+      'hero-lab.mp4',
+      'mixkit-scientist-mixing-liquids-in-a-laboratory-4719-hd-ready.mp4',
+      'mixkit-laboratory-worker-looking-at-a-test-tube-21454-hd-ready.mp4',
+      'mixkit-woman-working-with-samples-in-laboratory-21457-hd-ready.mp4',
+      'mixkit-drops-filling-a-lab-tube-17456-hd-ready.mp4',
+  ];
+  foreach ($heroVideoCandidates as $candidate) {
+      $relative = $videoDir . '/' . $candidate;
+      if (is_file(public_path($relative))) {
+          $heroVideoPath = $relative;
+          break;
+      }
+  }
+  $hasHeroVideo = !empty($heroVideoPath);
+  foreach (['hero-poster.jpg', 'poster-pengujian.jpg'] as $posterCandidate) {
+      $relative = $videoDir . '/' . $posterCandidate;
+      if (is_file(public_path($relative))) {
+          $heroPosterPath = $relative;
+          break;
+      }
+  }
+  $hasHeroPoster = !empty($heroPosterPath);
 @endphp
 
 @section('content')
@@ -38,6 +65,7 @@
     .dash-hero {
       position: relative;
       overflow: hidden;
+      isolation: isolate;
       border-radius: var(--dash-radius);
       background: linear-gradient(135deg, #06283f 0%, #0b3a5c 42%, #0d8f7f 100%);
       box-shadow: var(--dash-shadow-hover);
@@ -49,33 +77,56 @@
       gap: 1.5rem;
     }
 
-    .dash-hero::before {
-      content: '';
+    .dash-hero__media {
       position: absolute;
-      top: -40%;
-      right: -10%;
-      width: 420px;
-      height: 420px;
-      background: radial-gradient(circle, rgba(255,255,255,0.12) 0%, transparent 70%);
-      border-radius: 50%;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
       pointer-events: none;
     }
 
-    .dash-hero::after {
-      content: '';
+    .dash-hero__video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: scaleX(-1) scale(1.08);
+      filter: grayscale(0.85) contrast(1.05) brightness(0.52);
+    }
+
+    .dash-hero__tint {
       position: absolute;
-      bottom: -30%;
-      left: 10%;
-      width: 280px;
-      height: 280px;
-      background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%);
-      border-radius: 50%;
+      inset: 0;
+      background: linear-gradient(135deg, #06283f 0%, #0b3a5c 45%, #0d8f7f 100%);
+      mix-blend-mode: color;
+      opacity: 0.88;
+    }
+
+    .dash-hero__veil {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(105deg, rgba(6, 40, 63, 0.92) 0%, rgba(6, 40, 63, 0.62) 42%, rgba(10, 90, 88, 0.78) 100%),
+        radial-gradient(ellipse 65% 55% at 18% 85%, rgba(22, 168, 146, 0.22), transparent 72%);
+    }
+
+    .dash-hero__glow {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
       pointer-events: none;
+      background:
+        radial-gradient(circle at 88% 18%, rgba(255,255,255,0.14) 0%, transparent 42%),
+        radial-gradient(circle at 12% 88%, rgba(255,255,255,0.08) 0%, transparent 38%);
+    }
+
+    .dash-hero::before,
+    .dash-hero::after {
+      display: none;
     }
 
     .dash-hero__content {
       position: relative;
-      z-index: 1;
+      z-index: 2;
       max-width: 620px;
     }
 
@@ -130,18 +181,6 @@
       transform: translateY(-2px);
       box-shadow: 0 8px 20px rgba(0,0,0,0.18);
       color: var(--dash-primary-dark);
-    }
-
-    .dash-hero__visual {
-      position: relative;
-      z-index: 1;
-      flex-shrink: 0;
-    }
-
-    .dash-hero__visual img {
-      width: 220px;
-      max-width: 100%;
-      filter: drop-shadow(0 12px 24px rgba(0,0,0,0.2));
     }
 
     .dash-section-title {
@@ -719,13 +758,23 @@
       }
 
       .dash-hero__title { font-size: 1.45rem; }
-      .dash-hero__visual img { width: 160px; }
       .dash-charts { grid-template-columns: 1fr; }
     }
   </style>
 
   <div class="dash-page">
     <div class="dash-hero">
+      @if ($hasHeroVideo)
+        <div class="dash-hero__media" aria-hidden="true">
+          <video class="dash-hero__video" id="dashHeroVideo" muted loop playsinline preload="none"
+            @if ($hasHeroPoster) poster="{{ asset($heroPosterPath) }}" @endif>
+            <source data-src="{{ asset($heroVideoPath) }}" type="video/mp4">
+          </video>
+          <span class="dash-hero__tint"></span>
+          <span class="dash-hero__veil"></span>
+        </div>
+        <span class="dash-hero__glow" aria-hidden="true"></span>
+      @endif
       <div class="dash-hero__content">
         <div class="dash-hero__badge">
           <i class="fas fa-flask"></i> SIMLAB · Lingkungan pengujian
@@ -735,7 +784,11 @@
           Selamat datang di dashboard SIMLAB. Pantau ringkasan permohonan uji,
           sampel, dan analisa laboratorium Anda di satu tempat.
         </p>
-        @if(Auth::user()->getlevel->level == 'DKTR' || (Auth::user()->laboratorium && Auth::user()->laboratorium->kode_laboratorium == 'KLI'))
+        @if(Auth::user()->getlevel->level == 'BNDR')
+          <a href="{{ url('elits-pendapatan-klinik') }}" class="dash-hero__cta">
+            <i class="fas fa-coins"></i> Dashboard Bendahara
+          </a>
+        @elseif(Auth::user()->getlevel->level == 'DKTR' || (Auth::user()->laboratorium && Auth::user()->laboratorium->kode_laboratorium == 'KLI'))
           <a href="{{ url('elits-permohonan-uji-klinik-2') }}" class="dash-hero__cta">
             <i class="fas fa-clipboard-list"></i> Permohonan Uji Klinik
           </a>
@@ -755,13 +808,52 @@
           </a>
         @endif
       </div>
-      <div class="dash-hero__visual d-none d-md-block">
-        <img src="{{ asset('assets/admin/images/scientist-looking-test-tube.png') }}" alt="Laboratorium">
-      </div>
     </div>
 
     <div class="mt-4">
-    @if (Auth::user()->getlevel->level == 'DKTR' || (Auth::user()->laboratorium && Auth::user()->laboratorium->kode_laboratorium == 'KLI'))
+    @if (Auth::user()->getlevel->level == 'BNDR')
+      <div class="col-12 mb-2">
+        <div class="dash-section-title"><i class="fas fa-wallet"></i> Ringkasan Bendahara</div>
+        <div class="row">
+          <div class="col-md-3 mb-4">
+            <div class="card dash-stat-card dash-stat-card--green">
+              <div class="card-body">
+                <div class="dash-stat-card__icon"><i class="fas fa-hand-holding-usd"></i></div>
+                <h3 class="dash-stat-card__value">Rp {{ number_format($totalPendapatanKlinik ?? 0, 0, ',', '.') }}</h3>
+                <p class="dash-stat-card__label">Pendapatan Klinik</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 mb-4">
+            <div class="card dash-stat-card dash-stat-card--teal">
+              <div class="card-body">
+                <div class="dash-stat-card__icon"><i class="fas fa-flask"></i></div>
+                <h3 class="dash-stat-card__value">Rp {{ number_format($totalPendapatanKesmas ?? 0, 0, ',', '.') }}</h3>
+                <p class="dash-stat-card__label">Pendapatan Kesmas</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 mb-4">
+            <div class="card dash-stat-card dash-stat-card--blue">
+              <div class="card-body">
+                <div class="dash-stat-card__icon"><i class="fas fa-receipt"></i></div>
+                <h3 class="counter dash-stat-card__value" data-target="{{ ($jumlahNotaKlinik ?? 0) + ($jumlahNotaKesmas ?? 0) }}">0</h3>
+                <p class="dash-stat-card__label">Jumlah Nota</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 mb-4">
+            <div class="card dash-stat-card dash-stat-card--amber">
+              <div class="card-body">
+                <div class="dash-stat-card__icon"><i class="fas fa-file-invoice-dollar"></i></div>
+                <h3 class="dash-stat-card__value">Rp {{ number_format(($totalPendapatanKlinik ?? 0) + ($totalPendapatanKesmas ?? 0), 0, ',', '.') }}</h3>
+                <p class="dash-stat-card__label">Total Pendapatan</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    @elseif (Auth::user()->getlevel->level == 'DKTR' || (Auth::user()->laboratorium && Auth::user()->laboratorium->kode_laboratorium == 'KLI'))
       {{-- DKTR: Dashboard khusus Dokter - hanya informasi Klinik --}}
       <div class="col-12 mb-2">
         <div class="dash-section-title"><i class="fas fa-chart-pie"></i> Ringkasan Klinik</div>
@@ -980,10 +1072,10 @@
             </div>
         </div>
       </div>
-    @elseif (Auth::user()->getlevel->level == 'SOLAB')
-      {{-- SOLAB: Dashboard yang lebih lengkap dan menarik --}}
+    @elseif (Auth::user()->getlevel->level == 'SOLK')
+      {{-- Pengambil Sampel Klinik --}}
       <div class="col-12 mb-2">
-        <div class="dash-section-title"><i class="fas fa-hospital"></i> Ringkasan SOLAB</div>
+        <div class="dash-section-title"><i class="fas fa-hospital"></i> Ringkasan Pengambil Sampel Klinik</div>
       </div>
       <div class="col-12 mb-4">
         <div class="row">
@@ -1033,7 +1125,6 @@
         </div>
       </div>
 
-      {{-- Quick Stats untuk SOLAB --}}
       <div class="col-12 mb-4">
         <div class="row">
           <div class="col-md-4 mb-3">
@@ -1074,53 +1165,103 @@
         </div>
       </div>
 
-      {{-- Quick Actions untuk SOLAB --}}
       <div class="col-12">
         <div class="card border-0 shadow-sm" style="border-radius: 15px;">
           <div class="card-body p-4">
             <h5 class="mb-4" style="color: #0b3a5c; font-weight: 600;">
-              <i class="fas fa-bolt me-2"></i>Quick Actions
+              <i class="fas fa-bolt me-2"></i>Aksi Cepat
             </h5>
             <div class="row">
-              <div class="col-md-3 mb-3">
-                <a href="{{ url('elits-permohonan-uji-klinik-2') }}" class="text-decoration-none">
+              <div class="col-md-6 mb-3">
+                <a href="{{ url('elits-permohonan-uji-klinik/verifikasi/lists?status_filter=pengambilan_sample') }}" class="text-decoration-none">
                   <div class="card border-0 shadow-sm h-100 quick-action-card" style="border-radius: 10px;">
                     <div class="card-body text-center p-3">
-                      <i class="fas fa-clipboard-list text-primary mb-2" style="font-size: 28px;"></i>
-                      <h6 class="text-dark mb-0">Permohonan Uji Klinik</h6>
+                      <i class="fas fa-vial text-primary mb-2" style="font-size: 28px;"></i>
+                      <h6 class="text-dark mb-0">Pengambilan Sampel Klinik</h6>
                     </div>
                   </div>
                 </a>
               </div>
               
-              <div class="col-md-3 mb-3">
-                <a href="{{ url('elits-analys') }}" class="text-decoration-none">
+              <div class="col-md-6 mb-3">
+                <a href="{{ url('monitoring-sampling-penerima') }}" class="text-decoration-none">
                   <div class="card border-0 shadow-sm h-100 quick-action-card" style="border-radius: 10px;">
                     <div class="card-body text-center p-3">
-                      <i class="fas fa-microscope text-success mb-2" style="font-size: 28px;"></i>
-                      <h6 class="text-dark mb-0">Data Analisa</h6>
+                      <i class="fas fa-clipboard-list text-success mb-2" style="font-size: 28px;"></i>
+                      <h6 class="text-dark mb-0">Monitoring Sampling</h6>
                     </div>
                   </div>
                 </a>
               </div>
-              
-              <div class="col-md-3 mb-3">
-                <a href="{{ url('elits-inventories') }}" class="text-decoration-none">
+            </div>
+          </div>
+        </div>
+      </div>
+    @elseif (Auth::user()->getlevel->level == 'SOLM')
+      {{-- Pengambil Sampel Kesmas --}}
+      <div class="col-12 mb-2">
+        <div class="dash-section-title"><i class="fas fa-flask"></i> Ringkasan Pengambil Sampel Kesmas</div>
+      </div>
+      <div class="col-12 mb-4">
+        <div class="row">
+          <div class="col-md-3 mb-4">
+            <div class="card border-0 shadow-sm stats-card" style="border-radius: 10px;">
+              <div class="card-body text-center p-4">
+                <h6 class="text-muted mb-1">Permohonan Uji</h6>
+                <h4 class="text-primary mb-0">{{ $total_permohonan_uji ?? 0 }}</h4>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 mb-4">
+            <div class="card border-0 shadow-sm stats-card" style="border-radius: 10px;">
+              <div class="card-body text-center p-4">
+                <h6 class="text-muted mb-1">Total Sampel</h6>
+                <h4 class="text-info mb-0">{{ $total_sample ?? 0 }}</h4>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 mb-4">
+            <div class="card border-0 shadow-sm stats-card" style="border-radius: 10px;">
+              <div class="card-body text-center p-4">
+                <h6 class="text-muted mb-1">Analisa Berjalan</h6>
+                <h4 class="text-warning mb-0">{{ $total_berjalan ?? 0 }}</h4>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 mb-4">
+            <div class="card border-0 shadow-sm stats-card" style="border-radius: 10px;">
+              <div class="card-body text-center p-4">
+                <h6 class="text-muted mb-1">Analisa Selesai</h6>
+                <h4 class="text-success mb-0">{{ $total_selesai ?? 0 }}</h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <div class="card border-0 shadow-sm" style="border-radius: 15px;">
+          <div class="card-body p-4">
+            <h5 class="mb-4" style="color: #0b3a5c; font-weight: 600;">
+              <i class="fas fa-bolt me-2"></i>Aksi Cepat
+            </h5>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <a href="{{ url('elits-permohonan-uji') }}" class="text-decoration-none">
                   <div class="card border-0 shadow-sm h-100 quick-action-card" style="border-radius: 10px;">
                     <div class="card-body text-center p-3">
-                      <i class="fas fa-boxes text-info mb-2" style="font-size: 28px;"></i>
-                      <h6 class="text-dark mb-0">Data Inventori</h6>
+                      <i class="fas fa-file-medical text-primary mb-2" style="font-size: 28px;"></i>
+                      <h6 class="text-dark mb-0">Permohonan Uji Kesmas</h6>
                     </div>
                   </div>
                 </a>
               </div>
-              
-              <div class="col-md-3 mb-3">
-                <a href="{{ url('stock-opname') }}" class="text-decoration-none">
+              <div class="col-md-6 mb-3">
+                <a href="{{ url('elits-analys?status_filter=pengambilan_sample') }}" class="text-decoration-none">
                   <div class="card border-0 shadow-sm h-100 quick-action-card" style="border-radius: 10px;">
                     <div class="card-body text-center p-3">
-                      <i class="fas fa-clipboard-check text-warning mb-2" style="font-size: 28px;"></i>
-                      <h6 class="text-dark mb-0">Stok Opname</h6>
+                      <i class="fas fa-vial text-success mb-2" style="font-size: 28px;"></i>
+                      <h6 class="text-dark mb-0">Pengambilan Sampel Kesmas</h6>
                     </div>
                   </div>
                 </a>
@@ -1299,30 +1440,33 @@
     $chartFrom = $chartFrom ?? now()->subMonths(11)->startOfMonth()->format('Y-m-d');
     $chartTo = $chartTo ?? now()->format('Y-m-d');
     $rangeLabel = \Carbon\Carbon::parse($chartFrom)->format('d/m/Y') . ' – ' . \Carbon\Carbon::parse($chartTo)->format('d/m/Y');
+    $keuanganIsMoney = $chartKeuanganIsMoney ?? true;
     if ($activeChart === 'keuangan') {
       $chartMonths = $chartKeuanganMonths ?? [];
       $chartSeries = $chartKeuanganSeriesTotal ?? [];
       $chartSampleLabels = $chartKeuanganLabels ?? [];
       $chartSampleValues = $chartKeuanganValues ?? [];
-      $donutTitle = 'Komposisi pendapatan';
-      $donutSub = 'Total nota Kesmas vs Klinik';
-      $trendSub = 'Pendapatan (total nota) per bulan (' . $rangeLabel . ')';
+      $donutTitle = $chartKeuanganDonutTitle ?? 'Komposisi pendapatan';
+      $donutSub = $chartKeuanganDonutSub ?? 'Total nota Kesmas vs Klinik';
+      $trendSub = $chartKeuanganTrendSub ?? ('Pendapatan (total nota) per bulan (' . $rangeLabel . ')');
     } elseif ($activeChart === 'kesmas' && $showChartKesmas) {
       $chartMonths = $chartKesmasMonths ?? ($bulans ?? []);
       $chartSeries = $chartKesmasSeries ?? ($pendapatans ?? []);
       $chartSampleLabels = $chartKesmasLabels ?? ($sampleTypes ?? []);
       $chartSampleValues = $chartKesmasValues ?? ($countSample ?? []);
+      $labHint = !empty($chartLabScopeLabel) ? ' · ' . $chartLabScopeLabel : '';
       $donutTitle = 'Komposisi sampel';
-      $donutSub = 'Proporsi sampel berdasarkan jenis';
-      $trendSub = 'Volume permohonan uji Kesmas per bulan (' . $rangeLabel . ')';
+      $donutSub = 'Proporsi sampel berdasarkan jenis' . $labHint;
+      $trendSub = 'Volume permohonan uji Kesmas per bulan (' . $rangeLabel . ')' . $labHint;
     } else {
       $chartMonths = $chartKlinikMonths ?? ($bulans ?? []);
       $chartSeries = $chartKlinikSeries ?? ($pendapatans ?? []);
       $chartSampleLabels = $chartKlinikLabels ?? ($sampleTypes ?? []);
       $chartSampleValues = $chartKlinikValues ?? ($countSample ?? []);
+      $labHint = !empty($chartLabScopeLabel) ? ' · ' . $chartLabScopeLabel : '';
       $donutTitle = 'Pemeriksaan Haji vs Non-Haji';
-      $donutSub = 'Proporsi pemeriksaan klinik berdasarkan jenis';
-      $trendSub = 'Jumlah pemeriksaan klinik per bulan (' . $rangeLabel . ')';
+      $donutSub = 'Proporsi pemeriksaan klinik berdasarkan jenis' . $labHint;
+      $trendSub = 'Jumlah pemeriksaan klinik per bulan (' . $rangeLabel . ')' . $labHint;
     }
     $chartTotalPermohonan = collect($chartSeries)->sum();
     $chartPeak = count($chartSeries) ? max($chartSeries) : 0;
@@ -1332,8 +1476,22 @@
   <div class="dash-charts" id="dashChartsShowcase">
       <div class="dash-charts-head">
         <div>
-          <h3><i class="fas fa-chart-area"></i> Analitik laboratorium</h3>
-          <p>Pilih tab dan rentang tanggal untuk mengendalikan grafik <strong>Kesmas</strong>, <strong>Klinik</strong>, atau <strong>Keuangan</strong>.</p>
+          <h3><i class="fas fa-chart-area"></i> Analitik laboratorium
+            @if (!empty($chartLabScopeLabel))
+              <small style="font-weight:500;opacity:.85;">· {{ $chartLabScopeLabel }}</small>
+            @endif
+          </h3>
+          <p>
+            @if (Auth::user()->getlevel->level == 'BNDR')
+              Pantau tren dan komposisi nota <strong>Lunas</strong> vs <strong>Belum Lunas</strong> pada dashboard keuangan.
+            @elseif (!empty($chartLabScopeLabel) && ($showChartKesmas ?? true) && !($showChartKlinik ?? true))
+              Grafik Kesmas difilter untuk laboratorium <strong>{{ $chartLabScopeLabel }}</strong>.
+            @elseif (!empty($chartLabScopeLabel) && ($showChartKlinik ?? true) && !($showChartKesmas ?? true))
+              Grafik Klinik untuk laboratorium <strong>{{ $chartLabScopeLabel }}</strong>.
+            @else
+              Pilih tab dan rentang tanggal untuk mengendalikan grafik <strong>Kesmas</strong>, <strong>Klinik</strong>, atau <strong>Keuangan</strong>.
+            @endif
+          </p>
           <div class="dash-chart-tabs" role="tablist" aria-label="Jenis grafik">
             @if ($showChartKesmas)
               <button type="button" class="dash-chart-tab {{ $activeChart === 'kesmas' ? 'is-active' : '' }}" data-chart-tab="kesmas" role="tab" aria-selected="{{ $activeChart === 'kesmas' ? 'true' : 'false' }}">
@@ -1383,11 +1541,64 @@
         </div>
       </div>
 
+      @if (Auth::user()->getlevel->level == 'BNDR')
+        <div class="row mb-3">
+          <div class="col-md-4 mb-3">
+            <div class="card dash-mini-stat dash-mini-stat--green h-100">
+              <div class="card-body p-4">
+                <div class="d-flex align-items-center justify-content-between">
+                  <div>
+                    <h6 class="text-muted mb-2" style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px;">Pendapatan Klinik</h6>
+                    <h4 class="mb-0" style="font-weight: 700; color: #16a34a;">Rp {{ number_format($totalPendapatanKlinik ?? 0, 0, ',', '.') }}</h4>
+                    <small class="text-muted">{{ number_format($jumlahNotaKlinik ?? 0) }} nota</small>
+                  </div>
+                  <div class="rounded-circle d-flex align-items-center justify-content-center" style="width: 64px; height: 64px; background: #f0fdf4;">
+                    <i class="fas fa-hand-holding-usd" style="font-size: 28px; color: #22c55e;"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 mb-3">
+            <div class="card dash-mini-stat dash-mini-stat--teal h-100">
+              <div class="card-body p-4">
+                <div class="d-flex align-items-center justify-content-between">
+                  <div>
+                    <h6 class="text-muted mb-2" style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px;">Pendapatan Kesmas</h6>
+                    <h4 class="mb-0" style="font-weight: 700; color: #0891b2;">Rp {{ number_format($totalPendapatanKesmas ?? 0, 0, ',', '.') }}</h4>
+                    <small class="text-muted">{{ number_format($jumlahNotaKesmas ?? 0) }} nota</small>
+                  </div>
+                  <div class="rounded-circle d-flex align-items-center justify-content-center" style="width: 64px; height: 64px; background: #ecfeff;">
+                    <i class="fas fa-money-bill-wave" style="font-size: 28px; color: #06b6d4;"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 mb-3">
+            <div class="card dash-mini-stat dash-mini-stat--amber h-100">
+              <div class="card-body p-4">
+                <div class="d-flex align-items-center justify-content-between">
+                  <div>
+                    <h6 class="text-muted mb-2" style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px;">Total Pendapatan</h6>
+                    <h4 class="mb-0" style="font-weight: 700; color: #d97706;">Rp {{ number_format(($totalPendapatanKlinik ?? 0) + ($totalPendapatanKesmas ?? 0), 0, ',', '.') }}</h4>
+                    <small class="text-muted">{{ number_format(($jumlahNotaKlinik ?? 0) + ($jumlahNotaKesmas ?? 0)) }} nota</small>
+                  </div>
+                  <div class="rounded-circle d-flex align-items-center justify-content-center" style="width: 64px; height: 64px; background: #fff7ed;">
+                    <i class="fas fa-file-invoice-dollar" style="font-size: 28px; color: #f59e0b;"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      @endif
+
       <div class="dash-chart-card dash-chart-card--dark" id="cardChartTrend">
         <div class="dash-chart-card__top">
           <div class="dash-chart-card__title">
             <div>
-              <i class="fas fa-wave-square"></i> <span id="chartTrendHeading">{{ $activeChart === 'keuangan' ? 'Tren pendapatan (total nota)' : ($activeChart === 'klinik' ? 'Tren pemeriksaan' : 'Tren permohonan') }}</span>
+              <i class="fas fa-wave-square"></i> <span id="chartTrendHeading">{{ $activeChart === 'keuangan' ? ($chartKeuanganTrendHeading ?? 'Tren pendapatan (total nota)') : ($activeChart === 'klinik' ? 'Tren pemeriksaan' : 'Tren permohonan') }}</span>
               <small id="chartTrendSub">{{ $trendSub }}</small>
             </div>
           </div>
@@ -1396,7 +1607,7 @@
           <canvas id="chartPendapatan"></canvas>
         </div>
         <div class="dash-chart-meta">
-          @if ($activeChart === 'keuangan')
+          @if ($activeChart === 'keuangan' && $keuanganIsMoney)
             <span class="dash-chart-pill">Total <strong id="metaTrendTotal">Rp {{ number_format($chartTotalPermohonan, 0, ',', '.') }}</strong></span>
             <span class="dash-chart-pill">Puncak <strong id="metaTrendPeak">Rp {{ number_format($chartPeak, 0, ',', '.') }}</strong></span>
             <span class="dash-chart-pill">Rata-rata <strong id="metaTrendAvg">Rp {{ number_format(round($chartAvg), 0, ',', '.') }}</strong>/bln</span>
@@ -1422,7 +1633,7 @@
         </div>
         <div class="dash-chart-meta">
           <span class="dash-chart-pill">Jenis <strong id="metaDonutKinds">{{ count($chartSampleLabels) }}</strong></span>
-          @if ($activeChart === 'keuangan')
+          @if ($activeChart === 'keuangan' && $keuanganIsMoney)
             <span class="dash-chart-pill">Total <strong id="metaDonutTotal">Rp {{ number_format($chartSampleTotal, 0, ',', '.') }}</strong></span>
           @else
             <span class="dash-chart-pill">Total <strong id="metaDonutTotal">{{ number_format($chartSampleTotal) }}</strong></span>
@@ -1455,7 +1666,26 @@
       </div>
     </div>
 
-  @if (Auth::user()->laboratorium && Auth::user()->laboratorium->kode_laboratorium == 'KIM')
+  @if (Auth::user()->getlevel->level == 'BNDR')
+    <div class="dash-quick-bar card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-4 dash-quick-bar__item">
+            <h5><i class="fas fa-coins mr-2"></i> Pendapatan Klinik</h5>
+            <a href="{{ url('elits-pendapatan-klinik') }}"><button type="button" class="btn btn-sm">Selengkapnya</button></a>
+          </div>
+          <div class="col-md-4 dash-quick-bar__item">
+            <h5><i class="fas fa-money-check-alt mr-2"></i> Pendapatan Non-Klinik</h5>
+            <a href="{{ url('elits-pendapatan-nonklinik') }}"><button type="button" class="btn btn-sm">Selengkapnya</button></a>
+          </div>
+          <div class="col-md-4 dash-quick-bar__item">
+            <h5><i class="fas fa-receipt mr-2"></i> Semua Pemeriksaan</h5>
+            <a href="{{ url('elits-permohonan-uji-klinik/verifikasi/lists') }}"><button type="button" class="btn btn-sm">Selengkapnya</button></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  @elseif (Auth::user()->laboratorium && Auth::user()->laboratorium->kode_laboratorium == 'KIM')
     {{-- KIM: Quick links --}}
     <div class="dash-quick-bar card">
       <div class="card-body">
@@ -1470,7 +1700,7 @@
           </div>
           <div class="col-md-4 dash-quick-bar__item">
             <h5><i class="fas fa-map-marked-alt mr-2"></i> Persebaran Data</h5>
-            <a href="{{ url('dokter/dashboard') }}"><button type="button" class="btn btn-sm">Selengkapnya</button></a>
+            <a href="{{ route('klinik.analisis-hasil-wilayah') }}"><button type="button" class="btn btn-sm">Selengkapnya</button></a>
           </div>
         </div>
       </div>
@@ -1490,13 +1720,14 @@
           </div>
           <div class="col-md-4 dash-quick-bar__item">
             <h5><i class="fas fa-map-marked-alt mr-2"></i> Persebaran Data</h5>
-            <a href="{{ url('dokter/dashboard') }}"><button type="button" class="btn btn-sm">Selengkapnya</button></a>
+            <a href="{{ route('klinik.analisis-hasil-wilayah') }}"><button type="button" class="btn btn-sm">Selengkapnya</button></a>
           </div>
         </div>
       </div>
     </div>
   @elseif (
-    Auth::user()->getlevel->level != 'SOLAB' &&
+    Auth::user()->getlevel->level != 'SOLK' &&
+    Auth::user()->getlevel->level != 'SOLM' &&
     Auth::user()->getlevel->level != 'DKTR' &&
     (
       !Auth::user()->laboratorium ||
@@ -1527,6 +1758,44 @@
 
 @section('scripts')
   <script src="{{asset('assets/admin/cdn-local/js/jquery-3.6.0.min.js')}}"></script>
+  <script>
+    (function () {
+      var heroVideo = document.getElementById('dashHeroVideo');
+      if (!heroVideo) return;
+
+      var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reducedMotion) return;
+
+      var source = heroVideo.querySelector('source[data-src]');
+      if (!source) return;
+
+      source.src = source.getAttribute('data-src');
+      source.removeAttribute('data-src');
+      heroVideo.preload = 'auto';
+      heroVideo.load();
+
+      var playPromise = heroVideo.play();
+      if (playPromise && typeof playPromise.catch === 'function') {
+        playPromise.catch(function () {});
+      }
+
+      if ('IntersectionObserver' in window) {
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              var resumed = heroVideo.play();
+              if (resumed && typeof resumed.catch === 'function') {
+                resumed.catch(function () {});
+              }
+            } else {
+              heroVideo.pause();
+            }
+          });
+        }, { threshold: 0.15 });
+        observer.observe(heroVideo);
+      }
+    })();
+  </script>
   <script>
     $(document).ready(function() {
       $('.counter').each(function() {
@@ -1591,18 +1860,21 @@
           series: {!! json_encode($chartKeuanganSeriesTotal ?? []) !!},
           seriesKesmas: {!! json_encode($chartKeuanganSeriesKesmas ?? []) !!},
           seriesKlinik: {!! json_encode($chartKeuanganSeriesKlinik ?? []) !!},
+          seriesPrimaryLabel: {!! json_encode($chartKeuanganSeriesPrimaryLabel ?? 'Kesmas') !!},
+          seriesSecondaryLabel: {!! json_encode($chartKeuanganSeriesSecondaryLabel ?? 'Klinik') !!},
           multi: true,
           keuangan: true,
-          money: true,
-          showKesmas: {!! json_encode((bool) ($showChartKesmas ?? true)) !!},
+          money: {!! json_encode((bool) ($chartKeuanganIsMoney ?? true)) !!},
+          showKesmas: {!! json_encode((bool) ($chartKeuanganShowPrimary ?? ($showChartKesmas ?? true))) !!},
           labels: {!! json_encode($chartKeuanganLabels ?? []) !!},
           values: {!! json_encode($chartKeuanganValues ?? []) !!},
           paketLabels: [],
           paketValues: [],
           showPaket: false,
-          trendSub: 'Pendapatan sesuai total nota per bulan ({{ \Carbon\Carbon::parse($chartFrom)->format('d/m/Y') }} – {{ \Carbon\Carbon::parse($chartTo)->format('d/m/Y') }})',
-          donutTitle: 'Komposisi pendapatan',
-          donutSub: 'Total nota Kesmas vs Klinik · Kesmas {{ number_format($jumlahNotaKesmas ?? 0) }} nota · Klinik {{ number_format($jumlahNotaKlinik ?? 0) }} nota'
+          trendHeading: {!! json_encode($chartKeuanganTrendHeading ?? 'Tren pendapatan (total nota)') !!},
+          trendSub: {!! json_encode($chartKeuanganTrendSub ?? ('Pendapatan sesuai total nota per bulan (' . \Carbon\Carbon::parse($chartFrom)->format('d/m/Y') . ' – ' . \Carbon\Carbon::parse($chartTo)->format('d/m/Y') . ')')) !!},
+          donutTitle: {!! json_encode($chartKeuanganDonutTitle ?? 'Komposisi pendapatan') !!},
+          donutSub: {!! json_encode($chartKeuanganDonutSub ?? ('Total nota Kesmas vs Klinik · Kesmas ' . number_format($jumlahNotaKesmas ?? 0) . ' nota · Klinik ' . number_format($jumlahNotaKlinik ?? 0) . ' nota')) !!}
         }
       };
 
@@ -1666,7 +1938,7 @@
         if ((el = document.getElementById('chartDonutHeading'))) el.textContent = pack.donutTitle;
         if ((el = document.getElementById('chartDonutSub'))) el.textContent = pack.donutSub;
         if ((el = document.getElementById('chartTrendHeading'))) {
-          el.textContent = pack.keuangan ? 'Tren pendapatan (total nota)' : (pack.multi ? 'Tren pemeriksaan' : 'Tren permohonan');
+          el.textContent = pack.keuangan ? (pack.trendHeading || 'Tren pendapatan (total nota)') : (pack.multi ? 'Tren pemeriksaan' : 'Tren permohonan');
         }
       }
       function buildTrendDatasets(pack) {
@@ -1674,7 +1946,7 @@
           var sets = [];
           if (pack.showKesmas) {
             sets.push({
-              label: 'Kesmas',
+              label: pack.seriesPrimaryLabel || 'Kesmas',
               data: pack.seriesKesmas || [],
               borderColor: brand.mint,
               borderWidth: 3,
@@ -1688,7 +1960,7 @@
             });
           }
           sets.push({
-            label: 'Klinik',
+            label: pack.seriesSecondaryLabel || 'Klinik',
             data: pack.seriesKlinik || [],
             borderColor: '#f59e0b',
             borderWidth: 3,

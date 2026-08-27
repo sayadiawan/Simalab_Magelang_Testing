@@ -902,7 +902,7 @@ class MobileDokterController extends Controller
             return response()->json([
                 'status' => true,
                 'pesan' => "Parameter permohonan uji klinik berhasil disimpan!",
-                'show_payment' => true,
+                'show_payment' => false,
                 'payment_data' => $payment_data
             ], 200);
         } catch (\Exception $e) {

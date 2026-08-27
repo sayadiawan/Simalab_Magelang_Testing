@@ -247,6 +247,44 @@ body {
   outline: none;
 }
 
+/* Field pencarian wilayah: ikon kaca pembesar tidak menimpa teks */
+.wilayah-quick-search {
+  position: relative;
+}
+
+.wilayah-quick-search__icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+  color: #1976d2;
+  font-size: 15px;
+  line-height: 1;
+  width: 16px;
+  text-align: center;
+  pointer-events: none;
+}
+
+.wilayah-quick-search .form-control,
+.wilayah-quick-search__input {
+  padding-left: 42px !important;
+  padding-right: 16px !important;
+  height: 44px;
+  line-height: 1.4;
+}
+
+.wilayah-quick-search-row {
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.wilayah-quick-search-row > .flex-grow-1 {
+  min-width: 220px;
+}
+
 /* —— Tables —— */
 .smt-table th,
 .table thead th,
@@ -483,9 +521,11 @@ body {
 }
 
 /* —— Pagination —— */
-.page-item.active .page-link {
+.page-item.active .page-link,
+.pagination .page-item.active .page-link {
   background: var(--md-navy) !important;
   border-color: var(--md-navy) !important;
+  color: #fff !important;
 }
 
 .page-link {
@@ -638,8 +678,11 @@ label.control-label,
   padding: 4px 10px !important;
 }
 
-.dataTables_wrapper .dataTables_paginate .paginate_button.current {
+.dataTables_wrapper .dataTables_paginate .paginate_button.current,
+.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover,
+.dataTables_wrapper .dataTables_paginate .page-item.active .page-link {
   background: var(--md-navy) !important;
+  background-image: none !important;
   border-color: var(--md-navy) !important;
   color: #fff !important;
 }

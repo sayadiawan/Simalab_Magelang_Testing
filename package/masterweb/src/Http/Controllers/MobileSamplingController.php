@@ -23,6 +23,7 @@ use Smt\Masterweb\Models\PenerimaanSample;
 use Smt\Masterweb\Models\VerificationActivitySample;
 use Smt\Masterweb\Models\Petugas;
 use Smt\Masterweb\Models\VerificationActivity;
+use Smt\Masterweb\Helpers\SampleCollectorAccess;
 use Smt\Masterweb\Models\SampleDraft;
 use Smt\Masterweb\Models\SampleMethodDraft;
 use Smt\Masterweb\Models\GlobalLabSequence;
@@ -181,34 +182,12 @@ class MobileSamplingController extends Controller
 
 
         if ($user && Hash::check($request->password, $user->password)) {
-            // Check access rights
-            $userLevel = $user->getlevel->level ?? null;
-
-            $isAdmin = in_array($userLevel, ['elits-dev','ALAB','LAB','SOLAB','ANLS', 'admin']);
-            $isSOLAB = $user->level === 'd3090b8d-8951-4f5b-97e5-4dedf6935da7';
-
-
-            // Check if user has authorized access
-            if (!$isAdmin && !$isSOLAB) {
+            $accessError = $this->denyUnlessKesmasSamplingAccess($user);
+            if ($accessError) {
                 return redirect()->back()
                     ->withInput($request->only('username'))
-                    ->with('error', 'Akses ditolak! Hanya petugas pengambil sample lab atau admin yang dapat mengakses form ini.');
+                    ->with('error', $accessError);
             }
-
-
-            // For SOLAB, check if user has lab assignment (Kimia or Mikrobiologi)
-            if ($isSOLAB) {
-                $labName = strtolower($user->laboratorium->nama_laboratorium ?? '');
-                $hasValidLab = in_array($labName, ['kimia', 'mikrobiologi']);
-
-
-                if (!$hasValidLab) {
-                    return redirect()->back()
-                        ->withInput($request->only('username'))
-                        ->with('error', 'Akses ditolak! Anda harus terdaftar di laboratorium Kimia atau Mikrobiologi.');
-                }
-            }
-
 
             // Set mobile sampling session
             $request->session()->put([
@@ -1416,23 +1395,10 @@ class MobileSamplingController extends Controller
 
 
         if ($user) {
-            $userLevel = $user->getlevel->level ?? null;
-            $isAdmin = in_array($userLevel, ['elits-dev','ALAB','LAB','SOLAB','ANLS', 'admin']);
-            $isSOLAB = $user->level === 'd3090b8d-8951-4f5b-97e5-4dedf6935da7';
-
-
-            if (!$isAdmin && !$isSOLAB) {
+            $accessError = $this->denyUnlessKesmasSamplingAccess($user);
+            if ($accessError) {
                 return redirect()->route('mobile.sampling.index', ['id' => $id])
-                    ->with('error', 'Akses ditolak! Hanya petugas pengambil sample lab atau admin yang dapat mengakses form ini.');
-            }
-
-
-            if ($isSOLAB) {
-                $labName = strtolower($user->laboratorium->nama_laboratorium ?? '');
-                if (!in_array($labName, ['kimia', 'mikrobiologi'])) {
-                    return redirect()->route('mobile.sampling.index', ['id' => $id])
-                        ->with('error', 'Akses ditolak! Anda harus terdaftar di laboratorium Kimia atau Mikrobiologi.');
-                }
+                    ->with('error', $accessError);
             }
         }
 
@@ -1664,37 +1630,20 @@ class MobileSamplingController extends Controller
 
 
         if ($user) {
-            $userLevel = $user->getlevel->level ?? null;
-            $isAdmin = in_array($userLevel, ['elits-dev','ALAB','LAB','SOLAB','ANLS', 'admin']);
-            $isSOLAB = $user->level === 'd3090b8d-8951-4f5b-97e5-4dedf6935da7';
-
-
-            if (!$isAdmin && !$isSOLAB) {
+            $accessError = $this->denyUnlessKesmasSamplingAccess(
+                $user,
+                'Akses ditolak! Hanya petugas pengambil sample kesmas atau admin yang dapat menyimpan data.'
+            );
+            if ($accessError) {
                 if ($request->expectsJson() || $request->ajax()) {
                     return response()->json([
                         'status' => false,
                         'success' => false,
-                        'pesan' => 'Akses ditolak! Hanya petugas pengambil sample lab atau admin yang dapat menyimpan data.'
+                        'pesan' => $accessError
                     ], 403, [], JSON_UNESCAPED_UNICODE | JSON_INVALID_UTF8_IGNORE);
                 }
                 return redirect()->route('mobile.sampling.index', ['id' => $id])
-                    ->with('error', 'Akses ditolak! Hanya petugas pengambil sample lab atau admin yang dapat menyimpan data.');
-            }
-
-
-            if ($isSOLAB) {
-                $labName = strtolower($user->laboratorium->nama_laboratorium ?? '');
-                if (!in_array($labName, ['kimia', 'mikrobiologi'])) {
-                    if ($request->expectsJson() || $request->ajax()) {
-                        return response()->json([
-                            'status' => false,
-                            'success' => false,
-                            'pesan' => 'Akses ditolak! Anda harus terdaftar di laboratorium Kimia atau Mikrobiologi.'
-                        ], 403, [], JSON_UNESCAPED_UNICODE | JSON_INVALID_UTF8_IGNORE);
-                    }
-                    return redirect()->route('mobile.sampling.index', ['id' => $id])
-                        ->with('error', 'Akses ditolak! Anda harus terdaftar di laboratorium Kimia atau Mikrobiologi.');
-                }
+                    ->with('error', $accessError);
             }
         }
 
@@ -2259,23 +2208,10 @@ class MobileSamplingController extends Controller
 
 
         if ($user) {
-            $userLevel = $user->getlevel->level ?? null;
-            $isAdmin = in_array($userLevel, ['elits-dev','ALAB','LAB','SOLAB','ANLS', 'admin']);
-            $isSOLAB = $user->level === 'd3090b8d-8951-4f5b-97e5-4dedf6935da7';
-
-
-            if (!$isAdmin && !$isSOLAB) {
+            $accessError = $this->denyUnlessKesmasSamplingAccess($user);
+            if ($accessError) {
                 return redirect()->route('mobile.sampling.index', ['id' => $id])
-                    ->with('error', 'Akses ditolak! Hanya petugas pengambil sample lab atau admin yang dapat mengakses form ini.');
-            }
-
-
-            if ($isSOLAB) {
-                $labName = strtolower($user->laboratorium->nama_laboratorium ?? '');
-                if (!in_array($labName, ['kimia', 'mikrobiologi'])) {
-                    return redirect()->route('mobile.sampling.index', ['id' => $id])
-                        ->with('error', 'Akses ditolak! Anda harus terdaftar di laboratorium Kimia atau Mikrobiologi.');
-                }
+                    ->with('error', $accessError);
             }
         }
 
@@ -2409,23 +2345,13 @@ class MobileSamplingController extends Controller
 
 
         if ($user) {
-            $userLevel = $user->getlevel->level ?? null;
-            $isAdmin = in_array($userLevel,['elits-dev','ALAB','LAB','SOLAB','ANLS', 'admin']);
-            $isSOLAB = $user->level === 'd3090b8d-8951-4f5b-97e5-4dedf6935da7';
-
-
-            if (!$isAdmin && !$isSOLAB) {
+            $accessError = $this->denyUnlessKesmasSamplingAccess(
+                $user,
+                'Akses ditolak! Hanya petugas pengambil sample kesmas atau admin yang dapat mengubah data.'
+            );
+            if ($accessError) {
                 return redirect()->route('mobile.sampling.index', ['id' => $id])
-                    ->with('error', 'Akses ditolak! Hanya petugas pengambil sample lab atau admin yang dapat mengubah data.');
-            }
-
-
-            if ($isSOLAB) {
-                $labName = strtolower($user->laboratorium->nama_laboratorium ?? '');
-                if (!in_array($labName, ['kimia', 'mikrobiologi'])) {
-                    return redirect()->route('mobile.sampling.index', ['id' => $id])
-                        ->with('error', 'Akses ditolak! Anda harus terdaftar di laboratorium Kimia atau Mikrobiologi.');
-                }
+                    ->with('error', $accessError);
             }
         }
 
@@ -3108,5 +3034,34 @@ class MobileSamplingController extends Controller
 
 
         return $petugas_list;
+    }
+
+    /**
+     * @param User|null $user
+     * @param string|null $deniedMessage
+     * @return string|null
+     */
+    private function denyUnlessKesmasSamplingAccess($user, $deniedMessage = null)
+    {
+        if (!$user) {
+            return $deniedMessage ?? 'Akses ditolak! Hanya petugas pengambil sample kesmas atau admin yang dapat mengakses form ini.';
+        }
+
+        $userLevel = $user->getlevel->level ?? null;
+        $isAdmin = in_array($userLevel, ['elits-dev', 'ALAB', 'LAB', 'ANLS', 'admin'], true);
+        $isKesmasCollector = SampleCollectorAccess::isKesmas($userLevel);
+
+        if (!$isAdmin && !$isKesmasCollector) {
+            return $deniedMessage ?? 'Akses ditolak! Hanya petugas pengambil sample kesmas atau admin yang dapat mengakses form ini.';
+        }
+
+        if ($isKesmasCollector) {
+            $labName = $user->laboratorium->nama_laboratorium ?? '';
+            if (!SampleCollectorAccess::kesmasLabAllowed($labName)) {
+                return 'Akses ditolak! Anda harus terdaftar di laboratorium Kimia atau Mikrobiologi.';
+            }
+        }
+
+        return null;
     }
 }

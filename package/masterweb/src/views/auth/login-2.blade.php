@@ -1,9 +1,30 @@
 @php
     $videoDir = 'assets/admin/video';
-    $heroVideoPath = $videoDir . '/hero-lab.mp4';
-    $heroPosterPath = $videoDir . '/hero-poster.jpg';
-    $hasHeroVideo = is_file(public_path($heroVideoPath));
-    $hasHeroPoster = is_file(public_path($heroPosterPath));
+    $heroVideoPath = null;
+    $heroPosterPath = null;
+    $heroVideoCandidates = [
+        'hero-lab.mp4',
+        'mixkit-scientist-mixing-liquids-in-a-laboratory-4719-hd-ready.mp4',
+        'mixkit-laboratory-worker-looking-at-a-test-tube-21454-hd-ready.mp4',
+        'mixkit-woman-working-with-samples-in-laboratory-21457-hd-ready.mp4',
+        'mixkit-drops-filling-a-lab-tube-17456-hd-ready.mp4',
+    ];
+    foreach ($heroVideoCandidates as $candidate) {
+        $relative = $videoDir . '/' . $candidate;
+        if (is_file(public_path($relative))) {
+            $heroVideoPath = $relative;
+            break;
+        }
+    }
+    $hasHeroVideo = !empty($heroVideoPath);
+    foreach (['hero-poster.jpg', 'poster-pengujian.jpg'] as $posterCandidate) {
+        $relative = $videoDir . '/' . $posterCandidate;
+        if (is_file(public_path($relative))) {
+            $heroPosterPath = $relative;
+            break;
+        }
+    }
+    $hasHeroPoster = !empty($heroPosterPath);
 @endphp
 <!DOCTYPE html>
 <html lang="id">
@@ -82,8 +103,51 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transform: scaleX(-1) scale(1.06);
+            transform: scaleX(-1) scale(1.08);
             filter: grayscale(0.88) contrast(1.05) brightness(0.55);
+            animation: brandKenBurns 22s ease-in-out infinite alternate;
+            will-change: transform;
+        }
+
+        .brand-video.is-playing {
+            animation: brandKenBurns 28s ease-in-out infinite alternate;
+        }
+
+        .brand-orb {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            filter: blur(48px);
+            opacity: 0.45;
+            animation: brandDrift 16s ease-in-out infinite;
+        }
+
+        .brand-orb--a {
+            width: min(42vw, 360px);
+            height: min(42vw, 360px);
+            top: 12%;
+            left: -8%;
+            background: rgba(22, 168, 146, 0.55);
+        }
+
+        .brand-orb--b {
+            width: min(36vw, 300px);
+            height: min(36vw, 300px);
+            bottom: 8%;
+            right: -6%;
+            background: rgba(11, 58, 92, 0.65);
+            animation-duration: 20s;
+            animation-direction: reverse;
+        }
+
+        @keyframes brandKenBurns {
+            0% { transform: scaleX(-1) scale(1.06) translate3d(0, 0, 0); }
+            100% { transform: scaleX(-1) scale(1.14) translate3d(-1.5%, -1.2%, 0); }
+        }
+
+        @keyframes brandDrift {
+            0%, 100% { transform: translate3d(0, 0, 0); }
+            50% { transform: translate3d(18px, -14px, 0); }
         }
 
         .brand-tint {
@@ -498,6 +562,11 @@
                 transition: none;
             }
 
+            .brand-video,
+            .brand-orb {
+                animation: none !important;
+            }
+
             .btn-signin:hover,
             .btn-refresh:hover,
             .captcha-row img:hover {
@@ -571,10 +640,19 @@
         <aside class="brand-panel" aria-hidden="false">
             @if ($hasHeroVideo)
                 <div class="brand-media" aria-hidden="true">
-                    <video class="brand-video" id="brandVideo" muted loop playsinline preload="none"
+                    <span class="brand-orb brand-orb--a"></span>
+                    <span class="brand-orb brand-orb--b"></span>
+                    <video class="brand-video" id="brandVideo" muted loop playsinline autoplay
                         @if ($hasHeroPoster) poster="{{ asset($heroPosterPath) }}" @endif>
-                        <source data-src="{{ asset($heroVideoPath) }}" type="video/mp4">
+                        <source src="{{ asset($heroVideoPath) }}" type="video/mp4">
                     </video>
+                    <span class="brand-tint"></span>
+                    <span class="brand-veil"></span>
+                </div>
+            @else
+                <div class="brand-media" aria-hidden="true">
+                    <span class="brand-orb brand-orb--a"></span>
+                    <span class="brand-orb brand-orb--b"></span>
                     <span class="brand-tint"></span>
                     <span class="brand-veil"></span>
                 </div>
@@ -726,13 +804,47 @@
 
             var video = document.getElementById('brandVideo');
             if (video && !reducedMotion && window.innerWidth > 960) {
-                var source = video.querySelector('source[data-src]');
-                if (source) {
-                    source.src = source.dataset.src;
-                    video.preload = 'auto';
-                    video.load();
-                    var playing = video.play();
-                    if (playing && playing.catch) { playing.catch(function () {}); }
+                video.preload = 'auto';
+
+                function markPlaying() {
+                    video.classList.add('is-playing');
+                }
+
+                function tryPlay() {
+                    var playPromise = video.play();
+                    if (playPromise && typeof playPromise.then === 'function') {
+                        playPromise.then(markPlaying).catch(function () {
+                            document.addEventListener('click', function retryOnce() {
+                                var retry = video.play();
+                                if (retry && typeof retry.then === 'function') {
+                                    retry.then(markPlaying).catch(function () {});
+                                }
+                            }, { once: true });
+                        });
+                    }
+                }
+
+                if (video.readyState >= 2) {
+                    tryPlay();
+                } else {
+                    video.addEventListener('loadeddata', tryPlay, { once: true });
+                    video.addEventListener('canplay', tryPlay, { once: true });
+                }
+
+                if ('IntersectionObserver' in window) {
+                    var observer = new IntersectionObserver(function (entries) {
+                        entries.forEach(function (entry) {
+                            if (entry.isIntersecting) {
+                                var resumed = video.play();
+                                if (resumed && typeof resumed.then === 'function') {
+                                    resumed.then(markPlaying).catch(function () {});
+                                }
+                            } else {
+                                video.pause();
+                            }
+                        });
+                    }, { threshold: 0.12 });
+                    observer.observe(video);
                 }
             }
         });

@@ -251,7 +251,7 @@
             <div class="help-text">
                 <strong>💡 Petunjuk:</strong><br>
                 Gunakan username dan password akun petugas Anda.<br>
-                Hanya untuk petugas dengan level ANLS, SOLAB, atau ADMIN.
+                Hanya untuk petugas dengan level ANLS, SOLK (pengambil sampel klinik), atau ADMIN.
             </div>
         </div>
     </div>

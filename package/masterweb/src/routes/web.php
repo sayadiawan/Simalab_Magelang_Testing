@@ -344,6 +344,8 @@ Route::group([], function () {
     // PERSURATAN NOTA
     Route::get('elits-persuratan/nota/kesmas/{id}', ['as' => 'elits-persuratan.nota.kesmas', 'uses' => 'LaboratoriumNotaController@cetakNotaKesmas']);
     Route::get('elits-persuratan/nota/klinik/{id}', ['as' => 'elits-persuratan.nota.klinik', 'uses' => 'LaboratoriumNotaController@cetakNotaKlinik']);
+    Route::get('elits-persuratan/invoice/kesmas/{id}', ['as' => 'elits-persuratan.invoice.kesmas', 'uses' => 'LaboratoriumNotaController@cetakInvoiceKesmas']);
+    Route::get('elits-persuratan/invoice/klinik/{id}', ['as' => 'elits-persuratan.invoice.klinik', 'uses' => 'LaboratoriumNotaController@cetakInvoiceKlinik']);
 
     Route::get('elits-release/permintaan-pemeriksaan/{id}', ['as' => 'elits-release.permintaan-pemeriksaan', 'uses' => 'LaboratoriumPermohonanUjiManagement@permintaan_pemeriksaan']);
     Route::get('elits-release/formulir-pengambilan-sampel/{id}', ['as' => 'elits-release.formulir-pengambilan-sampel', 'uses' => 'LaboratoriumPermohonanUjiManagement@formulirPengambilanSampel']);
@@ -442,6 +444,17 @@ Route::group([], function () {
 
     Route::get('report-jumlah-jenis-sampel', ['as' => 'report-jumlah-jenis-sampel.index', 'uses' => 'ReportJumlahJenisSampelController@index']);
     Route::get('report-jumlah-jenis-sampel/export', ['as' => 'report-jumlah-jenis-sampel.export', 'uses' => 'ReportJumlahJenisSampelController@export']);
+
+    Route::get('activity-log', ['as' => 'activity-log.index', 'uses' => 'ActivityLogController@index']);
+    Route::get('activity-log/{id}', ['as' => 'activity-log.show', 'uses' => 'ActivityLogController@show']);
+
+    Route::get('pengarsipan', ['as' => 'pengarsipan.index', 'uses' => 'PengarsipanController@index']);
+
+    Route::get('pengarsipan-dokumen', ['as' => 'pengarsipan-dokumen.index', 'uses' => 'PengarsipanDokumenController@index']);
+    Route::post('pengarsipan-dokumen', ['as' => 'pengarsipan-dokumen.store', 'uses' => 'PengarsipanDokumenController@store']);
+    Route::put('pengarsipan-dokumen/{id}/nomor', ['as' => 'pengarsipan-dokumen.nomor', 'uses' => 'PengarsipanDokumenController@updateNomor']);
+    Route::get('pengarsipan-dokumen/{id}/download', ['as' => 'pengarsipan-dokumen.download', 'uses' => 'PengarsipanDokumenController@download']);
+    Route::delete('pengarsipan-dokumen/{id}', ['as' => 'pengarsipan-dokumen.destroy', 'uses' => 'PengarsipanDokumenController@destroy']);
 
     Route::get('report/yearly/{date_from?}/{date_to?}/', ['as' => 'report.yearly', 'uses' => 'LaboratoriumReportManagement@yearly']);
 
@@ -559,9 +572,11 @@ Route::group([], function () {
     Route::get('elits-permohonan-uji-klinik-2/diagnosis/{id}', ['as' => 'elits-permohonan-uji-klinik-2.diagnosis', 'uses' => 'LaboratoriumPermohonanUjiKlinikManagement2@diagnosis']);
     Route::post('elits-permohonan-uji-klinik-2/store-diagnosis/{id}', ['as' => 'elits-permohonan-uji-klinik-2.store-diagnosis', 'uses' => 'LaboratoriumPermohonanUjiKlinikManagement2@storeDiagnosis']);
 
-    // Dashboard Dokter - Analisis Hasil Klinik per Wilayah
-    Route::get('dokter/dashboard', ['as' => 'dokter.dashboard', 'uses' => 'DokterDashboardController@index']);
-    Route::get('dokter/api/wilayah-options', ['as' => 'dokter.api.wilayah-options', 'uses' => 'DokterDashboardController@apiGetWilayahOptions']);
+    // Dashboard analisis hasil klinik per wilayah (dokter / KLI)
+    Route::get('klinik/analisis-hasil-wilayah', ['as' => 'klinik.analisis-hasil-wilayah', 'uses' => 'DokterDashboardController@index']);
+    Route::get('klinik/analisis-hasil-wilayah/wilayah-options', ['as' => 'klinik.analisis-hasil-wilayah.wilayah-options', 'uses' => 'DokterDashboardController@apiGetWilayahOptions']);
+    Route::redirect('dokter/dashboard', '/klinik/analisis-hasil-wilayah', 301);
+    Route::redirect('dokter/api/wilayah-options', '/klinik/analisis-hasil-wilayah/wilayah-options', 301);
 
     Route::get('elits-permohonan-uji-klinik-destroy-2/{id}', 'LaboratoriumPermohonanUjiKlinikManagement2@destroy');
     Route::post('elits-permohonan-uji-klinik-destroy-massal', ['as' => 'elits-permohonan-uji-klinik.destroy-massal', 'uses' => 'LaboratoriumPermohonanUjiKlinikManagement2@destroyMassal']);
@@ -659,6 +674,10 @@ Route::group([], function () {
     Route::get('elits-permohonan-uji-klinik/verifikasi/lists', ['as' => 'elits-permohonan-uji-klinik.verifikasi-lists', 'uses' => 'LaboratoriumPermohonanUjiKlinikManagement2@indexVerifikasi']);
     Route::get('data-permohonan-uji-klinik-verifikasi', ['as' => 'elits-permohonan-uji-klinik.data-permohonan-uji-klinik-verifikasi', 'uses' => 'LaboratoriumPermohonanUjiKlinikManagement2@data_permohonan_uji_klinik_verifikasi']);
     Route::get('statistics-permohonan-uji-klinik-verifikasi', ['as' => 'elits-permohonan-uji-klinik.statistics-verifikasi', 'uses' => 'LaboratoriumPermohonanUjiKlinikManagement2@getStatisticsVerifikasi']);
+    Route::get('notifications/feed', ['as' => 'notifications.feed', 'uses' => 'NotificationController@index']);
+    Route::get('notifications', ['as' => 'notifications.index', 'uses' => 'NotificationController@page']);
+    Route::post('notifications/read-all', ['as' => 'notifications.read-all', 'uses' => 'NotificationController@markAllRead']);
+    Route::post('notifications/{id}/read', ['as' => 'notifications.read', 'uses' => 'NotificationController@markRead']);
     Route::get('elits-permohonan-uji-klinik-2/bukti-daftar-permohonan-uji-parameter/{id}', ['as' => 'elits-permohonan-uji-klinik-2.bukti-daftar-permohonan-uji-parameter', 'uses' => 'LaboratoriumPermohonanUjiKlinikManagement2@buktiDaftarPermohonanUjiParameter']);
     Route::post('elits-permohonan-uji-klinik-2/storeDataPermohonanUjiKlinikPayment/{id}', ['as' => 'elits-permohonan-uji-klinik-2.storeDataPermohonanUjiKlinikPayment', 'uses' => 'LaboratoriumPermohonanUjiKlinikManagement2@storeDataPermohonanUjiKlinikPayment']);
     Route::post('elits-permohonan-uji-klinik-2/updateDataPermohonanUjiKlinikPayment/{id}', ['as' => 'elits-permohonan-uji-klinik-2.updateDataPermohonanUjiKlinikPayment', 'uses' => 'LaboratoriumPermohonanUjiKlinikManagement2@updateDataPermohonanUjiKlinikPayment']);
@@ -1211,6 +1230,7 @@ Route::group([], function () {
     Route::get('elits-pendapatan-klinik', ['as' => 'elits-pendapatan-klinik', 'uses' => 'LaboratoriumPendapatanKlinikController@index']);
     Route::post('elits-pendapatan-klinik-count', ['as' => 'elits-pendapatan-klinik-count', 'uses' => 'LaboratoriumPendapatanKlinikController@getCountTotalPendapatan']);
     Route::get('elits-pendapatan-klinik-set-print', ['as' => 'elits-pendapatan-klinik-set-print', 'uses' => 'LaboratoriumPendapatanKlinikController@setPrintDataPeriodikKlinik']);
+    Route::get('bendahara/pembayaran-pemeriksaan', ['as' => 'bendahara.pembayaran-pemeriksaan', 'uses' => 'BendaharaPemeriksaanController@index']);
 
     /* Proses awal login akan mengarahkan ke default auth controller sebelum dialihkan ke login controller */
     // Route::get('/', 'Auth\AuthController@showLoginForm');

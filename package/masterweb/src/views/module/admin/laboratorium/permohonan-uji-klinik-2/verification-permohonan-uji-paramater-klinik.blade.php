@@ -1355,13 +1355,89 @@
         }
         
         .result-badge-inline {
-            margin-top: 8px;
-            display: inline-block;
+            display: flex;
+            align-items: center;
+            flex: 1 1 auto;
+            min-width: 0;
+            margin-top: 0;
         }
         
         .result-badge-inline .badge {
-            font-size: 13px;
-            padding: 6px 12px;
+            font-size: 11px;
+            padding: 4px 8px;
+            white-space: nowrap;
+            max-width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Kolom nama parameter: label kiri, badge kanan (sejajar antar baris) */
+        .param-name-row {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
+        }
+
+        .param-name-label {
+            margin: 0;
+            min-width: 0;
+            word-break: break-word;
+        }
+
+        .param-name-label-sub {
+            padding-left: 30px;
+        }
+
+        .param-name-badges {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: 4px;
+            align-items: center;
+            justify-content: flex-end;
+            flex-shrink: 0;
+        }
+
+        .param-name-badges .badge {
+            white-space: nowrap;
+            font-size: 11px;
+            padding: 4px 8px;
+        }
+
+        /* Kolom hasil: input + badge baku mutu + tombol aksi dalam satu baris */
+        #table-parameter tbody td.hasil-col {
+            min-width: 210px;
+            vertical-align: middle;
+        }
+
+        #table-parameter .hasil-input-container {
+            min-width: 190px;
+        }
+
+        #table-parameter .badge-buttons-row {
+            display: flex !important;
+            align-items: center !important;
+            gap: 6px !important;
+            margin-top: 6px !important;
+            flex-wrap: nowrap !important;
+            width: 100% !important;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        #table-parameter .hasil-action-buttons {
+            display: flex !important;
+            gap: 4px !important;
+            align-items: center !important;
+            flex-wrap: nowrap !important;
+            flex-shrink: 0 !important;
+        }
+
+        #table-parameter .hasil-action-buttons .btn {
+            padding: 4px 6px !important;
+            font-size: 11px !important;
+            line-height: 1.2;
         }
         
         /* Highlight row on focus */
@@ -2190,10 +2266,10 @@
                 <table id="table-parameter" class="table">
                     <thead>
                         <tr>
-                            <th style="width: 20%">Nama Test</th>
-                            <th style="width: 14%">Hasil</th>
-                            <th style="width: 12%" class="text-center">Verifikasi</th>
-                            <th style="width: 14%" class="text-center">Catatan</th>
+                            <th style="width: 18%">Nama Test</th>
+                            <th style="width: 18%">Hasil</th>
+                            <th style="width: 10%" class="text-center">Verifikasi</th>
+                            <th style="width: 12%" class="text-center">Catatan</th>
                             <th style="width: 7%" class="text-center">Satuan</th>
                             <th style="width: 12%" class="text-center">Metode</th>
                             <th style="width: 15%; display: none;">Keterangan</th>
@@ -2249,25 +2325,27 @@
                                         @endphp
                                         <tr class="{{ $needs_correction ? 'needs-correction' : '' }}">
                                             <td>
-                                                <div class="d-flex align-items-center">
-                                                    <p style="padding-left: 30px; margin: 0; flex: 1;">
+                                                <div class="param-name-row">
+                                                    <p class="param-name-label param-name-label-sub">
                                                         {{ $item_subsatuan_klinik['nama_parameter_sub_satuan_klinik_id'] }}
                                                         ~
                                                     </p>
-                                                    @if ($needs_correction)
-                                                        <span class="badge badge-warning ml-2" title="Perlu dikoreksi">
-                                                            <i class="fa fa-exclamation-triangle"></i> Perlu Koreksi
-                                                        </span>
-                                                    @endif
-                                                    @if ($has_comment)
-                                                        <span class="badge badge-info ml-2 badge-comment-clickable" 
-                                                            title="Klik untuk melihat komentar"
-                                                            data-comment="{{ htmlspecialchars($item_subsatuan_klinik['komentar_verifikasi'] ?? '', ENT_QUOTES, 'UTF-8') }}"
-                                                            data-parameter-name="{{ htmlspecialchars($item_subsatuan_klinik['nama_parameter_sub_satuan_klinik_id'] ?? '', ENT_QUOTES, 'UTF-8') }}"
-                                                            onclick="showCommentModal(this)">
-                                                            <i class="fa fa-comment"></i> Ada Komentar
-                                                        </span>
-                                                    @endif
+                                                    <div class="param-name-badges">
+                                                        @if ($needs_correction)
+                                                            <span class="badge badge-warning" title="Perlu dikoreksi">
+                                                                <i class="fa fa-exclamation-triangle"></i> Perlu Koreksi
+                                                            </span>
+                                                        @endif
+                                                        @if ($has_comment)
+                                                            <span class="badge badge-info badge-comment-clickable"
+                                                                title="Klik untuk melihat komentar"
+                                                                data-comment="{{ htmlspecialchars($item_subsatuan_klinik['komentar_verifikasi'] ?? '', ENT_QUOTES, 'UTF-8') }}"
+                                                                data-parameter-name="{{ htmlspecialchars($item_subsatuan_klinik['nama_parameter_sub_satuan_klinik_id'] ?? '', ENT_QUOTES, 'UTF-8') }}"
+                                                                onclick="showCommentModal(this)">
+                                                                <i class="fa fa-comment"></i> Ada Komentar
+                                                            </span>
+                                                        @endif
+                                                    </div>
                                                 </div>
                                                 <input type="hidden"
                                                     name="parameter_sub_satuan_klinik_id[{{ $item_satuan_klinik['id_permohonan_uji_parameter_klinik'] }}][{{ $item_subsatuan_klinik['id_permohonan_uji_sub_parameter_klinik'] }}]"
@@ -2275,7 +2353,7 @@
                                                     value="{{ $item_subsatuan_klinik['id_permohonan_uji_sub_parameter_klinik'] }}"
                                                     readonly>
                                             </td>
-                                            <td>
+                                            <td class="hasil-col align-middle">
                                                     <!-- Hidden textarea for form submission -->
                                                     <textarea class="form-control result_method_klinik"
                                                         id="hasil_permohonan_uji_sub_parameter_klinik_{{ $no_sub }}"
@@ -2416,23 +2494,25 @@
                                     @endphp
                                     <tr class="{{ $needs_correction ? 'needs-correction' : '' }}">
                                         <td>
-                                            <div class="d-flex align-items-center">
-                                                <span style="flex: 1;">-
+                                            <div class="param-name-row">
+                                                <span class="param-name-label">-
                                                     {{ $item_satuan_klinik['nama_parameter_satuan_klinik'] }}</span>
-                                                @if ($needs_correction)
-                                                    <span class="badge badge-warning ml-2" title="Perlu dikoreksi">
-                                                        <i class="fa fa-exclamation-triangle"></i> Perlu Koreksi
-                                                    </span>
-                                                @endif
-                                                @if ($has_comment)
-                                                    <span class="badge badge-info ml-2 badge-comment-clickable" 
-                                                        title="Klik untuk melihat komentar"
-                                                        data-comment="{{ htmlspecialchars($item_satuan_klinik['komentar_verifikasi'] ?? '', ENT_QUOTES, 'UTF-8') }}"
-                                                        data-parameter-name="{{ htmlspecialchars($item_satuan_klinik['nama_parameter_satuan_klinik'] ?? '', ENT_QUOTES, 'UTF-8') }}"
-                                                        onclick="showCommentModal(this)">
-                                                        <i class="fa fa-comment"></i> Ada Komentar
-                                                    </span>
-                                                @endif
+                                                <div class="param-name-badges">
+                                                    @if ($needs_correction)
+                                                        <span class="badge badge-warning" title="Perlu dikoreksi">
+                                                            <i class="fa fa-exclamation-triangle"></i> Perlu Koreksi
+                                                        </span>
+                                                    @endif
+                                                    @if ($has_comment)
+                                                        <span class="badge badge-info badge-comment-clickable"
+                                                            title="Klik untuk melihat komentar"
+                                                            data-comment="{{ htmlspecialchars($item_satuan_klinik['komentar_verifikasi'] ?? '', ENT_QUOTES, 'UTF-8') }}"
+                                                            data-parameter-name="{{ htmlspecialchars($item_satuan_klinik['nama_parameter_satuan_klinik'] ?? '', ENT_QUOTES, 'UTF-8') }}"
+                                                            onclick="showCommentModal(this)">
+                                                            <i class="fa fa-comment"></i> Ada Komentar
+                                                        </span>
+                                                    @endif
+                                                </div>
                                             </div>
                                             <input type="hidden"
                                                 name="permohonan_uji_parameter_klinik[{{ $item_satuan_klinik['id_permohonan_uji_parameter_klinik'] }}]"
@@ -2440,7 +2520,7 @@
                                                 value="{{ $item_satuan_klinik['id_permohonan_uji_parameter_klinik'] }}"
                                                 readonly>
                                         </td>
-                                        <td>
+                                        <td class="hasil-col align-middle">
                                                 @php
                                                     // Cek apakah parameter memiliki is_option = 1 untuk kolom Hasil
                                                     $is_option_hasil =
@@ -3768,25 +3848,28 @@
                     // Update badge "Perlu Koreksi"
                     var $badgeKoreksi = $row.find('.badge-warning:contains("Perlu Koreksi")');
                     if (needsCorrection && $badgeKoreksi.length === 0) {
-                        // Tambahkan badge jika belum ada
                         var $nameCell = $row.find('td:first');
-                        var $badgeContainer = $nameCell.find('.d-flex');
+                        var $badgeContainer = $nameCell.find('.param-name-badges');
                         if ($badgeContainer.length === 0) {
-                            // Jika belum ada container, buat dulu
-                            var $content = $nameCell.find('p, span').first();
-                            $nameCell.html('<div class="d-flex align-items-center">' +
-                                '<div style="flex: 1;">' + $content.html() + '</div>' +
-                                '<span class="badge badge-warning ml-2" title="Perlu dikoreksi">' +
-                                '<i class="fa fa-exclamation-triangle"></i> Perlu Koreksi</span>' +
-                                '</div>');
-                        } else {
-                            // Tambahkan badge ke container yang sudah ada
-                            if ($badgeContainer.find('.badge-warning:contains("Perlu Koreksi")').length ===
-                                0) {
-                                $badgeContainer.append(
-                                    '<span class="badge badge-warning ml-2" title="Perlu dikoreksi">' +
-                                    '<i class="fa fa-exclamation-triangle"></i> Perlu Koreksi</span>');
+                            var $paramRow = $nameCell.find('.param-name-row');
+                            var labelHtml = $nameCell.find('.param-name-label, p, span').first().prop('outerHTML') || '';
+                            if ($paramRow.length === 0) {
+                                $nameCell.prepend(
+                                    '<div class="param-name-row">' +
+                                    '<div class="param-name-label">' + labelHtml + '</div>' +
+                                    '<div class="param-name-badges"></div>' +
+                                    '</div>'
+                                );
+                            } else {
+                                $paramRow.append('<div class="param-name-badges"></div>');
                             }
+                            $badgeContainer = $nameCell.find('.param-name-badges');
+                        }
+                        if ($badgeContainer.find('.badge-warning:contains("Perlu Koreksi")').length === 0) {
+                            $badgeContainer.append(
+                                '<span class="badge badge-warning" title="Perlu dikoreksi">' +
+                                '<i class="fa fa-exclamation-triangle"></i> Perlu Koreksi</span>'
+                            );
                         }
                     } else if (!needsCorrection && $badgeKoreksi.length > 0) {
                         // Hapus badge jika status sudah approved
@@ -3834,11 +3917,11 @@
                     var $badgeComment = $row.find('.badge-info:contains("Ada Komentar")');
                     if (hasComment && $badgeComment.length === 0) {
                         var $nameCell = $row.find('td:first');
-                        var $badgeContainer = $nameCell.find('.d-flex');
+                        var $badgeContainer = $nameCell.find('.param-name-badges');
                         if ($badgeContainer.length > 0) {
                             if ($badgeContainer.find('.badge-info:contains("Ada Komentar")').length === 0) {
                                 $badgeContainer.append(
-                                    '<span class="badge badge-info ml-2" title="Memiliki komentar">' +
+                                    '<span class="badge badge-info badge-comment-clickable" title="Memiliki komentar">' +
                                     '<i class="fa fa-comment"></i> Ada Komentar</span>');
                             }
                         }

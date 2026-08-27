@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Smt\Masterweb\Helpers\ActivityActionCatalog;
+use Smt\Masterweb\Helpers\ActivityLogger;
 use Smt\Masterweb\Helpers\SatuSehatHelper;
 
 class LoginController extends Controller
@@ -108,6 +110,27 @@ class LoginController extends Controller
         if (Hash::check($request->password, $auth->password)) {
           if ($auth->publish == '1') {
             Auth::login($auth);
+            ActivityLogger::record([
+              'user_id' => $auth->id,
+              'user_name' => $auth->name,
+              'username' => $auth->username,
+              'privilege_level' => optional($auth->getlevel)->level,
+              'action' => 'login',
+              'bidang' => 'admin',
+              'module' => 'auth',
+              'subject_type' => 'autentikasi',
+              'description' => '[Login] Sistem SimaLab — ' . $auth->username,
+              'route_name' => optional($request->route())->getName(),
+              'url' => $request->fullUrl(),
+              'http_method' => $request->method(),
+              'ip_address' => $request->ip(),
+              'user_agent' => $request->userAgent(),
+              'metadata' => [
+                'ppt_kategori' => 'umum',
+                'ppt_fitur' => 'Login ke sistem SimaLab',
+                'subject_label' => 'Autentikasi',
+              ],
+            ]);
             try {
               SatuSehatHelper::ensureAccessToken();
             } catch (\Throwable $e) {
@@ -123,7 +146,16 @@ class LoginController extends Controller
               ->withInput();
           }
         } else {
-          // return redirect()->back()->with('errors', "Password Anda salah silahkan coba lagi!");
+          ActivityLogger::fromRequest($request, 'login_failed', '[Login Gagal] Password salah — ' . $request->username, [
+            'username' => $request->username,
+            'subject_type' => 'autentikasi',
+            'metadata' => [
+              'attempt_username' => $request->username,
+              'ppt_kategori' => 'umum',
+              'ppt_fitur' => 'Percobaan login gagal',
+              'subject_label' => 'Autentikasi',
+            ],
+          ]);
 
           return redirect()
             ->back()
@@ -131,7 +163,14 @@ class LoginController extends Controller
             ->withInput();
         }
       } else {
-        // return redirect()->back()->with('errors', "Username Anda salah silahkan coba lagi!");
+        ActivityLogger::fromRequest($request, 'login_failed', '[Login Gagal] Username tidak ditemukan — ' . $request->username, [
+          'metadata' => [
+            'attempt_username' => $request->username,
+            'ppt_kategori' => 'umum',
+            'ppt_fitur' => 'Percobaan login gagal',
+            'subject_label' => 'Autentikasi',
+          ],
+        ]);
 
         return redirect()
           ->back()
@@ -177,6 +216,31 @@ class LoginController extends Controller
     $samplingUserId = $request->session()->get('sampling_user_id');
     $samplingUserName = $request->session()->get('sampling_user_name');
     $samplingUserUsername = $request->session()->get('sampling_user_username');
+
+    if (Auth::check()) {
+      $user = Auth::user();
+      ActivityLogger::record([
+        'user_id' => $user->id,
+        'user_name' => $user->name,
+        'username' => $user->username,
+        'privilege_level' => optional($user->getlevel)->level,
+        'action' => 'logout',
+        'bidang' => 'admin',
+        'module' => 'auth',
+        'subject_type' => 'autentikasi',
+        'description' => '[Logout] Sistem SimaLab — ' . $user->username,
+        'route_name' => optional($request->route())->getName(),
+        'url' => $request->fullUrl(),
+        'http_method' => $request->method(),
+        'ip_address' => $request->ip(),
+        'user_agent' => $request->userAgent(),
+        'metadata' => [
+          'ppt_kategori' => 'umum',
+          'ppt_fitur' => 'Logout dari sistem SimaLab',
+          'subject_label' => 'Autentikasi',
+        ],
+      ]);
+    }
 
     // Logout web (menghapus Auth session)
     Auth::logout();

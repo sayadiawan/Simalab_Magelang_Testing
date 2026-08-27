@@ -3168,19 +3168,18 @@
                                 <div class="card border-0 shadow-sm"
                                     style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-left: 4px solid #0b3a5c !important; overflow: visible !important;">
                                     <div class="card-body py-3" style="overflow: visible !important;">
-                                        <div class="d-flex align-items-center">
+                                        <div class="wilayah-quick-search-row">
                                             <div class="flex-grow-1 position-relative" style="z-index: 1000;">
                                                 <label class="small font-weight-bold mb-2" style="color: #1976d2;">
-                                                    <i class="fa fa-search mr-1"></i> Pencarian Cepat Wilayah
+                                                    Pencarian Cepat Wilayah
                                                 </label>
-                                                <div style="position: relative;">
-                                                    <input type="text" class="form-control form-control-lg"
+                                                <div class="wilayah-quick-search">
+                                                    <i class="fa fa-search wilayah-quick-search__icon" aria-hidden="true"></i>
+                                                    <input type="text" class="form-control form-control-lg wilayah-quick-search__input"
                                                         id="search_wilayah_input"
                                                         placeholder="Ketik nama desa, kecamatan, atau kabupaten... (min 2 karakter)"
                                                         autocomplete="off"
-                                                        style="border: 2px solid #1976d2; border-radius: 10px; padding-left: 40px; font-size: 15px; position: relative; z-index: 1;">
-                                                    {{-- <i class="fa fa-search position-absolute"
-                                                        style="left: 15px; top: 14px; color: #1976d2; font-size: 16px; pointer-events: none; z-index: 2;"></i> --}}
+                                                        style="border: 2px solid #1976d2; border-radius: 10px; font-size: 15px;">
 
                                                     <!-- Autocomplete Results -->
                                                     <div id="search_wilayah_results"
