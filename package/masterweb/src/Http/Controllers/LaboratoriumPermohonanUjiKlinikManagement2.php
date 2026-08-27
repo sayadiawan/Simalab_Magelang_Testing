@@ -10331,27 +10331,33 @@ class LaboratoriumPermohonanUjiKlinikManagement2 extends Controller
           // Package type - check if it's paket extra
           if ($paket->parameter_paket_extra && $paket->parameterpaketextra) {
             // Paket Extra
+            $harga = (int) ($paket->harga_permohonan_uji_paket_klinik ?? 0);
             $items[] = [
               'type' => 'Paket Extra',
               'name' => $paket->parameterpaketextra->nama_parameter_paket_extra ?? '-',
-              'harga' => $paket->harga_permohonan_uji_paket_klinik ?? 0,
+              'harga' => $harga,
+              'harga_custom' => rupiah($harga),
             ];
           } else {
             // Regular Package
+            $harga = (int) ($paket->harga_permohonan_uji_paket_klinik ?? 0);
             $items[] = [
               'type' => 'Paket',
               'name' => $paket->parameterpaketklinik ? $paket->parameterpaketklinik->name_parameter_paket_klinik : '-',
-              'harga' => $paket->harga_permohonan_uji_paket_klinik ?? 0,
+              'harga' => $harga,
+              'harga_custom' => rupiah($harga),
             ];
           }
         } else {
           // Custom/Parameter type
           if ($paket->permohonanujiparameterklinik && $paket->permohonanujiparameterklinik->count() > 0) {
             foreach ($paket->permohonanujiparameterklinik as $param) {
+              $harga = (int) ($param->harga_permohonan_uji_parameter_klinik ?? 0);
               $items[] = [
                 'type' => 'Parameter',
                 'name' => $param->parametersatuanklinik ? $param->parametersatuanklinik->name_parameter_satuan_klinik : '-',
-                'harga' => $param->harga_permohonan_uji_parameter_klinik ?? 0,
+                'harga' => $harga,
+                'harga_custom' => rupiah($harga),
               ];
             }
           }
@@ -10399,10 +10405,15 @@ class LaboratoriumPermohonanUjiKlinikManagement2 extends Controller
     $nama_petugas = $verification_activity ? ($verification_activity->nama_petugas ?? Auth::user()->name) : Auth::user()->name;
     $id_petugas = Auth::user()->id; // Keep using Auth::user()->id() for nota_petugas
 
+    $nama_pasien = $itemPermohonanUjiKlinik->pasien
+      ? $itemPermohonanUjiKlinik->pasien->nama_pasien
+      : ($itemPermohonanUjiKlinik->nama_pasien ?? '-');
+
     $data = [
       'id_permohonan_uji_klinik' => $itemPermohonanUjiKlinik->id_permohonan_uji_klinik ?? null,
       'nota_petugas' => $id_petugas,
       'nota_namapetugas' => $nama_petugas,
+      'nama_pasien' => $nama_pasien,
       'alamat_pasien' => $itemPermohonanUjiKlinik->pasien ? Smt::alamatLengkapPasien($itemPermohonanUjiKlinik->pasien) : null,
       'total_harga_parameter' => $total_harga_parameter,
       'biaya_pengambilan_sampel' => $biaya_pengambilan_sampel,
