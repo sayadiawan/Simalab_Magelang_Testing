@@ -1231,7 +1231,167 @@ class LaboratoriumAnalysManagement extends Controller
     }
 
     // Return data untuk DataTables
-    return $this->getSamplePagination($request);
+    return $this->getSamplePaginationFromQuery($query, $request);
+  }
+
+  public function getSamplePaginationFromQuery($query, Request $request)
+  {
+    $limit_val = $request->input('length', 10);
+    $start = (int) $request->input('start', 0);
+    $search = $request->input('search');
+    if (is_array($search)) {
+      $search = $search['value'] ?? '';
+    }
+
+    $query = $query
+      ->join('tb_sample_method', function ($join) {
+        $join->on('tb_sample_method.sample_id', '=', 'tb_samples.id_samples')
+          ->whereNull('tb_sample_method.deleted_at')
+          ->whereNull('tb_samples.deleted_at')
+          ->join('ms_laboratorium', function ($join) {
+            $join->on('ms_laboratorium.id_laboratorium', '=', 'tb_sample_method.laboratorium_id')
+              ->whereNull('ms_laboratorium.deleted_at')
+              ->whereNull('tb_sample_method.deleted_at');
+          });
+      })
+      ->join('ms_sample_type', function ($join) {
+        $join->on('ms_sample_type.id_sample_type', '=', 'tb_samples.typesample_samples')
+          ->whereNull('ms_sample_type.deleted_at')
+          ->whereNull('tb_samples.deleted_at');
+      })
+      ->join('tb_permohonan_uji', function ($join) {
+        $join->on('tb_permohonan_uji.id_permohonan_uji', '=', 'tb_samples.permohonan_uji_id')
+          ->whereNull('tb_permohonan_uji.deleted_at')
+          ->whereNull('tb_samples.deleted_at');
+      })
+      ->select('ms_laboratorium.id_laboratorium', 'tb_permohonan_uji.code_permohonan_uji', 'ms_laboratorium.nama_laboratorium', 'tb_samples.*', 'ms_sample_type.*')
+      ->distinct('tb_samples.id_samples');
+
+    if (!empty($search)) {
+      $query = $this->loadDataTableSearch($query, $search);
+    }
+
+    $totalFilteredRecord = (clone $query)->count('tb_samples.id_samples');
+    $totalDataRecord = $totalFilteredRecord;
+
+    $datas = (clone $query)
+      ->offset($start)
+      ->limit($limit_val)
+      ->get();
+
+    $no = $start + 1;
+    $i = 0;
+    foreach ($datas as $data) {
+      $datas[$i]["nomer"] = $no;
+      $no++;
+      $i++;
+    }
+
+    $data_table = Datatables::of($datas)
+      ->addColumn('codesample_samples', function ($data) {
+        return $data->codesample_samples;
+      })
+      ->addColumn('nama_laboratorium', function ($data) {
+        return $data->nama_laboratorium;
+      })
+      ->addColumn('pelanggan', function ($data) {
+        return $data instanceof Sample ? $data->namaPelangganDisplay() : (optional(optional($data->permohonanuji)->customer)->name_customer ?? '-');
+      })
+      ->addColumn('name_sample_type', function ($data) {
+        return $data->name_sample_type;
+      })
+      ->addColumn("last_status", function ($data) {
+        $verificationActivities = VerificationActivitySample::query()->where('id_sample', '=', $data->id_samples)->join('ms_verification_activities', 'tb_verification_activity_samples.id_verification_activity', '=', 'ms_verification_activities.id')->get();
+        $label_status = '';
+        $step = [];
+
+        if ($verificationActivities->isNotEmpty()) {
+          foreach ($verificationActivities as $verificationActivity) {
+            $step[$verificationActivity->id_verification_activity] = $verificationActivity;
+          }
+
+          if (!empty($step)) {
+            $stepOrder = [1, 6, 7, 2, 3, 4, 5];
+            $lastStep = null;
+            foreach ($stepOrder as $stepId) {
+              if (isset($step[$stepId])) {
+                $lastStep = $stepId;
+              }
+            }
+
+            if ($lastStep !== null) {
+              switch ($lastStep) {
+                case 1:
+                  $label_status = '<label class="badge badge-primary badge-pill w-75">' . $step[$lastStep]->name . '</label>';
+                  break;
+                case 6:
+                  $label_status = '<label class="badge badge-secondary badge-pill w-75">Pengambilan Sampel</label>';
+                  break;
+                case 7:
+                  $label_status = '<label class="badge badge-dark badge-pill w-75">Penerimaan Sampel</label>';
+                  break;
+                case 2:
+                  $label_status = '<label class="badge badge-info badge-pill w-75">Pemeriksaan Sampel</label>';
+                  break;
+                case 3:
+                  $label_status = '<label class="badge badge-warning badge-pill w-75">Input Hasil</label>';
+                  break;
+                case 4:
+                  $label_status = '<label class="badge badge-danger badge-pill w-75">Verifikasi</label>';
+                  break;
+                case 5:
+                  $label_status = '<label class="badge badge-success badge-pill w-75">Validasi</label>';
+                  break;
+                default:
+                  $label_status = '<label class="badge badge-success badge-pill w-75">Selesai</label>';
+                  break;
+              }
+            } else {
+              $label_status = '<label class="badge badge-primary badge-pill w-75">Pendaftaran / Registrasi</label>';
+            }
+          }
+        } else {
+          $label_status = '<label class="badge badge-primary badge-pill w-75">Pendaftaran / Registrasi</label>';
+        }
+
+        return $label_status;
+      })
+      ->addColumn('date_sending', function ($data) {
+        return Carbon::createFromFormat('Y-m-d H:i:s', $data->date_sending)->isoFormat('D MMMM Y');
+      })
+      ->addColumn('action', function ($data) {
+        $editButton = '';
+        $draftButton = '';
+        $verificationButton = '';
+
+        if (!empty($data->permohonan_uji_id)) {
+          $draftButton = '<a href="' . route('elits-sample-draft.index', [$data->permohonan_uji_id]) . '" title="Kelola Draft Sampel"> <button type="button" class="btn btn-outline-info btn-rounded btn-icon" style="margin-right: 4px;">
+          <i class="fas fa-file-alt"></i>
+      </button></a> ';
+        }
+
+        if (getAction('update')) {
+          $editButton = '<a href="' . route('elits-samples.edit', [$data->id_samples]) . '" title="Edit Sampel"> <button type="button" class="btn btn-outline-warning btn-rounded btn-icon" style="margin-right: 4px;">
+          <i class="fas fa-pencil-alt"></i>
+      </button></a> ';
+        }
+
+        if (getSpesialAction('elits-samples', 'verification-sampel', '')) {
+          $verificationButton = '<a href="' . route('elits-samples.verification-2', [$data->id_samples, $data->id_laboratorium]) . '" title="Verifikasi"> <button type="button" class="btn btn-outline-success btn-rounded btn-icon">
+          <i class="fa fa-check"></i>
+      </button></a> ';
+        }
+
+        $button = $draftButton . $editButton . $verificationButton;
+
+        return trim($button);
+      })
+      ->rawColumns(['codesample_samples', 'nama_laboratorium', 'name_sample_type', 'last_status', 'action', 'date_sending'])
+      ->setFilteredRecords($totalFilteredRecord)
+      ->setTotalRecords($totalDataRecord)
+      ->make(true);
+
+    return $data_table;
   }
 
   /**
