@@ -1742,16 +1742,19 @@ class LaboratoriumPermohonanUjiKlinikManagement2 extends Controller
     $klinikNumberSettings = \Smt\Masterweb\Models\KlinikNumberSettings::getSettings();
     $permohonanIds = $datas->pluck('id_permohonan_uji_klinik')->all();
     $verifikasiMeta = $this->prefetchKlinikRegistrasiMeta($permohonanIds);
-    $verificationStepsMap = $this->prefetchKlinikVerificationSteps($permohonanIds);
+    $verificationPrefetch = $this->prefetchKlinikVerificationSteps($permohonanIds);
+    $verificationStepsMap = $verificationPrefetch['done'];
+    $verificationStepDetails = $verificationPrefetch['detail'];
     $namaHajiMap = $this->prefetchNamaHajiMap($datas);
 
     $datatable = Datatables::of($datas)
-      ->addColumn('action', function ($data) use ($verifikasiMeta, $verificationStepsMap) {
+      ->addColumn('action', function ($data) use ($verifikasiMeta, $verificationStepsMap, $verificationStepDetails, $statusFilterForColumn) {
         $pid = $data->id_permohonan_uji_klinik;
         $hasParameter = isset($verifikasiMeta['has_parameter'][$pid]);
         $steps = $verificationStepsMap[$pid] ?? [];
+        $stepDetails = $verificationStepDetails[$pid] ?? [];
 
-        return $this->buildKlinikVerifikasiActionHtml($data, $hasParameter, $steps);
+        return $this->buildKlinikVerifikasiActionHtml($data, $hasParameter, $steps, $statusFilterForColumn, $stepDetails);
       })
       ->editColumn('noregister_permohonan_uji_klinik', function ($data) use ($klinikNumberSettings) {
         return $this->formatKlinikDisplayNoregister($data, $klinikNumberSettings);
@@ -3056,26 +3059,71 @@ class LaboratoriumPermohonanUjiKlinikManagement2 extends Controller
    * Prefetch langkah verifikasi klinik per permohonan (hindari N+1 di daftar verifikasi).
    *
    * @param  array<int, string>  $permohonanIds
-   * @return array<string, array<int, int>>
+   * @return array{done: array<string, array<int, int>>, detail: array<string, array<int, array{start_date: mixed, nama_petugas: string}>>}
    */
   private function prefetchKlinikVerificationSteps(array $permohonanIds)
   {
     if (empty($permohonanIds)) {
-      return [];
+      return ['done' => [], 'detail' => []];
     }
 
-    $steps = [];
+    $done = [];
+    $detail = [];
     $activities = VerificationActivitySample::whereIn('is_klinik', $permohonanIds)->get();
 
     foreach ($activities as $act) {
       $pid = $act->is_klinik;
-      if (!isset($steps[$pid])) {
-        $steps[$pid] = [];
-      }
-      $steps[$pid][$act->id_verification_activity] = (int) $act->is_done;
+      $aid = (int) $act->id_verification_activity;
+      $done[$pid][$aid] = (int) $act->is_done;
+      $detail[$pid][$aid] = [
+        'start_date' => $act->start_date,
+        'nama_petugas' => (string) ($act->nama_petugas ?? ''),
+      ];
     }
 
-    return $steps;
+    return ['done' => $done, 'detail' => $detail];
+  }
+
+  /**
+   * Format jam query (?jam=Y-m-d H:i) dari start_date langkah verifikasi.
+   */
+  private function formatKlinikStepJamQuery($startDate): string
+  {
+    if ($startDate === null || $startDate === '') {
+      return '';
+    }
+
+    try {
+      return Carbon::parse($startDate)->format('Y-m-d H:i');
+    } catch (\Throwable $e) {
+      return '';
+    }
+  }
+
+  /**
+   * Ambil jam default untuk langkah target dari langkah sebelumnya yang sudah ada.
+   *
+   * @param  array<int, array{start_date: mixed, nama_petugas: string}>  $stepDetails
+   */
+  private function resolveKlinikStepJamForAction(int $targetStep, array $stepDetails): string
+  {
+    // Prefill dari langkah yang sedang dikerjakan, lalu mundur ke langkah sebelumnya.
+    $preferOrder = [$targetStep, $targetStep - 1, 3, 2, 7, 6, 1];
+    foreach ($preferOrder as $stepId) {
+      $jam = $this->formatKlinikStepJamQuery($stepDetails[$stepId]['start_date'] ?? null);
+      if ($jam !== '') {
+        return $jam;
+      }
+    }
+
+    return '';
+  }
+
+  private function appendKlinikJamPetugasQuery(string $url, string $jam = '', string $petugas = ''): string
+  {
+    $sep = strpos($url, '?') !== false ? '&' : '?';
+
+    return $url . $sep . 'jam=' . rawurlencode($jam) . '&petugas=' . rawurlencode($petugas);
   }
 
   /**
@@ -3097,68 +3145,96 @@ class LaboratoriumPermohonanUjiKlinikManagement2 extends Controller
 
   /**
    * Tombol aksi ringan untuk daftar verifikasi klinik.
+   *
+   * Catatan: status_permohonan_uji_klinik=SELESAI TIDAK berarti alur step 4/5 selesai.
+   * Routing aksi mengikuti langkah verification activity (dan tab status_filter).
+   *
+   * @param  array<int, int>  $steps
+   * @param  array<int, array{start_date: mixed, nama_petugas: string}>  $stepDetails
    */
-  private function buildKlinikVerifikasiActionHtml($data, bool $hasParameter, array $steps): string
+  private function buildKlinikVerifikasiActionHtml($data, bool $hasParameter, array $steps, string $statusFilter = '', array $stepDetails = []): string
   {
     $targetUrl = null;
     $title = 'Detail';
-    $isFinished = ($data->status_permohonan_uji_klinik == 'SELESAI');
+    $isFinished = false;
     $pid = $data->id_permohonan_uji_klinik;
+    $queryStep = null;
 
     if (!$hasParameter) {
       $targetUrl = route('elits-permohonan-uji-klinik-2.create-permohonan-uji-klinik-parameter', $pid);
       $title = 'Input Parameter Pemeriksaan';
     } else {
-      $stepOrder = Smt::isUrineOnlySample($pid) ? [1, 7, 2, 3, 4, 5] : [1, 6, 7, 2, 3, 4, 5];
-      $currentStep = null;
-      foreach ($stepOrder as $stepId) {
-        if (!isset($steps[$stepId]) || $steps[$stepId] !== 1) {
-          $currentStep = $stepId;
-          break;
-        }
-      }
-
-      if ($currentStep === null || $isFinished) {
-        $targetUrl = route('elits-permohonan-uji-klinik-2.verification', $pid);
-        $title = 'Lihat Hasil (Selesai)';
-        $isFinished = true;
+      // Tab Verifikasi / Validasi: paksa URL sesuai tab (bukan overview progress).
+      if ($statusFilter === 'verifikasi') {
+        $targetUrl = route('elits-permohonan-uji-klinik-2.verification-permohonan-uji-paramater-klinik', $pid);
+        $title = 'Verifikasi Hasil';
+        $queryStep = 4;
+      } elseif ($statusFilter === 'validasi') {
+        $targetUrl = route('elits-permohonan-uji-klinik-2.disabled-permohonan-uji-analis2', $pid);
+        $title = 'Validasi / Hasil Final';
+        $queryStep = 5;
       } else {
-        switch ($currentStep) {
-          case 6:
-            $targetUrl = route('elits-permohonan-uji-klinik-2.create-permohonan-uji-sample', [$pid, 1]);
-            $title = 'Pengambilan Sampel';
+        $stepOrder = Smt::isUrineOnlySample($pid) ? [1, 7, 2, 3, 4, 5] : [1, 6, 7, 2, 3, 4, 5];
+        $currentStep = null;
+        foreach ($stepOrder as $stepId) {
+          if (!isset($steps[$stepId]) || $steps[$stepId] !== 1) {
+            $currentStep = $stepId;
             break;
-          case 7:
-            $targetUrl = route('elits-permohonan-uji-klinik-2.create-penerima-sampel', $pid);
-            $title = 'Penerimaan Sampel';
-            break;
-          case 2:
-            $targetUrl = route('elits-permohonan-uji-klinik-2.verification', $pid);
-            $title = 'Pemeriksaan Sampel';
-            break;
-          case 3:
-            $targetUrl = route('elits-permohonan-uji-klinik-2.create-permohonan-uji-analis2', $pid);
-            $title = 'Input Hasil Pemeriksaan';
-            break;
-          case 4:
-            $targetUrl = route('elits-permohonan-uji-klinik-2.verification-permohonan-uji-paramater-klinik', $pid);
-            $title = 'Verifikasi Hasil';
-            break;
-          case 5:
-            $targetUrl = route('elits-permohonan-uji-klinik-2.disabled-permohonan-uji-analis2', $pid);
-            $title = 'Validasi / Hasil Final';
-            $isFinished = true;
-            break;
-          default:
-            $targetUrl = route('elits-permohonan-uji-klinik-2.verification', $pid);
-            $title = 'Verifikasi';
-            break;
+          }
+        }
+
+        if ($currentStep === null) {
+          $targetUrl = route('elits-permohonan-uji-klinik-2.verification', $pid);
+          $title = 'Lihat Hasil (Selesai)';
+          $isFinished = true;
+        } else {
+          $queryStep = $currentStep;
+          switch ($currentStep) {
+            case 6:
+              $targetUrl = route('elits-permohonan-uji-klinik-2.create-permohonan-uji-sample', [$pid, 1]);
+              $title = 'Pengambilan Sampel';
+              $queryStep = null;
+              break;
+            case 7:
+              $targetUrl = route('elits-permohonan-uji-klinik-2.create-penerima-sampel', $pid);
+              $title = 'Penerimaan Sampel';
+              $queryStep = null;
+              break;
+            case 2:
+              $targetUrl = route('elits-permohonan-uji-klinik-2.verification', $pid);
+              $title = 'Pemeriksaan Sampel';
+              $queryStep = null;
+              break;
+            case 3:
+              $targetUrl = route('elits-permohonan-uji-klinik-2.create-permohonan-uji-analis2', $pid);
+              $title = 'Input Hasil Pemeriksaan';
+              break;
+            case 4:
+              $targetUrl = route('elits-permohonan-uji-klinik-2.verification-permohonan-uji-paramater-klinik', $pid);
+              $title = 'Verifikasi Hasil';
+              break;
+            case 5:
+              $targetUrl = route('elits-permohonan-uji-klinik-2.disabled-permohonan-uji-analis2', $pid);
+              $title = 'Validasi / Hasil Final';
+              break;
+            default:
+              $targetUrl = route('elits-permohonan-uji-klinik-2.verification', $pid);
+              $title = 'Verifikasi';
+              $queryStep = null;
+              break;
+          }
         }
       }
     }
 
     if (!$targetUrl || !getAction('read')) {
       return '';
+    }
+
+    if ($queryStep !== null) {
+      $jam = $this->resolveKlinikStepJamForAction($queryStep, $stepDetails);
+      $petugas = (string) ($stepDetails[$queryStep]['nama_petugas'] ?? '');
+      $targetUrl = $this->appendKlinikJamPetugasQuery($targetUrl, $jam, $petugas);
     }
 
     $safeTitle = htmlspecialchars($title, ENT_QUOTES, 'UTF-8');

@@ -1,7 +1,7 @@
 @extends('masterweb::template.admin.layout')
 
 @section('title')
-    Verifikasi Pemeriksaan / Analitik - {{ $laboratorium->nama_laboratorium }}
+    Pemeriksaan / Analitik - {{ $laboratorium->nama_laboratorium }}
 @endsection
 
 @section('styles')
@@ -16,7 +16,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Verifikasi Pemeriksaan / Analitik - {{ $laboratorium->nama_laboratorium }}</h3>
+                            <h3 class="card-title">Pemeriksaan / Analitik - {{ $laboratorium->nama_laboratorium }}</h3>
                             <div class="card-tools">
                                 <button type="button" class="btn btn-sm btn-secondary" onclick="window.history.back()">
                                     <i class="fas fa-arrow-left"></i> Kembali
@@ -135,7 +135,7 @@
 
                             <div class="card">
                                 <div class="card-header bg-primary">
-                                    <h4 class="card-title mb-0 text-white">Form Verifikasi Pemeriksaan / Analitik</h4>
+                                    <h4 class="card-title mb-0 text-white">Form Pemeriksaan / Analitik</h4>
                                 </div>
                                 <div class="card-body">
                                     @php
@@ -223,7 +223,7 @@
                                                 <button type="submit" 
                                                         class="btn btn-primary btn-lg" 
                                                         id="btn-simpan-verifikasi">
-                                                    <i class="fas fa-save"></i> Simpan Verifikasi
+                                                    <i class="fas fa-save"></i> Simpan
                                                 </button>
                                                 <button type="button" 
                                                         class="btn btn-secondary btn-lg" 
