@@ -1154,6 +1154,9 @@
                     </div>
                 </div>
                 <div class="form-group" style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px;">
+                    <button type="button" class="btn btn-info btn-review-hasil-validasi" style="min-width: 150px; padding: 10px 20px; font-weight: 600;">
+                        <i class="fa fa-eye mr-2"></i>Review Hasil
+                    </button>
                     <button type="submit" id="btn-simpan-validasi" class="btn btn-primary" style="min-width: 150px; padding: 10px 20px; font-weight: 600;">
                         <i class="fa fa-save mr-2"></i>Simpan Validasi
                     </button>
@@ -1380,14 +1383,23 @@
     </div>
 
     <!-- Action Buttons -->
-    <div class="row">
-        <div class="col-12">
-            <div class="d-flex justify-content-end">
-                <button type="button" class="btn btn-light btn-back"
-                    onclick="document.location='{{ url('/elits-permohonan-uji-klinik-2/verification/' . $item_permohonan_uji_klinik->id_permohonan_uji_klinik) }}'">
-                    <i class="fa fa-arrow-left mr-2"></i>Kembali
+    <div class="row mt-4 mb-4">
+        <div class="col-12 text-right">
+            <button type="button" class="btn btn-light btn-action mr-2"
+                onclick="document.location='{{ url('/elits-permohonan-uji-klinik-2/verification/' . $item_permohonan_uji_klinik->id_permohonan_uji_klinik) }}'">
+                <i class="fa fa-arrow-left mr-2"></i>Kembali
+            </button>
+            <button type="button" class="btn btn-info btn-action mr-2 btn-review-hasil-validasi">
+                <i class="fa fa-eye mr-2"></i>Review Hasil
+            </button>
+            @if (!isset($existingValidasi) || (int) $existingValidasi->is_done !== 1)
+                <button type="button" class="btn btn-primary btn-action mr-2" id="btn-simpan-validasi-bottom">
+                    <i class="fa fa-save mr-2"></i>Simpan Validasi
                 </button>
-            </div>
+                <button type="button" class="btn btn-success btn-action" id="btn-selesai-validasi-bottom">
+                    <i class="fa fa-check-circle mr-2"></i>Selesai
+                </button>
+            @endif
         </div>
     </div>
 
@@ -2078,9 +2090,6 @@
         (function() {
             window.permohonanCreatedIso = @json(\Carbon\Carbon::parse($item_permohonan_uji_klinik->created_at ?? $item_permohonan_uji_klinik->tglregister_permohonan_uji_klinik)->format('Y-m-d'));
             var $form = $('#form-validasi-hasil');
-            if (!$form.length) {
-                return;
-            }
 
             var saveFontsizeUrl = '{{ route('elits-permohonan-uji-klinik-2.save-fontsize-hasil', $item_permohonan_uji_klinik->id_permohonan_uji_klinik) }}';
             var previewUrl = '{{ route('elits-permohonan-uji-klinik-2.print-permohonan-uji-klinik-hasil', $item_permohonan_uji_klinik->id_permohonan_uji_klinik) }}?mode=preview';
@@ -2171,14 +2180,23 @@
             $('#validasi-lineheight-plus').on('click', function() { updateLineHeightUI(currentLineHeight + 0.1); });
             $toggleKop.on('change', function() { updateKopUI($(this).is(':checked')); });
 
-            function openPreviewValidasi() {
+            function openPreviewValidasi(modeSelesai) {
                 var url = previewUrl + '&t=' + Date.now();
                 $('#preview-hasil-validasi-iframe').attr('src', url);
+                $('#modalPreviewHasilValidasi').data('mode-selesai', modeSelesai);
+                if (modeSelesai) {
+                    $('#validasi-btn-preview-lanjut-selesai').removeClass('d-none');
+                } else {
+                    $('#validasi-btn-preview-lanjut-selesai').addClass('d-none');
+                }
                 $('#modalPreviewHasilValidasi').modal('show');
             }
 
             function saveSettingsThen(callback) {
                 var marginValues = marginSettings ? marginSettings.getValues() : {};
+                var kesimpulanVal = $('#kesimpulan_hasil').val() || '';
+                var catatanVal = $('#catatan_hasil_hidden').val() || '';
+
                 return $.ajax({
                     url: saveFontsizeUrl,
                     method: 'POST',
@@ -2196,7 +2214,9 @@
                         lebar_kolom_satuan: marginValues.lebar_kolom_satuan,
                         lebar_kolom_metode: marginValues.lebar_kolom_metode,
                         lebar_kolom_nilai_normal: marginValues.lebar_kolom_nilai_normal,
-                        show_kop: currentShowKop
+                        show_kop: currentShowKop,
+                        kesimpulan_hasil: kesimpulanVal,
+                        catatan_hasil: catatanVal
                     }
                 }).done(function(response) {
                     if (response && response.status === false) {
@@ -2211,26 +2231,48 @@
                 });
             }
 
+            function triggerDirectPreviewValidasi(modeSelesai) {
+                var $btnReview = $('.btn-review-hasil-validasi');
+                var $btnSelesai = $('#btn-selesai-validasi, #btn-selesai-validasi-bottom');
+                $btnReview.prop('disabled', true);
+                $btnSelesai.prop('disabled', true);
+
+                saveSettingsThen(function() {
+                    openPreviewValidasi(modeSelesai);
+                }).always(function() {
+                    $btnReview.prop('disabled', false);
+                    $btnSelesai.prop('disabled', false);
+                });
+            }
+            window.triggerDirectPreviewValidasi = triggerDirectPreviewValidasi;
+
             // Simpan Validasi: langsung submit (is_selesai = 0) → VerificationActivitySample step 5
-            $form.on('submit', function() {
-                syncStopDate();
-                if ($('#is_selesai_validasi').val() !== '1') {
-                    $('#is_selesai_validasi').val('0');
-                }
+            if ($form.length) {
+                $form.on('submit', function() {
+                    syncStopDate();
+                    if ($('#is_selesai_validasi').val() !== '1') {
+                        $('#is_selesai_validasi').val('0');
+                    }
+                });
+            }
+
+            // Review Hasil: tampilkan preview tanpa mode selesai
+            $('.btn-review-hasil-validasi').on('click', function() {
+                triggerDirectPreviewValidasi(false);
             });
 
-            // Selesai: buka review print dulu (bukan PDF penuh di halaman)
-            $('#btn-selesai-validasi').on('click', function() {
-                if (!validateValidasiForm()) {
+            // Selesai: buka review print dulu (dengan tombol Lanjutkan & Selesai)
+            $('#btn-selesai-validasi, #btn-selesai-validasi-bottom').on('click', function() {
+                if ($form.length && !validateValidasiForm()) {
                     return;
                 }
-                var $btn = $(this);
-                $btn.prop('disabled', true);
-                saveSettingsThen(function() {
-                    openPreviewValidasi();
-                }).always(function() {
-                    $btn.prop('disabled', false);
-                });
+                triggerDirectPreviewValidasi(true);
+            });
+
+            $('#btn-simpan-validasi-bottom').on('click', function() {
+                if ($form.length) {
+                    $form.submit();
+                }
             });
 
             $('#validasi-btn-buka-review').on('click', function() {
@@ -2239,7 +2281,7 @@
                 $saveIcon.addClass('d-none');
                 saveSettingsThen(function() {
                     $('#modalReviewHasilValidasi').modal('hide');
-                    openPreviewValidasi();
+                    openPreviewValidasi($('#modalReviewHasilValidasi').data('mode-selesai') || false);
                 }).always(function() {
                     $btnBuka.prop('disabled', false);
                     $loadingIcon.addClass('d-none');
@@ -2248,6 +2290,8 @@
             });
 
             $('#validasi-btn-pengaturan-preview').on('click', function() {
+                var modeSelesai = $('#modalPreviewHasilValidasi').data('mode-selesai') || false;
+                $('#modalReviewHasilValidasi').data('mode-selesai', modeSelesai);
                 $('#modalPreviewHasilValidasi').one('hidden.bs.modal', function() {
                     $('#modalReviewHasilValidasi').modal('show');
                 });
@@ -2256,7 +2300,7 @@
 
             // Setelah review: simpan validasi selesai → redirect ke halaman verification + popup
             $('#validasi-btn-preview-lanjut-selesai').on('click', function() {
-                if (!validateValidasiForm()) {
+                if ($form.length && !validateValidasiForm()) {
                     return;
                 }
                 var $btn = $(this);
@@ -2264,10 +2308,12 @@
                 syncStopDate();
                 $('#is_selesai_validasi').val('1');
                 // Native submit agar benar-benar POST (jQuery .trigger('submit') kadang tidak mengirim form)
-                if ($form[0] && typeof $form[0].submit === 'function') {
+                if ($form.length && $form[0] && typeof $form[0].submit === 'function') {
                     $form[0].submit();
-                } else {
+                } else if ($form.length) {
                     $form.trigger('submit');
+                } else {
+                    $('#modalPreviewHasilValidasi').modal('hide');
                 }
             });
         })();

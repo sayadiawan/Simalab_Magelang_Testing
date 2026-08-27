@@ -5482,6 +5482,24 @@
                     }
                 });
 
+            function submitVerifikasiForm(isSelesai) {
+                // Save TinyMCE contents if available
+                if (typeof tinymce !== 'undefined' && tinymce.get('catatan_hasil')) {
+                    var catatanEditor = tinymce.get('catatan_hasil');
+                    if (catatanEditor) {
+                        catatanEditor.save();
+                        $('#catatan_hasil').val(catatanEditor.getContent());
+                    }
+                }
+                if (typeof tinymce !== 'undefined' && tinymce.get('kesimpulan_hasil')) {
+                    var editor = tinymce.get('kesimpulan_hasil');
+                    if (editor) {
+                        editor.save();
+                        $('#kesimpulan_hasil').val(editor.getContent());
+                    }
+                }
+
+                // Cek urinalisa jika ada
                 if (typeof collectIncompleteUrinalisaParams === 'function') {
                     var urinalisaIncomplete = collectIncompleteUrinalisaParams();
                     if (urinalisaIncomplete.length > 0) {
@@ -5500,7 +5518,7 @@
                 if (checkPendingVerification()) {
                     swal({
                         title: "Peringatan!",
-                        text: "Terdapat parameter yang belum diverifikasi. Harap verifikasi semua parameter terlebih dahulu sebelum menyimpan.",
+                        text: "Terdapat parameter yang belum diverifikasi. Harap verifikasi semua parameter terlebih dahulu.",
                         icon: "warning",
                         button: "OK"
                     });
@@ -5520,7 +5538,6 @@
                         icon: "warning",
                         button: "OK"
                     });
-                    // Focus ke field verifikator
                     if ($verifikatorSelect.length) {
                         $verifikatorSelect.focus();
                     }
@@ -5546,8 +5563,18 @@
                     }
                 });
 
+                $('#is_selesai_verif').val(isSelesai ? '1' : '0');
+
+                var $btnSelesai = $('.btn-selesai-verif');
+                var $btnSimpan = $('.btn-simpan');
+                var $btnLanjut = $('#verif-btn-preview-lanjut-selesai');
+
+                $btnSelesai.prop('disabled', true);
+                $btnSimpan.prop('disabled', true);
+                $btnLanjut.prop('disabled', true);
+
                 swal({
-                    title: "Menyimpan Verifikasi...",
+                    title: isSelesai ? "Menyelesaikan Verifikasi..." : "Menyimpan Verifikasi...",
                     text: "Harap tunggu beberapa saat.",
                     icon: "info",
                     buttons: false,
@@ -5556,14 +5583,23 @@
 
                 $('#form').ajaxSubmit({
                     success: function(response) {
+                        $('#is_selesai_verif').val('0');
+                        $btnSelesai.prop('disabled', false);
+                        $btnSimpan.prop('disabled', false);
+                        $btnLanjut.prop('disabled', false);
+
                         if (response.status == true) {
                             swal({
-                                    title: "Tersimpan!",
+                                    title: "Success!",
                                     text: response.pesan,
                                     icon: "success"
                                 })
                                 .then(function() {
-                                    location.reload();
+                                    if (isSelesai) {
+                                        document.location = response.redirect_url || '{{ url('/elits-permohonan-uji-klinik-2/verification/' . $item_permohonan_uji_klinik->id_permohonan_uji_klinik) }}';
+                                    } else {
+                                        location.reload();
+                                    }
                                 });
                         } else {
                             var pesan = "";
@@ -5591,6 +5627,11 @@
                         }
                     },
                     error: function(xhr, status, error) {
+                        $('#is_selesai_verif').val('0');
+                        $btnSelesai.prop('disabled', false);
+                        $btnSimpan.prop('disabled', false);
+                        $btnLanjut.prop('disabled', false);
+
                         // Handle 419 CSRF Token Expired
                         if (xhr.status === 419) {
                             swal({
@@ -5618,82 +5659,38 @@
                         }
                     }
                 });
+            }
+
+            $('.btn-simpan').on('click', function() {
+                submitVerifikasiForm(false);
+            });
+
+            // Tombol Lanjutkan & Selesai di dalam preview modal
+            $('#verif-btn-preview-lanjut-selesai').on('click', function() {
+                $('#modalPreviewHasilVerif').modal('hide');
+                submitVerifikasiForm(true);
             });
 
             $('.btn-selesai-verif').on('click', function() {
-                var $btn = $(this);
-                if ($btn.data('submitting')) {
-                    return false;
-                }
-                if (typeof tinymce !== 'undefined' && tinymce.get('catatan_hasil')) {
-                    var catatanEditor = tinymce.get('catatan_hasil');
-                    if (catatanEditor) { catatanEditor.save(); $('#catatan_hasil').val(catatanEditor.getContent()); }
-                }
-                if (typeof tinymce !== 'undefined' && tinymce.get('kesimpulan_hasil')) {
-                    var editor = tinymce.get('kesimpulan_hasil');
-                    if (editor) { editor.save(); $('#kesimpulan_hasil').val(editor.getContent()); }
-                }
                 if (checkPendingVerification()) {
-                    swal({ title: "Peringatan!", text: "Terdapat parameter yang belum diverifikasi.", icon: "warning", button: "OK" });
+                    swal({ title: "Peringatan!", text: "Terdapat parameter yang belum diverifikasi. Harap verifikasi semua parameter terlebih dahulu.", icon: "warning", button: "OK" });
                     return false;
                 }
                 var $verifikatorSelect = $('#verifikator_permohonan_uji_klinik');
                 var verifikatorValue = $verifikatorSelect.length ? $verifikatorSelect.val() : $('#verifikator_permohonan_uji_klinik_hidden').val();
                 if (!verifikatorValue || verifikatorValue === '') {
                     swal({ title: "Peringatan!", text: "Verifikator harus diisi terlebih dahulu.", icon: "warning", button: "OK" });
+                    if ($verifikatorSelect.length) $verifikatorSelect.focus();
                     return false;
                 }
-                $('.status-verifikasi-inline').each(function() {
-                    var hiddenId = $(this).data('hidden-id');
-                    if (hiddenId) $('#' + hiddenId).val($(this).val());
-                });
-                $('.komentar-verifikasi-inline').each(function() {
-                    var hiddenId = $(this).data('hidden-id');
-                    if (hiddenId) $('#' + hiddenId).val($(this).val());
-                });
-                $('#is_selesai_verif').val('1');
-                $btn.data('submitting', true).prop('disabled', true);
-                swal({ title: "Menyimpan Verifikasi...", text: "Harap tunggu beberapa saat.", icon: "info", buttons: false, closeOnClickOutside: false });
-                $('#form').ajaxSubmit({
-                    success: function(response) {
-                        $('#is_selesai_verif').val('0');
-                        $btn.data('submitting', false).prop('disabled', false);
-                        if (response.status == true) {
-                            swal({ title: "Success!", text: response.pesan, icon: "success" })
-                                .then(function() {
-                                    document.location = response.redirect_url || '{{ url('/elits-permohonan-uji-klinik-2/verification/' . $item_permohonan_uji_klinik->id_permohonan_uji_klinik) }}';
-                                });
-                        } else {
-                            var pesan = "";
-                            var data_pesan = response.pesan;
-                            const wrapper = document.createElement('div');
-                            if (typeof(data_pesan) == 'object') {
-                                jQuery.each(data_pesan, function(key, value) { pesan += value + '. <br>'; wrapper.innerHTML = pesan; });
-                                swal({ title: "Error!", content: wrapper, icon: "warning" });
-                            } else {
-                                swal({ title: "Error!", text: response.pesan, icon: "warning" });
-                            }
-                        }
-                    },
-                    error: function(xhr) {
-                        $('#is_selesai_verif').val('0');
-                        $btn.data('submitting', false).prop('disabled', false);
-                        if (xhr.status === 419) {
-                            swal({ title: "Session Expired", text: "Session Anda telah berakhir.", icon: "warning", timer: 2000, buttons: false }).then(function() { window.location.reload(); });
-                        } else {
-                            var errMsg = "System gagal menyimpan!";
-                            if (xhr.responseJSON && xhr.responseJSON.pesan) {
-                                errMsg = xhr.responseJSON.pesan;
-                            } else if (xhr.responseText) {
-                                try {
-                                    var res = JSON.parse(xhr.responseText);
-                                    if (res.pesan) errMsg = res.pesan;
-                                } catch(e) {}
-                            }
-                            swal("Error!", errMsg, "error");
-                        }
-                    }
-                });
+
+                // Tampilkan Preview Hasil terlebih dahulu dengan mode selesai
+                $('#modalPreviewHasilVerif').data('mode-selesai', true);
+                if (typeof window.triggerDirectPreviewVerif === 'function') {
+                    window.triggerDirectPreviewVerif(true);
+                } else {
+                    submitVerifikasiForm(true);
+                }
             });
         });
     </script>
@@ -7074,6 +7071,8 @@
                     $btnSelesai.prop('disabled', false);
                 });
             }
+
+            window.triggerDirectPreviewVerif = triggerDirectPreviewVerif;
 
             $('#modalReviewHasilVerif').on('show.bs.modal', function() {
                 var modeSelesai = $(this).data('mode-selesai') || false;
