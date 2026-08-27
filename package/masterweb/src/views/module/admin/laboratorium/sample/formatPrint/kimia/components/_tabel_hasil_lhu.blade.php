@@ -29,17 +29,32 @@
         }
     }
 
+    // Lebar kolom dari Pengaturan Hasil (request preview > DB sample > default)
+    if (!isset($colWidths) || !is_array($colWidths) || empty($colWidths)) {
+        $colWidths = \Smt\Masterweb\Helpers\KesmasHasilColumnWidth::resolve(
+            $sample ?? null,
+            request(),
+            \Smt\Masterweb\Helpers\KesmasHasilColumnWidth::PROFILE_LHU_6COL
+        );
+    }
+    $wNo = ($colWidths['no'] ?? 5) . '%';
+    $wParam = ($colWidths['parameter'] ?? 20) . '%';
+    $wHasil = ($colWidths['hasil'] ?? 15) . '%';
+    $wBaku = ($colWidths['baku_mutu'] ?? 25) . '%';
+    $wSatuan = ($colWidths['satuan'] ?? 15) . '%';
+    $wMetode = ($colWidths['metode'] ?? 20) . '%';
+
 @endphp
 
 <table class="result" width="100%" cellspacing="0" cellpadding="0" border="1" style="margin-top: 10px">
     <thead>
         <tr>
-            <th width="5%" style="text-align: center">NO</th>
-            <th width="10%" style="text-align: center">PARAMETER <br>PEMERIKSAAN</th>
-            <th width="5%" style="text-align: center">HASIL <br>PEMERIKSAAN</th>
-            <th width="35%" style="text-align: center">KADAR MAKSIMUM <br>YANG DIPERBOLEHKAN</th>
-            <th width="25%" style="text-align: center">SATUAN</th>
-            <th width="20%" style="text-align: center">METODE</th>
+            <th width="{{ $wNo }}" style="text-align: center">NO</th>
+            <th width="{{ $wParam }}" style="text-align: center">PARAMETER <br>PEMERIKSAAN</th>
+            <th width="{{ $wHasil }}" style="text-align: center">HASIL <br>PEMERIKSAAN</th>
+            <th width="{{ $wBaku }}" style="text-align: center">KADAR MAKSIMUM <br>YANG DIPERBOLEHKAN</th>
+            <th width="{{ $wSatuan }}" style="text-align: center">SATUAN</th>
+            <th width="{{ $wMetode }}" style="text-align: center">METODE</th>
         </tr>
     </thead>
     <tbody>
@@ -74,13 +89,13 @@
                         @endphp
                         @if ($hasil != '-')
                             <tr>
-                                <td width="5%" style="text-align: center">{{ kesmas_parameter_urut_number($laboratoriummethod, $kesmasUrutFallback) }}</td>
-                                <td width="20%" style="text-align: left; padding-left: 2px;">{!! $laboratoriummethod->name_report !!}</td>
-                                <td width="20%" style="text-align: center">{!! $hasil !!}</td>
-                                <td width="20%" style="text-align: center">{!! $laboratoriummethod->nilai_baku_mutu !!}</td>
-                                <td width="15%" style="text-align: center">{!! $unitAll !!}</td>
+                                <td width="{{ $wNo }}" style="text-align: center">{{ kesmas_parameter_urut_number($laboratoriummethod, $kesmasUrutFallback) }}</td>
+                                <td width="{{ $wParam }}" style="text-align: left; padding-left: 2px;">{!! $laboratoriummethod->name_report !!}</td>
+                                <td width="{{ $wHasil }}" style="text-align: center">{!! $hasil !!}</td>
+                                <td width="{{ $wBaku }}" style="text-align: center">{!! $laboratoriummethod->nilai_baku_mutu !!}</td>
+                                <td width="{{ $wSatuan }}" style="text-align: center">{!! $unitAll !!}</td>
                                 @if ($laboratoriummethod->is_ready == 1)
-                                    <td width="20%" style="text-align: left; padding-left: 2px;">{!! !empty($laboratoriummethod->metode) ? $laboratoriummethod->metode : $laboratoriummethod->name_method !!}</td>
+                                    <td width="{{ $wMetode }}" style="text-align: left; padding-left: 2px;">{!! !empty($laboratoriummethod->metode) ? $laboratoriummethod->metode : $laboratoriummethod->name_method !!}</td>
                                 @else
                                     <td style="text-align: center">Alat Dan Reagen tidak tersedia</td>
                                 @endif
@@ -112,13 +127,13 @@
                         @endphp
                         @if ($hasil != '-')
                             <tr>
-                                <td width="5%" style="text-align: center">{{ kesmas_parameter_urut_number($laboratoriummethod, $kesmasUrutFallback) }}</td>
-                                <td width="20%" style="text-align: left; padding-left: 2px;">{!! $laboratoriummethod->name_report !!}</td>
-                                <td width="20%" style="text-align: center">{!! $hasil !!}</td>
-                                <td width="20%" style="text-align: center">{!! $laboratoriummethod->nilai_baku_mutu !!}</td>
-                                <td width="15%" style="text-align: center">{!! $unitAll !!}</td>
+                                <td width="{{ $wNo }}" style="text-align: center">{{ kesmas_parameter_urut_number($laboratoriummethod, $kesmasUrutFallback) }}</td>
+                                <td width="{{ $wParam }}" style="text-align: left; padding-left: 2px;">{!! $laboratoriummethod->name_report !!}</td>
+                                <td width="{{ $wHasil }}" style="text-align: center">{!! $hasil !!}</td>
+                                <td width="{{ $wBaku }}" style="text-align: center">{!! $laboratoriummethod->nilai_baku_mutu !!}</td>
+                                <td width="{{ $wSatuan }}" style="text-align: center">{!! $unitAll !!}</td>
                                 @if ($laboratoriummethod->is_ready == 1)
-                                    <td width="20%" style="text-align: left; padding-left: 2px;">{!! !empty($laboratoriummethod->metode) ? $laboratoriummethod->metode : $laboratoriummethod->name_method !!}</td>
+                                    <td width="{{ $wMetode }}" style="text-align: left; padding-left: 2px;">{!! !empty($laboratoriummethod->metode) ? $laboratoriummethod->metode : $laboratoriummethod->name_method !!}</td>
                                 @else
                                     <td style="text-align: center">Alat Dan Reagen tidak tersedia</td>
                                 @endif
@@ -158,13 +173,13 @@
                         @endphp
                         @if ($hasil != '-')
                             <tr>
-                                <td width="5%" style="text-align: center">{{ kesmas_parameter_urut_number($laboratoriummethod, $kesmasUrutFallback) }}</td>
-                                <td width="20%" style="text-align: left; padding-left: 2px;">{!! $laboratoriummethod->name_report !!}</td>
-                                <td width="20%" style="text-align: center">{!! $hasil !!}</td>
-                                <td width="20%" style="text-align: center">{!! $laboratoriummethod->nilai_baku_mutu !!}</td>
-                                <td width="15%" style="text-align: center">{!! $unitAll !!}</td>
+                                <td width="{{ $wNo }}" style="text-align: center">{{ kesmas_parameter_urut_number($laboratoriummethod, $kesmasUrutFallback) }}</td>
+                                <td width="{{ $wParam }}" style="text-align: left; padding-left: 2px;">{!! $laboratoriummethod->name_report !!}</td>
+                                <td width="{{ $wHasil }}" style="text-align: center">{!! $hasil !!}</td>
+                                <td width="{{ $wBaku }}" style="text-align: center">{!! $laboratoriummethod->nilai_baku_mutu !!}</td>
+                                <td width="{{ $wSatuan }}" style="text-align: center">{!! $unitAll !!}</td>
                                 @if ($laboratoriummethod->is_ready == 1)
-                                    <td width="20%" style="text-align: left; padding-left: 2px;">{!! !empty($laboratoriummethod->metode) ? $laboratoriummethod->metode : $laboratoriummethod->name_method !!}</td>
+                                    <td width="{{ $wMetode }}" style="text-align: left; padding-left: 2px;">{!! !empty($laboratoriummethod->metode) ? $laboratoriummethod->metode : $laboratoriummethod->name_method !!}</td>
                                 @else
                                     <td style="text-align: center">Alat Dan Reagen tidak tersedia</td>
                                 @endif
@@ -190,13 +205,13 @@
                         @endphp
                         @if ($hasil != '-')
                             <tr>
-                                <td width="5%" style="text-align: center">{{ kesmas_parameter_urut_number($laboratoriummethod, $kesmasUrutFallback) }}</td>
-                                <td width="20%" style="text-align: left; padding-left: 2px;">{!! $laboratoriummethod->name_report !!}</td>
-                                <td width="20%" style="text-align: center">{!! $hasil !!}</td>
-                                <td width="20%" style="text-align: center">{!! $laboratoriummethod->nilai_baku_mutu !!}</td>
-                                <td width="15%" style="text-align: center">{!! $unitAll !!}</td>
+                                <td width="{{ $wNo }}" style="text-align: center">{{ kesmas_parameter_urut_number($laboratoriummethod, $kesmasUrutFallback) }}</td>
+                                <td width="{{ $wParam }}" style="text-align: left; padding-left: 2px;">{!! $laboratoriummethod->name_report !!}</td>
+                                <td width="{{ $wHasil }}" style="text-align: center">{!! $hasil !!}</td>
+                                <td width="{{ $wBaku }}" style="text-align: center">{!! $laboratoriummethod->nilai_baku_mutu !!}</td>
+                                <td width="{{ $wSatuan }}" style="text-align: center">{!! $unitAll !!}</td>
                                 @if ($laboratoriummethod->is_ready == 1)
-                                    <td width="20%" style="text-align: left; padding-left: 2px;">{!! !empty($laboratoriummethod->metode) ? $laboratoriummethod->metode : $laboratoriummethod->name_method !!}</td>
+                                    <td width="{{ $wMetode }}" style="text-align: left; padding-left: 2px;">{!! !empty($laboratoriummethod->metode) ? $laboratoriummethod->metode : $laboratoriummethod->name_method !!}</td>
                                 @else
                                     <td style="text-align: center">Alat Dan Reagen tidak tersedia</td>
                                 @endif

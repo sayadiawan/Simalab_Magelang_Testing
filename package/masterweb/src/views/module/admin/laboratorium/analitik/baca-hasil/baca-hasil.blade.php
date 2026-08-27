@@ -2880,7 +2880,7 @@ Alat Dan Reagen tidak tersedia
          MODAL REVIEW HASIL
          ============================================================ --}}
     <div class="modal fade" id="modalReviewHasil" tabindex="-1" role="dialog" aria-labelledby="modalReviewHasilLabel" aria-hidden="true">
-        <div class="modal-dialog modal-md modal-dialog-centered modal-body-scrollable" role="document">
+        <div class="modal-dialog modal-md modal-dialog-centered modal-body-scrollable" role="document" style="max-width: 520px;">
             <div class="modal-content">
                 <div class="modal-header bg-info text-white">
                     <h5 class="modal-title" id="modalReviewHasilLabel">
@@ -2988,6 +2988,14 @@ Alat Dan Reagen tidak tersedia
                         </small>
                     </div>
 
+                    @php
+                        $kesmasColWidthUi = \Smt\Masterweb\Helpers\KesmasHasilColumnWidth::uiPayload($sample ?? null);
+                    @endphp
+                    @include('masterweb::module.admin.laboratorium.analitik.baca-hasil.partials.pengaturan-column-widths', [
+                        'sample' => $sample ?? null,
+                        'kesmasColWidthUi' => $kesmasColWidthUi,
+                    ])
+
                     <div class="card border-0 bg-light p-3 mb-3">
                         <label class="font-weight-bold mb-2">
                             <i class="fa fa-file-alt mr-1"></i>Kop Surat
@@ -3071,6 +3079,7 @@ Alat Dan Reagen tidak tersedia
 @endsection
 
 @section('scripts')
+    @include('masterweb::module.admin.laboratorium.analitik.baca-hasil.partials.pengaturan-column-widths-script')
     <script>
         $(function () {
             // Pindahkan ke body agar nested modal tidak terpotong parent
@@ -4720,6 +4729,17 @@ Alat Dan Reagen tidak tersedia
                 var currentPadding = parseFloat($('#padding_hasil_hidden').val()) || 1;
                 var currentShowKop = ($('#show_kop_hasil_hidden').val() === '1') ? 1 : 0;
 
+                function getColumnWidthsPayload() {
+                    if (window.KesmasColWidths && typeof window.KesmasColWidths.collect === 'function') {
+                        return window.KesmasColWidths.collect();
+                    }
+                    try {
+                        return JSON.parse($('#column_widths_hasil_hidden').val() || '{}');
+                    } catch (e) {
+                        return {};
+                    }
+                }
+
                 function updateFontsizeUI(val) {
                     val = Math.min(20, Math.max(6, parseFloat(val) || 12));
                     val = Math.round(val * 2) / 2;
@@ -4814,6 +4834,7 @@ Alat Dan Reagen tidak tersedia
                                         line_height: currentLineHeight,
                                         padding: currentPadding,
                                         show_kop: currentShowKop,
+                                        column_widths: JSON.stringify(getColumnWidthsPayload()),
                                         keterangan_metode: ($('#keterangan_metode').length ? ($('#keterangan_metode').val() || '') : ''),
                                         catatan_hasil: ($('#catatan_hasil').length ? ($('#catatan_hasil').val() || '') : '')
                                     },
@@ -4859,6 +4880,7 @@ Alat Dan Reagen tidak tersedia
                         '&line_height=' + encodeURIComponent(currentLineHeight) +
                         '&padding=' + encodeURIComponent(currentPadding) +
                         '&show_kop=' + encodeURIComponent(currentShowKop) +
+                        '&column_widths=' + encodeURIComponent(JSON.stringify(getColumnWidthsPayload())) +
                         '&keterangan_metode=' + encodeURIComponent(keteranganMetode) +
                         '&catatan_hasil=' + encodeURIComponent(catatanHasil) +
                         '&t=' + Date.now();
@@ -4996,6 +5018,7 @@ Alat Dan Reagen tidak tersedia
                                 line_height: currentLineHeight,
                                 padding: currentPadding,
                                 show_kop: currentShowKop,
+                                column_widths: JSON.stringify(getColumnWidthsPayload()),
                                 keterangan_metode: ($('#keterangan_metode').length ? ($('#keterangan_metode').val() || '') : ''),
                                 catatan_hasil: ($('#catatan_hasil').length ? ($('#catatan_hasil').val() || '') : '')
                             },
@@ -6198,7 +6221,10 @@ Alat Dan Reagen tidak tersedia
                         [8805, 'greater than or equal to'],
                         [177, 'plus-minus sign']
                     ],
-                    content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px; }',
+                    valid_elements: '*[*]',
+                    extended_valid_elements: 'sup[*],sub[*],br,p,span[*],strong/b,em/i,u',
+                    entity_encoding: 'raw',
+                    content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px; } sup { vertical-align: super; font-size: smaller; } sub { vertical-align: sub; font-size: smaller; }',
                     setup: function(editor) {
                         editor.on('change', function() {
                             tinymce.triggerSave();
@@ -6232,7 +6258,10 @@ Alat Dan Reagen tidak tersedia
                         [8805, 'greater than or equal to'],
                         [177, 'plus-minus sign']
                     ],
-                    content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px; }',
+                    valid_elements: '*[*]',
+                    extended_valid_elements: 'sup[*],sub[*],br,p,span[*],strong/b,em/i,u',
+                    entity_encoding: 'raw',
+                    content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px; } sup { vertical-align: super; font-size: smaller; } sub { vertical-align: sub; font-size: smaller; }',
                     setup: function(editor) {
                         editor.on('change', function() {
                             tinymce.triggerSave();
@@ -6319,18 +6348,46 @@ Alat Dan Reagen tidak tersedia
         function convertFromSystemToTinyMCE(systemContent) {
             if (!systemContent) return '';
 
-            var content = systemContent;
+            var content = String(systemContent);
 
-            // Convert format sistem ke HTML
-            content = content.replace(/\^\(([^\)]*)\)/g, '<sup>$1</sup>');
-            content = content.replace(/\_\(([^\)]*)\)/g, '<sub>$1</sub>');
+            // Decode entity yang sudah lolos sebagai teks (&lt;sup&gt; → <sup>)
+            content = content
+                .replace(/&lt;(\/?sup(?:\s[^&]*)?)&gt;/gi, '<$1>')
+                .replace(/&lt;(\/?sub(?:\s[^&]*)?)&gt;/gi, '<$1>')
+                .replace(/&lt;sup&gt;/gi, '<sup>')
+                .replace(/&lt;\/sup&gt;/gi, '</sup>')
+                .replace(/&lt;sub&gt;/gi, '<sub>')
+                .replace(/&lt;\/sub&gt;/gi, '</sub>');
+
+            // Sudah HTML (sup/sub) → jangan escape ulang
+            if (/<\/?(?:sup|sub)\b/i.test(content)) {
+                return content;
+            }
+
+            // Simpan ^( ) / _( ) ke placeholder dulu agar tidak ikut di-escape
+            var placeholders = [];
+            content = content.replace(/\^\(([^\)]*)\)/g, function (_m, inner) {
+                var idx = placeholders.length;
+                placeholders.push('<sup>' + inner + '</sup>');
+                return '%%PH' + idx + '%%';
+            });
+            content = content.replace(/\_\(([^\)]*)\)/g, function (_m, inner) {
+                var idx = placeholders.length;
+                placeholders.push('<sub>' + inner + '</sub>');
+                return '%%PH' + idx + '%%';
+            });
+
             content = content.replace(/≤/g, '&le;');
             content = content.replace(/≥/g, '&ge;');
+            content = content.replace(/±/g, '&plusmn;');
+            // Escape sisa < > (nilai perbandingan), tanpa merusak placeholder
             content = content.replace(/</g, '&lt;');
             content = content.replace(/>/g, '&gt;');
-            content = content.replace(/±/g, '&plusmn;');
 
-            console.log('Converted from system:', systemContent, 'to TinyMCE:', content);
+            content = content.replace(/%%PH(\d+)%%/g, function (_m, i) {
+                return placeholders[parseInt(i, 10)] || '';
+            });
+
             return content;
         }
 

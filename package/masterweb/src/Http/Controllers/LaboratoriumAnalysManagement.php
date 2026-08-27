@@ -820,30 +820,33 @@ class LaboratoriumAnalysManagement extends Controller
       $step5NotDone = isset($activities[5]) && $activities[5] == 0;
       $step5Exists = isset($activities[5]);
       
-      // Urutan pengecekan hierarki dari tahap akhir ke awal
+      // Urutan pengecekan hierarki dari tahap akhir ke awal.
+      // Step 6 (pengambilan) opsional jika is_sampling = 0 (dibawa pelanggan).
+      $samplingOk = ($step6Done || $isSampling === 0);
+
       // Selesai: Step 5 sudah selesai
-      if ($step5Done) {
+      if ($step5Done && $samplingOk) {
         $stats['selesai']++;
       }
       // Validasi: Step 4 sudah selesai, Step 5 belum selesai
-      elseif ($step4Done) {
+      elseif ($step4Done && $samplingOk) {
         $stats['validasi']++;
       }
       // Verifikasi: Step 3 sudah selesai, Step 4 belum selesai
-      elseif ($step3Done) {
+      elseif ($step3Done && $samplingOk) {
         $stats['verifikasi']++;
       }
-      // Input Hasil: Step 2 sudah selesai, Step 3 belum selesai
-      elseif ($step2Done) {
+      // Input Hasil: Step 2 sudah selesai, Step 3 belum — butuh penerimaan (7) + sampling OK
+      elseif ($step2Done && $step7Done && $samplingOk) {
         $stats['input_hasil']++;
       }
       // Pemeriksaan: Step 7 sudah selesai, Step 2 belum selesai
-      elseif ($step7Done) {
+      elseif ($step7Done && $samplingOk) {
         $stats['pemeriksaan']++;
       }
       // Penerimaan Sample:
       // Kasus A (is_sampling = 1 / diambil lab): Step 6 sudah selesai, Step 7 belum selesai
-      // Kasus B (is_sampling = 0 / dibawa pelanggan): Step 1 sudah selesai, Step 7 belum selesai (langsung ke penerimaan)
+      // Kasus B (is_sampling = 0 / dibawa pelanggan): Step 1 sudah selesai, Step 7 belum selesai
       elseif (($step6Done || $isSampling === 0) && $step1Done) {
         $stats['penerimaan_sample']++;
       }
@@ -999,6 +1002,26 @@ class LaboratoriumAnalysManagement extends Controller
             });
         });
       });
+  }
+
+  /**
+   * Step 6 (pengambilan sampel) wajib hanya jika diambil lab.
+   * Jika is_sampling = 0 (dibawa pelanggan), step 6 tidak diperlukan.
+   */
+  private function whereStep6DoneOrNotRequired($query)
+  {
+    return $query->where(function ($q) {
+      $q->whereExists(function ($subquery) {
+        $subquery->select(DB::raw(1))
+          ->from('tb_verification_activity_samples')
+          ->whereColumn('tb_verification_activity_samples.id_sample', 'tb_samples.id_samples')
+          ->where('id_verification_activity', 6)
+          ->where('is_done', 1);
+      })->orWhere('tb_samples.is_sampling', 0)
+        ->orWhereHas('permohonanuji', function ($pq) {
+          $pq->where('is_sampling', 0);
+        });
+    });
   }
 
   /**
@@ -1167,20 +1190,16 @@ class LaboratoriumAnalysManagement extends Controller
             ->where('is_done', 1);
         });
       } elseif ($statusFilter == 'pemeriksaan') {
-        // Step 1, 6, 7 selesai, Step 2 (id_verification_activity = 2) belum selesai atau belum ada
+        // Step 1 + (6 jika sampling lab) + 7 selesai, Step 2 belum selesai atau belum ada
         $query->whereExists(function ($subquery) {
           $subquery->select(DB::raw(1))
             ->from('tb_verification_activity_samples')
             ->whereColumn('tb_verification_activity_samples.id_sample', 'tb_samples.id_samples')
             ->where('id_verification_activity', 1)
             ->where('is_done', 1);
-        })->whereExists(function ($subquery) {
-          $subquery->select(DB::raw(1))
-            ->from('tb_verification_activity_samples')
-            ->whereColumn('tb_verification_activity_samples.id_sample', 'tb_samples.id_samples')
-            ->where('id_verification_activity', 6)
-            ->where('is_done', 1);
-        })->whereExists(function ($subquery) {
+        });
+        $this->whereStep6DoneOrNotRequired($query);
+        $query->whereExists(function ($subquery) {
           $subquery->select(DB::raw(1))
             ->from('tb_verification_activity_samples')
             ->whereColumn('tb_verification_activity_samples.id_sample', 'tb_samples.id_samples')
@@ -1201,20 +1220,16 @@ class LaboratoriumAnalysManagement extends Controller
           });
         });
       } elseif ($statusFilter == 'input_hasil') {
-        // Step 1, 6, 7, 2 selesai, Step 3 (id_verification_activity = 3) belum selesai atau belum ada
+        // Step 1 + (6 jika sampling lab) + 7 + 2 selesai, Step 3 belum selesai atau belum ada
         $query->whereExists(function ($subquery) {
           $subquery->select(DB::raw(1))
             ->from('tb_verification_activity_samples')
             ->whereColumn('tb_verification_activity_samples.id_sample', 'tb_samples.id_samples')
             ->where('id_verification_activity', 1)
             ->where('is_done', 1);
-        })->whereExists(function ($subquery) {
-          $subquery->select(DB::raw(1))
-            ->from('tb_verification_activity_samples')
-            ->whereColumn('tb_verification_activity_samples.id_sample', 'tb_samples.id_samples')
-            ->where('id_verification_activity', 6)
-            ->where('is_done', 1);
-        })->whereExists(function ($subquery) {
+        });
+        $this->whereStep6DoneOrNotRequired($query);
+        $query->whereExists(function ($subquery) {
           $subquery->select(DB::raw(1))
             ->from('tb_verification_activity_samples')
             ->whereColumn('tb_verification_activity_samples.id_sample', 'tb_samples.id_samples')
@@ -1241,20 +1256,16 @@ class LaboratoriumAnalysManagement extends Controller
           });
         });
       } elseif ($statusFilter == 'verifikasi') {
-        // Step 1, 6, 7, 2, 3 selesai, Step 4 (id_verification_activity = 4) belum selesai atau belum ada
+        // Step 1 + (6 jika sampling lab) + 7 + 2 + 3 selesai, Step 4 belum selesai atau belum ada
         $query->whereExists(function ($subquery) {
           $subquery->select(DB::raw(1))
             ->from('tb_verification_activity_samples')
             ->whereColumn('tb_verification_activity_samples.id_sample', 'tb_samples.id_samples')
             ->where('id_verification_activity', 1)
             ->where('is_done', 1);
-        })->whereExists(function ($subquery) {
-          $subquery->select(DB::raw(1))
-            ->from('tb_verification_activity_samples')
-            ->whereColumn('tb_verification_activity_samples.id_sample', 'tb_samples.id_samples')
-            ->where('id_verification_activity', 6)
-            ->where('is_done', 1);
-        })->whereExists(function ($subquery) {
+        });
+        $this->whereStep6DoneOrNotRequired($query);
+        $query->whereExists(function ($subquery) {
           $subquery->select(DB::raw(1))
             ->from('tb_verification_activity_samples')
             ->whereColumn('tb_verification_activity_samples.id_sample', 'tb_samples.id_samples')
@@ -1287,20 +1298,16 @@ class LaboratoriumAnalysManagement extends Controller
           });
         });
       } elseif ($statusFilter == 'validasi') {
-        // Step 1, 6, 7, 2, 3, 4 selesai, Step 5 (id_verification_activity = 5) belum selesai atau belum ada
+        // Step 1 + (6 jika sampling lab) + 7 + 2 + 3 + 4 selesai, Step 5 belum selesai atau belum ada
         $query->whereExists(function ($subquery) {
           $subquery->select(DB::raw(1))
             ->from('tb_verification_activity_samples')
             ->whereColumn('tb_verification_activity_samples.id_sample', 'tb_samples.id_samples')
             ->where('id_verification_activity', 1)
             ->where('is_done', 1);
-        })->whereExists(function ($subquery) {
-          $subquery->select(DB::raw(1))
-            ->from('tb_verification_activity_samples')
-            ->whereColumn('tb_verification_activity_samples.id_sample', 'tb_samples.id_samples')
-            ->where('id_verification_activity', 6)
-            ->where('is_done', 1);
-        })->whereExists(function ($subquery) {
+        });
+        $this->whereStep6DoneOrNotRequired($query);
+        $query->whereExists(function ($subquery) {
           $subquery->select(DB::raw(1))
             ->from('tb_verification_activity_samples')
             ->whereColumn('tb_verification_activity_samples.id_sample', 'tb_samples.id_samples')
@@ -1339,20 +1346,16 @@ class LaboratoriumAnalysManagement extends Controller
           });
         });
       } elseif ($statusFilter == 'selesai') {
-        // Step 1, 6, 7, 2, 3, 4, 5 semua selesai
+        // Step 1 + (6 jika sampling lab) + 7 + 2 + 3 + 4 + 5 semua selesai
         $query->whereExists(function ($subquery) {
           $subquery->select(DB::raw(1))
             ->from('tb_verification_activity_samples')
             ->whereColumn('tb_verification_activity_samples.id_sample', 'tb_samples.id_samples')
             ->where('id_verification_activity', 1)
             ->where('is_done', 1);
-        })->whereExists(function ($subquery) {
-          $subquery->select(DB::raw(1))
-            ->from('tb_verification_activity_samples')
-            ->whereColumn('tb_verification_activity_samples.id_sample', 'tb_samples.id_samples')
-            ->where('id_verification_activity', 6)
-            ->where('is_done', 1);
-        })->whereExists(function ($subquery) {
+        });
+        $this->whereStep6DoneOrNotRequired($query);
+        $query->whereExists(function ($subquery) {
           $subquery->select(DB::raw(1))
             ->from('tb_verification_activity_samples')
             ->whereColumn('tb_verification_activity_samples.id_sample', 'tb_samples.id_samples')

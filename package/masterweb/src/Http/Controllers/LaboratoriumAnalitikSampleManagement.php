@@ -1574,6 +1574,22 @@ class LaboratoriumAnalitikSampleManagement extends Controller
       if ($request->has('show_kop_hasil')) {
         $sample->show_kop_hasil_baca_hasil = (int) $request->input('show_kop_hasil', 1);
       }
+      if ($request->has('column_widths_hasil') && \Illuminate\Support\Facades\Schema::hasColumn('tb_samples', 'column_widths_hasil_baca_hasil')) {
+        $incoming = $request->input('column_widths_hasil');
+        if (is_string($incoming)) {
+          $decoded = json_decode($incoming, true);
+          $incoming = is_array($decoded) ? $decoded : [];
+        }
+        if (is_array($incoming)) {
+          $profile = \Smt\Masterweb\Helpers\KesmasHasilColumnWidth::resolveProfile($sample);
+          $merged = \Smt\Masterweb\Helpers\KesmasHasilColumnWidth::mergeIncoming(
+            $sample->column_widths_hasil_baca_hasil,
+            $incoming,
+            $profile
+          );
+          $sample->column_widths_hasil_baca_hasil = \Smt\Masterweb\Helpers\KesmasHasilColumnWidth::encodeStored($merged);
+        }
+      }
 
       if ($request->has('keterangan_metode') && \Illuminate\Support\Facades\Schema::hasColumn('tb_samples', 'keterangan_metode')) {
         $sample->keterangan_metode = $request->input('keterangan_metode');
@@ -1608,7 +1624,8 @@ class LaboratoriumAnalitikSampleManagement extends Controller
       'fontsize' => 'required|numeric|min:6|max:20',
       'line_height' => 'required|numeric|min:0.5|max:3',
       'padding' => 'required|numeric|min:0|max:16',
-      'show_kop' => 'nullable|in:0,1,true,false,on,off'
+      'show_kop' => 'nullable|in:0,1,true,false,on,off',
+      'column_widths' => 'nullable',
     ]);
 
     $sample = Sample::where('tb_samples.id_samples', '=', $id)
@@ -1641,6 +1658,23 @@ class LaboratoriumAnalitikSampleManagement extends Controller
     $sample->padding_hasil_baca_hasil = (float) $validated['padding'];
     $sample->show_kop_hasil_baca_hasil = $showKop;
 
+    if ($request->has('column_widths') && \Illuminate\Support\Facades\Schema::hasColumn('tb_samples', 'column_widths_hasil_baca_hasil')) {
+      $incoming = $request->input('column_widths');
+      if (is_string($incoming)) {
+        $decoded = json_decode($incoming, true);
+        $incoming = is_array($decoded) ? $decoded : [];
+      }
+      if (is_array($incoming)) {
+        $profile = \Smt\Masterweb\Helpers\KesmasHasilColumnWidth::resolveProfile($sample);
+        $merged = \Smt\Masterweb\Helpers\KesmasHasilColumnWidth::mergeIncoming(
+          $sample->column_widths_hasil_baca_hasil,
+          $incoming,
+          $profile
+        );
+        $sample->column_widths_hasil_baca_hasil = \Smt\Masterweb\Helpers\KesmasHasilColumnWidth::encodeStored($merged);
+      }
+    }
+
     if ($request->has('keterangan_metode') && \Illuminate\Support\Facades\Schema::hasColumn('tb_samples', 'keterangan_metode')) {
       $sample->keterangan_metode = $request->input('keterangan_metode');
     }
@@ -1658,6 +1692,7 @@ class LaboratoriumAnalitikSampleManagement extends Controller
         'line_height' => $sample->line_height_hasil_baca_hasil,
         'padding' => $sample->padding_hasil_baca_hasil,
         'show_kop' => $sample->show_kop_hasil_baca_hasil,
+        'column_widths' => \Smt\Masterweb\Helpers\KesmasHasilColumnWidth::decodeStored($sample->column_widths_hasil_baca_hasil ?? null),
         'keterangan_metode' => $sample->keterangan_metode ?? '',
         'catatan_hasil' => $sample->catatan_hasil ?? '',
       ]
@@ -2286,6 +2321,22 @@ class LaboratoriumAnalitikSampleManagement extends Controller
           }
           if ($request->has('show_kop_hasil')) {
             $sample->show_kop_hasil_baca_hasil = (int) $request->input('show_kop_hasil', 1);
+          }
+          if ($request->has('column_widths_hasil') && \Illuminate\Support\Facades\Schema::hasColumn('tb_samples', 'column_widths_hasil_baca_hasil')) {
+            $incoming = $request->input('column_widths_hasil');
+            if (is_string($incoming)) {
+              $decoded = json_decode($incoming, true);
+              $incoming = is_array($decoded) ? $decoded : [];
+            }
+            if (is_array($incoming)) {
+              $profile = \Smt\Masterweb\Helpers\KesmasHasilColumnWidth::resolveProfile($sample);
+              $merged = \Smt\Masterweb\Helpers\KesmasHasilColumnWidth::mergeIncoming(
+                $sample->column_widths_hasil_baca_hasil,
+                $incoming,
+                $profile
+              );
+              $sample->column_widths_hasil_baca_hasil = \Smt\Masterweb\Helpers\KesmasHasilColumnWidth::encodeStored($merged);
+            }
           }
 
           if ($request->has('keterangan_metode') && \Illuminate\Support\Facades\Schema::hasColumn('tb_samples', 'keterangan_metode')) {

@@ -320,10 +320,17 @@
                                 <tr>
                                     <th>No.</th>
                                     <th>Pelanggan</th>
-                                    <th>Nomor Permohonan</th>
-                                    <th>Draft / Sampel</th>
-                                    <th>Status Pengajuan</th>
-                                    <th>Tanggal Registrasi</th>
+                                    @if (\Smt\Masterweb\Helpers\SampleCollectorAccess::isKesmas($userLevel ?? null))
+                                        <th>Nomor Permohonan</th>
+                                        <th>Draft / Sampel</th>
+                                        <th>Status Pengajuan</th>
+                                        <th>Tanggal Registrasi</th>
+                                    @else
+                                        <th>No. Sample</th>
+                                        <th>Jenis Sample</th>
+                                        <th>Status</th>
+                                        <th>Tanggal Kirim</th>
+                                    @endif
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -421,9 +428,9 @@
                     window.history.replaceState({}, '', url.toString());
                 }
                 
-                // Reload DataTable dengan filter baru
+                // Reload DataTable dengan filter baru (reset ke halaman 1)
                 if (table) {
-                    table.ajax.reload();
+                    table.ajax.reload(null, true);
                 }
             });
 
@@ -439,7 +446,7 @@
             var table = $('#empTable').DataTable({
                 processing: true,
                 serverSide: true,
-                stateSave: true,
+                stateSave: false,
                 responsive: true,
                 ajax: {
                     url: "{{ route('elits-analys.data-analys') }}",

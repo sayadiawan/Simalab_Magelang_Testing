@@ -911,7 +911,8 @@ class LaboratoriumPengesahanHasilManagement extends Controller
       'fontsize' => 'required|numeric|min:6|max:20',
       'line_height' => 'required|numeric|min:0.5|max:3',
       'padding' => 'required|numeric|min:0|max:16',
-      'show_kop' => 'nullable|in:0,1,true,false,on,off'
+      'show_kop' => 'nullable|in:0,1,true,false,on,off',
+      'column_widths' => 'nullable',
     ]);
 
     $sample = Sample::where('tb_samples.id_samples', '=', $id)
@@ -943,6 +944,24 @@ class LaboratoriumPengesahanHasilManagement extends Controller
     $sample->line_height_hasil_baca_hasil = (float) $validated['line_height'];
     $sample->padding_hasil_baca_hasil = (float) $validated['padding'];
     $sample->show_kop_hasil_baca_hasil = $showKop;
+
+    if ($request->has('column_widths') && \Illuminate\Support\Facades\Schema::hasColumn('tb_samples', 'column_widths_hasil_baca_hasil')) {
+      $incoming = $request->input('column_widths');
+      if (is_string($incoming)) {
+        $decoded = json_decode($incoming, true);
+        $incoming = is_array($decoded) ? $decoded : [];
+      }
+      if (is_array($incoming)) {
+        $profile = \Smt\Masterweb\Helpers\KesmasHasilColumnWidth::resolveProfile($sample);
+        $merged = \Smt\Masterweb\Helpers\KesmasHasilColumnWidth::mergeIncoming(
+          $sample->column_widths_hasil_baca_hasil,
+          $incoming,
+          $profile
+        );
+        $sample->column_widths_hasil_baca_hasil = \Smt\Masterweb\Helpers\KesmasHasilColumnWidth::encodeStored($merged);
+      }
+    }
+
     $sample->save();
 
     return response()->json([
@@ -952,7 +971,8 @@ class LaboratoriumPengesahanHasilManagement extends Controller
         'fontsize' => $sample->fontsize_hasil_baca_hasil,
         'line_height' => $sample->line_height_hasil_baca_hasil,
         'padding' => $sample->padding_hasil_baca_hasil,
-        'show_kop' => $sample->show_kop_hasil_baca_hasil
+        'show_kop' => $sample->show_kop_hasil_baca_hasil,
+        'column_widths' => \Smt\Masterweb\Helpers\KesmasHasilColumnWidth::decodeStored($sample->column_widths_hasil_baca_hasil ?? null),
       ]
     ]);
   }

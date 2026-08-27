@@ -364,6 +364,14 @@
                         </small>
                     </div>
 
+                    @php
+                        $kesmasColWidthUi = \Smt\Masterweb\Helpers\KesmasHasilColumnWidth::uiPayload($sample ?? null);
+                    @endphp
+                    @include('masterweb::module.admin.laboratorium.analitik.baca-hasil.partials.pengaturan-column-widths', [
+                        'sample' => $sample ?? null,
+                        'kesmasColWidthUi' => $kesmasColWidthUi,
+                    ])
+
                     <div class="card border-0 bg-light p-3 mb-3">
                         <label class="font-weight-bold mb-2">
                             <i class="fa fa-file-alt mr-1"></i>Kop Surat
@@ -403,6 +411,7 @@
 @endsection
 
 @section('scripts')
+    @include('masterweb::module.admin.laboratorium.analitik.baca-hasil.partials.pengaturan-column-widths-script')
     <script>
         var basePreviewUrl = {!! json_encode($previewUrl) !!};
         var saveSettingUrl = {!! json_encode(route('elits-laporan-hasil.save-fontsize-hasil', [$sample->id_samples, $sample->id_laboratorium])) !!};
@@ -413,6 +422,17 @@
         var currentPadding = parseFloat({{ json_encode((float) $defaultPaddingHasil) }}) || 1;
         var currentShowKop = {{ (int) $defaultShowKopHasil }} ? 1 : 0;
 
+        function getColumnWidthsPayload() {
+            if (window.KesmasColWidths && typeof window.KesmasColWidths.collect === 'function') {
+                return window.KesmasColWidths.collect();
+            }
+            try {
+                return JSON.parse($('#column_widths_hasil_hidden').val() || '{}');
+            } catch (e) {
+                return {};
+            }
+        }
+
         function buildPreviewUrl() {
             var sep = basePreviewUrl.indexOf('?') !== -1 ? '&' : '?';
             return basePreviewUrl + sep +
@@ -422,6 +442,7 @@
                 '&line_height=' + encodeURIComponent(currentLineHeight) +
                 '&padding=' + encodeURIComponent(currentPadding) +
                 '&show_kop=' + encodeURIComponent(currentShowKop) +
+                '&column_widths=' + encodeURIComponent(JSON.stringify(getColumnWidthsPayload())) +
                 '&t=' + Date.now();
         }
 
@@ -568,7 +589,8 @@
                         fontsize: currentFontsize,
                         line_height: currentLineHeight,
                         padding: currentPadding,
-                        show_kop: currentShowKop
+                        show_kop: currentShowKop,
+                        column_widths: JSON.stringify(getColumnWidthsPayload())
                     },
                     success: function(response) {
                         if (response && response.status) {
