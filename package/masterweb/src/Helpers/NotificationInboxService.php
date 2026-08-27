@@ -150,6 +150,12 @@ class NotificationInboxService
             $this->syncKlinikSamplePickup($user, $level, $since);
         }
 
+        // 1b. Pengambilan Sampel Kesmas (SOLM, SOLAB, KSKM, ADMN, admin, elits-dev, ALAB kesmas)
+        if (in_array($level, ['SOLM', 'SOLAB', 'KSKM', 'ADMN', 'admin', 'elits-dev'], true)
+            || (in_array($level, ['ALAB'], true) && (!$userKodeLab || in_array($userKodeLab, ['KIM', 'KMA', 'FKA', 'MBI'], true)))) {
+            $this->syncKesmasSamplePickup($user, $level, $since, $userKodeLab);
+        }
+
         // 2. Penerimaan Sampel Klinik (ANLS, ALAB klinik/umum, PLAB, KSKL, ADMN, LAB, admin, elits-dev)
         if (in_array($level, ['ANLS', 'ALAB', 'PLAB', 'KSKL', 'ADMN', 'admin', 'elits-dev', 'LAB'], true)) {
             if (!$userKodeLab || $userKodeLab === 'KLI' || in_array($level, ['KSKL', 'ADMN', 'admin', 'elits-dev', 'PLAB', 'LAB'], true)) {
@@ -315,6 +321,68 @@ class NotificationInboxService
         }
     }
 
+    private function syncKesmasSamplePickup(User $user, string $level, Carbon $since, ?string $userKodeLab): void
+    {
+        $query = Sample::query()
+            ->with(['permohonanuji.customer', 'samplemethod.laboratorium'])
+            ->whereNull('deleted_at')
+            ->where('created_at', '>=', $since)
+            ->where(function ($q) {
+                $q->where('tb_samples.is_sampling', 1)
+                    ->orWhere(function ($sub) {
+                        $sub->whereNull('tb_samples.is_sampling')
+                            ->whereHas('permohonanuji', function ($pq) {
+                                $pq->where('is_sampling', 1)->orWhereNull('is_sampling');
+                            });
+                    });
+            })
+            ->orderByDesc('created_at')
+            ->limit(self::SYNC_CANDIDATE_LIMIT);
+
+        if ($userKodeLab && in_array($userKodeLab, ['KIM', 'KMA', 'FKA', 'MBI'], true)) {
+            $query->whereHas('samplemethod.laboratorium', function ($q) use ($userKodeLab) {
+                $q->where('kode_laboratorium', $userKodeLab);
+            });
+        }
+
+        $samples = $query->get();
+
+        foreach ($samples as $sample) {
+            if (!$this->kesmasNeedsSamplePickup($sample->id_samples)) {
+                continue;
+            }
+
+            $customer = optional(optional($sample->permohonanuji)->customer)->name_customer ?: '-';
+            $code = $sample->codesample_samples ?: '-';
+
+            $firstLab = optional($sample->samplemethod->first())->laboratorium;
+            $labName = $firstLab ? $firstLab->nama_laboratorium : 'Kesmas';
+            $labId = $firstLab ? $firstLab->id_laboratorium : '';
+
+            $targetUrl = $labId
+                ? url('elits-samples/verification-2/' . $sample->id_samples . '/' . $labId)
+                : url('elits-analys?status_filter=pengambilan_sample');
+
+            $this->ensureNotification($user, [
+                'role_level' => $level,
+                'type' => 'kesmas_sample_pickup',
+                'reference_type' => 'sample',
+                'reference_id' => (string) $sample->id_samples,
+                'title' => 'Sampel Kesmas baru menunggu diambil (' . $labName . ')',
+                'message' => 'Kode ' . $code . ' · ' . $customer,
+                'url' => $targetUrl,
+                'icon' => 'fa-vial',
+                'color' => 'info',
+                'meta' => [
+                    'codesample' => $code,
+                    'customer' => $customer,
+                    'laboratorium' => $labName,
+                ],
+                'created_at' => $sample->created_at ?: now(),
+            ]);
+        }
+    }
+
     private function syncKesmasSampleReceipt(User $user, string $level, Carbon $since, ?string $userKodeLab): void
     {
         $query = Sample::query()
@@ -356,7 +424,7 @@ class NotificationInboxService
                 'title' => 'Sampel Kesmas siap diterima (' . $labName . ')',
                 'message' => 'Kode ' . $code . ' · ' . $customer,
                 'url' => $targetUrl,
-                'icon' => 'fa-vial',
+                'icon' => 'fa-inbox',
                 'color' => 'warning',
                 'meta' => [
                     'codesample' => $code,
@@ -434,12 +502,16 @@ class NotificationInboxService
                 ? url('bendahara/pembayaran-pemeriksaan')
                 : url('elits-permohonan-uji');
 
+            $title = in_array($level, ['BNDR', 'ADMN'], true)
+                ? 'Pendaftaran Kesmas: Terbitkan Nota'
+                : 'Pendaftaran Kesmas belum lunas';
+
             $this->ensureNotification($user, [
                 'role_level' => $level,
                 'type' => 'kesmas_unpaid',
                 'reference_type' => 'permohonan_uji',
                 'reference_id' => (string) $row->id_permohonan_uji,
-                'title' => 'Pendaftaran Kesmas belum lunas',
+                'title' => $title,
                 'message' => $kode . ' · ' . $nama,
                 'url' => $url,
                 'icon' => 'fa-file-invoice-dollar',
@@ -477,6 +549,8 @@ class NotificationInboxService
                     || !$this->klinikNeedsAnalystAttention($n->reference_id);
             } elseif ($n->type === 'klinik_sample_pickup' && $n->reference_id) {
                 $resolved = !$this->klinikNeedsSamplePickup($n->reference_id);
+            } elseif ($n->type === 'kesmas_sample_pickup' && $n->reference_id) {
+                $resolved = !$this->kesmasNeedsSamplePickup($n->reference_id);
             } elseif ($n->type === 'klinik_sample_receipt' && $n->reference_id) {
                 $resolved = !$this->klinikNeedsSampleReceipt($n->reference_id);
             } elseif ($n->type === 'kesmas_sample_receipt' && $n->reference_id) {
@@ -571,6 +645,39 @@ class NotificationInboxService
         return $step1Done && !$step6Done && !$subsequentDone && !$isSelesai;
     }
 
+    private function kesmasNeedsSamplePickup(string $idSample): bool
+    {
+        $sample = \DB::table('tb_samples')
+            ->leftJoin('tb_permohonan_uji', 'tb_permohonan_uji.id_permohonan_uji', '=', 'tb_samples.permohonan_uji_id')
+            ->where('tb_samples.id_samples', $idSample)
+            ->whereNull('tb_samples.deleted_at')
+            ->select('tb_samples.is_sampling as sample_is_sampling', 'tb_permohonan_uji.is_sampling as permohonan_is_sampling')
+            ->first();
+
+        if (!$sample) {
+            return false;
+        }
+
+        $isSampling = $sample->sample_is_sampling !== null ? (int) $sample->sample_is_sampling : (int) ($sample->permohonan_is_sampling ?? 1);
+        if ($isSampling !== 1) {
+            return false;
+        }
+
+        $step6Done = \DB::table('tb_verification_activity_samples')
+            ->where('id_sample', $idSample)
+            ->where('id_verification_activity', 6)
+            ->where('is_done', 1)
+            ->exists();
+
+        $subsequentDone = \DB::table('tb_verification_activity_samples')
+            ->where('id_sample', $idSample)
+            ->whereIn('id_verification_activity', [7, 2, 3, 4, 5])
+            ->where('is_done', 1)
+            ->exists();
+
+        return !$step6Done && !$subsequentDone;
+    }
+
     private function klinikNeedsSampleReceipt(string $id): bool
     {
         $step6Done = \DB::table('tb_verification_activity_samples')
@@ -599,23 +706,46 @@ class NotificationInboxService
 
     private function kesmasNeedsSampleReceipt(string $idSample): bool
     {
+        $sample = \DB::table('tb_samples')
+            ->leftJoin('tb_permohonan_uji', 'tb_permohonan_uji.id_permohonan_uji', '=', 'tb_samples.permohonan_uji_id')
+            ->where('tb_samples.id_samples', $idSample)
+            ->whereNull('tb_samples.deleted_at')
+            ->select('tb_samples.is_sampling as sample_is_sampling', 'tb_permohonan_uji.is_sampling as permohonan_is_sampling')
+            ->first();
+
+        if (!$sample) {
+            return false;
+        }
+
+        $isSampling = $sample->sample_is_sampling !== null ? (int) $sample->sample_is_sampling : (int) ($sample->permohonan_is_sampling ?? 1);
+
         $step6Done = \DB::table('tb_verification_activity_samples')
             ->where('id_sample', $idSample)
             ->where('id_verification_activity', 6)
             ->where('is_done', 1)
             ->exists();
+
         $step7Done = \DB::table('tb_verification_activity_samples')
             ->where('id_sample', $idSample)
             ->where('id_verification_activity', 7)
             ->where('is_done', 1)
             ->exists();
+
         $subsequentDone = \DB::table('tb_verification_activity_samples')
             ->where('id_sample', $idSample)
             ->whereIn('id_verification_activity', [2, 3, 4, 5])
             ->where('is_done', 1)
             ->exists();
 
-        return $step6Done && !$step7Done && !$subsequentDone;
+        if ($subsequentDone || $step7Done) {
+            return false;
+        }
+
+        if ($isSampling === 1) {
+            return $step6Done;
+        }
+
+        return true;
     }
 
     /**

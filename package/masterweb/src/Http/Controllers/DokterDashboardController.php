@@ -91,7 +91,7 @@ class DokterDashboardController extends Controller
         }
 
         $wilayahOptions = $this->getWilayahOptions($tipeWilayah);
-
+        
         $parameterSatuans = ParameterSatuanKlinik::whereNull('deleted_at')
             ->orderBy('name_parameter_satuan_klinik', 'ASC')
             ->get(['id_parameter_satuan_klinik', 'name_parameter_satuan_klinik']);
@@ -117,7 +117,7 @@ class DokterDashboardController extends Controller
         $filterGender = $this->filterGender;
         $filterUmurMin = $this->filterUmurMin;
         $filterUmurMax = $this->filterUmurMax;
-
+        
         return view('masterweb::module.dokter.dashboard', compact(
             'tipeWilayah',
             'wilayahId',
@@ -150,23 +150,23 @@ class DokterDashboardController extends Controller
                 ->get(['id_wilayah', 'wilayah', 'wilayah_kode', 'tipe']);
         }
 
-        if ($tipeWilayah === 'DESA') {
-            return Wilayah::where('tipe', 'DESA')
-                ->where('wilayah_kode', 'LIKE', '3308%')
-                ->orderBy('wilayah', 'ASC')
+            if ($tipeWilayah === 'DESA') {
+                return Wilayah::where('tipe', 'DESA')
+                    ->where('wilayah_kode', 'LIKE', '3308%')
+                    ->orderBy('wilayah', 'ASC')
                 ->get(['id_wilayah', 'wilayah', 'wilayah_kode', 'tipe']);
         }
 
         if ($tipeWilayah === 'DUSUN') {
-            return Wilayah::where('tipe', 'DUSUN')
-                ->where('wilayah_kode', 'LIKE', '3308%')
-                ->orderBy('wilayah', 'ASC')
+                return Wilayah::where('tipe', 'DUSUN')
+                    ->where('wilayah_kode', 'LIKE', '3308%')
+                    ->orderBy('wilayah', 'ASC')
                 ->get(['id_wilayah', 'wilayah', 'wilayah_kode', 'tipe']);
         }
 
-        return Wilayah::where('tipe', 'KEC')
-            ->where('wilayah_kode', 'LIKE', '3308%')
-            ->orderBy('wilayah', 'ASC')
+                return Wilayah::where('tipe', 'KEC')
+                    ->where('wilayah_kode', 'LIKE', '3308%')
+                    ->orderBy('wilayah', 'ASC')
             ->get(['id_wilayah', 'wilayah', 'wilayah_kode', 'tipe']);
     }
 
@@ -432,7 +432,7 @@ class DokterDashboardController extends Controller
             return true;
         }
 
-        if ($tipeWilayah === 'DESA' || $tipeWilayah === 'DUSUN') {
+                    if ($tipeWilayah === 'DESA' || $tipeWilayah === 'DUSUN') {
             return (string) $resolved['id'] === (string) $wilayahId
                 || strpos($kode, (string) $filter->wilayah_kode) === 0;
         }
@@ -668,7 +668,7 @@ class DokterDashboardController extends Controller
                 'parameter_stats' => [],
             ];
         }
-
+        
         $query = PermohonanUjiParameterKlinik::query()
             ->join('tb_permohonan_uji_klinik_2', 'tb_permohonan_uji_parameter_klinik.permohonan_uji_klinik', '=', 'tb_permohonan_uji_klinik_2.id_permohonan_uji_klinik')
             ->join('ms_pasien', 'tb_permohonan_uji_klinik_2.pasien_permohonan_uji_klinik', '=', 'ms_pasien.id_pasien')
@@ -678,7 +678,7 @@ class DokterDashboardController extends Controller
             ->where('tb_permohonan_uji_parameter_klinik.hasil_permohonan_uji_parameter_klinik', '!=', '-')
             ->whereNull('tb_permohonan_uji_parameter_klinik.deleted_at')
             ->whereNull('tb_permohonan_uji_klinik_2.deleted_at');
-
+        
         $query = $this->applyParameterFilter($query, $parameterIds ?: [], $tipeParameter);
         $query = $this->applyPasienDemografiFilter($query);
 
@@ -700,7 +700,7 @@ class DokterDashboardController extends Controller
         $parameterBuckets = [];
         $allResultsNumeric = [];
         $totalAbnormalCount = 0;
-
+        
         foreach ($results as $result) {
             $hasil = $result->hasil_permohonan_uji_parameter_klinik;
             $parameterId = $result->parameter_satuan_klinik;
@@ -711,8 +711,8 @@ class DokterDashboardController extends Controller
                 continue;
             }
 
-            $allResultsNumeric[] = $hasilNumeric;
-
+                $allResultsNumeric[] = $hasilNumeric;
+                
             if (!isset($parameterBuckets[$parameterId])) {
                 $parameterBuckets[$parameterId] = [
                     'parameter_name' => $result->name_parameter_satuan_klinik ?? ('Parameter #' . $parameterId),
@@ -749,14 +749,14 @@ class DokterDashboardController extends Controller
             }
 
             $abnormalCount = $bucket['below'] + $bucket['above'] + $bucket['other_abnormal'];
-            $parameterStats[] = [
-                'parameter_id' => $parameterId,
+                $parameterStats[] = [
+                    'parameter_id' => $parameterId,
                 'parameter_name' => $bucket['parameter_name'],
                 'number_format' => $bucket['number_format'],
                 'below_count' => $bucket['below'],
                 'above_count' => $bucket['above'],
                 'other_abnormal_count' => $bucket['other_abnormal'],
-                'abnormal_count' => $abnormalCount,
+                    'abnormal_count' => $abnormalCount,
                 'normal_count' => $bucket['normal'],
                 'abnormal_percentage' => round(($abnormalCount / $bucket['total']) * 100, 2),
                 'normal_percentage' => round(($bucket['normal'] / $bucket['total']) * 100, 2),
@@ -773,7 +773,7 @@ class DokterDashboardController extends Controller
             }
             return strcmp($a['parameter_name'], $b['parameter_name']);
         });
-
+        
         $totalResults = count($allResultsNumeric);
         $totalNormalCount = max(0, $totalResults - $totalAbnormalCount);
         $overallAbnormalPercentage = $totalResults > 0
@@ -903,8 +903,8 @@ class DokterDashboardController extends Controller
             }
         }
 
-        return true;
-    }
+                return true;
+            }
 
     /**
      * Bangun objek baku mutu dari snapshot kolom di hasil (jika ada & terisi).
@@ -1034,7 +1034,7 @@ class DokterDashboardController extends Controller
         if (empty($latestPermohonanIds)) {
             return [];
         }
-
+        
         $query = PermohonanUjiParameterKlinik::query()
             ->join('tb_permohonan_uji_klinik_2', 'tb_permohonan_uji_parameter_klinik.permohonan_uji_klinik', '=', 'tb_permohonan_uji_klinik_2.id_permohonan_uji_klinik')
             ->join('ms_pasien', 'tb_permohonan_uji_klinik_2.pasien_permohonan_uji_klinik', '=', 'ms_pasien.id_pasien')
@@ -1045,7 +1045,7 @@ class DokterDashboardController extends Controller
             ->where('tb_permohonan_uji_parameter_klinik.hasil_permohonan_uji_parameter_klinik', '!=', '-')
             ->whereNull('tb_permohonan_uji_parameter_klinik.deleted_at')
             ->whereNull('tb_permohonan_uji_klinik_2.deleted_at');
-
+        
         $query = $this->applyParameterFilter($query, $parameterIds ?: [], $tipeParameter);
         $query = $this->applyPasienDemografiFilter($query);
 
@@ -1162,7 +1162,7 @@ class DokterDashboardController extends Controller
                 : 0;
 
             $coordinates = $this->getWilayahCoordinates($wilayah['nama'], $wilayah['kode'], $wilayah['tipe']);
-
+            
             $mapData[] = [
                 'id' => $wilayah['id'],
                 'nama' => $wilayah['nama'],
@@ -1326,7 +1326,7 @@ class DokterDashboardController extends Controller
                 'labels' => [],
             ];
         }
-
+        
         $query = PermohonanUjiParameterKlinik::query()
             ->join('tb_permohonan_uji_klinik_2', 'tb_permohonan_uji_parameter_klinik.permohonan_uji_klinik', '=', 'tb_permohonan_uji_klinik_2.id_permohonan_uji_klinik')
             ->join('ms_pasien', 'tb_permohonan_uji_klinik_2.pasien_permohonan_uji_klinik', '=', 'ms_pasien.id_pasien')
@@ -1336,7 +1336,7 @@ class DokterDashboardController extends Controller
             ->where('tb_permohonan_uji_parameter_klinik.hasil_permohonan_uji_parameter_klinik', '!=', '-')
             ->whereNull('tb_permohonan_uji_parameter_klinik.deleted_at')
             ->whereNull('tb_permohonan_uji_klinik_2.deleted_at');
-
+        
         $query = $this->applyParameterFilter($query, $parameterIds ?: [], $tipeParameter);
         $query = $this->applyPasienDemografiFilter($query);
 
@@ -1356,8 +1356,8 @@ class DokterDashboardController extends Controller
             if ($this->parseNumericValue($result->hasil_permohonan_uji_parameter_klinik, $format) === null) {
                 continue;
             }
-            $parameterName = $result->name_parameter_satuan_klinik;
-            if (!isset($parameterGroups[$parameterName])) {
+                $parameterName = $result->name_parameter_satuan_klinik;
+                if (!isset($parameterGroups[$parameterName])) {
                 $parameterGroups[$parameterName] = [
                     'abnormal_count' => 0,
                     'below_count' => 0,
@@ -1471,7 +1471,7 @@ class DokterDashboardController extends Controller
 
         foreach (array_unique($candidates) as $code) {
             if (isset($byCode[$code]) && is_array($byCode[$code]) && count($byCode[$code]) >= 2) {
-                return [
+                            return [
                     'lat' => (float) $byCode[$code][0],
                     'lng' => (float) $byCode[$code][1],
                 ];
@@ -1495,7 +1495,7 @@ class DokterDashboardController extends Controller
                 $key = $nameKey . '|' . $suffix;
                 if (isset($byName[$key], $byCode[$byName[$key]])) {
                     $pair = $byCode[$byName[$key]];
-                    return [
+        return [
                         'lat' => (float) $pair[0],
                         'lng' => (float) $pair[1],
                     ];
@@ -1554,7 +1554,7 @@ class DokterDashboardController extends Controller
     {
         $tipeWilayah = $request->get('tipe_wilayah', 'KEC');
         $wilayahOptions = $this->getWilayahOptions($tipeWilayah);
-
+        
         return response()->json([
             'success' => true,
             'data' => $wilayahOptions->map(function ($wilayah) {
