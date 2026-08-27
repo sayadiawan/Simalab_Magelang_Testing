@@ -763,7 +763,7 @@
         <button type="button" class="btn btn-success mr-2 btn-selesai-sample" id="btnSelesaiForm"><i
                 class="fa fa-check-circle mr-1"></i> Selesai</button>
         <button type="button" class="btn btn-light"
-            onclick="document.location='{{ url('/elits-permohonan-uji-klinik-2/verification/' . $item_permohonan_uji_klinik->id_permohonan_uji_klinik) }}'">
+            onclick="document.location='{{ request()->get('return_to', url('/elits-permohonan-uji-klinik/verifikasi/lists?status_filter=pengambilan_sample')) }}'">
             <i class="fa fa-arrow-left mr-1"></i> Kembali
         </button>
     </div>
@@ -1441,7 +1441,7 @@
                                 })
                                 .then(function() {
                                     document.location =
-                                        '/elits-permohonan-uji-klinik-2/verification/{{ $item_permohonan_uji_klinik->id_permohonan_uji_klinik }}';
+                                        '{{ request()->get('return_to', url('/elits-permohonan-uji-klinik/verifikasi/lists?status_filter=pengambilan_sample')) }}';
                                 });
                         } else {
                             var pesan = "";

@@ -801,37 +801,37 @@ class LaboratoriumAnalysManagement extends Controller
       $step5NotDone = isset($activities[5]) && $activities[5] == 0;
       $step5Exists = isset($activities[5]);
       
-      // Urutan pengecekan dari yang paling akhir ke yang paling awal (urutan: 1-6-7-2-3-4-5)
-      // Selesai: Step 1, 6, 7, 2, 3, 4, 5 semua selesai
-      if ($step1Done && $step6Done && $step7Done && $step2Done && $step3Done && $step4Done && $step5Done) {
+      // Urutan pengecekan hierarki dari tahap akhir ke awal
+      // Selesai: Step 5 sudah selesai
+      if ($step5Done) {
         $stats['selesai']++;
       }
-      // Validasi: Step 1, 6, 7, 2, 3, 4 selesai, Step 5 belum selesai atau belum ada
-      elseif ($step1Done && $step6Done && $step7Done && $step2Done && $step3Done && $step4Done && (!$step5Done || !$step5Exists)) {
+      // Validasi: Step 4 sudah selesai, Step 5 belum selesai
+      elseif ($step4Done) {
         $stats['validasi']++;
       }
-      // Verifikasi: Step 1, 6, 7, 2, 3 selesai, Step 4 belum selesai atau belum ada
-      elseif ($step1Done && $step6Done && $step7Done && $step2Done && $step3Done && (!$step4Done || !$step4Exists)) {
+      // Verifikasi: Step 3 sudah selesai, Step 4 belum selesai
+      elseif ($step3Done) {
         $stats['verifikasi']++;
       }
-      // Input Hasil: Step 1, 6, 7, 2 selesai, Step 3 belum selesai atau belum ada
-      elseif ($step1Done && $step6Done && $step7Done && $step2Done && (!$step3Done || !$step3Exists)) {
+      // Input Hasil: Step 2 sudah selesai, Step 3 belum selesai
+      elseif ($step2Done) {
         $stats['input_hasil']++;
       }
-      // Pemeriksaan: Step 1, 6, 7 selesai, Step 2 belum selesai atau belum ada
-      elseif ($step1Done && $step6Done && $step7Done && (!$step2Done || !$step2Exists)) {
+      // Pemeriksaan: Step 7 sudah selesai, Step 2 belum selesai
+      elseif ($step7Done) {
         $stats['pemeriksaan']++;
       }
-      // Penerimaan Sample: Step 1, 6 selesai, Step 7 belum selesai atau belum ada
-      elseif ($step1Done && $step6Done && (!$step7Done || !$step7Exists)) {
+      // Penerimaan Sample: Step 6 sudah selesai, Step 7 belum selesai
+      elseif ($step6Done) {
         $stats['penerimaan_sample']++;
       }
-      // Pengambilan Sample: Step 1 selesai, Step 6 belum selesai atau belum ada (optional)
-      elseif ($step1Done && (!$step6Done || !$step6Exists)) {
+      // Pengambilan Sample: Step 1 selesai, Step 6 belum selesai, dan belum ada step lanjutan
+      elseif ($step1Done) {
         $stats['pengambilan_sample']++;
       }
       // Belum Pemeriksaan: Step 1 belum selesai atau belum ada
-      if (!$step1Done) {
+      else {
         $stats['belum_pemeriksaan']++;
       }
     }
@@ -900,26 +900,25 @@ class LaboratoriumAnalysManagement extends Controller
           });
         });
       } elseif ($statusFilter == 'pengambilan_sample') {
-        // Step 1 selesai, Step 6 (id_verification_activity = 6) belum selesai atau belum ada
+        // Step 1 selesai, Step 6 (id_verification_activity = 6) belum selesai, dan belum ada step 7, 2, 3, 4, 5
         $query->whereExists(function ($subquery) {
           $subquery->select(DB::raw(1))
             ->from('tb_verification_activity_samples')
             ->whereColumn('tb_verification_activity_samples.id_sample', 'tb_samples.id_samples')
             ->where('id_verification_activity', 1)
             ->where('is_done', 1);
-        })->where(function ($q) {
-          $q->whereNotExists(function ($subquery) {
-            $subquery->select(DB::raw(1))
-              ->from('tb_verification_activity_samples')
-              ->whereColumn('tb_verification_activity_samples.id_sample', 'tb_samples.id_samples')
-              ->where('id_verification_activity', 6);
-          })->orWhereExists(function ($subquery) {
-            $subquery->select(DB::raw(1))
-              ->from('tb_verification_activity_samples')
-              ->whereColumn('tb_verification_activity_samples.id_sample', 'tb_samples.id_samples')
-              ->where('id_verification_activity', 6)
-              ->where('is_done', 0);
-          });
+        })->whereNotExists(function ($subquery) {
+          $subquery->select(DB::raw(1))
+            ->from('tb_verification_activity_samples')
+            ->whereColumn('tb_verification_activity_samples.id_sample', 'tb_samples.id_samples')
+            ->where('id_verification_activity', 6)
+            ->where('is_done', 1);
+        })->whereNotExists(function ($subquery) {
+          $subquery->select(DB::raw(1))
+            ->from('tb_verification_activity_samples')
+            ->whereColumn('tb_verification_activity_samples.id_sample', 'tb_samples.id_samples')
+            ->whereIn('id_verification_activity', [7, 2, 3, 4, 5])
+            ->where('is_done', 1);
         });
       } elseif ($statusFilter == 'penerimaan_sample') {
         // Step 1, 6 selesai, Step 7 (id_verification_activity = 7) belum selesai atau belum ada

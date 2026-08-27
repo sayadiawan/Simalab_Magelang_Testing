@@ -751,8 +751,8 @@ class LaboratoriumPermohonanUjiKlinikManagement2 extends Controller
       });
 
 
-    // Hitung statistik per step dengan urutan 1-6-7-2-3-4-5
-    // Setiap tab menghitung permohonan yang berada di posisi tersebut
+    // Hitung statistik per step dengan urutan hierarki dari tahap akhir ke awal (5-4-3-2-7-6-1)
+    // Setiap permohonan berada tepat di satu posisi aktif
     foreach ($permohonanIds as $id) {
       $activities = $verificationActivities->get($id, []);
 
@@ -765,71 +765,43 @@ class LaboratoriumPermohonanUjiKlinikManagement2 extends Controller
       }
       // Cek status setiap step (1 = sudah done, 0 = belum done, null = belum ada)
       $step1Done = isset($activities[1]) && $activities[1] == 1;
-      $step1NotDone = isset($activities[1]) && $activities[1] == 0;
-      $step1Exists = isset($activities[1]);
-      
       $step6Done = isset($activities[6]) && $activities[6] == 1;
-      $step6NotDone = isset($activities[6]) && $activities[6] == 0;
-      $step6Exists = isset($activities[6]);
-      
       $step7Done = isset($activities[7]) && $activities[7] == 1;
-      $step7NotDone = isset($activities[7]) && $activities[7] == 0;
-      $step7Exists = isset($activities[7]);
-      
       $step2Done = isset($activities[2]) && $activities[2] == 1;
-      $step2NotDone = isset($activities[2]) && $activities[2] == 0;
-      $step2Exists = isset($activities[2]);
-      
       $step3Done = isset($activities[3]) && $activities[3] == 1;
-      $step3NotDone = isset($activities[3]) && $activities[3] == 0;
-      $step3Exists = isset($activities[3]);
-
       $step4Done = isset($activities[4]) && $activities[4] == 1;
-      $step4NotDone = isset($activities[4]) && $activities[4] == 0;
-      $step4Exists = isset($activities[4]);
-      
       $step5Done = isset($activities[5]) && $activities[5] == 1;
-      $step5NotDone = isset($activities[5]) && $activities[5] == 0;
-      $step5Exists = isset($activities[5]);
-      
-      
-      // Urutan pengecekan dari yang paling akhir ke yang paling awal (urutan: 1-6-7-2-3-4-5)
-      // Selesai: Step 1, 6, 7, 2, 3, 4, 5 semua selesai
-      if ($step1Done && $step6Done && $step7Done && $step2Done && $step3Done && $step4Done && $step5Done) {
+
+      // 1. Selesai: Step 5 sudah selesai
+      if ($step5Done) {
         $stats['selesai']++;
       }
-      // Validasi: Step 1, 6, 7, 2, 3, 4 selesai, Step 5 belum selesai atau belum ada
-      elseif ($step1Done && $step6Done && $step7Done && $step2Done && $step3Done && $step4Done && (!$step5Done || !$step5Exists)) {
+      // 2. Validasi: Step 4 sudah selesai, Step 5 belum selesai
+      elseif ($step4Done) {
         $stats['validasi']++;
       }
-      // Verifikasi: Step 1, 6, 7, 2, 3 selesai, Step 4 belum selesai atau belum ada
-      elseif ($step1Done && $step6Done && $step7Done && $step2Done && $step3Done && (!$step4Done || !$step4Exists)) {
+      // 3. Verifikasi: Step 3 sudah selesai, Step 4 belum selesai
+      elseif ($step3Done) {
         $stats['verifikasi']++;
       }
-      // Input Hasil: Step 1, 6, 7, 2 selesai, Step 3 belum selesai atau belum ada
-      elseif ($step1Done && $step6Done && $step7Done && $step2Done && (!$step3Done || !$step3Exists)) {
+      // 4. Input Hasil: Step 2 sudah selesai, Step 3 belum selesai
+      elseif ($step2Done) {
         $stats['input_hasil']++;
-
       }
-      // Pemeriksaan: Step 1, 6, 7 selesai, Step 2 belum selesai atau belum ada
-      // Pastikan step 2 benar-benar belum ada atau belum selesai
-      // Dan pastikan step 3, 4, 5 belum ada (karena jika sudah ada, berarti sudah melewati step 2)
-      elseif ($step1Done && $step6Done && $step7Done && (!$step2Done || !$step2Exists)) {
-        // Jika step 3, 4, atau 5 sudah ada, berarti sudah melewati step 2, jadi tidak masuk kategori "Pemeriksaan"
-        if (!$step3Exists && !$step4Exists && !$step5Exists) {
-          $stats['pemeriksaan']++;
-        }
+      // 5. Pemeriksaan: Step 7 sudah selesai, Step 2 belum selesai
+      elseif ($step7Done) {
+        $stats['pemeriksaan']++;
       }
-      // Penerimaan Sample: Step 1, 6 selesai, Step 7 belum selesai atau belum ada
-      elseif ($step1Done && $step6Done && (!$step7Done || !$step7Exists)) {
+      // 6. Penerimaan Sample: Step 6 sudah selesai, Step 7 belum selesai
+      elseif ($step6Done) {
         $stats['penerimaan_sample']++;
       }
-      // Pengambilan Sample: Step 1 selesai, Step 6 belum selesai atau belum ada
-      elseif ($step1Done && (!$step6Done || !$step6Exists)) {
+      // 7. Pengambilan Sample: Step 1 sudah selesai, Step 6 belum selesai, dan belum ada step lanjutan
+      elseif ($step1Done) {
         $stats['pengambilan_sample']++;
       }
-      // Belum Pemeriksaan: Step 1 belum selesai atau belum ada (dan sudah punya parameter)
-      elseif (!$step1Done || !$step1Exists) {
+      // 8. Belum Pemeriksaan: Step 1 belum selesai atau belum ada
+      else {
         $stats['belum_pemeriksaan']++;
       }
     }
@@ -1370,7 +1342,8 @@ class LaboratoriumPermohonanUjiKlinikManagement2 extends Controller
           ->orWhere('done_register', false);
         });
       } elseif ($statusFilter == 'pengambilan_sample') {
-        // Step 1 selesai, Step 6 (id_verification_activity = 6) belum selesai atau belum ada
+        // Step 1 selesai, Step 6 (id_verification_activity = 6) belum selesai,
+        // dan belum ada step lanjutan (7, 2, 3, 4, 5) yang selesai
         // Hanya tampilkan data yang sudah ada pemeriksaan (sudah ada tb_permohonan_uji_parameter_klinik)
         $query->where(function($mainQ) {
           $mainQ->whereExists(function ($subquery) {
@@ -1379,19 +1352,21 @@ class LaboratoriumPermohonanUjiKlinikManagement2 extends Controller
               ->whereColumn('tb_verification_activity_samples.is_klinik', 'tb_permohonan_uji_klinik_2.id_permohonan_uji_klinik')
               ->where('id_verification_activity', 1)
               ->where('is_done', 1);
-          })->where(function ($q) {
-            $q->whereNotExists(function ($subquery) {
-              $subquery->select(DB::raw(1))
-                ->from('tb_verification_activity_samples')
-                ->whereColumn('tb_verification_activity_samples.is_klinik', 'tb_permohonan_uji_klinik_2.id_permohonan_uji_klinik')
-                ->where('id_verification_activity', 6);
-            })->orWhereExists(function ($subquery) {
-              $subquery->select(DB::raw(1))
-                ->from('tb_verification_activity_samples')
-                ->whereColumn('tb_verification_activity_samples.is_klinik', 'tb_permohonan_uji_klinik_2.id_permohonan_uji_klinik')
-                ->where('id_verification_activity', 6)
-                ->where('is_done', 0);
-            });
+          })->whereNotExists(function ($subquery) {
+            $subquery->select(DB::raw(1))
+              ->from('tb_verification_activity_samples')
+              ->whereColumn('tb_verification_activity_samples.is_klinik', 'tb_permohonan_uji_klinik_2.id_permohonan_uji_klinik')
+              ->where('id_verification_activity', 6)
+              ->where('is_done', 1);
+          })->whereNotExists(function ($subquery) {
+            $subquery->select(DB::raw(1))
+              ->from('tb_verification_activity_samples')
+              ->whereColumn('tb_verification_activity_samples.is_klinik', 'tb_permohonan_uji_klinik_2.id_permohonan_uji_klinik')
+              ->whereIn('id_verification_activity', [7, 2, 3, 4, 5])
+              ->where('is_done', 1);
+          })->where(function($q) {
+            $q->whereNull('status_permohonan_uji_klinik')
+              ->orWhere('status_permohonan_uji_klinik', '!=', 'SELESAI');
           })->where(function ($q) {
             // Harus sudah ada data tb_permohonan_uji_parameter_klinik (sudah ada pemeriksaan)
             $q->whereExists(function ($subquery) {

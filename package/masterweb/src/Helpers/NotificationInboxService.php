@@ -440,8 +440,18 @@ class NotificationInboxService
             ->where('id_verification_activity', 6)
             ->where('is_done', 1)
             ->exists();
+        $subsequentDone = \DB::table('tb_verification_activity_samples')
+            ->where('is_klinik', $id)
+            ->whereIn('id_verification_activity', [7, 2, 3, 4, 5])
+            ->where('is_done', 1)
+            ->exists();
 
-        return $step1Done && !$step6Done;
+        $isSelesai = \DB::table('tb_permohonan_uji_klinik_2')
+            ->where('id_permohonan_uji_klinik', $id)
+            ->where('status_permohonan_uji_klinik', 'SELESAI')
+            ->exists();
+
+        return $step1Done && !$step6Done && !$subsequentDone && !$isSelesai;
     }
 
     /**
