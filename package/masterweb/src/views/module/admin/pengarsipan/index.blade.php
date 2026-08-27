@@ -184,7 +184,7 @@
             <label for="arsip_q">Cari hasil untuk dicetak / diarsipkan</label>
             <div class="input-group mt-1">
                 <input type="text" id="arsip_q" name="q" class="form-control form-control-sm"
-                    value="{{ $q }}" placeholder="Nama pasien, no. lab, no. register, kode sampel kesmas...">
+                    value="{{ $q }}" placeholder="Nama pasien/pelanggan, no. lab, no. register/sampel, kode sampel kesmas...">
                 <div class="input-group-append">
                     <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-search mr-1"></i> Cari</button>
                     @if($q !== '')

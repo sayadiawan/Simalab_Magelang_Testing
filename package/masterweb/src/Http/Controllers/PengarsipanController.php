@@ -275,20 +275,38 @@ class PengarsipanController extends Controller
     private function searchHasil($q)
     {
         $like = '%' . $q . '%';
+        $cleanQ = preg_replace('/[^0-9a-zA-Z]/', '', $q);
+        $intQ = is_numeric($q) ? (int) $q : (is_numeric($cleanQ) && strlen($cleanQ) <= 9 ? (int) $cleanQ : null);
 
         $klinik = PermohonanUjiKlinik2::query()
-            ->with(['pasien:id_pasien,nama_pasien,no_rekammedis_pasien'])
+            ->with(['pasien:id_pasien,nama_pasien,no_rekammedis_pasien,nik_pasien'])
             ->whereNull('tb_permohonan_uji_klinik_2.deleted_at')
             ->leftJoin('ms_pasien as ps', 'ps.id_pasien', '=', 'tb_permohonan_uji_klinik_2.pasien_permohonan_uji_klinik')
-            ->where(function ($sub) use ($like) {
+            ->leftJoin('tb_number_klinik as nk', 'nk.id_permohonan_uji_klinik', '=', 'tb_permohonan_uji_klinik_2.id_permohonan_uji_klinik')
+            ->where(function ($sub) use ($like, $intQ) {
                 $sub->where('tb_permohonan_uji_klinik_2.noregister_permohonan_uji_klinik', 'like', $like)
                     ->orWhere('tb_permohonan_uji_klinik_2.nomor_lab_manual', 'like', $like)
                     ->orWhere('tb_permohonan_uji_klinik_2.nomor_spesimen_manual', 'like', $like)
+                    ->orWhere('tb_permohonan_uji_klinik_2.nomer_lab', 'like', $like)
+                    ->orWhere('tb_permohonan_uji_klinik_2.nourut_permohonan_uji_klinik', 'like', $like)
+                    ->orWhere('tb_permohonan_uji_klinik_2.id_spesimen', 'like', $like)
+                    ->orWhere('nk.new_number', 'like', $like)
+                    ->orWhere('nk.last_number', 'like', $like)
                     ->orWhere('ps.nama_pasien', 'like', $like)
                     ->orWhere('ps.no_rekammedis_pasien', 'like', $like)
-                    ->orWhere('ps.nik_pasien', 'like', $like);
+                    ->orWhere('ps.nik_pasien', 'like', $like)
+                    ->orWhereRaw("CONCAT('449.5/03/', COALESCE(tb_permohonan_uji_klinik_2.nomor_lab_manual, tb_permohonan_uji_klinik_2.nomer_lab, tb_permohonan_uji_klinik_2.nourut_permohonan_uji_klinik, ''), '/', YEAR(COALESCE(tb_permohonan_uji_klinik_2.tglregister_permohonan_uji_klinik, tb_permohonan_uji_klinik_2.created_at))) LIKE ?", [$like])
+                    ->orWhereRaw("CONCAT('03/', COALESCE(tb_permohonan_uji_klinik_2.nomor_spesimen_manual, tb_permohonan_uji_klinik_2.nourut_permohonan_uji_klinik, SUBSTRING_INDEX(tb_permohonan_uji_klinik_2.noregister_permohonan_uji_klinik, '/', 1), ''), '/', YEAR(COALESCE(tb_permohonan_uji_klinik_2.created_at, NOW()))) LIKE ?", [$like]);
+
+                if ($intQ !== null && $intQ > 0) {
+                    $sub->orWhere('tb_permohonan_uji_klinik_2.nourut_permohonan_uji_klinik', $intQ)
+                        ->orWhere('tb_permohonan_uji_klinik_2.nomer_lab', $intQ)
+                        ->orWhere('tb_permohonan_uji_klinik_2.nomor_lab_manual', (string) $intQ)
+                        ->orWhere('tb_permohonan_uji_klinik_2.nomor_spesimen_manual', (string) $intQ);
+                }
             })
             ->select('tb_permohonan_uji_klinik_2.*')
+            ->distinct()
             ->orderByDesc('tb_permohonan_uji_klinik_2.created_at')
             ->limit(15)
             ->get();
@@ -304,10 +322,19 @@ class PengarsipanController extends Controller
             $id = (string) $p->id_permohonan_uji_klinik;
             $isValidated = $validatedIds->has($id);
 
+            $labNo = $p->getLabNumber();
+            if ($labNo === '—') {
+                $labNo = $p->getNomorLab() ?: '-';
+            }
+
+            $subParts = [];
+            $subParts[] = 'No. Lab: ' . $labNo;
+            $subParts[] = 'Reg: ' . ($p->noregister_permohonan_uji_klinik ?: ($p->nourut_permohonan_uji_klinik ?: '-'));
+
             return [
                 'bidang' => 'KLINIK',
                 'label' => optional($p->pasien)->nama_pasien ?: 'Permohonan Klinik',
-                'sub' => 'No. Lab: ' . ($p->getLabNumber() ?: ($p->getNomorLab() ?: '-')) . ' · Reg: ' . ($p->noregister_permohonan_uji_klinik ?: '-'),
+                'sub' => implode(' · ', $subParts),
                 'status' => $isValidated ? 'Sudah divalidasi' : 'Belum divalidasi',
                 'status_ok' => $isValidated,
                 'print_url' => $isValidated ? url('print-permohonan-uji-klinik-hasil-2/' . $id) : null,
@@ -316,13 +343,54 @@ class PengarsipanController extends Controller
         });
 
         $kesmas = Sample::query()
-            ->whereNull('deleted_at')
-            ->where(function ($sub) use ($like) {
-                $sub->where('codesample_samples', 'like', $like)
-                    ->orWhere('name_pelanggan', 'like', $like);
+            ->with(['permohonanuji.customer', 'labnum'])
+            ->whereNull('tb_samples.deleted_at')
+            ->leftJoin('tb_permohonan_uji as pu', 'pu.id_permohonan_uji', '=', 'tb_samples.permohonan_uji_id')
+            ->leftJoin('ms_customer as c', 'c.id_customer', '=', 'pu.customer_id')
+            ->leftJoin('tb_nomer_lab_kesmas as nlk', function ($join) {
+                $join->on('nlk.permohonan_uji_id', '=', 'tb_samples.permohonan_uji_id')
+                    ->whereNull('nlk.deleted_at');
             })
-            ->orderByDesc('created_at')
-            ->limit(10)
+            ->leftJoin('tb_lab_num as ln', function ($join) {
+                $join->on('ln.sample_id', '=', 'tb_samples.id_samples')
+                    ->whereNull('ln.deleted_at');
+            })
+            ->where(function ($sub) use ($like, $intQ) {
+                $sub->where('tb_samples.codesample_samples', 'like', $like)
+                    ->orWhere('tb_samples.codesample_samples_manual', 'like', $like)
+                    ->orWhere('tb_samples.code_sample_customer', 'like', $like)
+                    ->orWhere('tb_samples.codeKimiaMikro', 'like', $like)
+                    ->orWhere('tb_samples.name_pelanggan', 'like', $like)
+                    ->orWhere('tb_samples.name_customer_pdam', 'like', $like)
+                    ->orWhere('tb_samples.name_send_sample', 'like', $like)
+                    ->orWhere('tb_samples.location_samples', 'like', $like)
+                    ->orWhere('tb_samples.titik_pengambilan', 'like', $like)
+                    ->orWhere('pu.code_permohonan_uji', 'like', $like)
+                    ->orWhere('pu.nomor_nota', 'like', $like)
+                    ->orWhere('pu.nomer_lab', 'like', $like)
+                    ->orWhere('pu.name_sampling', 'like', $like)
+                    ->orWhere('pu.pengirim_sample', 'like', $like)
+                    ->orWhere('pu.pdam_pengirim_sample', 'like', $like)
+                    ->orWhere('c.name_customer', 'like', $like)
+                    ->orWhere('nlk.nomer_lab', 'like', $like)
+                    ->orWhere('ln.lab_number', 'like', $like)
+                    ->orWhere('ln.lab_string', 'like', $like)
+                    ->orWhereRaw("CONCAT('449.5/01/', LPAD(nlk.nomer_lab, 4, '0'), '/', nlk.year) LIKE ?", [$like])
+                    ->orWhereRaw("CONCAT('449.5/02/', LPAD(nlk.nomer_lab, 4, '0'), '/', nlk.year) LIKE ?", [$like])
+                    ->orWhereRaw("CONCAT('449.5/01/', LPAD(ln.lab_number, 4, '0'), '/', ln.year_lab_num) LIKE ?", [$like])
+                    ->orWhereRaw("CONCAT('449.5/02/', LPAD(ln.lab_number, 4, '0'), '/', ln.year_lab_num) LIKE ?", [$like]);
+
+                if ($intQ !== null && $intQ > 0) {
+                    $sub->orWhere('nlk.nomer_lab', $intQ)
+                        ->orWhere('ln.lab_number', $intQ)
+                        ->orWhere('pu.nomer_lab', $intQ)
+                        ->orWhere('tb_samples.count_id', $intQ);
+                }
+            })
+            ->select('tb_samples.*')
+            ->distinct()
+            ->orderByDesc('tb_samples.created_at')
+            ->limit(15)
             ->get();
 
         $validatedKesmasIds = VerificationActivitySample::query()
@@ -340,10 +408,23 @@ class PengarsipanController extends Controller
             $isValidated = $validatedKesmasIds->has($id);
             $labId = $kesmasLabIds[$id] ?? null;
 
+            $assignedLab = $s->getAssignedNomorLabOrNull();
+            $nomorLabDisplay = $assignedLab
+                ?: (optional($s->permohonanuji)->nomer_lab ? 'No. Lab: ' . optional($s->permohonanuji)->nomer_lab : null);
+
+            $subParts = [];
+            $subParts[] = 'Kode: ' . ($s->codesample_samples ?: '-');
+            if ($nomorLabDisplay) {
+                $subParts[] = 'No. Lab: ' . $nomorLabDisplay;
+            }
+            if (!empty($s->permohonanuji->code_permohonan_uji)) {
+                $subParts[] = 'PU: ' . $s->permohonanuji->code_permohonan_uji;
+            }
+
             return [
                 'bidang' => 'KESMAS',
-                'label' => $s->name_pelanggan ?: 'Sampel Kesmas',
-                'sub' => 'Kode: ' . ($s->codesample_samples ?: '-'),
+                'label' => $s->namaPelangganDisplay('Sampel Kesmas'),
+                'sub' => implode(' · ', $subParts),
                 'status' => $isValidated ? 'Sudah divalidasi' : 'Belum divalidasi',
                 'status_ok' => $isValidated,
                 'print_url' => ($isValidated && $labId)
