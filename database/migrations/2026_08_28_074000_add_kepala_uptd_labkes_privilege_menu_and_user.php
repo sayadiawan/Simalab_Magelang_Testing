@@ -268,10 +268,10 @@ class AddKepalaUptdLabkesPrivilegeMenuAndUser extends Migration
                 ->value('id');
 
             $payload = [
-                'create' => 'on',
-                'read' => 'on',
-                'update' => 'on',
-                'delete' => 'on',
+                'create' => '1',
+                'read' => '1',
+                'update' => '1',
+                'delete' => '1',
                 'updated_at' => $now,
             ];
 
