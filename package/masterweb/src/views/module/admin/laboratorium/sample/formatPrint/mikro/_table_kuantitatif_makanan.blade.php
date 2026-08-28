@@ -18,39 +18,50 @@
 
     $no = 1;
 @endphp
+<table class="result" width="100%" border="1" cellspacing="0" cellpadding="0" style="table-layout: fixed;">
+    <tr style="font-size: 7.5pt">
+        <td style="text-align: center; width: 4%">No</td>
+        <td style="text-align: center; width: 11%">Kode Sampel</td>
+        <td style="text-align: center; width: 14%">Titik Sampel</td>
+        <td style="text-align: center; width: 11%">Jenis Sampel</td>
+        <td style="text-align: center; width: 20%">Parameter Pemeriksaan</td>
+        <td style="text-align: center; width: 9%">Satuan</td>
+        <td style="text-align: center; width: 13%">Batas Maksimal</td>
+        <td style="text-align: center; width: 18%">Hasil Pemeriksaan</td>
+    </tr>
 @foreach ($table as $mytable)
     @php
         // Tampilkan semua parameter; hasil kosong tetap muncul (kolom hasil kosong)
         $filteredResults = collect($mytable['result'])->values();
         $resultCount = count($filteredResults);
         $sampleRow = $mytable['sample_type'] ?? null;
+        // Titik Sampel LHU makanan = field Jenis Sampel (nama_jenis_makanan)
+        $titikDariJenisSampel = $sampleRow
+            ? $sampleRow->namaJenisMakananPlain('')
+            : '';
+        if ($titikDariJenisSampel === '' && $sampleRow) {
+            $titikDariJenisSampel = $sampleRow->titikSampelDisplay('');
+        }
+        if ($titikDariJenisSampel === '') {
+            $titikDariJenisSampel = '-';
+        }
     @endphp
 
     @if ($resultCount > 0 && $sampleRow)
-        @php $sampleNo = $no++; @endphp
-        <table class="result" width="100%" border="1" cellspacing="0" cellpadding="0" style="table-layout: fixed; margin-bottom: 12px">
-            <tr style="font-size: 7.5pt">
-                <td style="text-align: center; width: 4%">No</td>
-                <td style="text-align: center; width: 11%">Kode Sampel</td>
-                <td style="text-align: center; width: 14%">Titik Sampel</td>
-                <td style="text-align: center; width: 11%">Jenis Sampel</td>
-                <td style="text-align: center; width: 20%">Parameter Pemeriksaan</td>
-                <td style="text-align: center; width: 9%">Satuan</td>
-                <td style="text-align: center; width: 13%">Batas Maksimal</td>
-                <td style="text-align: center; width: 18%">Hasil Pemeriksaan</td>
-            </tr>
         @foreach ($filteredResults as $index => $result)
             <tr style="page-break-inside: avoid">
-                <td style="text-align: center; vertical-align: middle">{{ $sampleNo }}</td>
-                <td style="text-align: center; vertical-align: middle; word-wrap: break-word">
-                    {!! $sampleRow->codesample_samples !!}
-                </td>
-                <td style="text-align: center; vertical-align: middle; word-wrap: break-word">
-                    {{ $sampleRow->titikSampelDisplay('') }}
-                </td>
-                <td style="text-align: center; vertical-align: middle; word-wrap: break-word">
-                    {{ $sampleRow->jenisSampelMakananDisplay('', $jenisMakananNameMap) }}
-                </td>
+                @if ($index == 0)
+                    <td style="text-align: center; vertical-align: middle" rowspan="{{ $resultCount }}">{{ $no++ }}</td>
+                    <td style="text-align: center; vertical-align: middle; word-wrap: break-word" rowspan="{{ $resultCount }}">
+                        {!! $sampleRow->codesample_samples !!}
+                    </td>
+                    <td style="text-align: center; vertical-align: middle; word-wrap: break-word" rowspan="{{ $resultCount }}">
+                        {{ $titikDariJenisSampel }}
+                    </td>
+                    <td style="text-align: center; vertical-align: middle; word-wrap: break-word" rowspan="{{ $resultCount }}">
+                        {{ $sampleRow->jenisSampelMakananDisplay('-', $jenisMakananNameMap) }}
+                    </td>
+                @endif
                 <td style="text-align: center; vertical-align: middle; word-wrap: break-word">
                     {!! data_get($result, 'name_report', '-') !!}
                 </td>
@@ -62,9 +73,19 @@
                         $nilaiBakuMutu = data_get($result, 'nilai_baku_mutu');
                         $equalBakuMutu = data_get($result, 'equal');
                         $maxBakuMutu = data_get($result, 'max');
-                        $displayBakuMutu = $nilaiBakuMutu ?: ($equalBakuMutu ?: ($maxBakuMutu ?: '-'));
+                        // Jangan pakai ?: — nilai "0" dianggap falsy di PHP dan hilang di laporan
+                        $displayBakuMutu = null;
+                        foreach ([$nilaiBakuMutu, $equalBakuMutu, $maxBakuMutu] as $candidate) {
+                            if ($candidate !== null && $candidate !== '') {
+                                $displayBakuMutu = $candidate;
+                                break;
+                            }
+                        }
+                        if ($displayBakuMutu === null) {
+                            $displayBakuMutu = '-';
+                        }
                     @endphp
-                    {!! $displayBakuMutu !!}
+                    {!! function_exists('rubahNilaikeFormForPrint') ? rubahNilaikeFormForPrint($displayBakuMutu) : $displayBakuMutu !!}
                 </td>
                 <td style="text-align: center; vertical-align: middle">
                     @php
@@ -85,6 +106,6 @@
                 </td>
             </tr>
         @endforeach
-        </table>
     @endif
 @endforeach
+</table>

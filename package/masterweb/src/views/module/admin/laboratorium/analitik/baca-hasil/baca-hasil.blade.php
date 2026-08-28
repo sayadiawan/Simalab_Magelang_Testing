@@ -1243,14 +1243,16 @@ echo Request::segment(3);
                                                     </div>
 
 
-                                                    {{-- ### Titik Sampel (TinyMCE untuk mikro air) ###
-                                                         Disembunyikan jika sample type = Makanan/Minuman/Lainnya --}}
+                                                    {{-- ### Titik Sampel ###
+                                                         Disembunyikan untuk Makanan/Minuman: kolom Titik Sampel LHU
+                                                         memakai nilai field Jenis Sampel (nama_jenis_makanan) --}}
                                                     @if (
                                                         !(
                                                             $lab->kode_laboratorium === 'MBI' &&
                                                             isset($sample->name_sample_type) &&
                                                             $sample->name_sample_type === 'Makanan/Minuman/Lainnya'
-                                                        ))
+                                                        )
+                                                    )
                                                         <div class="form-group">
                                                             <label for="titik_pengambilan" class="font-weight-bold">
                                                                 <i class="fa fa-map-pin mr-2 text-info"></i>Titik Sampel:
@@ -1263,7 +1265,7 @@ echo Request::segment(3);
                                                                     $titik_pengambilan_value ?? '';
                                                             @endphp
                                                             <textarea class="form-control shadow-sm" id="titik_pengambilan" name="titik_pengambilan" rows="2"
-                                                                placeholder="Masukkan titik sampel...">{!! $titik_pengambilan_value !!}</textarea>
+                                                                placeholder="Masukkan titik/lokasi pengambilan sampel...">{!! $titik_pengambilan_value !!}</textarea>
                                                         </div>
                                                     @endif
 
@@ -1527,9 +1529,9 @@ echo Request::segment(3);
                                                             <textarea id="nama_jenis_makanan"
                                                                 name="nama_jenis_makanan" class="form-control" rows="3"
                                                                 placeholder="Contoh: Lemper, Nasi Uduk, dll">{{ old('nama_jenis_makanan', $defaultNamaJenis) }}</textarea>
-                                                            <small class="text-muted">Nilai ini akan disimpan ke kolom pada
-                                                                data sampel dan
-                                                                akan tampil sebagai Jenis Sampel di laporan.</small>
+                                                            <small class="text-muted">Nilai ini disimpan ke data sampel dan
+                                                                tampil sebagai <strong>Titik Sampel</strong> di laporan.
+                                                                Kolom <strong>Jenis Sampel</strong> di laporan memakai pilihan Jenis Makanan di atas.</small>
                                                         </div>
                                                 </div>
                                             </div>

@@ -45,7 +45,7 @@
                             {!! data_get($method, 'shortname_unit') ?: '-' !!}
                         </td>
                         <td style="text-align: center">
-                            {!! data_get($method, 'nilai_baku_mutu') ?: '-' !!}
+                            {!! (($bm = data_get($method, 'nilai_baku_mutu')) !== null && $bm !== '') ? $bm : '-' !!}
                         </td>
                         <td style="text-align: center">
                             @php

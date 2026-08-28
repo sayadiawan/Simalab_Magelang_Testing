@@ -45,10 +45,17 @@
                                 {!! $sampleRow->codesample_samples !!}
                             </td>
                             <td style="text-align: center" rowspan="{{ $resultCount }}">
-                                {{ $sampleRow->titikSampelDisplay('') }}
+                                @php
+                                    // Titik Sampel = field Jenis Sampel (nama_jenis_makanan)
+                                    $titikDariJenisSampel = $sampleRow->namaJenisMakananPlain('');
+                                    if ($titikDariJenisSampel === '') {
+                                        $titikDariJenisSampel = $sampleRow->titikSampelDisplay('-');
+                                    }
+                                @endphp
+                                {{ $titikDariJenisSampel }}
                             </td>
                             <td style="text-align: center" rowspan="{{ $resultCount }}">
-                                {{ $sampleRow->jenisSampelMakananDisplay('', $jenisMakananNameMap) }}
+                                {{ $sampleRow->jenisSampelMakananDisplay('-', $jenisMakananNameMap) }}
                             </td>
                         @endif
                         <td style="text-align: center">
