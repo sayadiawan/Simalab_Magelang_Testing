@@ -79,6 +79,21 @@ class KesmasHasilColumnWidth
     public static function isMakananMinumanSample($sample = null): bool
     {
         $type = trim((string) data_get($sample, 'name_sample_type', ''));
+
+        // Saat save setting sering hanya tb_samples.* — name_sample_type tidak ikut.
+        if ($type === '' && $sample) {
+            if (method_exists($sample, 'relationLoaded')) {
+                if (!$sample->relationLoaded('sampletype') && method_exists($sample, 'loadMissing')) {
+                    try {
+                        $sample->loadMissing('sampletype');
+                    } catch (\Throwable $e) {
+                        // ignore
+                    }
+                }
+            }
+            $type = trim((string) data_get($sample, 'sampletype.name_sample_type', ''));
+        }
+
         if ($type === '') {
             return false;
         }
@@ -106,6 +121,27 @@ class KesmasHasilColumnWidth
         }
 
         return self::PROFILE_LHU_6COL;
+    }
+
+    /**
+     * Preferensi profil dari payload request (nested keys), fallback resolveProfile.
+     */
+    public static function resolveProfileFromIncoming($incoming, $sample = null, $lab = null): string
+    {
+        if (is_string($incoming) && $incoming !== '') {
+            $decoded = json_decode($incoming, true);
+            $incoming = is_array($decoded) ? $decoded : [];
+        }
+
+        if (is_array($incoming)) {
+            foreach (array_keys(self::profiles()) as $profile) {
+                if (isset($incoming[$profile]) && is_array($incoming[$profile])) {
+                    return $profile;
+                }
+            }
+        }
+
+        return self::resolveProfile($sample, $lab);
     }
 
     /**

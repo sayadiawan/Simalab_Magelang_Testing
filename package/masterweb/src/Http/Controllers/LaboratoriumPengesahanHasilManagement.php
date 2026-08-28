@@ -952,7 +952,12 @@ class LaboratoriumPengesahanHasilManagement extends Controller
         $incoming = is_array($decoded) ? $decoded : [];
       }
       if (is_array($incoming)) {
-        $profile = \Smt\Masterweb\Helpers\KesmasHasilColumnWidth::resolveProfile($sample);
+        $lab = \Smt\Masterweb\Models\Laboratorium::find($idlab);
+        $profile = \Smt\Masterweb\Helpers\KesmasHasilColumnWidth::resolveProfileFromIncoming(
+          $incoming,
+          $sample,
+          $lab
+        );
         $merged = \Smt\Masterweb\Helpers\KesmasHasilColumnWidth::mergeIncoming(
           $sample->column_widths_hasil_baca_hasil,
           $incoming,

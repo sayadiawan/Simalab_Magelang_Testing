@@ -10381,6 +10381,13 @@ class LaboratoriumSampleManagement extends Controller
       $showKop = (int) data_get($sample, 'show_kop_hasil_baca_hasil', 1);
     }
 
+    $colWidths = \Smt\Masterweb\Helpers\KesmasHasilColumnWidth::resolve(
+      $sample,
+      $request,
+      null,
+      $laboratorium ?? null
+    );
+
     $signOption = $request->signOption;
 
     if (isset($signOption) and $signOption == 0){
@@ -10426,7 +10433,8 @@ class LaboratoriumSampleManagement extends Controller
         'lineHeight',
         'padding',
         'showKop',
-        'nomerLabDisplay'
+        'nomerLabDisplay',
+        'colWidths'
       );
 
       // Check for Air Limbah (contains check to support "Air Limbah Domestik" and "Air Limbah Industri")
@@ -10541,7 +10549,8 @@ class LaboratoriumSampleManagement extends Controller
       'lineHeight',
       'padding',
       'showKop',
-      'nomerLabDisplay'
+      'nomerLabDisplay',
+      'colWidths'
     );
 
     // Check for Air Limbah (contains check to support "Air Limbah Domestik" and "Air Limbah Industri")
