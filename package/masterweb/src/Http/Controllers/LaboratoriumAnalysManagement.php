@@ -259,31 +259,7 @@ class LaboratoriumAnalysManagement extends Controller
 
 
       ->addColumn('action', function ($data) {
-        $editButton = '';
-        $draftButton = '';
-        $verificationButton = '';
-
-        if (!empty($data->permohonan_uji_id)) {
-          $draftButton = '<a href="' . route('elits-sample-draft.index', [$data->permohonan_uji_id]) . '" title="Kelola Draft Sampel"> <button type="button" class="btn btn-outline-info btn-rounded btn-icon" style="margin-right: 4px;">
-          <i class="fas fa-file-alt"></i>
-      </button></a> ';
-        }
-
-        if (getAction('update')) {
-          $editButton = '<a href="' . route('elits-samples.edit', [$data->id_samples]) . '" title="Edit Sampel"> <button type="button" class="btn btn-outline-warning btn-rounded btn-icon" style="margin-right: 4px;">
-          <i class="fas fa-pencil-alt"></i>
-      </button></a> ';
-        }
-
-        if (getSpesialAction('elits-samples', 'verification-sampel', '')) {
-          $verificationButton = '<a href="' . route('elits-samples.verification-2', [$data->id_samples, $data->id_laboratorium]) . '" title="Verifikasi"> <button type="button" class="btn btn-outline-success btn-rounded btn-icon">
-          <i class="fa fa-check"></i>
-      </button></a> ';
-        }
-
-        $button = $draftButton . $editButton . $verificationButton;
-
-        return trim($button);
+        return $this->buildAnalysActionButtons($data);
       })
 
       ->rawColumns(['codesample_samples', 'nama_laboratorium', 'name_sample_type', 'last_status', 'action', 'date_sending'])
@@ -1734,31 +1710,7 @@ class LaboratoriumAnalysManagement extends Controller
         return Carbon::createFromFormat('Y-m-d H:i:s', $data->date_sending)->isoFormat('D MMMM Y');
       })
       ->addColumn('action', function ($data) {
-        $editButton = '';
-        $draftButton = '';
-        $verificationButton = '';
-
-        if (!empty($data->permohonan_uji_id)) {
-          $draftButton = '<a href="' . route('elits-sample-draft.index', [$data->permohonan_uji_id]) . '" title="Kelola Draft Sampel"> <button type="button" class="btn btn-outline-info btn-rounded btn-icon" style="margin-right: 4px;">
-          <i class="fas fa-file-alt"></i>
-      </button></a> ';
-        }
-
-        if (getAction('update')) {
-          $editButton = '<a href="' . route('elits-samples.edit', [$data->id_samples]) . '" title="Edit Sampel"> <button type="button" class="btn btn-outline-warning btn-rounded btn-icon" style="margin-right: 4px;">
-          <i class="fas fa-pencil-alt"></i>
-      </button></a> ';
-        }
-
-        if (getSpesialAction('elits-samples', 'verification-sampel', '')) {
-          $verificationButton = '<a href="' . route('elits-samples.verification-2', [$data->id_samples, $data->id_laboratorium]) . '" title="Verifikasi"> <button type="button" class="btn btn-outline-success btn-rounded btn-icon">
-          <i class="fa fa-check"></i>
-      </button></a> ';
-        }
-
-        $button = $draftButton . $editButton . $verificationButton;
-
-        return trim($button);
+        return $this->buildAnalysActionButtons($data);
       })
       ->rawColumns(['codesample_samples', 'nama_laboratorium', 'name_sample_type', 'last_status', 'action', 'date_sending'])
       ->setFilteredRecords($totalFilteredRecord)
@@ -1767,6 +1719,51 @@ class LaboratoriumAnalysManagement extends Controller
       ->make(true);
 
     return $data_table;
+  }
+
+  /**
+   * Tombol aksi di daftar analys.
+   * Kepala UPTD / Kepala Lab: hanya Validasi → verification-2 (tanpa draft/edit).
+   *
+   * @param mixed $data
+   * @return string
+   */
+  private function buildAnalysActionButtons($data)
+  {
+    $userLevel = auth()->user()->getlevel->level ?? null;
+    $sampleId = $data->id_samples ?? null;
+    $labId = $data->id_laboratorium ?? null;
+
+    if (in_array($userLevel, ['KUPTD', 'KLAB'], true) && $sampleId && $labId) {
+      return '<a href="' . route('elits-samples.verification-2', [$sampleId, $labId]) . '" title="Validasi">'
+        . ' <button type="button" class="btn btn-outline-success btn-rounded btn-icon">'
+        . '<i class="fa fa-check"></i>'
+        . '</button></a>';
+    }
+
+    $editButton = '';
+    $draftButton = '';
+    $verificationButton = '';
+
+    if (!empty($data->permohonan_uji_id)) {
+      $draftButton = '<a href="' . route('elits-sample-draft.index', [$data->permohonan_uji_id]) . '" title="Kelola Draft Sampel"> <button type="button" class="btn btn-outline-info btn-rounded btn-icon" style="margin-right: 4px;">
+          <i class="fas fa-file-alt"></i>
+      </button></a> ';
+    }
+
+    if (getAction('update')) {
+      $editButton = '<a href="' . route('elits-samples.edit', [$sampleId]) . '" title="Edit Sampel"> <button type="button" class="btn btn-outline-warning btn-rounded btn-icon" style="margin-right: 4px;">
+          <i class="fas fa-pencil-alt"></i>
+      </button></a> ';
+    }
+
+    if (getSpesialAction('elits-samples', 'verification-sampel', '') && $sampleId && $labId) {
+      $verificationButton = '<a href="' . route('elits-samples.verification-2', [$sampleId, $labId]) . '" title="Verifikasi"> <button type="button" class="btn btn-outline-success btn-rounded btn-icon">
+          <i class="fa fa-check"></i>
+      </button></a> ';
+    }
+
+    return trim($draftButton . $editButton . $verificationButton);
   }
 
   /**

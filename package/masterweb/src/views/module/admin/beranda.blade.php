@@ -1237,8 +1237,8 @@
             </div>
           </div>
         </div>
-      </div>
-
+              </div>
+              
       <div class="col-12">
         <div class="card border-0 shadow-sm" style="border-radius: 15px;">
           <div class="card-body p-4">
@@ -1508,7 +1508,7 @@
                 <i class="fas fa-coins"></i> Keuangan
               </button>
             @endif
-          </div>
+      </div>
         </div>
         <div class="dash-chart-actions">
           <form method="GET" action="{{ url()->current() }}" class="dash-chart-range" id="formChartRange" aria-label="Filter rentang tanggal grafik">
@@ -1590,9 +1590,9 @@
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      @endif
+      </div>
+    </div>
+  @endif
 
       <div class="dash-chart-card dash-chart-card--dark" id="cardChartTrend">
         <div class="dash-chart-card__top">
@@ -2202,17 +2202,17 @@
       var elTrend = document.getElementById('chartPendapatan');
       if (elTrend) {
         chartTrend = new Chart(elTrend.getContext('2d'), {
-          type: 'line',
-          data: {
+      type: 'line',
+      data: {
             labels: initPack.months || [],
             datasets: buildTrendDatasets(initPack)
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
             animation: { duration: 900, easing: 'easeOutQuart' },
             interaction: { mode: 'index', intersect: false },
-            plugins: {
+        plugins: {
               legend: {
                 display: !!initPack.multi,
                 labels: { color: 'rgba(255,255,255,0.9)', font: { weight: '700', size: 11 }, boxWidth: 12, padding: 14 }
@@ -2234,8 +2234,8 @@
                   }
                 }
               }
-            },
-            scales: {
+        },
+        scales: {
               y: {
                 beginAtZero: true,
                 grid: { color: 'rgba(255,255,255,0.08)', drawBorder: false },
@@ -2249,9 +2249,9 @@
                 }
               },
               x: { grid: { display: false }, ticks: { color: 'rgba(255,255,255,0.8)', font: { size: 11, weight: '600' } } }
-            }
-          }
-        });
+        }
+      }
+    });
       }
 
       var elSample = document.getElementById('chartSample');
@@ -2304,24 +2304,24 @@
         var initPaketLabels = ((initPack.paketLabels || []).slice()).reverse();
         var initPaketValues = ((initPack.paketValues || []).slice()).reverse();
         chartPaket = new Chart(elPaket.getContext('2d'), {
-          type: 'bar',
-          data: {
+      type: 'bar',
+      data: {
             labels: initPaketLabels,
-            datasets: [{
+        datasets: [{
               label: 'Dipilih',
               data: initPaketValues,
               backgroundColor: initPaketLabels.map(function (_, i) { return palette[i % palette.length]; }),
-              borderRadius: 8,
+          borderRadius: 8,
               borderSkipped: false,
               maxBarThickness: 28
-            }]
-          },
-          options: {
+        }]
+      },
+      options: {
             indexAxis: 'y',
-            responsive: true,
-            maintainAspectRatio: false,
+        responsive: true,
+        maintainAspectRatio: false,
             animation: { duration: 900, easing: 'easeOutQuart' },
-            plugins: {
+        plugins: {
               legend: { display: false },
               tooltip: {
                 backgroundColor: 'rgba(6, 40, 63, 0.94)',
@@ -2333,8 +2333,8 @@
                   }
                 }
               }
-            },
-            scales: {
+        },
+        scales: {
               x: {
                 beginAtZero: true,
                 grid: { color: 'rgba(11, 58, 92, 0.08)', drawBorder: false },
@@ -2344,9 +2344,9 @@
                 grid: { display: false },
                 ticks: { color: '#0b3a5c', font: { size: 11, weight: '700' } }
               }
-            }
-          }
-        });
+        }
+      }
+    });
       }
 
       updateMeta(initPack);
