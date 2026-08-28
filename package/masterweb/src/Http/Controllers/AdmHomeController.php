@@ -479,6 +479,13 @@ class AdmHomeController extends Controller
       }
     }
 
+    // Kepala UPTD Labkes: dashboard rangkuman seluruh aktivitas (Kesmas + Klinik)
+    if ($userLevel === 'KUPTD' || $userLevel === 'KLAB') {
+      $showChartKesmas = true;
+      $showChartKlinik = true;
+      $showChartKeuangan = false;
+    }
+
     if ($isBendahara) {
       // Dashboard bendahara fokus penuh ke keuangan / status nota.
       $showChartKesmas = false;

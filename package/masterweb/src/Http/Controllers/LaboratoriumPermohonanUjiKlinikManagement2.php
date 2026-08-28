@@ -3133,7 +3133,7 @@ class LaboratoriumPermohonanUjiKlinikManagement2 extends Controller
   {
     $level = auth()->user()->getlevel->level ?? null;
 
-    return in_array($level, ['ANLS', 'ALAB', 'PLAB', 'ADMN', 'KSKL', 'admin', 'elits-dev'], true);
+    return in_array($level, ['ANLS', 'ALAB', 'PLAB', 'ADMN', 'KSKL', 'KLAB', 'KUPTD', 'admin', 'elits-dev'], true);
   }
 
   private function isKasieLevel(?string $level = null): bool

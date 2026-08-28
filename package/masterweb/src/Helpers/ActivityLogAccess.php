@@ -34,6 +34,9 @@ class ActivityLogAccess
     /** Privilege level: admin penuh (lihat semua log). */
     private const FULL_ADMIN_LEVELS = ['LAB', 'ADMD', 'MAN', 'admin'];
 
+    /** Privilege level: Kepala UPTD Labkes — seluruh laporan aktivitas lintas bidang. */
+    private const KEPALA_UPTD_LEVELS = ['KUPTD'];
+
     /** Privilege level: pengarsip / pencetak hasil. */
     private const PENGARSIP_LEVELS = ['ARSP'];
 
@@ -106,6 +109,18 @@ class ActivityLogAccess
                 'user_id' => null,
                 'label' => 'Semua aktivitas seluruh pengguna dan bidang',
                 'role_label' => $privilegeName ?: 'Administrator',
+                'can_filter_user' => true,
+                'can_filter_bidang' => true,
+            ];
+        }
+
+        if (self::isKepalaUptd($level)) {
+            return [
+                'mode' => self::MODE_ALL,
+                'bidang' => null,
+                'user_id' => null,
+                'label' => 'Seluruh laporan aktivitas laboratorium (Kesmas & Klinik)',
+                'role_label' => $privilegeName ?: 'Kepala UPTD Labkes',
                 'can_filter_user' => true,
                 'can_filter_bidang' => true,
             ];
@@ -218,6 +233,11 @@ class ActivityLogAccess
     private static function isFullAdmin(string $level): bool
     {
         return in_array($level, self::FULL_ADMIN_LEVELS, true);
+    }
+
+    private static function isKepalaUptd(string $level): bool
+    {
+        return in_array($level, self::KEPALA_UPTD_LEVELS, true);
     }
 
     private static function isPengarsip(string $level): bool

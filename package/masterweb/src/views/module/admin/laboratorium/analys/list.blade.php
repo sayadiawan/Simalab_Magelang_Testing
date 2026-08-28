@@ -217,6 +217,9 @@
                         } elseif (($userLevel ?? null) == 'DKTR') {
                             // DKTR: belum_pemeriksaan, validasi, selesai
                             $allowedTabs = ['all', 'belum_pemeriksaan', 'validasi', 'selesai'];
+                        } elseif (in_array($userLevel ?? null, ['KUPTD', 'KLAB'], true)) {
+                            // Kepala UPTD / Kepala Lab: fokus validasi hasil kesmas
+                            $allowedTabs = ['validasi', 'selesai'];
                         } elseif (\Smt\Masterweb\Helpers\SampleCollectorAccess::isKesmas($userLevel ?? null)) {
                             // Pengambil sampel kesmas (SOLM): filter khusus sampling
                             $allowedTabs = ['pengambilan_sample', 'lokasi_terisi', 'sudah_selesai'];

@@ -492,6 +492,9 @@
                             $allowedTabs = ['pengambilan_sample'];
                         } elseif ($userLevel == 'KSKL') {
                             $allowedTabs = ['all', 'pengambilan_sample', 'penerimaan_sample', 'pemeriksaan', 'input_hasil', 'verifikasi', 'validasi', 'selesai'];
+                        } elseif ($userLevel == 'KUPTD' || $userLevel == 'KLAB') {
+                            // Kepala UPTD / Kepala Lab: fokus validasi hasil
+                            $allowedTabs = ['validasi', 'selesai'];
                         } elseif ($isKlinik || $userLevel == 'ANLS') {
                             $allowedTabs = ['all', 'pengambilan_sample', 'pemeriksaan', 'input_hasil', 'verifikasi', 'validasi', 'selesai'];
                         } elseif ($userLevel == 'RGSTR') {

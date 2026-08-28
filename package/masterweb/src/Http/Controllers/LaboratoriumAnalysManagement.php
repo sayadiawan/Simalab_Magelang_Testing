@@ -1054,6 +1054,8 @@ class LaboratoriumAnalysManagement extends Controller
       $allowedFilters = ['all', 'belum_pemeriksaan', 'selesai'];
     } elseif ($userLevel == 'DKTR') {
       $allowedFilters = ['all', 'belum_pemeriksaan', 'validasi', 'selesai'];
+    } elseif (in_array($userLevel, ['KUPTD', 'KLAB'], true)) {
+      $allowedFilters = ['validasi', 'selesai'];
     } elseif (\Smt\Masterweb\Helpers\SampleCollectorAccess::isKesmas($userLevel)) {
       $allowedFilters = ['pengambilan_sample', 'lokasi_terisi', 'sudah_selesai'];
     } else {
