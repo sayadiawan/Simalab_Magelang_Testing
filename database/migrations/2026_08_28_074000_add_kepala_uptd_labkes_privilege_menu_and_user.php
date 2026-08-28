@@ -40,7 +40,7 @@ class AddKepalaUptdLabkesPrivilegeMenuAndUser extends Migration
     private $fixedMenuIds = [
         1,   // Dashboard
         105, // Edit Password
-        215, // Validasi Hasil (Klinik)
+        215, // Validasi Hasil Klinik
         227, // Log Aktivitas Sistem
         99,  // Laporan (parent)
         100, // Laporan Harian

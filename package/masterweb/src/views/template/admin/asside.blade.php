@@ -285,7 +285,8 @@
                     ->where('privilege_id', $privilege->id)
                     ->first();
 
-                if ($role == null || $role->read != '1') {
+                $roleRead = $role ? strtolower(trim((string) $role->read)) : '';
+                if ($role == null || !in_array($roleRead, ['1', 'on', 'true'], true)) {
                     continue;
                 }
 
@@ -332,7 +333,8 @@
                                                 ->where('privilege_id', $privilege->id)
                                                 ->first();
 
-                                            if ($role == null || $role->read != '1') {
+                                            $subRead = $role ? strtolower(trim((string) $role->read)) : '';
+                                            if ($role == null || !in_array($subRead, ['1', 'on', 'true'], true)) {
                                                 continue;
                                             }
 
@@ -410,7 +412,8 @@
                                                 ->where('privilege_id', $privilege->id)
                                                 ->first();
 
-                                            if ($role == null || $role->read != '1') {
+                                            $subRead = $role ? strtolower(trim((string) $role->read)) : '';
+                                            if ($role == null || !in_array($subRead, ['1', 'on', 'true'], true)) {
                                                 continue;
                                             }
 
@@ -478,7 +481,8 @@
                                             ->where('privilege_id', $privilege->id)
                                             ->first();
 
-                                        if ($role == null || $role->read != '1') {
+                                        $subRead = $role ? strtolower(trim((string) $role->read)) : '';
+                                        if ($role == null || !in_array($subRead, ['1', 'on', 'true'], true)) {
                                             continue;
                                         }
 
