@@ -1871,35 +1871,13 @@ Alat Dan Reagen tidak tersedia
                                                                                 </td>
                                                                                 <td>
                                                                                     @php
-                                                                                        $metodeOptions = array_values(
-                                                                                            array_filter(
-                                                                                                array_map(
-                                                                                                    'trim',
-                                                                                                    explode(
-                                                                                                        '/',
-                                                                                                        (string) ($laboratoriummethod->name_method ?? ''),
-                                                                                                    ),
-                                                                                                ),
-                                                                                                function ($v) {
-                                                                                                    return $v !== '';
-                                                                                                },
-                                                                                            ),
+                                                                                        $metodeOptions = \Smt\Masterweb\Helpers\Smt::parseMetodeOptionsListFromNameMethod(
+                                                                                            $laboratoriummethod->name_method ?? '',
                                                                                         );
-                                                                                        $metodeSelected = trim(
-                                                                                            (string) ($laboratoriummethod->metode ?? ''),
+                                                                                        $metodeSelected = \Smt\Masterweb\Helpers\Smt::resolveMetodeSelectedFromNameMethod(
+                                                                                            $laboratoriummethod->metode ?? '',
+                                                                                            $laboratoriummethod->name_method ?? '',
                                                                                         );
-                                                                                        if (
-                                                                                            $metodeSelected === '' ||
-                                                                                            (count($metodeOptions) > 1 &&
-                                                                                                !in_array(
-                                                                                                    $metodeSelected,
-                                                                                                    $metodeOptions,
-                                                                                                    true,
-                                                                                                ))
-                                                                                        ) {
-                                                                                            $metodeSelected =
-                                                                                                $metodeOptions[0] ?? '';
-                                                                                        }
                                                                                     @endphp
                                                                                     @if (count($metodeOptions) > 1)
                                                                                         <select class="form-control"
@@ -2271,35 +2249,13 @@ Alat Dan Reagen tidak tersedia
                                                                                     </td>
                                                                                     <td>
                                                                                         @php
-                                                                                            $metodeOptions = array_values(
-                                                                                                array_filter(
-                                                                                                    array_map(
-                                                                                                        'trim',
-                                                                                                        explode(
-                                                                                                            '/',
-                                                                                                            (string) ($laboratoriummethod->name_method ?? ''),
-                                                                                                        ),
-                                                                                                    ),
-                                                                                                    function ($v) {
-                                                                                                        return $v !== '';
-                                                                                                    },
-                                                                                                ),
+                                                                                            $metodeOptions = \Smt\Masterweb\Helpers\Smt::parseMetodeOptionsListFromNameMethod(
+                                                                                                $laboratoriummethod->name_method ?? '',
                                                                                             );
-                                                                                            $metodeSelected = trim(
-                                                                                                (string) ($laboratoriummethod->metode ?? ''),
+                                                                                            $metodeSelected = \Smt\Masterweb\Helpers\Smt::resolveMetodeSelectedFromNameMethod(
+                                                                                                $laboratoriummethod->metode ?? '',
+                                                                                                $laboratoriummethod->name_method ?? '',
                                                                                             );
-                                                                                            if (
-                                                                                                $metodeSelected === '' ||
-                                                                                                (count($metodeOptions) > 1 &&
-                                                                                                    !in_array(
-                                                                                                        $metodeSelected,
-                                                                                                        $metodeOptions,
-                                                                                                        true,
-                                                                                                    ))
-                                                                                            ) {
-                                                                                                $metodeSelected =
-                                                                                                    $metodeOptions[0] ?? '';
-                                                                                            }
                                                                                         @endphp
                                                                                         @if (count($metodeOptions) > 1)
                                                                                             <select class="form-control"

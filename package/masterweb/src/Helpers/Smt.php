@@ -1719,6 +1719,44 @@ quibusdam nostrum maiores ipsum, quasi officia inventore doloremque accusamus qu
   }
 
   /**
+   * Pecah ms_method.name_method (dipisah " / " atau "/") untuk Baca Hasil Kesmas.
+   * Sumber: halaman edit /elits-methods/{id}/edit.
+   *
+   * @return list<string>
+   */
+  public static function parseMetodeOptionsListFromNameMethod(?string $nameMethod): array
+  {
+    $plain = trim(html_entity_decode(strip_tags((string) $nameMethod), ENT_QUOTES | ENT_HTML5, 'UTF-8'));
+    if ($plain === '' || $plain === '-') {
+      return [];
+    }
+
+    return array_values(array_filter(array_map('trim', preg_split('/\s*\/\s*/', $plain)), function ($m) {
+      return $m !== '' && $m !== '-';
+    }));
+  }
+
+  /**
+   * Nilai metode Baca Hasil: default = metode pertama di master;
+   * pakai nilai tersimpan hanya jika termasuk opsi master.
+   */
+  public static function resolveMetodeSelectedFromNameMethod(?string $methodSaved, ?string $nameMethodMaster): string
+  {
+    $options = self::parseMetodeOptionsListFromNameMethod($nameMethodMaster);
+    $savedPlain = trim(html_entity_decode(strip_tags((string) $methodSaved), ENT_QUOTES | ENT_HTML5, 'UTF-8'));
+
+    if ($options !== []) {
+      if ($savedPlain !== '' && $savedPlain !== '-' && in_array($savedPlain, $options, true)) {
+        return $savedPlain;
+      }
+
+      return $options[0];
+    }
+
+    return ($savedPlain !== '' && $savedPlain !== '-') ? $savedPlain : '';
+  }
+
+  /**
    * Metode yang ditampilkan/dipilih: hanya dari master parameter satuan.
    */
   public static function resolveMethodSelectedForDisplay(?string $methodSaved, ?string $metodeMasterRaw): string
