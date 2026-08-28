@@ -2,7 +2,12 @@
 (function (window, $) {
     if (!$) return;
 
-    var DEFAULTS = {!! json_encode(\Smt\Masterweb\Helpers\KesmasHasilColumnWidth::defaults()['lhu_6col'] ?? []) !!};
+    var DEFAULTS_BY_PROFILE = {!! json_encode(\Smt\Masterweb\Helpers\KesmasHasilColumnWidth::defaults()) !!};
+
+    function activeDefaults() {
+        var profile = $('#column_widths_profile').val() || 'lhu_6col';
+        return DEFAULTS_BY_PROFILE[profile] || DEFAULTS_BY_PROFILE['lhu_6col'] || {};
+    }
 
     function clamp(val) {
         val = parseFloat(val);
@@ -63,6 +68,7 @@
     }
 
     function resetDefaults() {
+        var DEFAULTS = activeDefaults();
         $('#column-widths-list .column-width-row').each(function () {
             var key = $(this).data('key');
             var val = DEFAULTS[key] != null ? DEFAULTS[key] : 10;

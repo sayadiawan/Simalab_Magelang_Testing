@@ -365,7 +365,11 @@
                     </div>
 
                     @php
-                        $kesmasColWidthUi = \Smt\Masterweb\Helpers\KesmasHasilColumnWidth::uiPayload($sample ?? null);
+                        $kesmasColWidthUi = \Smt\Masterweb\Helpers\KesmasHasilColumnWidth::uiPayload(
+                            $sample ?? null,
+                            null,
+                            $lab ?? ($laboratorium ?? null)
+                        );
                     @endphp
                     @include('masterweb::module.admin.laboratorium.analitik.baca-hasil.partials.pengaturan-column-widths', [
                         'sample' => $sample ?? null,

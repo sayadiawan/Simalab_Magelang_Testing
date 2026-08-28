@@ -9,12 +9,14 @@ use Illuminate\Http\Request;
  *
  * Disimpan di tb_samples.column_widths_hasil_baca_hasil (JSON):
  * {
- *   "lhu_6col": { "no": 5, "parameter": 20, "hasil": 15, "baku_mutu": 25, "satuan": 15, "metode": 20 }
+ *   "lhu_6col": { "no": 5, "parameter": 20, ... },
+ *   "mikro_makanan_8col": { "no": 4, "kode_sampel": 11, ... }
  * }
  */
 class KesmasHasilColumnWidth
 {
     public const PROFILE_LHU_6COL = 'lhu_6col';
+    public const PROFILE_MIKRO_MAKANAN_8COL = 'mikro_makanan_8col';
 
     /**
      * Definisi kolom per profil: key => label UI.
@@ -31,6 +33,16 @@ class KesmasHasilColumnWidth
                 'baku_mutu' => 'Kadar Maksimum',
                 'satuan' => 'Satuan',
                 'metode' => 'Metode',
+            ],
+            self::PROFILE_MIKRO_MAKANAN_8COL => [
+                'no' => 'No',
+                'kode_sampel' => 'Kode Sampel',
+                'titik_sampel' => 'Titik Sampel',
+                'jenis_sampel' => 'Jenis Sampel',
+                'parameter' => 'Parameter Pemeriksaan',
+                'satuan' => 'Satuan',
+                'batas_maksimal' => 'Batas Maksimal',
+                'hasil' => 'Hasil Pemeriksaan',
             ],
         ];
     }
@@ -51,15 +63,48 @@ class KesmasHasilColumnWidth
                 'satuan' => 15.0,
                 'metode' => 20.0,
             ],
+            self::PROFILE_MIKRO_MAKANAN_8COL => [
+                'no' => 4.0,
+                'kode_sampel' => 11.0,
+                'titik_sampel' => 14.0,
+                'jenis_sampel' => 11.0,
+                'parameter' => 20.0,
+                'satuan' => 9.0,
+                'batas_maksimal' => 13.0,
+                'hasil' => 18.0,
+            ],
         ];
+    }
+
+    public static function isMakananMinumanSample($sample = null): bool
+    {
+        $type = trim((string) data_get($sample, 'name_sample_type', ''));
+        if ($type === '') {
+            return false;
+        }
+
+        return stripos($type, 'Makanan') !== false
+            || stripos($type, 'Minuman') !== false;
     }
 
     /**
      * Profil layout aktif untuk sample type / lab Kesmas.
-     * Saat ini fokus LHU 6 kolom (Air Minum/Bersih/Higiene, printLHU).
      */
     public static function resolveProfile($sample = null, $lab = null): string
     {
+        $labCode = strtoupper(trim((string) (
+            data_get($lab, 'kode_laboratorium')
+            ?? data_get($sample, 'kode_laboratorium')
+            ?? ''
+        )));
+
+        // LHU mikro makanan/minuman — kolom beda dari LHU kimia 6 kolom
+        if (self::isMakananMinumanSample($sample)) {
+            if ($labCode === '' || $labCode === 'MBI') {
+                return self::PROFILE_MIKRO_MAKANAN_8COL;
+            }
+        }
+
         return self::PROFILE_LHU_6COL;
     }
 
@@ -141,6 +186,31 @@ class KesmasHasilColumnWidth
     }
 
     /**
+     * Apakah payload flat (keys kolom) bukan nested per profil.
+     */
+    public static function looksLikeFlatColumns(array $incoming): bool
+    {
+        if (isset($incoming[self::PROFILE_LHU_6COL]) || isset($incoming[self::PROFILE_MIKRO_MAKANAN_8COL])) {
+            return false;
+        }
+
+        $knownKeys = [];
+        foreach (self::profiles() as $cols) {
+            foreach (array_keys($cols) as $key) {
+                $knownKeys[$key] = true;
+            }
+        }
+
+        foreach ($incoming as $key => $val) {
+            if (isset($knownKeys[$key])) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * Merge input (request/UI) ke stored JSON semua profil.
      *
      * @param  array<string, array<string, mixed>>|array<string, mixed>  $incoming
@@ -153,18 +223,8 @@ class KesmasHasilColumnWidth
         // Incoming bisa flat (hanya profil aktif) atau nested per profil.
         if (isset($incoming[$activeProfile]) && is_array($incoming[$activeProfile])) {
             $stored[$activeProfile] = self::normalizeProfile($activeProfile, $incoming[$activeProfile]);
-        } elseif (is_array($incoming) && !isset($incoming[self::PROFILE_LHU_6COL])) {
-            // Flat keys: no, parameter, ...
-            $looksFlat = isset($incoming['no']) || isset($incoming['parameter']);
-            if ($looksFlat) {
-                $stored[$activeProfile] = self::normalizeProfile($activeProfile, $incoming);
-            } else {
-                foreach ($incoming as $profile => $cols) {
-                    if (is_array($cols) && isset(self::profiles()[$profile])) {
-                        $stored[$profile] = self::normalizeProfile($profile, $cols);
-                    }
-                }
-            }
+        } elseif (is_array($incoming) && self::looksLikeFlatColumns($incoming)) {
+            $stored[$activeProfile] = self::normalizeProfile($activeProfile, $incoming);
         } elseif (is_array($incoming)) {
             foreach ($incoming as $profile => $cols) {
                 if (is_array($cols) && isset(self::profiles()[$profile])) {
@@ -181,9 +241,9 @@ class KesmasHasilColumnWidth
      *
      * @return array<string, float>
      */
-    public static function resolve($sample = null, ?Request $request = null, ?string $profile = null): array
+    public static function resolve($sample = null, ?Request $request = null, ?string $profile = null, $lab = null): array
     {
-        $profile = $profile ?: self::resolveProfile($sample);
+        $profile = $profile ?: self::resolveProfile($sample, $lab);
         $defaults = self::defaults()[$profile] ?? [];
 
         $fromDb = [];
@@ -202,14 +262,14 @@ class KesmasHasilColumnWidth
                 if (is_array($decoded)) {
                     if (isset($decoded[$profile]) && is_array($decoded[$profile])) {
                         $fromRequest = self::normalizeProfile($profile, $decoded[$profile]);
-                    } elseif (isset($decoded['no']) || isset($decoded['parameter'])) {
+                    } elseif (self::looksLikeFlatColumns($decoded)) {
                         $fromRequest = self::normalizeProfile($profile, $decoded);
                     }
                 }
             } elseif (is_array($raw)) {
                 if (isset($raw[$profile]) && is_array($raw[$profile])) {
                     $fromRequest = self::normalizeProfile($profile, $raw[$profile]);
-                } elseif (isset($raw['no']) || isset($raw['parameter'])) {
+                } elseif (self::looksLikeFlatColumns($raw)) {
                     $fromRequest = self::normalizeProfile($profile, $raw);
                 }
             }
@@ -230,11 +290,11 @@ class KesmasHasilColumnWidth
      *
      * @return array{profile: string, columns: array<int, array{key: string, label: string, width: float}>}
      */
-    public static function uiPayload($sample = null, ?string $profile = null): array
+    public static function uiPayload($sample = null, ?string $profile = null, $lab = null): array
     {
-        $profile = $profile ?: self::resolveProfile($sample);
+        $profile = $profile ?: self::resolveProfile($sample, $lab);
         $labels = self::profiles()[$profile] ?? [];
-        $widths = self::resolve($sample, null, $profile);
+        $widths = self::resolve($sample, null, $profile, $lab);
 
         $columns = [];
         foreach ($labels as $key => $label) {

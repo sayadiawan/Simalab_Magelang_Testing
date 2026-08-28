@@ -17,17 +17,37 @@
         ->all();
 
     $no = 1;
+
+    if (!isset($colWidths) || !is_array($colWidths) || empty($colWidths)) {
+        $sampleForWidth = $sample
+            ?? (isset($table[0]['sample_type']) ? $table[0]['sample_type'] : null);
+        $labForWidth = $lab ?? ($laboratorium ?? null);
+        $colWidths = \Smt\Masterweb\Helpers\KesmasHasilColumnWidth::resolve(
+            $sampleForWidth,
+            request(),
+            \Smt\Masterweb\Helpers\KesmasHasilColumnWidth::PROFILE_MIKRO_MAKANAN_8COL,
+            $labForWidth
+        );
+    }
+    $wNo = ($colWidths['no'] ?? 4) . '%';
+    $wKode = ($colWidths['kode_sampel'] ?? 11) . '%';
+    $wTitik = ($colWidths['titik_sampel'] ?? 14) . '%';
+    $wJenis = ($colWidths['jenis_sampel'] ?? 11) . '%';
+    $wParam = ($colWidths['parameter'] ?? 20) . '%';
+    $wSatuan = ($colWidths['satuan'] ?? 9) . '%';
+    $wBatas = ($colWidths['batas_maksimal'] ?? 13) . '%';
+    $wHasil = ($colWidths['hasil'] ?? 18) . '%';
 @endphp
 <table class="result" width="100%" border="1" cellspacing="0" cellpadding="0" style="table-layout: fixed;">
     <tr style="font-size: 7.5pt">
-        <td style="text-align: center; width: 4%">No</td>
-        <td style="text-align: center; width: 11%">Kode Sampel</td>
-        <td style="text-align: center; width: 14%">Titik Sampel</td>
-        <td style="text-align: center; width: 11%">Jenis Sampel</td>
-        <td style="text-align: center; width: 20%">Parameter Pemeriksaan</td>
-        <td style="text-align: center; width: 9%">Satuan</td>
-        <td style="text-align: center; width: 13%">Batas Maksimal</td>
-        <td style="text-align: center; width: 18%">Hasil Pemeriksaan</td>
+        <td style="text-align: center; width: {{ $wNo }}">No</td>
+        <td style="text-align: center; width: {{ $wKode }}">Kode Sampel</td>
+        <td style="text-align: center; width: {{ $wTitik }}">Titik Sampel</td>
+        <td style="text-align: center; width: {{ $wJenis }}">Jenis Sampel</td>
+        <td style="text-align: center; width: {{ $wParam }}">Parameter Pemeriksaan</td>
+        <td style="text-align: center; width: {{ $wSatuan }}">Satuan</td>
+        <td style="text-align: center; width: {{ $wBatas }}">Batas Maksimal</td>
+        <td style="text-align: center; width: {{ $wHasil }}">Hasil Pemeriksaan</td>
     </tr>
 @foreach ($table as $mytable)
     @php
