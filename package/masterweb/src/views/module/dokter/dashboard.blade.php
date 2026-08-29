@@ -754,9 +754,13 @@
 
             map = L.map('map').setView([-7.4706, 110.2178], 11);
 
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-                maxZoom: 19
+            // Jangan pakai tile.openstreetmap.org — server sukarelawan OSM
+            // memblokir request tanpa Referer (app pakai Referrer-Policy: no-referrer).
+            // CARTO menyajikan data OSM; atribusi tetap "OpenStreetMap contributors".
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+                attribution: '&copy; <a target="_blank" rel="noopener" href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors | &copy; <a target="_blank" rel="noopener" href="https://carto.com/attributions">CARTO</a>',
+                subdomains: 'abcd',
+                maxZoom: 20
             }).addTo(map);
 
             // Cluster layer: titik berdekatan digabung

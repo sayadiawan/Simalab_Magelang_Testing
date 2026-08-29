@@ -87,7 +87,7 @@ class SecurityHeaders
 
 			// Tetap set header keamanan dasar lainnya
 			$response->headers->set('X-Content-Type-Options', 'nosniff', true);
-			$response->headers->set('Referrer-Policy', 'no-referrer', true);
+			$response->headers->set('Referrer-Policy', $this->resolveReferrerPolicy($request), true);
 			$response->headers->set('Permissions-Policy', "geolocation=(), microphone=(), camera=*, payment=(), usb=()", true);
 			$response->headers->set('X-XSS-Protection', '0', true);
 			$response->headers->set('Cross-Origin-Opener-Policy', 'same-origin', true);
@@ -305,7 +305,7 @@ class SecurityHeaders
 		}
 		
 		$response->headers->set('X-Content-Type-Options', 'nosniff'); // prevent MIME sniffing
-		$response->headers->set('Referrer-Policy', 'no-referrer'); // minimize leaked referrer data
+		$response->headers->set('Referrer-Policy', $this->resolveReferrerPolicy($request)); // minimize leaked referrer data (kecuali halaman peta OSM)
 		$response->headers->set('Permissions-Policy', "geolocation=(), microphone=(), camera=*, payment=(), usb=()"); // lock down powerful APIs, allow camera
 		// Modern browsers ignore X-XSS-Protection; prefer CSP. Set to 0 to avoid legacy behavior.
 		$response->headers->set('X-XSS-Protection', '0');
@@ -322,5 +322,25 @@ class SecurityHeaders
 		}
 
 		return $response;
+	}
+
+	/**
+	 * Halaman peta Leaflet + tile OpenStreetMap membutuhkan Referer.
+	 * no-referrer membuat OSM mengembalikan 403 "Referer is required".
+	 */
+	private function resolveReferrerPolicy(Request $request): string
+	{
+		$routeName = $request->route() ? $request->route()->getName() : null;
+		$path = $request->path();
+
+		$needsOsmReferrer = $routeName === 'klinik.analisis-hasil-wilayah'
+			|| strpos($path, 'klinik/analisis-hasil-wilayah') !== false
+			|| strpos($path, 'dokter/dashboard') !== false;
+
+		if ($needsOsmReferrer) {
+			return 'strict-origin-when-cross-origin';
+		}
+
+		return 'no-referrer';
 	}
 }
