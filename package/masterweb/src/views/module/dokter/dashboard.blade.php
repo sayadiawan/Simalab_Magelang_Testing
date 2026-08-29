@@ -754,13 +754,11 @@
 
             map = L.map('map').setView([-7.4706, 110.2178], 11);
 
-            // Jangan pakai tile.openstreetmap.org — server sukarelawan OSM
-            // memblokir request tanpa Referer (app pakai Referrer-Policy: no-referrer).
-            // CARTO menyajikan data OSM; atribusi tetap "OpenStreetMap contributors".
-            L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-                attribution: '&copy; <a target="_blank" rel="noopener" href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors | &copy; <a target="_blank" rel="noopener" href="https://carto.com/attributions">CARTO</a>',
-                subdomains: 'abcd',
-                maxZoom: 20
+            // CARTO basemaps sekarang wajib API key; tile OSM.org ditolak jika Referer kosong.
+            // Esri World Street Map: gratis, tanpa API key, tanpa syarat Referer.
+            L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
+                attribution: '&copy; <a target="_blank" rel="noopener" href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &amp; Esri',
+                maxZoom: 19
             }).addTo(map);
 
             // Cluster layer: titik berdekatan digabung
